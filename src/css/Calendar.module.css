@@ -74,10 +74,14 @@
 
 .currentYearMonth {
     grid-area: currentYearMonth;
-    margin: 0;
-    text-align: center;
     align-self: center;
     color: #314353;
+}
+
+.currentYearMonth h2, .currentYearMonth span {
+    margin: 0;
+    text-align: center;
+    display: block;
 }
 
 .calendar {
@@ -106,6 +110,7 @@
     grid-template-rows: 42px auto;
     align-content: end;
     border: 1px solid white;
+    min-height: 90px;
 }
 
 .day:hover:not(.ineligible):not(.empty):not(.daySelect) {
@@ -163,15 +168,6 @@
     font-weight: bold;
     align-self: center;
     color: #598995;
-}
-
-.monthDropdown {
-    align-self: center;
-    display: inline-block;
-    margin: 0 auto;
-    width: auto;
-    position: relative;
-    left: 25px;
 }
 
 .daySelect {
@@ -236,4 +232,46 @@
     background-color: #999;
     cursor: default;
     color: #7b7b7b;
+}
+
+.action {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 24px;
+    background-color: hsl(0, 0%, 100%);
+    padding: 10px;
+    color: #68a3d5;
+    box-shadow: 3px 3px 12px -4px black;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    transition: .1s all;
+    overflow: hidden;
+}
+
+.action:hover {
+    cursor: pointer;
+    background-color: #68a3d5;
+    color: white;
+    box-shadow: 2px 2px 12px -6px black;
+}
+
+.action:hover svg {
+    animation-name: grow;
+    animation-duration: .4s;
+}
+
+
+@keyframes grow {
+    from {
+        transform: translateY(-100px)
+    }   
+
+    to {
+        transform: translateY(0);
+    }
 }
