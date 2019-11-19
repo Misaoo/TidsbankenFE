@@ -11,6 +11,9 @@
     left:0;
     box-sizing: border-box;
     display: grid;
+    animation-name: fadeIn;
+    animation-duration: .4s;
+    z-index: 100;
 }
 
 .module:hover, .closeButton:hover {
@@ -33,6 +36,9 @@
     overflow-y: auto;
     align-self: center;
     justify-self: center;
+    animation-name: slideDown;
+    animation-duration: .25s;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.1);
 }
 
 .content p {
@@ -47,4 +53,15 @@
     right: 5px;
     text-align: center;
     font-family: sans-serif;
+}
+
+
+@keyframes slideDown {
+    from {transform: translateY(-100vh)}
+    to {transform: translateY(0)}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 100;}
 }
