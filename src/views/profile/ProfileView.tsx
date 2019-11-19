@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../../components/auth/AuthContext';
 import commonStyles from '../../css/ProfileView.module.css';
 
@@ -13,14 +13,18 @@ type MyState = { }
 const ProfileView = (props:any) => {
     const { user } = useContext(AuthContext);
 
+    const [ email, setEmail ] = useState();
+
+    
+
     return(
         <main className={commonStyles.ProfileWrapper}>
             <aside>
-                <SideBarComponent />
+                <SideBarComponent email={email} setEmail={setEmail}/>
+                <SettingComponent email={email}/>
             </aside>
             <div>
                 <VacationComponent />
-                <SettingComponent />
             </div>
         </main>  
     )

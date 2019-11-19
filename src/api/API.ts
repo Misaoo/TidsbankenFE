@@ -27,11 +27,32 @@ const user = (id: number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`
     withCredentials: true
 });
 
+const updateUser = (id:number, userId: number, email:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+    method: "PATCH",
+    withCredentials: true,
+    data: {userId,email}
+});
+
+const updateUserImage = (id:number, userId: number, profilePic:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+    method: "PATCH",
+    withCredentials: true,
+    data: {userId,profilePic}
+});
+
+const updateUserPassword = (id:number, userId: number, password:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}/update_password`, {
+    method: "POST",
+    withCredentials: true,
+    data: {userId,password}
+});
+
 
 export default { 
     login, 
     login2fa, 
     logout, 
     authorize,
-    user 
+    user,
+    updateUser,
+    updateUserImage,
+    updateUserPassword
 };

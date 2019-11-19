@@ -41,7 +41,7 @@ const LoginComponent = (props: any) => {
                     minutesLeft: minutes,
                     secondsLeft: seconds,
                 });
-                setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
+                setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
             }
         }, 1000);
     }
@@ -68,7 +68,7 @@ const LoginComponent = (props: any) => {
     }, [user])
 
     useEffect(() => {
-        setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
+        setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
     }, [ls])
 
     const timeLeft = (): number => {
@@ -95,7 +95,7 @@ const LoginComponent = (props: any) => {
                 setError(true);
                 let errorData = error.response.data;
                 if (errorData.hasOwnProperty("timeOut") || errorData['numOfAttemptedLogins'] === 5) {
-                    setMessage(`You have made 5 attempts, please try again in ${ls.minutesLeft} minutes`)
+                    setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`)
                     setCounterInLocalStorage();
                     timer();
                     setBtnDisabled(true);
@@ -151,7 +151,7 @@ const LoginComponent = (props: any) => {
                         id={styles.popOver}
                     >
                         Please contact your administrator for a new password
-                        </Popover>
+                    </Popover>
                 </form>
             </div>
         </>
