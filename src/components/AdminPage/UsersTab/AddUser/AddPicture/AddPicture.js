@@ -19,7 +19,7 @@ class AddPicture extends Component {
       <div>
         <input type="file" onChange={this.handleChange}></input>
         <div className="profilePic">
-          <img src={this.props.imageState} />
+          <img src={this.props.imageState} alt="" />
         </div>
       </div>
     );

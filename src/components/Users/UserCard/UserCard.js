@@ -10,8 +10,7 @@ class UserCard extends Component {
     };
   }
   gotoUserpage() {
-    console.log("go to users page");
-    console.log(this.props.user);
+    window.location.href = "/user/" + this.props.user.userId;
   }
   render() {
     return (

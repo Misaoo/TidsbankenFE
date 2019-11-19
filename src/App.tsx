@@ -25,6 +25,7 @@ import Dashboard from "./views/dashboard/Dashboard";
 import Logout from "./components/logout/Logout";
 import AdminPage from "./components/AdminPage/AdminPage";
 import Users from "./components/Users/Users";
+import User from "./components/User/User";
 
 library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight);
 
@@ -44,6 +45,7 @@ const App: React.FC = () => {
             <AuthRoute path="/logout" component={Logout} />
             <Route path="/admin" component={AdminPage} />
             <Route path="/users" component={Users} />
+            <Route path="/user/:user_id" component={User} />
             <Route component={ViewNotFound} />
           </Switch>
         </Router>
