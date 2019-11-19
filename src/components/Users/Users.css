@@ -5,9 +5,9 @@
   padding: 20px;
 }
 .userCard {
-  word-break: break-all;
+  word-break: normal;
   display: grid;
-  grid-template-rows: 11.5vw minmax(50px,auto);
+  grid-template-rows: 11.5vw minmax(50px, auto);
 }
 
 .userImg {
@@ -18,15 +18,14 @@
 
 .imgContainer {
   overflow: hidden;
-  height:100%;
+  height: 100%;
   width: 100%;
   display: inline-block;
 }
 
 .nameContainer {
-  padding-top:15px;
+  padding-top: 15px;
 }
-
 
 @media (max-width: 970px) {
   .userPage {
@@ -34,6 +33,6 @@
   }
 
   .userCard {
-    grid-template-rows: 23vw minmax(50px,auto);
+    grid-template-rows: 23vw minmax(50px, auto);
   }
 }
