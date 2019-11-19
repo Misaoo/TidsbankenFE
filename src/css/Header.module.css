@@ -1,0 +1,20 @@
+@value global: "./global.css";
+@value btn-color from global;
+
+.module {
+  background-color: btn-color;
+  color: white;
+  width: 100%;
+}
+
+.module a {
+  color: white;
+  padding: 10px 20px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.module a:hover {
+  cursor: pointer;
+  background-color: red;
+}

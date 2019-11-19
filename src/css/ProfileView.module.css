@@ -1,0 +1,13 @@
+.ProfileWrapper{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    min-height: calc(100% - 40px);
+}
+
+.ProfileWrapper div{
+    grid-column: auto / span 2;
+}
+
+.ProfileWrapper aside{
+    background-color:yellow;
+}

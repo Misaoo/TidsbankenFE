@@ -1,0 +1,239 @@
+.module {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-areas:
+        "calendarHeading calendarHeading"
+        "calendarA calendarB";
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.calendarHeading {
+    grid-area: calendarHeading;
+    display: grid;
+    grid-template-areas:
+        "prev currentYearMonth todayBtn next";
+    grid-template-columns: 70px 1fr auto 70px;
+    background-color: white;
+    box-shadow: 0 0 20px -12px black;
+}
+
+.calendarA {
+    grid-area: calendarA;
+}
+
+.calendarB {
+    grid-area: calendarB;
+}
+
+.prevBtn,
+.nextBtn {
+    background: transparent;
+    border: none;
+    transition: .1s all;
+    background-color: #ff6200;
+    color: white;
+}
+
+.prevBtn:hover,
+.nextBtn:hover,
+.todayBtn:hover {
+    cursor: pointer;
+    background-color: #314353;
+    color: white;
+    padding: 10px
+}
+
+.prevBtn:active,
+.nextBtn:active,
+.todayBtn:active {
+    padding: 10px;
+}
+
+.todayBtn {
+    background-color: transparent;
+    border: none;
+    grid-area: todayBtn;
+    padding: 10px;
+}
+
+.prevBtn {
+    grid-area: prev;
+    border-radius: 5px 0 0 5px;
+}
+
+.nextBtn {
+    grid-area: next;
+    border-radius: 0 5px 5px 0;
+
+}
+
+.currentYearMonth {
+    grid-area: currentYearMonth;
+    margin: 0;
+    text-align: center;
+    align-self: center;
+    color: #314353;
+}
+
+.calendar {
+    display: grid;
+    grid-template-areas:
+        "monthName"
+        "weekdays"
+        "days";
+    grid-template-rows: 50px 50px 1fr;
+    width: 100%;
+    /* height: 50vh; */
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 20px -12px black;
+}
+
+.day {
+    background-color: #314353;
+    color: white;
+    font-size: 13px;
+    text-align: left;
+    transition: .1s all;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 42px auto;
+    align-content: end;
+    border: 1px solid white;
+}
+
+.day:hover:not(.ineligible):not(.empty):not(.daySelect) {
+    background-color: #41596f;
+    cursor: pointer;
+}
+
+
+.weekend {
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 0%, 100%, 0.2);
+    position: absolute;
+    pointer-events: none;
+}
+
+.empty {
+    background-color: transparent;
+    border: none;
+}
+
+.empty:hover {
+    background-color: inherit;
+}
+
+.weekdays,
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.weekdays {
+    grid-area: weekdays;
+    grid-template-rows: 50px;
+    border-top: 1px solid #dfe2e3;
+}
+
+.weekdays span {
+    align-self: center;
+    padding: 2px 5px;
+    text-align: center;
+    font-size: 16px;
+    color: #598995;
+}
+
+.days {
+    grid-area: days;
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.monthName {
+    grid-area: monthName;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    align-self: center;
+    color: #598995;
+}
+
+.monthDropdown {
+    align-self: center;
+    display: inline-block;
+    margin: 0 auto;
+    width: auto;
+    position: relative;
+    left: 25px;
+}
+
+.daySelect {
+    background-color: #428cca;
+    box-sizing: border-box;
+}
+
+.dayContainer {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.today .dayBase {
+    color: white;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: #ff6c6c;
+    display: grid;
+}
+
+.today .dayBase span {
+    justify-self: center;
+    align-self: center;
+    line-height: 30px;
+    position: relative;
+    top: -2px;
+    left: -1px;
+}
+
+.dayBase {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #fff;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mark {
+    height: 15px;
+    display: inline-block;
+    background-color: #37eba8;
+    align-self: end;
+    margin: 1px 2px;
+    font-size: 10px;
+    padding: 2px 8px;
+    color: black;
+    width: max-content;
+}
+
+.mark:hover {
+    background-color: orange;
+    cursor: pointer;
+}
+
+.ineligible {
+    background-color: #999;
+    cursor: default;
+    color: #7b7b7b;
+}

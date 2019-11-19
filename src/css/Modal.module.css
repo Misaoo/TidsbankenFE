@@ -1,0 +1,50 @@
+@value global: "./global.css";
+@value modal-bg-color from global;
+
+.module {
+    background-color: modal-bg-color;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top:0;
+    left:0;
+    box-sizing: border-box;
+    display: grid;
+}
+
+.module:hover, .closeButton:hover {
+    cursor: pointer;
+}
+
+.content:hover {
+    cursor:default;
+}
+
+.content {
+    background-color: white;
+    height: 50%;
+    width: 50%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 1px 1px 16px -7px #000;
+    overflow-y: auto;
+    align-self: center;
+    justify-self: center;
+}
+
+.content p {
+    margin: 0;
+}
+
+.closeButton {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    text-align: center;
+    font-family: sans-serif;
+}

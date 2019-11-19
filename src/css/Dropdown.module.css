@@ -1,0 +1,50 @@
+.module {
+    display: inline-block;
+    position: relative;
+}
+
+.target {
+    /* background-color: hsla(0, 0%, 0%, 0.2); */
+    user-select: none;
+    padding: 10px 10px;
+}
+
+.active {
+    background-color: #273642;
+    color: white;
+}
+
+.target:hover {
+    cursor: pointer;
+    background-color: #273642;
+}
+
+.target svg {
+    margin-left: 10px;
+    pointer-events: none;
+}
+
+.items {
+    position: absolute;
+    background-color: #273642;
+    color: white;
+    border-radius: 0 0 2px 2px;
+    max-height: 50vh;
+    min-width: 100%;
+    overflow: auto;
+    top: 30px;
+    box-shadow: 0px 3px 5px -3px #6a6a6a;
+    z-index: 100;
+    width: max-content;
+    max-width: 350px;
+}
+
+.items a {
+    color: white;
+}
+
+.items ul{
+    list-style-type: none;
+    padding-left: 15px;
+    padding-right:15px;
+}

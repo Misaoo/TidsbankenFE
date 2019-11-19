@@ -1,0 +1,11 @@
+@value bg-color: #F0F0F0;
+@value btn-color: #314353;
+@value secondare-text-color: #707070;
+@value third-text-color: white;
+@value bg-h1-color: darkgrey;
+@value error-text-bg-color: red;
+@value modal-bg-color: hsla(0, 0%, 37.6%, 0.7);
+@value popover-bg-color: hsla(0, 0%, 37.6%, 1);
+@value box-shadow: 1px 1px 1px 1px solid black;
+@value disabled-btn-bg-color: grey;
+

@@ -1,0 +1,22 @@
+.userPage {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 5vw;
+}
+.userCard {
+  border-style: double;
+  text-align: center;
+  word-break: break-all;
+  width: 15vw;
+  height: 20vw;
+}
+
+.userImg {
+  width: 100%;
+  height: 100%;
+}
+
+.imgContainer {
+  overflow: hidden;
+  height: 75%;
+}

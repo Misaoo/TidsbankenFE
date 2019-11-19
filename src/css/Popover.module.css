@@ -1,0 +1,15 @@
+@value global: "./global.css";
+@value popover-bg-color from global;
+@value box-shadow from global;
+@value third-text-color from global;
+
+.wrapper{
+    min-width: 100px;
+    background-color: hsla(0, 0%, 37.6%, 1);
+    position: absolute;
+    padding: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    box-shadow: box-shadow;
+    color: third-text-color;
+}

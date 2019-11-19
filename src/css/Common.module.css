@@ -1,0 +1,82 @@
+@value global: "./global.css";
+@value btn-color from global;
+@value third-text-color from global;
+@value disabled-btn-bg-color from global;
+
+
+/*-----------------------------
+ * Input Fields
+ *-----------------------------*/
+
+.input {
+    display: block;
+    width: 100%;
+    margin: auto;
+    border-radius: 15px;
+    height: 35px;
+    text-indent: 10px;
+    box-sizing: border-box;
+}
+
+.input:focus, .input:active {
+    outline: none;
+}
+
+/*-----------------------------
+ * Labels
+ *-----------------------------*/
+
+ .label {
+     padding: 10px 0 5px 10px;
+     display: block;
+ }
+
+/*-----------------------------
+ * Buttons
+ *-----------------------------*/
+
+.button {
+    height: 45px;
+    border-radius: 15px;
+    margin: 20px 0;
+    width: 100%;
+    background-color: btn-color;
+    color: third-text-color;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:focus {
+    outline:0;
+}
+
+.button:disabled,
+.button[disabled]{
+  border: 1px solid #999999;
+  background-color: disabled-btn-bg-color;
+  color: #666666;
+  cursor: default;
+}
+
+/*-----------------------------
+ * Dropdown
+ *-----------------------------*/
+
+.dropdown {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown a {
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.dropdown a:hover {
+    background-color: red;
+}

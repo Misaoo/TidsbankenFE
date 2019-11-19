@@ -1,0 +1,41 @@
+.module {
+  background-color: rgba(0, 0, 0, 0.507);
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: grid;
+  position: fixed;
+}
+
+.module:hover,
+.closeButton:hover {
+  cursor: pointer;
+}
+
+.content:hover {
+  cursor: default;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 45% 10% 45%;
+  background-color: white;
+  height: auto;
+  width: 65%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 16px -7px #000;
+  align-self: center;
+  justify-self: center;
+  overflow-y: auto;
+}
+
+.content p {
+  margin: 0;
+}
