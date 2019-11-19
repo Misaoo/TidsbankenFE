@@ -1,7 +1,10 @@
 .userPage {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   row-gap: 5vw;
+  column-gap: 5vw;
+  justify-items: center;
+  padding-left: 5vw;
 }
 .userCard {
   border-style: double;
