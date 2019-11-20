@@ -62,4 +62,5 @@ textarea {
 
 .comment:hover {
   background-color: rgb(180, 180, 180);
+  cursor: pointer;
 }

@@ -1,0 +1,14 @@
+.cardBody {
+  padding: 1%;
+}
+
+.cardContent {
+  border-radius: 25px;
+  padding: 2%;
+  box-shadow: 0 0 20px -12px black;
+}
+
+.cardContent:hover {
+  cursor: pointer;
+  background-color: rgb(241, 241, 241);
+}

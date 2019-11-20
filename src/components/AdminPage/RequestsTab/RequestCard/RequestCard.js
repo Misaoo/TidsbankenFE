@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import RequestModifier from "./RequestModifier/RequestModifier";
+import "../../general.css";
 
 class RequestCard extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class RequestCard extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="cardBody">
         {this.state.showPopup && (
           <RequestModifier
             requesterName={this.state.name}
@@ -45,10 +46,10 @@ class RequestCard extends Component {
           />
         )}
         <div
+          className="cardContent"
           onClick={() => {
             this.setPopup();
           }}
-          style={{ borderStyle: "solid" }}
         >
           Request ID: {this.props.request.requestId}
           <br />
@@ -58,7 +59,7 @@ class RequestCard extends Component {
           <br />
           Requester: {this.state.name} {this.state.lastName}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserModifier from "./UserModifier/UserModifier";
+import "../../general.css";
 
 class UserCard extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class UserCard extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div className="cardBody">
         {this.state.showPopup && (
           <UserModifier
             user={this.props.user}
@@ -25,10 +26,10 @@ class UserCard extends Component {
           />
         )}
         <div
+          className="cardContent"
           onClick={() => {
             this.setPopup();
           }}
-          style={{ borderStyle: "solid" }}
         >
           Name: {this.props.user.name} {this.props.user.lastName}
           <br />
@@ -40,7 +41,7 @@ class UserCard extends Component {
           2FA: {this.props.user.twoFacAut === 1 && "True"}
           {this.props.user.twoFacAut === 0 && "False"}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

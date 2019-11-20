@@ -18,13 +18,6 @@ class ExportImport extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    console.log(new Date(Date.now() - 60 * 60 * 24 * 1000));
-    console.log(new Date("2019-11-19T10:23:03.309+00:00"));
-    console.log(
-      new Date("2019-11-19T10:23:03.309+00:00") >
-        new Date(Date.now() - 60 * 60 * 24 * 1000)
-    );
   }
   getData() {
     if (!this.state.showData) {
