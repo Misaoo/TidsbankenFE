@@ -53,6 +53,9 @@
     right: 5px;
     text-align: center;
     font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

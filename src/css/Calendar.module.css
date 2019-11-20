@@ -4,8 +4,9 @@
     display: grid;
     grid-template-areas:
         "calendarHeading calendarHeading"
+        "helpInfo helpInfo"
         "calendarA calendarB";
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 50px auto 1fr;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
@@ -118,6 +119,9 @@
     cursor: pointer;
 }
 
+.daySelect:hover {
+    cursor: pointer;
+}
 
 .weekend {
     width: 100%;
@@ -125,6 +129,14 @@
     background-color: hsla(0, 0%, 100%, 0.2);
     position: absolute;
     pointer-events: none;
+}
+
+.daySuccess {
+    background-color: #428cca !important;
+}
+
+.dayError {
+    background-color: #ff6c6c !important;
 }
 
 .empty {
@@ -209,6 +221,7 @@
     text-align: center;
     font-size: 18px;
     font-weight: bold;
+    user-select: none;
 }
 
 .mark {
@@ -226,6 +239,18 @@
 .mark:hover {
     background-color: orange;
     cursor: pointer;
+}
+
+.approved {
+    background-color: #37eba8;
+}
+
+.denied {
+    background-color: #fa7260;
+}
+
+.pending {
+    background-color: #fae153;
 }
 
 .ineligible {
@@ -265,6 +290,10 @@
     animation-duration: .4s;
 }
 
+.helpInfo {
+    grid-area: helpInfo;
+}
+
 
 @keyframes grow {
     from {
@@ -273,5 +302,29 @@
 
     to {
         transform: translateY(0);
+    }
+}
+
+
+@media (max-width: 1215px) {
+    .mark {
+        margin: 0;
+        font-size: 9px;
+        padding: 2px 3px;
+    }
+
+    .dayBase {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 940px) {
+    .module {
+        grid-template-areas:
+            "calendarHeading"
+            "calendarA"
+            "calendarB";
+        grid-template-rows: 50px 1fr 1fr;
+        grid-template-columns: 1fr;
     }
 }

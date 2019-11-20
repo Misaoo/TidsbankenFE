@@ -56,7 +56,7 @@
 .button[disabled]{
   border: 1px solid #999999;
   background-color: disabled-btn-bg-color;
-  color: #666666;
+  color: #3e3e3e;
   cursor: default;
 }
 

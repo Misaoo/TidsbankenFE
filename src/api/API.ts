@@ -27,11 +27,36 @@ const user = (id: number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`
     withCredentials: true
 });
 
+const allApprovedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allApproved`, {
+    method: "GET",
+    withCredentials: true
+});
+
+
+const userPendingVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allPending`, {
+    method: "GET",
+    withCredentials: true
+});
+
+
+const userDeniedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allDenied`, {
+    method: "GET",
+    withCredentials: true
+});
+
+const getVacationDays = () => axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
+    method: "GET",
+    withCredentials: true
+  });
 
 export default { 
     login, 
     login2fa, 
     logout, 
     authorize,
-    user 
+    user,
+    allApprovedVacReqs,
+    userPendingVacReqs,
+    userDeniedVacReqs,
+    getVacationDays
 };

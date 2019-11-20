@@ -41,10 +41,9 @@
 
 .items a {
     color: white;
+    padding-left: 15px;
 }
 
 .items ul{
     list-style-type: none;
-    padding-left: 15px;
-    padding-right:15px;
 }

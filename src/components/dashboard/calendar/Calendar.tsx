@@ -5,6 +5,7 @@ import CalendarDisplay from './CalendarDisplay';
 import CalendarContext from './CalendarContext';
 import Modal from '../../common/modal/Modal';
 import Infobox from '../../common/infobox/Infobox';
+import API from '../../../api/API';
 
 import {
     addMonths,
@@ -17,6 +18,9 @@ const Calendar = (props: any) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const [modal, setModal] = useState<boolean>(false);
+    const [allApprovedReqs, setAllApprovedReqs] = useState<any>();
+    const [deniedReqs, setDeniedReqs] = useState<any>();
+    const [pendingReqs, setPendingReqs] = useState<any>();
 
     const [selectedRange, setSelectedRange] = useState<{ start?: Date, end?: Date }>({});
 
@@ -26,10 +30,41 @@ const Calendar = (props: any) => {
 
     useEffect(() => {
         setCurrentDate(new Date());
+
+        API.allApprovedVacReqs()
+            .then((res: any) => {
+                setAllApprovedReqs(res.data);
+            })
+            .catch(error => {
+                setError(true);
+            })
+
+        API.userPendingVacReqs()
+            .then((res: any) => {
+                setPendingReqs(res.data);
+            })
+            .catch(error => {
+                setError(true);
+            })
+        API.userDeniedVacReqs()
+            .then((res: any) => {
+                setDeniedReqs(res.data);
+            })
+            .catch(error => {
+                setError(true);
+            })
     }, []);
 
+    const handleVacReqClick = (event: any, vacReqId: number) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setModal(true);
+    }
     return (
-        <CalendarContext.Provider value={{ selectedRange, setSelectedRange, modal, setModal }}>
+            handleVacReqClick,
+            allApprovedReqs,
+            pendingReqs,
+            deniedReqs,
             <div className={styles.module}>
                 {modal && <Modal display={modal} setDisplay={setModal} ><p>Hej</p></Modal>}
                 <CalendarHeading
