@@ -11,6 +11,8 @@ import {
     addMonths,
     subMonths,
 } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { daysBetween, normalizeInterval } from './calendarUtils';
 
 
 const Calendar = (props: any) => {
@@ -21,8 +23,13 @@ const Calendar = (props: any) => {
     const [allApprovedReqs, setAllApprovedReqs] = useState<any>();
     const [deniedReqs, setDeniedReqs] = useState<any>();
     const [pendingReqs, setPendingReqs] = useState<any>();
+    const [maxVacDays, setMaxVacDays] = useState<any>();
+    const [error, setError] = useState(false);
+
+    const [selectionType, setSelectionType] = useState("success");
 
     const [selectedRange, setSelectedRange] = useState<{ start?: Date, end?: Date }>({});
+    const [daysLeft, setDaysLeft] = useState();
 
     const increaseMonth = () => { console.log("Increasemonth"); setSelectedDate(addMonths(selectedDate, 1)) };
     const decreaseMonth = () => { console.log("Decreasemonth"); setSelectedDate(subMonths(selectedDate, 1)) };
@@ -53,18 +60,60 @@ const Calendar = (props: any) => {
             .catch(error => {
                 setError(true);
             })
+
+        API.getVacationDays()
+            .then((res: any) => {
+                setMaxVacDays(res.data.maximumVacationDays)
+            })
+            .catch((error: any) => {
+                if (error.response.status === 501) {
+                    setMaxVacDays(-1);
+                    return;
+                }
+                setError(true);
+            })
     }, []);
+
+    // useEffect(() => {
+    //     if (allApprovedReqs) {
+    //         console.log(allApprovedReqs);
+    //     }
+    // }, [allApprovedReqs])
+
+
+    useEffect(() => {
+        if (selectedRange.start && selectedRange.end) {
+            let daysSelected: number = selectedRange.start && selectedRange.end && daysBetween(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }));
+            if (maxVacDays > 0) {
+                setDaysLeft(maxVacDays - daysSelected);
+            } else {
+                // setDaysLeft(-1);
+                setDaysLeft(5);
+            }
+        }
+    }, [selectedRange.end])
 
     const handleVacReqClick = (event: any, vacReqId: number) => {
         event.preventDefault();
         event.stopPropagation();
         setModal(true);
     }
+
     return (
+        <CalendarContext.Provider value={{
+            selectedRange,
+            setSelectedRange,
+            modal,
+            setModal,
             handleVacReqClick,
             allApprovedReqs,
             pendingReqs,
             deniedReqs,
+            maxVacDays,
+            daysLeft,
+            selectionType,
+            setSelectionType
+        }}>
             <div className={styles.module}>
                 {modal && <Modal display={modal} setDisplay={setModal} ><p>Hej</p></Modal>}
                 <CalendarHeading
@@ -80,13 +129,16 @@ const Calendar = (props: any) => {
                     <h3>Request vacation</h3>
                     <p>To request a vacation, mark a period by selecting a start-date and then an end-date in the calendar.</p>
                 </Infobox>
-                    month={selectedDate}
-                    className={styles.calendarA}
-                />
-                <CalendarDisplay
-                    month={addMonths(selectedDate, 1)}
-                    className={styles.calendarB}
-                />
+                <>
+                    {!error && <><CalendarDisplay
+                        month={selectedDate}
+                        className={styles.calendarA}
+                    />
+                    <CalendarDisplay
+                        month={addMonths(selectedDate, 1)}
+                        className={styles.calendarB}
+                    /></>}
+                </>
             </div>
         </CalendarContext.Provider>
     );

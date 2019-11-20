@@ -4,11 +4,12 @@ import { eachDayOfInterval, startOfMonth, endOfMonth, getDay, isFirstDayOfMonth,
 import Day from './Day';
 import { format, isDate } from 'date-fns';
 import CalendarContext from './CalendarContext';
-import { isDateBetween } from './calendarUtils';
+import { isDateBetween, normalizeInterval } from './calendarUtils';
+import Mark from './Mark';
 
 const CalendarDisplay = (props: any) => {
 
-    const { selectedRange } = useContext(CalendarContext);
+    const { selectedRange, allApprovedReqs, pendingReqs, deniedReqs, selectionType } = useContext(CalendarContext);
     const [lastSelectedDay, setLastSelectedDay] = useState<Date>();
 
     // useEffect(() => {
@@ -33,7 +34,35 @@ const CalendarDisplay = (props: any) => {
 
         days.map((day, index) => {
 
-            let selected = isDateBetween(selectedRange.start, selectedRange.end, day);
+            let selected = isDateBetween(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }), day);
+
+            let marks:any = [];
+
+            // Move these out of the loop if possible.
+            allApprovedReqs && allApprovedReqs.map((req: any) => {
+                req.dates.map((date: any) => {
+                    if (isSameDay(new Date(date), day)) {
+                        marks = [...marks, <Mark type="approved" vacReq={req} />];
+                    }
+                });
+            });
+
+            pendingReqs && pendingReqs.map((req: any) => {
+                req.dates.map((date: any) => {
+                    if (isSameDay(new Date(date), day)) {
+                        marks = [...marks, <Mark type="pending" vacReq={req} />];
+                    }
+                })
+            }) 
+
+            deniedReqs && deniedReqs.map((req: any) => {
+                req.dates.map((date: any) => {
+                    if (isSameDay(new Date(date), day)) {
+                        marks = [...marks, <Mark type="denied" vacReq={req} />];
+                    }
+                })
+            })
+
 
             if (isFirstDayOfMonth(day)) {
                 let wdOffset = weekdayOffset(day);
@@ -49,14 +78,10 @@ const CalendarDisplay = (props: any) => {
                     month = [...month, <Day key={"offset" + i} empty={true} />]
                 }
                 // Generate first day of month
-                month = [...month, <Day key={index} date={day} selected={selected || isSameDay(selectedRange.start, day)} addButton={lastSelectedDay && isSameDay(lastSelectedDay, day)} />];
+                month = [...month, <Day key={index} date={day} selectionType={selectionType} selected={selected || isSameDay(selectedRange.start, day)} addButton={lastSelectedDay && isSameDay(lastSelectedDay, day)} markings={marks} />];
             } else {
-                // console.log(isDateBetween(selectedRange.start, selectedRange.end, day));
-                // if (isDateBetween(selectedRange.start, selectedRange.end, day)) {
-                //     console.log(selectedRange.start, selectedRange.end);
-                //     console.log("This day is selected", day);
-                // }
-                month = [...month, <Day key={index} date={day} selected={selected || isSameDay(selectedRange.start, day)} addButton={lastSelectedDay && isSameDay(lastSelectedDay, day)} />];
+
+                month = [...month, <Day key={index} date={day} selectionType={selectionType} selected={selected || isSameDay(selectedRange.start, day)} addButton={lastSelectedDay && isSameDay(lastSelectedDay, day)} markings={marks} />];
             }
             return null;
         })

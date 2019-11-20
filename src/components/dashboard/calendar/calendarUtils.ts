@@ -1,4 +1,9 @@
-import { isSameDay, isWithinInterval, addDays, eachDayOfInterval } from 'date-fns';
+import { isSameDay, isWithinInterval, addDays, eachDayOfInterval, isAfter } from 'date-fns';
+
+interface Interval {
+    start: Date,
+    end: Date
+}
 
 export const isIneligible = (date: Date, ineligibleDates: Date[]): boolean => {
     let output = false;
@@ -10,18 +15,18 @@ export const isIneligible = (date: Date, ineligibleDates: Date[]): boolean => {
     return output;
 }
 
-export const isDateBetween = (start: Date, end: Date, date: Date): boolean => {
-    if (start === undefined || end === undefined) {
+export const isDateBetween = (interval:Interval, date: Date): boolean => {
+    if (interval.start === undefined || interval.end === undefined) {
         return false;
     }
-    return isWithinInterval(date, { start: start, end: end });
+    return isWithinInterval(date, { start: interval.start, end: interval.end });
 }
 
-export const daysBetween = (start: Date, end: Date): number => {
-    return eachDayOfInterval({ start: start, end: end }).length;
+export const daysBetween = (interval: Interval): number => {
+    return eachDayOfInterval({ start: interval.start, end: interval.end }).length;
 }
 
-export const datesInInterval = (interval: { start: Date, end: Date }, dates: Date[]): boolean => {
+export const datesInInterval = (interval: Interval, dates: Date[]): boolean => {
     let output = false;
 
     if (interval.start === undefined || interval.end === undefined) {
@@ -39,6 +44,23 @@ export const datesInInterval = (interval: { start: Date, end: Date }, dates: Dat
     });
 
     return output;
+}
+
+export const isIntervalNormalized = (interval: Interval): boolean => {
+    let result = true;
+    if (!isAfter(interval.end, interval.start)) {
+        result = false;
+    }
+    return result;
+}
+
+export const normalizeInterval = (interval: Interval): Interval => {
+    let normalizedInterval: Interval = interval;
+
+    if (!isAfter(interval.end, interval.start)) {
+        return {start: interval.end, end: interval.start} as Interval;
+    }
+    return normalizedInterval;
 }
 
 export default {
