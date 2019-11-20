@@ -4,6 +4,7 @@ import CalendarHeading from './CalendarHeading';
 import CalendarDisplay from './CalendarDisplay';
 import CalendarContext from './CalendarContext';
 import Modal from '../../common/modal/Modal';
+import Infobox from '../../common/infobox/Infobox';
 
 import {
     addMonths,
@@ -38,7 +39,12 @@ const Calendar = (props: any) => {
                     currentDate={currentDate}
                     selectedDate={selectedDate}
                 />
-                <CalendarDisplay
+                <Infobox className={styles.helpInfo} infoboxId="calendarHelpInfo" icon="question-circle">
+                    <h2>Calendar</h2>
+                    <p>Here you can see your approved, pending and denied requests, as well as your colleagues approved vacation requests</p>
+                    <h3>Request vacation</h3>
+                    <p>To request a vacation, mark a period by selecting a start-date and then an end-date in the calendar.</p>
+                </Infobox>
                     month={selectedDate}
                     className={styles.calendarA}
                 />
