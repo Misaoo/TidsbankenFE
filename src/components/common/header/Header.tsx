@@ -1,36 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import AuthContext from "../../auth/AuthContext";
 import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
 import Dropdown from "../dropdown/Dropdown";
 import axios from "axios";
-//import Pusher from "pusher-js";
 
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>([]); // Used for li html elements
-
- /*  let pusher: any;
-  let channel: any;
-
-  useEffect(() => {
-    pusher = new Pusher("4c6550e4e866a013a371", {
-      cluster: "eu",
-      forceTLS: true
-    });
-
-    channel = pusher.subscribe("notifications");
-
-    channel.bind("user_update", function(data: any) {
-      setUpdate(data);
-    });
-
-    channel.bind("pusher:subscription_succeeded", function(members: any) {
-      console.log("successfully subscribed! - Pusher");
-    });
-  }, []); */
+  const [key, setKey]=useState("");
 
   useEffect(() => {
     axios(process.env.REACT_APP_API_URL + "/notification", {
@@ -42,12 +23,27 @@ const Header = (props: any) => {
     });
   }, []);
 
+  const removeNotification=()=>{
+    update.map((key:any)=>{
+      console.log(update)
+      let notifId = key.notificationId;
+      console.log(notifId);
+      axios(process.env.REACT_APP_API_URL + "/notification/" + notifId, {
+        method: "DELETE",
+        withCredentials: true    
+    });
+    console.log("done");
+    });
+  }
 
   const getNotifications=() => {
     console.log("test")
       const liElement = update.map((value:any)=>{
-        console.log("value:" + value.message);
-        return <li key={value.notificationId}>{value.message}</li>
+        return <li 
+                  onClick={removeNotification} 
+                  key={value.notificationId}>
+                  <Link to="/profile">{value.message}</Link>
+                </li>
       });
       setLiArray(liElement);    
   }
@@ -71,7 +67,7 @@ const Header = (props: any) => {
           <Dropdown 
           title={"Notifications"}
           cb={() => getNotifications()}
-          // onClick={() => getNotifications()}
+     //     cb2={()=> removeNotification()}
           >
             <ul>{liArray}</ul>
           </Dropdown>
@@ -91,7 +87,11 @@ const Header = (props: any) => {
         <>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/admin">Admin</Link>
-          <Dropdown title={"Notifications"} cb={() => getNotifications()}>
+          <Dropdown 
+          title={"Notifications"} 
+          cb={() => getNotifications()}
+          cb2={()=> removeNotification()}
+          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
