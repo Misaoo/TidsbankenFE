@@ -10,6 +10,8 @@ import {
   faCaretLeft,
   faCaretRight,
   faCalendarPlus,
+  faTimes,
+  faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Own components
@@ -27,7 +29,7 @@ import Logout from "./components/logout/Logout";
 import AdminPage from "./components/AdminPage/AdminPage";
 import Users from "./components/Users/Users";
 
-library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus);
+library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle);
 
 const App: React.FC = () => {
   return (
