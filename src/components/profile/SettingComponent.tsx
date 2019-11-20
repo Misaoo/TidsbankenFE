@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import AuthContext from '../auth/AuthContext';
 import SettingsStyles from '../../css/profile/SettingComponent.module.css';
 import commonStyles from '../../css/Common.module.css';
@@ -8,14 +8,25 @@ import Modal from '../common/modal/Modal';
 const SettingComponent = (props: any) => {
     const { user } = useContext(AuthContext);
     let [showModal, setshowModal] = useState(false);
+    let [showModal2, setshowModal2] = useState(false);
 
     let [oldPass, setOldPass] = useState();
     let [newPass1, setNewPass1] = useState();
     let [newPass2, setNewPass2] = useState();
 
+    let [twoAuth, setTwoAuth] = useState();
+
     function UpdatePasswordModal(){
         setshowModal(true);
     }
+
+    function Update2faModal(){
+        setshowModal2(true);
+    }
+
+    useEffect(() =>{
+        console.log(user);
+    },[])
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -70,6 +81,30 @@ const SettingComponent = (props: any) => {
         }
     }
 
+    const update2fa = async (event: any) => {
+        event.preventDefault();
+        let number=event.target.value;
+        
+        
+        //UPDATE 2fa
+        try {
+            let response = await API.updateUser2fa(user!.userId, user!.userId, number);
+            if (response.status === 200) {
+                console.log("Updated users 2fa");
+            }
+        } catch (error) {
+            if (error.response.status === 401 || error.response.status === 504) {
+                console.log(error);
+                console.log("asd");
+            }
+            // If TwoFactorAuthentication
+            if (error.response.status === 418) {
+            }
+            console.log(error);
+        }
+          
+    }
+
     function testNewPasswords(){
         if(newPass1 === newPass2){
             return true;
@@ -81,7 +116,7 @@ const SettingComponent = (props: any) => {
     return (
         <div className={SettingsStyles.wrapper}>
             <button value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
-            <button value="changePassword">Add 2fa</button>
+            <button value="changePassword" onClick={Update2faModal}>Add 2fa</button>
 
             <Modal display={showModal} setDisplay={setshowModal}>
                 <form onSubmit={handleSubmit}>
@@ -97,6 +132,14 @@ const SettingComponent = (props: any) => {
                     <button type="submit">Submit</button>
                 </form>
             </Modal>
+
+            <Modal display={showModal2} setDisplay={setshowModal2}>
+                <h1>2fa</h1>
+                <p>You can add two auth authentication to your acount or remove it.</p>
+                <input type="checkbox" name="2fa" value={twoAuth}></input>    
+                <button onClick={update2fa} value={1}>Add 2fa</button>
+                <button onClick={update2fa} value={0} >Remove 2fa</button>
+            </Modal> 
         </div>
     )
 }

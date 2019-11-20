@@ -12,10 +12,7 @@ type MyState = { }
 
 const ProfileView = (props:any) => {
     const { user } = useContext(AuthContext);
-
     const [ email, setEmail ] = useState();
-
-    
 
     return(
         <main className={commonStyles.ProfileWrapper}>

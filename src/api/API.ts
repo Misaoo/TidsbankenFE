@@ -45,6 +45,27 @@ const updateUserPassword = (id:number, userId: number, password:string) => axios
     data: {userId,password}
 });
 
+const updateUser2fa = (id:number, userId: number, twoFacAut:number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+    method: "PATCH",
+    withCredentials: true,
+    data: {userId,twoFacAut}
+});
+
+const vacationsApproved = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/approved/${id}`, {
+    method: "GET",
+    withCredentials: true,
+});
+
+const vacationsDenied = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/denied/${id}`, {
+    method: "GET",
+    withCredentials: true,
+});
+
+const vacationsPending = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/pending/${id}`, {
+    method: "GET",
+    withCredentials: true,
+});
+
 
 export default { 
     login, 
@@ -54,5 +75,9 @@ export default {
     user,
     updateUser,
     updateUserImage,
-    updateUserPassword
+    updateUserPassword,
+    updateUser2fa,
+    vacationsApproved,
+    vacationsDenied,
+    vacationsPending
 };

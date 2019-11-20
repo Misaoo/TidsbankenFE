@@ -21,6 +21,8 @@ const SideBarComponent = (props: any) => {
     let [showModal, setshowModal] = useState(false);
     let [showModal2, setshowModal2] = useState(false);
 
+    let[pictureString, setPictureString] = useState();
+
     const videoConstraints = {
         facingMode: "user"
     };
@@ -153,6 +155,29 @@ const SideBarComponent = (props: any) => {
         }
     }
 
+    async function savePicture(e:any){
+        e.preventDefault();
+        try {
+            let response = await API.updateUserImage(user!.userId,user!.userId,pictureString);
+            if (response.status === 200) {  
+                console.log("new image saved in database");
+                setImg(pictureString);            
+            }
+        } catch (error) {
+            if (error.response.status === 401 || error.response.status === 504) {
+                console.log(error);
+            }
+            // If TwoFactorAuthentication
+            if (error.response.status === 418) {
+            }
+            console.log(error);
+        }
+    }
+
+    function pictureForm(e:any){
+        setPictureString(e.target.value);
+    }
+
     return (
         <div className={sidebarStyles.SideBarWrapper}>
 
@@ -194,7 +219,11 @@ const SideBarComponent = (props: any) => {
             </form>
 
             <Modal display={showModal} setDisplay={setshowModal}>
-                <div></div>
+                <p>Please provide link to picture</p>
+                <form onSubmit={savePicture}>
+                    <input type="text" onChange={pictureForm}/>
+                    <button type="submit">Save</button>
+                </form>
             </Modal>
 
             <Modal display={showModal2} setDisplay={setshowModal2}>
