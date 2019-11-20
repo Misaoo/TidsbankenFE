@@ -4,14 +4,15 @@ import AuthContext from "../../auth/AuthContext";
 import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
 import Dropdown from "../dropdown/Dropdown";
-import Pusher from "pusher-js";
+import axios from "axios";
+//import Pusher from "pusher-js";
 
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
-  const [update, setUpdate] = useState<any>({}); // Used for li html elements
+  const [update, setUpdate] = useState<any>([]); // Used for li html elements
 
-  let pusher: any;
+ /*  let pusher: any;
   let channel: any;
 
   useEffect(() => {
@@ -29,23 +30,27 @@ const Header = (props: any) => {
     channel.bind("pusher:subscription_succeeded", function(members: any) {
       console.log("successfully subscribed! - Pusher");
     });
-  }, []);
+  }, []); */
 
   useEffect(() => {
-    function getNotification() {
-      // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-      // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-      // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-      // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-      if (update.userId) {
-        const liElement = (
-          <li className={update.status ? "good" : "bad"}> {update.userId}</li>
-        );
-        setLiArray(liArray.concat(liElement));
-      }
-    }
-    getNotification();
-  }, [update]);
+    axios(process.env.REACT_APP_API_URL + "/notification", {
+      method: "GET",
+      withCredentials: true
+    }).then(response => {
+      setUpdate(response.data);
+      console.log(response.data)
+    });
+  }, []);
+
+
+  const getNotifications=() => {
+    console.log("test")
+      const liElement = update.map((value:any)=>{
+        console.log("value:" + value.message);
+        return <li key={value.notificationId}>{value.message}</li>
+      });
+      setLiArray(liElement);    
+  }
 
   const loggedIn =
     user &&
@@ -63,7 +68,11 @@ const Header = (props: any) => {
       {loggedIn && (
         <>
           <Link to="/dashboard">Dashboard</Link>
-          <Dropdown title={"Notifications"}>
+          <Dropdown 
+          title={"Notifications"}
+          cb={() => getNotifications()}
+          // onClick={() => getNotifications()}
+          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
@@ -82,7 +91,7 @@ const Header = (props: any) => {
         <>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/admin">Admin</Link>
-          <Dropdown title={"Notifications"}>
+          <Dropdown title={"Notifications"} cb={() => getNotifications()}>
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
