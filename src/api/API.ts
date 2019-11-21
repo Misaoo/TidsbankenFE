@@ -49,6 +49,17 @@ const getVacationDays = () => axios(process.env.REACT_APP_API_URL + "/setting/ma
     withCredentials: true
   });
 
+const submitVacationRequest = (dates: string[]) => axios(process.env.REACT_APP_API_URL + "/request", {
+    method: "POST",
+    withCredentials: true,
+    data: {dates: dates}
+});
+
+const submitIneligibleDay = (date: string) => axios(process.env.REACT_APP_API_URL + "/ineligible", {
+    method: "POST",
+    withCredentials: true,
+    data: {date: date}
+});
 export default { 
     login, 
     login2fa, 

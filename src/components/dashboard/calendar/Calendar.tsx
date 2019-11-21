@@ -31,6 +31,8 @@ const Calendar = (props: any) => {
     const [selectedRange, setSelectedRange] = useState<{ start?: Date, end?: Date }>({});
     const [daysLeft, setDaysLeft] = useState();
 
+    const [modalContent, setModalContent] = useState();
+
     const increaseMonth = () => { console.log("Increasemonth"); setSelectedDate(addMonths(selectedDate, 1)) };
     const decreaseMonth = () => { console.log("Decreasemonth"); setSelectedDate(subMonths(selectedDate, 1)) };
     const gotoToday = () => { setSelectedDate(new Date()) };
@@ -112,10 +114,10 @@ const Calendar = (props: any) => {
             maxVacDays,
             daysLeft,
             selectionType,
-            setSelectionType
+            setModalContent,
         }}>
             <div className={styles.module}>
-                {modal && <Modal display={modal} setDisplay={setModal} ><p>Hej</p></Modal>}
+                {modal && <Modal display={modal} setDisplay={setModal} >{modalContent}</Modal>}
                 <CalendarHeading
                     onPrev={decreaseMonth}
                     onNext={increaseMonth}

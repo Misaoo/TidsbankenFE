@@ -1,0 +1,83 @@
+.module {
+    height: 100%;
+    display: grid;
+    grid-template-areas: 
+        "title"
+        "days"
+        "inputs";
+    grid-template-rows: 30px minmax(120px, 1fr) min-content;
+}
+
+.form {
+    height: 100%;
+    grid-area: inputs;
+    margin-top: 20px;
+}
+
+.module label {
+    padding: 5px;
+    display: grid;
+    align-items: baseline;
+    grid-template-columns: 40px 1fr;
+}
+
+.module label input {
+    margin-right: 5px;
+}
+
+.module label:hover {
+    color: #4d6377;
+}
+
+.module button {
+    display: block;
+}
+
+.module h2 {
+    grid-area: title;
+    margin: 0;
+}
+
+.selectedDays{
+    grid-area: days;
+}
+
+.selectedDays > div {
+    overflow: auto;
+    max-height: 250px;
+}
+
+.selectedDaysGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    box-sizing: border-box;
+    gap: 2px;
+}
+
+.selectedDaysGrid > div {
+    font-size: 12px;
+    padding: 4px;
+    border-radius: 5px;
+    background-color: #314353;
+    color:white;
+}
+
+.error {
+    background: #ff6c6c;
+    color: #000;
+    padding: 10px;
+    border-radius: 15px;
+    text-indent: 10px;
+}
+
+.success {
+    background: green;
+    color: white;
+    padding: 10px;
+    border-radius: 15px;
+    text-indent: 10px;
+}
+
+.error svg, .success svg {
+    margin-right: 10px;
+}

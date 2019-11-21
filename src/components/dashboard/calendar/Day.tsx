@@ -5,16 +5,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isIneligible, datesInInterval, normalizeInterval, isIntervalNormalized, daysBetween } from './calendarUtils';
 import CalendarContext from './CalendarContext';
 import Tooltip from '@material-ui/core/Tooltip';
+import AddRequest from './AddRequest';
 
 
 const Day = (props: any) => {
 
     const [selected, setSelected] = useState(false);
 
-    const { selectedRange, setSelectedRange, modal, setModal, handleVacReqClick, maxVacDays, daysLeft, selectionType, setSelectionType } = useContext(CalendarContext);
-
-    const ineligibleDays = [addDays(new Date(), 2), addDays(new Date(), 3), addDays(new Date(), 6)];
-    // const ineligibleDays: any = [];
+    const { 
+        selectedRange, 
+        setSelectedRange, 
+        modal, 
+        setModal, 
+        handleVacReqClick, 
+        maxVacDays, 
+        daysLeft, 
+        selectionType, 
+        setSelectionType, 
+        setModalContent,
+        inelDays
+    } = useContext(CalendarContext);
 
 
     const select = (event: any) => {
@@ -97,8 +107,16 @@ const Day = (props: any) => {
 
         {!props.empty && <>
             <span className={styles.dayBase}><span>{props.date ? format(props.date, 'd') : ''}</span></span>
-            {props.addButton && <Tooltip title="Request period" placement="top"><span onClick={() => setModal((b: any) => !b)} className={styles.action}><FontAwesomeIcon icon="calendar-plus" /></span></Tooltip>}
-            {!isIneligible(props.date, ineligibleDays) && props.markings}
+            {props.addButton && <Tooltip title="Request period" placement="top">
+                <span 
+                    onClick={() => {
+                        setModalContent(<AddRequest range={selectedRange} />);
+                        setModal((b: any) => !b);
+                    }} 
+                    className={styles.action}>
+                    <FontAwesomeIcon icon="calendar-plus" />
+                </span>
+            </Tooltip>}
         </>}
         {styleWeekend ? <span className={styleWeekend}></span> : null}
     </div>
