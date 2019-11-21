@@ -12,7 +12,7 @@ class RequestModifier extends Component {
       name: "",
       lastName: "",
       dates: this.props.requestData.dates.map(date => (
-        <li key={dateIndex++}>{date}</li>
+        <li key={dateIndex++}>{new Date(date).toLocaleDateString("se")}</li>
       )),
       pending: this.props.requestData.status === 0,
       verdict: 0,

@@ -55,8 +55,6 @@ class PictureUpload extends Component {
   render() {
     return (
       <div>
-        <h1>Add user</h1>
-
         <form onSubmit={this.handleSubmit}>
           <div className="userSubmit">
             <div className="inputFields">

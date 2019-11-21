@@ -5,6 +5,7 @@ import axios from "axios";
 import UserNav from "./UserNav/UserNav";
 import UserCard from "./UserCard/UserCard";
 import AddUser from "./AddUser/AddUser";
+import "../general.css";
 
 class UsersTab extends Component {
   //let address = props.address;
@@ -39,19 +40,14 @@ class UsersTab extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>Users</h1>
-
+      <div className="userTab">
         <Router>
           <UserNav updateUsers={this.getUsers.bind(this)} />
           <Switch>
             <Route
               path="/admin/users/allUsers"
               render={() => (
-                <div>
-                  <h1>All users</h1>
-                  {this.state.users}
-                </div>
+                <div className="userContent">{this.state.users}</div>
               )}
             ></Route>
             <Route

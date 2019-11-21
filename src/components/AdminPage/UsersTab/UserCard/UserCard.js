@@ -26,20 +26,23 @@ class UserCard extends Component {
           />
         )}
         <div
-          className="cardContent"
+          className="userCardContent"
           onClick={() => {
             this.setPopup();
           }}
         >
-          Name: {this.props.user.name} {this.props.user.lastName}
-          <br />
-          Email: {this.props.user.email}
-          <br />
-          Admin: {this.props.user.isAdmin === 1 && "True"}
-          {this.props.user.isAdmin === 0 && "False"}
-          <br />
-          2FA: {this.props.user.twoFacAut === 1 && "True"}
-          {this.props.user.twoFacAut === 0 && "False"}
+          <div className="userCardImage">
+            <img src={this.props.user.profilePic} alt="" />
+          </div>
+          <div>
+            <b>Name:</b> {this.props.user.name} {this.props.user.lastName}{" "}
+            {this.props.user.isAdmin === 1 && <b>(Admin)</b>}
+            <br />
+            <b>Email:</b> {this.props.user.email}
+            <br />
+            <b>2FA:</b> {this.props.user.twoFacAut === 1 && "Enabled"}
+            {this.props.user.twoFacAut === 0 && "Disabled"}
+          </div>
         </div>
       </div>
     );

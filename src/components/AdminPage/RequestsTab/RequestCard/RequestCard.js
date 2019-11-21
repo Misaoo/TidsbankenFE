@@ -10,8 +10,15 @@ class RequestCard extends Component {
       showPopup: false,
       name: this.props.request.requestId,
       lastName: "",
-      statusText: ""
+      statusText: "",
+      dates: []
     };
+    let keyVal = 0;
+    this.props.request.dates.map(date => {
+      this.state.dates.push(
+        <li key={keyVal++}>{new Date(date).toLocaleDateString("se")}</li>
+      );
+    });
   }
   componentDidMount() {
     axios(
@@ -51,13 +58,11 @@ class RequestCard extends Component {
             this.setPopup();
           }}
         >
-          Request ID: {this.props.request.requestId}
+          <b>Request ID:</b> {this.props.request.requestId}
           <br />
-          Dates: {this.props.request.dates.toString()}
+          <b>Dates:</b> <ul>{this.state.dates}</ul>
           <br />
-          Status: {this.props.request.status}
-          <br />
-          Requester: {this.state.name} {this.state.lastName}
+          <b>Requester:</b> {this.state.name} {this.state.lastName}
         </div>
       </div>
     );

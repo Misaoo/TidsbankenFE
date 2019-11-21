@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import RequestNav from "./RequestNav/RequestNav";
 import RequestCard from "./RequestCard/RequestCard";
+import "../general.css";
 
 class RequestTab extends Component {
   constructor(props) {
@@ -38,7 +39,6 @@ class RequestTab extends Component {
   render() {
     return (
       <div>
-        <h1>Requests</h1>
         <Router>
           <RequestNav setData={this.getData.bind(this)} />
           <Switch>
@@ -46,8 +46,7 @@ class RequestTab extends Component {
               path="/admin/requests/pending"
               render={() => (
                 <div>
-                  <h1>Pending Requests</h1>
-                  {this.state.data}
+                  <div className="requestContent">{this.state.data}</div>
                 </div>
               )}
             ></Route>
@@ -55,8 +54,7 @@ class RequestTab extends Component {
               path="/admin/requests/approved"
               render={() => (
                 <div>
-                  <h1>Approved Requests</h1>
-                  {this.state.data}
+                  <div className="requestContent">{this.state.data}</div>
                 </div>
               )}
             ></Route>
@@ -64,8 +62,7 @@ class RequestTab extends Component {
               path="/admin/requests/denied"
               render={() => (
                 <div>
-                  <h1>Denied Requests</h1>
-                  {this.state.data}
+                  <div className="requestContent">{this.state.data}</div>
                 </div>
               )}
             ></Route>
