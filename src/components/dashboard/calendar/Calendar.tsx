@@ -26,6 +26,7 @@ const Calendar = (props: any) => {
     const [maxVacDays, setMaxVacDays] = useState<any>();
     const [inelDays, setInelDays] = useState<any>();
     const [error, setError] = useState(false);
+    const [update, setUpdate] = useState(0);
 
     const [selectionType, setSelectionType] = useState("success");
 
@@ -83,6 +84,7 @@ const Calendar = (props: any) => {
             .catch((error: any) => {
                 console.log(error);
             })
+    }, [update]);
 
     // useEffect(() => {
     //     if (allApprovedReqs) {
@@ -124,6 +126,7 @@ const Calendar = (props: any) => {
             selectionType,
             setModalContent,
             inelDays,
+            setUpdate
         }}>
             <div className={styles.module}>
                 {modal && <Modal display={modal} setDisplay={setModal} >{modalContent}</Modal>}
