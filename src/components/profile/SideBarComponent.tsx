@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState, useRef} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AuthContext from '../../components/auth/AuthContext';
 import API from '../../api/API';
 import sidebarStyles from '../../css/profile/SideBarComponent.module.css';
@@ -32,6 +32,7 @@ const SideBarComponent = (props: any) => {
        
         const capture = React.useCallback(
           () => {
+              console.log("WEBCAM KÖRS!!!!!! _____ ");
             const imageSrc = (webcamRef as any).current.getScreenshot();
             updateUserImage(imageSrc);
             setImg(imageSrc);
@@ -61,7 +62,7 @@ const SideBarComponent = (props: any) => {
 
     async function getFromServer(userId:number){
         try {
-            let response = await API.user(userId);
+            let response = await API.user(5);
             if (response.status === 200) {
                 console.log(response.data);
                 setImg(response.data.profilePic);

@@ -12,7 +12,7 @@ const VacationComponent = (props: any) => {
 
     useEffect(() => {
         getFromServer();
-    }, []);
+    }, [user]);
 
     async function getFromServer(){
         try {
