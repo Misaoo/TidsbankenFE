@@ -19,6 +19,9 @@ const Dropdown = (props: any) => {
     const closeDropDown = (event: any) => {
         if (dropdownRef && !(dropdownRef as any).current.contains(event.target)) {
             setShowDropdown(false);
+            if (props.cb) {
+                props.cb();
+            }
         }
     }
 

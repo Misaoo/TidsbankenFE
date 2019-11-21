@@ -14,33 +14,36 @@ const Header = (props: any) => {
   const [key, setKey]=useState("");
 
   useEffect(() => {
+    callNotifications();
+  }, []);
+
+  const callNotifications =()=>{
     axios(process.env.REACT_APP_API_URL + "/notification", {
       method: "GET",
       withCredentials: true
     }).then(response => {
       setUpdate(response.data);
       console.log(response.data)
-    });
-  }, []);
+    });}
 
-  const removeNotification=()=>{
-    update.map((key:any)=>{
-      console.log(update)
-      let notifId = key.notificationId;
-      console.log(notifId);
-      axios(process.env.REACT_APP_API_URL + "/notification/" + notifId, {
+  const removeNotification=(value:any)=>{
+      return axios(process.env.REACT_APP_API_URL + "/notification/" + value, {
         method: "DELETE",
         withCredentials: true    
+    }).then (()=>{
+      console.log("done");
+      getNotifications();
     });
-    console.log("done");
-    });
+
+  //  });
   }
 
   const getNotifications=() => {
+    callNotifications();
     console.log("test")
       const liElement = update.map((value:any)=>{
         return <li 
-                  onClick={removeNotification} 
+                  onClick={()=>removeNotification(value.notificationId)} 
                   key={value.notificationId}>
                   <Link to="/profile">{value.message}</Link>
                 </li>
@@ -66,9 +69,7 @@ const Header = (props: any) => {
           <Link to="/dashboard">Dashboard</Link>
           <Dropdown 
           title={"Notifications"}
-          cb={() => getNotifications()}
-     //     cb2={()=> removeNotification()}
-          >
+          cb={() => getNotifications()}          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
@@ -89,9 +90,7 @@ const Header = (props: any) => {
           <Link to="/admin">Admin</Link>
           <Dropdown 
           title={"Notifications"} 
-          cb={() => getNotifications()}
-          cb2={()=> removeNotification()}
-          >
+          cb={() => getNotifications()}          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>

@@ -50,7 +50,7 @@ const GeneralTab = props => {
   return (
     <div>
       <h1>General</h1>
-      <h3>Current maximum vacation days: {data.maximumVacationDays}</h3>
+      <h3>Current maximum: {data.maximumVacationDays}</h3>
       <form onSubmit={handleSubmit}>
         <TextField
           name="maximumVacationDays"
