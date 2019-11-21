@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styles from '../../../css/Calendar.module.css';
-import { format } from 'date-fns';
+import { format, addMonths } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalendarContext from './CalendarContext';
 import { daysBetween, normalizeInterval } from './calendarUtils';
@@ -8,7 +8,7 @@ import { daysBetween, normalizeInterval } from './calendarUtils';
 const CalendarHeading = (props: any) => {
 
     let { selectedRange, maxVacDays } = useContext(CalendarContext);
-    let daysSelected: number = selectedRange.start && selectedRange.end && daysBetween(normalizeInterval({start: selectedRange.start, end: selectedRange.end}));
+    let daysSelected: number = selectedRange.start && selectedRange.end && daysBetween(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }));
 
     return (
         <div className={styles.calendarHeading}>
@@ -20,7 +20,7 @@ const CalendarHeading = (props: any) => {
                 <FontAwesomeIcon icon="caret-left" />
             </button>
             <div className={styles.currentYearMonth}>
-                <h2>{format(props.selectedDate, 'MMMM yyyy')}</h2>
+                <h2>{format(props.selectedDate, 'MMMM')} - {format(addMonths(props.selectedDate, 1), 'MMMM yyyy')}</h2>
                 <span>
                     {selectedRange.start && format(selectedRange.start, 'do MMM') + " - "}
                     {selectedRange.end && format(selectedRange.end, 'do MMM')}
