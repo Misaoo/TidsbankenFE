@@ -14,6 +14,11 @@ class RequestTab extends Component {
     };
   }
   componentDidMount() {
+    this.props.updateStyling({
+      general: {},
+      requests: { backgroundColor: "red" },
+      users: {}
+    });
     this.getData(process.env.REACT_APP_API_URL + "/request/allPending");
   }
   getData(link) {

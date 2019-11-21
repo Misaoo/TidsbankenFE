@@ -39,6 +39,11 @@ const GeneralTab = props => {
   };
 
   useEffect(() => {
+    props.updateStyling({
+      general: { backgroundColor: "red" },
+      requests: {},
+      users: {}
+    });
     axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
       method: "GET",
       withCredentials: true

@@ -12,7 +12,7 @@ class Navbar extends Component {
       <div>
         <div className="nestedNavbar">
           <Link
-            className="nestedNavbarButton"
+            className="navbarButton"
             to={{ pathname: "/admin/users/allUsers" }}
             onClick={() => {
               this.props.updateUsers();
@@ -21,7 +21,7 @@ class Navbar extends Component {
             All users
           </Link>
           <Link
-            className="nestedNavbarButton"
+            className="navbarButton"
             to={{ pathname: "/admin/users/addUser" }}
           >
             Add user

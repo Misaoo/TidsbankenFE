@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../general.css";
 
 class Navbar extends Component {
@@ -13,22 +12,22 @@ class Navbar extends Component {
         <div className="navbar">
           <Link
             className="navbarButton"
+            style={this.props.style.general}
             to={{ pathname: "/admin/general" }}
-            onClick={() => {}}
           >
             General
           </Link>
           <Link
             className="navbarButton"
+            style={this.props.style.requests}
             to={{ pathname: "/admin/requests" }}
-            onClick={() => {}}
           >
             Requests
           </Link>
           <Link
             className="navbarButton"
+            style={this.props.style.users}
             to={{ pathname: "/admin/users" }}
-            onClick={() => {}}
           >
             Users
           </Link>

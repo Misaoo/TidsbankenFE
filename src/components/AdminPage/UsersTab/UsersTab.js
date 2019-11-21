@@ -16,6 +16,11 @@ class UsersTab extends Component {
     };
   }
   componentDidMount() {
+    this.props.updateStyling({
+      general: {},
+      requests: {},
+      users: { backgroundColor: "red" }
+    });
     this.getUsers();
   }
   getUsers() {
