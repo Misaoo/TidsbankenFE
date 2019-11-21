@@ -1,3 +1,23 @@
+@value global: "../global.css";
+@value box-shadow from global;
+
 .wrapper{
-    background-color:lime;
+    padding: 15px;
+}
+
+.wrapper ul li{
+    list-style-type: none;
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #314353;
+    color: white;
+    display: inline;
+    margin: 5px;
+}
+
+.wrapper > div{
+    padding:25px;
+    box-shadow: box-shadow;
+    margin-top:15px;
 }

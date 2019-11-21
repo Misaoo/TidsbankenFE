@@ -12,14 +12,17 @@
     display: block;
     width: 100%;
     margin: auto;
-    border-radius: 15px;
     height: 35px;
-    text-indent: 10px;
     box-sizing: border-box;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #c1c1c1;
+    transition: all .3s;
 }
 
 .input:focus, .input:active {
     outline: none;
+    border-bottom: 2px solid #428cca;
 }
 
 /*-----------------------------
@@ -27,8 +30,9 @@
  *-----------------------------*/
 
  .label {
-     padding: 10px 0 5px 10px;
      display: block;
+     font-size: 12px;
+     margin-top:25px;
  }
 
 /*-----------------------------
@@ -37,11 +41,12 @@
 
 .button {
     height: 45px;
-    border-radius: 15px;
+    border-radius: 25px;
     margin: 20px 0;
     width: 100%;
-    background-color: btn-color;
+    background: btn-color;
     color: third-text-color;
+    border:none;
 }
 
 .button:hover {

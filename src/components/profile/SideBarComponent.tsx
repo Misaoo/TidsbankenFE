@@ -198,7 +198,7 @@ const SideBarComponent = (props: any) => {
 
             <form onSubmit={handleChange}>
                 <h1>{name} {lastName}</h1>
-                <h3>{(admin == '1') ? "Admin":"user"}</h3>
+                <h3>{(admin == '1') ? "Admin":"Employee"}</h3>
 
                 <div className={sidebarStyles.text}>
                     <label className={commonStyles.label} htmlFor="email">Email</label>

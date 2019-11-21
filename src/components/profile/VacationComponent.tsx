@@ -24,13 +24,7 @@ const VacationComponent = (props: any) => {
                 addResponseDataToLi(response1, setApprovedVacationsdays);
                 console.log(response1.data);  
                 addResponseDataToLi(response2, setDeniedVacationsdays);
-                addResponseDataToLi(response3, setPendingVacationsdays);
-                
-                // console.log(response1.data[0].dates[0]);    
-                // setDeniedVacationsdays(response2.data);
-                // console.log(response2.data);    
-                // setPendingVacationsdays(response3.data);
-                // console.log(response3.data[0]);       
+                addResponseDataToLi(response3, setPendingVacationsdays);  
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {
@@ -60,18 +54,20 @@ const VacationComponent = (props: any) => {
 
     return (
         <div className={vacationStyles.wrapper}>
-            <h1>Pending vacation requests</h1>
-            <ul>{pendingVacationdays}</ul>
-            
-            <h1>Upcoming vacation days</h1>
-            <ul>{approvedVacationdays}</ul>
-            
-            <h1>Denied vacation days</h1>
-            <ul>{deniedVacationdays}</ul>
+            <div>
+                <h1>Pending vacation requests</h1>
+                <ul>{pendingVacationdays}</ul>
+            </div>
 
-            <h1>History</h1>
-            <ul>{deniedVacationdays}</ul>
-            <ul>{approvedVacationdays}</ul>
+            <div>
+                <h1>Upcoming vacation days</h1>
+                <ul>{approvedVacationdays}</ul>
+            </div>
+            
+            <div>
+                <h1>Denied vacation days</h1>
+                <ul>{deniedVacationdays}</ul>
+            </div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 @value global: "../global.css";
-@value third-text-color from global;
+@value grey-text-color from global;
 
 /*******************/
 /***** OVERALL *****/
@@ -22,10 +22,18 @@
     color: third-text-color;
 }
 
+.SideBarWrapper > form > h3{
+    color: grey-text-color;
+    margin-top:-10px;
+    font-weight: normal;
+}
+
 /*******************/
 /***** IMAGE *****/
 /*******************/
 .imageWrapper{
+    display: flex;
+    justify-content: center;
     position: relative;
     height: 22vw;
     width: 22vw;

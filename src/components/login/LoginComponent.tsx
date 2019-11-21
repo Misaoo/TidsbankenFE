@@ -142,7 +142,7 @@ const LoginComponent = (props: any) => {
                     />
                     <p id={styles.errorMessage}>{error && message}</p>
 
-                    <button className={commonStyles.button + " " + styles.submit_login} type="submit" disabled={btnDisabled}>Login</button>
+                    <button className={commonStyles.button} type="submit" disabled={btnDisabled}>Login</button>
 
                     <Popover
                         trigger="Forgot password?"
