@@ -15,3 +15,36 @@ code {
 element {
   --bg-color1: #F5F5F5;
 }
+
+.fade-enter {
+  opacity: 0.7;
+  transform: translateY(-10px);
+  transition: all .3s ease-in;
+}
+
+.fade-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all .3s ease-in;
+}
+
+.fade-exit-active {
+  opacity: 0.7;
+  transform: translateY(-10px);
+}
+
+.fade-appear {
+  opacity: 0.7;
+  transform: translateY(-10px);
+}
+
+.fade-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all .3s ease-in;
+}

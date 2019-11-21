@@ -6,6 +6,8 @@ import { format, isDate } from 'date-fns';
 import CalendarContext from './CalendarContext';
 import { isDateBetween, normalizeInterval } from './calendarUtils';
 import Mark from './Mark';
+import { CSSTransition } from 'react-transition-group';
+
 
 const CalendarDisplay = (props: any) => {
 
@@ -108,11 +110,19 @@ const CalendarDisplay = (props: any) => {
 
 
     return (
-        <div className={styles.calendar + " " + props.className}>
+        <CSSTransition
+            in={true}
+            classNames={"fade"}
+            timeout={300}
+            key={selectedDate.toISOString()}
+            appear={true}>
+            <div className={styles.calendar + " " + props.className} key={props.date}>
             {generateWeekdayHeaders()}
             {generateMonthName(props.month)}
             {generateMonth(props.month)}
         </div>
+        </CSSTransition>
+
     )
 }
 
