@@ -86,6 +86,19 @@ const Calendar = (props: any) => {
             })
     }, [update]);
 
+    useEffect(() => {
+        const switchMonth = (event: KeyboardEvent) => {
+            if (event.keyCode === 37) {
+                decreaseMonth();
+            } else if (event.keyCode === 39) {
+                increaseMonth();
+            }
+        }
+
+        document.addEventListener("keydown", switchMonth);
+        return (() => document.removeEventListener("keydown", switchMonth));
+    }, [selectedDate]);
+
     // useEffect(() => {
     //     if (allApprovedReqs) {
     //         console.log(allApprovedReqs);
@@ -113,6 +126,7 @@ const Calendar = (props: any) => {
 
     return (
         <CalendarContext.Provider value={{
+            selectedDate,
             selectedRange,
             setSelectedRange,
             modal,
@@ -124,10 +138,14 @@ const Calendar = (props: any) => {
             maxVacDays,
             daysLeft,
             selectionType,
+            setSelectionType,
+            // modalContent, 
             setModalContent,
             inelDays,
             setUpdate
         }}>
+
+
             <div className={styles.module}>
                 {modal && <Modal display={modal} setDisplay={setModal} >{modalContent}</Modal>}
                 <CalendarHeading
@@ -143,18 +161,19 @@ const Calendar = (props: any) => {
                     <h3>Request vacation</h3>
                     <p>To request a vacation, mark a period by selecting a start-date and then an end-date in the calendar.</p>
                 </Infobox>
-                <>
-                    {!error && <><CalendarDisplay
+                {!error && <>
+                    <CalendarDisplay
                         month={selectedDate}
                         className={styles.calendarA}
                     />
                     <CalendarDisplay
                         month={addMonths(selectedDate, 1)}
                         className={styles.calendarB}
-                    /></>}
-                </>
+                    />
+                </>}
             </div>
-        </CalendarContext.Provider>
+
+        </CalendarContext.Provider >
     );
 }
 

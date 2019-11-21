@@ -11,7 +11,7 @@ import { CSSTransition } from 'react-transition-group';
 
 const CalendarDisplay = (props: any) => {
 
-    const { selectedRange, allApprovedReqs, pendingReqs, deniedReqs, selectionType } = useContext(CalendarContext);
+    const { selectedRange, allApprovedReqs, pendingReqs, deniedReqs, selectionType, selectedDate } = useContext(CalendarContext);
     const [lastSelectedDay, setLastSelectedDay] = useState<Date>();
 
     // useEffect(() => {
