@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import "../../general.css";
 
 class Navbar extends Component {
@@ -14,6 +13,7 @@ class Navbar extends Component {
           <Link
             className="navbarButton"
             to={{ pathname: "/admin/users/allUsers" }}
+            style={this.props.style.allUsers}
             onClick={() => {
               this.props.updateUsers();
             }}
@@ -23,6 +23,7 @@ class Navbar extends Component {
           <Link
             className="navbarButton"
             to={{ pathname: "/admin/users/addUser" }}
+            style={this.props.style.addUsers}
           >
             Add user
           </Link>

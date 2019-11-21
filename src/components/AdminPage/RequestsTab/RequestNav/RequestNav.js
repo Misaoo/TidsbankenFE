@@ -12,6 +12,7 @@ class Navbar extends Component {
         <div className="nestedNavbar">
           <Link
             className="navbarButton"
+            style={this.props.style.pending}
             onClick={() => {
               this.props.setData(
                 process.env.REACT_APP_API_URL + "/request/allPending"
@@ -23,6 +24,7 @@ class Navbar extends Component {
           </Link>
           <Link
             className="navbarButton"
+            style={this.props.style.approved}
             onClick={() => {
               this.props.setData(
                 process.env.REACT_APP_API_URL + "/request/allApproved"
@@ -34,6 +36,7 @@ class Navbar extends Component {
           </Link>
           <Link
             className="navbarButton"
+            style={this.props.style.denied}
             onClick={() => {
               this.props.setData(
                 process.env.REACT_APP_API_URL + "/request/allDenied"

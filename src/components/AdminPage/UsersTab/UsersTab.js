@@ -6,13 +6,19 @@ import UserNav from "./UserNav/UserNav";
 import UserCard from "./UserCard/UserCard";
 import AddUser from "./AddUser/AddUser";
 import "../general.css";
+import CardList from "../CardList/CardList";
 
 class UsersTab extends Component {
   //let address = props.address;
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      users: [],
+      style: {
+        general: {},
+        requests: {},
+        users: {}
+      }
     };
   }
   componentDidMount() {
@@ -43,21 +49,47 @@ class UsersTab extends Component {
       });
     });
   }
+  updateStyling(style) {
+    this.setState({
+      style: style
+    });
+  }
   render() {
     return (
       <div className="userTab">
         <Router>
-          <UserNav updateUsers={this.getUsers.bind(this)} />
+          <UserNav
+            updateUsers={this.getUsers.bind(this)}
+            style={this.state.style}
+          />
           <Switch>
             <Route
               path="/admin/users/allUsers"
               render={() => (
-                <div className="userContent">{this.state.users}</div>
+                <div className="userContent">
+                  <CardList
+                    key="users"
+                    content={this.state.users}
+                    styling={{
+                      allUsers: { backgroundColor: "red" },
+                      addUsers: {}
+                    }}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                </div>
               )}
             ></Route>
             <Route
               path="/admin/users/addUser"
-              render={() => <AddUser />}
+              render={() => (
+                <AddUser
+                  updateStyling={this.updateStyling.bind(this)}
+                  styling={{
+                    allUsers: {},
+                    addUsers: { backgroundColor: "red" }
+                  }}
+                />
+              )}
             ></Route>
             <Redirect exact from="/admin/users" to="/admin/users/allUsers" />
           </Switch>
