@@ -38,13 +38,13 @@ const CalendarDisplay = (props: any) => {
 
             let selected = isDateBetween(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }), day);
 
-            let marks:any = [];
+            let marks: any = [];
 
             // Move these out of the loop if possible.
             allApprovedReqs && allApprovedReqs.map((req: any) => {
                 req.dates.map((date: any) => {
                     if (isSameDay(new Date(date), day)) {
-                        marks = [...marks, <Mark type="approved" vacReq={req} />];
+                        marks = [...marks, <Mark key={req.requestId} type="approved" vacReq={req} />];
                     }
                 });
             });
@@ -52,15 +52,15 @@ const CalendarDisplay = (props: any) => {
             pendingReqs && pendingReqs.map((req: any) => {
                 req.dates.map((date: any) => {
                     if (isSameDay(new Date(date), day)) {
-                        marks = [...marks, <Mark type="pending" vacReq={req} />];
+                        marks = [...marks, <Mark  key={req.requestId} type="pending" vacReq={req} />];
                     }
                 })
-            }) 
+            })
 
             deniedReqs && deniedReqs.map((req: any) => {
                 req.dates.map((date: any) => {
                     if (isSameDay(new Date(date), day)) {
-                        marks = [...marks, <Mark type="denied" vacReq={req} />];
+                        marks = [...marks, <Mark  key={req.requestId} type="denied" vacReq={req} />];
                     }
                 })
             })
@@ -117,10 +117,10 @@ const CalendarDisplay = (props: any) => {
             key={selectedDate.toISOString()}
             appear={true}>
             <div className={styles.calendar + " " + props.className} key={props.date}>
-            {generateWeekdayHeaders()}
-            {generateMonthName(props.month)}
-            {generateMonth(props.month)}
-        </div>
+                {generateWeekdayHeaders()}
+                {generateMonthName(props.month)}
+                {generateMonth(props.month)}
+            </div>
         </CSSTransition>
 
     )
