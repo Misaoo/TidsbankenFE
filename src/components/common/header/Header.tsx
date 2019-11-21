@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Redirect } from 'react-router-dom';
 import AuthContext from "../../auth/AuthContext";
 import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
@@ -11,7 +10,6 @@ const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>([]); // Used for li html elements
-  const [key, setKey]=useState("");
 
   useEffect(() => {
     callNotifications();
@@ -34,8 +32,6 @@ const Header = (props: any) => {
       console.log("done");
       getNotifications();
     });
-
-  //  });
   }
 
   const getNotifications=() => {
