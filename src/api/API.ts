@@ -47,7 +47,7 @@ const userDeniedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/
 const getVacationDays = () => axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
     method: "GET",
     withCredentials: true
-  });
+});
 
 const submitVacationRequest = (dates: string[]) => axios(process.env.REACT_APP_API_URL + "/request", {
     method: "POST",
@@ -60,6 +60,12 @@ const submitIneligibleDay = (date: string) => axios(process.env.REACT_APP_API_UR
     withCredentials: true,
     data: {date: date}
 });
+
+const getIneligibleDays = () => axios(process.env.REACT_APP_API_URL + "/ineligible", {
+    method: "GET",
+    withCredentials: true
+});
+
 export default { 
     login, 
     login2fa, 
@@ -69,5 +75,8 @@ export default {
     allApprovedVacReqs,
     userPendingVacReqs,
     userDeniedVacReqs,
-    getVacationDays
+    getVacationDays,
+    submitVacationRequest,
+    submitIneligibleDay,
+    getIneligibleDays
 };

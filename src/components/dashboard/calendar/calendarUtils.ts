@@ -5,10 +5,10 @@ interface Interval {
     end: Date
 }
 
-export const isIneligible = (date: Date, ineligibleDates: Date[]): boolean => {
+export const isIneligible = (date: Date, ineligibleDates: []): boolean => {
     let output = false;
-    ineligibleDates.map(inelDate => {
-        if (isSameDay(date, inelDate)) {
+    ineligibleDates.map((inelDate: any) => {
+        if (isSameDay(date, new Date(inelDate.date))) {
             output = true;
         };
     })

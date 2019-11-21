@@ -24,6 +24,7 @@ const Calendar = (props: any) => {
     const [deniedReqs, setDeniedReqs] = useState<any>();
     const [pendingReqs, setPendingReqs] = useState<any>();
     const [maxVacDays, setMaxVacDays] = useState<any>();
+    const [inelDays, setInelDays] = useState<any>();
     const [error, setError] = useState(false);
 
     const [selectionType, setSelectionType] = useState("success");
@@ -73,8 +74,15 @@ const Calendar = (props: any) => {
                     return;
                 }
                 setError(true);
+            });
+
+        API.getIneligibleDays()
+            .then((res: any) => {
+                setInelDays(res.data);
             })
-    }, []);
+            .catch((error: any) => {
+                console.log(error);
+            })
 
     // useEffect(() => {
     //     if (allApprovedReqs) {
@@ -115,6 +123,7 @@ const Calendar = (props: any) => {
             daysLeft,
             selectionType,
             setModalContent,
+            inelDays,
         }}>
             <div className={styles.module}>
                 {modal && <Modal display={modal} setDisplay={setModal} >{modalContent}</Modal>}
