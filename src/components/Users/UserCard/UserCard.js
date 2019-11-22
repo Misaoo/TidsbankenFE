@@ -10,9 +10,6 @@ class UserCard extends Component {
       showPopup: false
     };
   }
-  gotoUserpage() {
-    window.location.href = "/user/" + this.props.user.userId;
-  }
   render() {
     return (
       <React.Fragment>
