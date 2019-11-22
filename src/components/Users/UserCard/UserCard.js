@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "../Users.css";
 
 class UserCard extends Component {
@@ -15,25 +16,22 @@ class UserCard extends Component {
   render() {
     return (
       <React.Fragment>
-        <div
-          className="userCard"
-          onClick={() => {
-            this.gotoUserpage();
-          }}
-        >
-          <div className="imgContainer">
-            <img
-              className="userImg"
-              src={this.props.user.profilePic}
-              alt=""
-            ></img>
+        <Link to={{ pathname: "/user/" + this.props.user.userId }}>
+          <div className="userCard">
+            <div className="imgContainer">
+              <img
+                className="userImg"
+                src={this.props.user.profilePic}
+                alt=""
+              ></img>
+            </div>
+            <div className="nameContainer">
+              <b>
+                {this.props.user.name} {this.props.user.lastName}
+              </b>
+            </div>
           </div>
-          <div className="nameContainer">
-            <b>
-              {this.props.user.name} {this.props.user.lastName}
-            </b>
-          </div>
-        </div>
+        </Link>
       </React.Fragment>
     );
   }
