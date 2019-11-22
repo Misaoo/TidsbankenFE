@@ -51,7 +51,11 @@ class PictureUpload extends Component {
       <div>
         <h3>Change profile picture</h3>
         <form onSubmit={this.handleSubmit}>
-          <input type="file" onChange={this.handleChange}></input>
+          <input
+            type="file"
+            onChange={this.handleChange}
+            accept=".jpg, .png, .jpeg"
+          ></input>
           <div className="profilePic">
             <img className="picture" src={this.state.image} alt="" />
           </div>
