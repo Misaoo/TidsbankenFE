@@ -55,7 +55,7 @@ const SideBarComponent = (props: any) => {
       };
     
     useEffect(() =>{
-        if(user){
+        if(user && user.userId){
             getFromServer(user.userId);   // Get image from server
         }
     }, [user])
