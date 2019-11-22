@@ -132,6 +132,7 @@ const Day = (props: any) => {
                 </span>
             </Tooltip>}
             {!isIneligible(props.date, inelDays) && props.markings}
+            {isIneligible(props.date, inelDays) && <div className={styles.ineligibleMessage}>Ineligible</div>}
         </>}
         {styleWeekend ? <span className={styleWeekend}></span> : null}
     </div>

@@ -22,14 +22,31 @@
     outline: none;
 }
 
+
+/*-----------------------------
+ * Textarea
+ *-----------------------------*/
+
+.textarea {
+    border: 1px solid gray;
+    font-family: inherit;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 19px;
+}
+
+.textarea:active, .textarea:focus {
+    border: 1px solid #408bc4;
+}
+
 /*-----------------------------
  * Labels
  *-----------------------------*/
 
- .label {
-     padding: 10px 0 5px 10px;
-     display: block;
- }
+.label {
+    padding: 10px 0 5px 10px;
+    display: block;
+}
 
 /*-----------------------------
  * Buttons
