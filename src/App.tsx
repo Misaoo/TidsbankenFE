@@ -30,6 +30,7 @@ import Dashboard from "./views/dashboard/Dashboard";
 import Logout from "./components/logout/Logout";
 import AdminPage from "./components/AdminPage/AdminPage";
 import Users from "./components/Users/Users";
+import Requests from "./views/requests/Requests";
 
 library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle);
 
@@ -47,6 +48,7 @@ const App: React.FC = () => {
             <AuthRoute path="/profile" component={ProfileView} />
             <Route path="/dashboard" component={Dashboard} />
             <AuthRoute path="/logout" component={Logout} />
+            <Route path="/requests/:id" component={Requests} />
             <Route path="/admin" component={AdminPage} />
             <Route path="/users" component={Users} />
             <Route component={ViewNotFound} />

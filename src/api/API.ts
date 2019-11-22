@@ -66,6 +66,22 @@ const getIneligibleDays = () => axios(process.env.REACT_APP_API_URL + "/ineligib
     withCredentials: true
 });
 
+const getVacationRequest = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/${id}`, {
+    method: "GET",
+    withCredentials: true
+});
+
+const getVacationRequestComments = (id: number) => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
+    method: "GET",
+    withCredentials: true
+});
+
+const postVacationRequestComment = (id: number, comment: string) => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
+    method: "POST", 
+    withCredentials: true, 
+    data: { "comment": comment }
+});
+
 export default { 
     login, 
     login2fa, 
@@ -78,5 +94,8 @@ export default {
     getVacationDays,
     submitVacationRequest,
     submitIneligibleDay,
-    getIneligibleDays
+    getIneligibleDays,
+    getVacationRequest,
+    getVacationRequestComments,
+    postVacationRequestComment
 };
