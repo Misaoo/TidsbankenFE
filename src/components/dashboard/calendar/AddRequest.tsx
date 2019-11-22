@@ -59,10 +59,12 @@ const AddRequest = (props: any) => {
                 Promise.all(fetches)
                     .then((res: any) => {
                         setSuccess(true);
-                        setUpdate((u:number) => u + 1);
                     })
                     .catch((error: any) => {
                         setError(true);
+                    })
+                    .finally(() => {
+                        setUpdate((u:number) => u + 1);
                     })
             }
 
@@ -124,7 +126,7 @@ const AddRequest = (props: any) => {
                     Set ineligible period
                 </label>
             </>}
-            {error && <p className={styles.error}> <FontAwesomeIcon icon="exclamation-circle" /> Something went wrong, please try again.</p>}
+            {error && <p className={styles.error}><FontAwesomeIcon icon="exclamation-circle" /> Something went wrong, please try again.</p>}
             {success && <p className={styles.success}><FontAwesomeIcon icon="check-circle" />Your request was submitted</p>}
             {loggedIn && <button className={commonStyles.button} type="submit" disabled={success}>Request</button>}
             {loggedInAdmin && <button className={commonStyles.button} type="submit" disabled={success}>{type === "vacation" ? 'Request' : 'Set'}</button>}
