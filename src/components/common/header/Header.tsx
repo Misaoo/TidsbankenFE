@@ -4,32 +4,11 @@ import AuthContext from "../../auth/AuthContext";
 import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
 import Dropdown from "../dropdown/Dropdown";
-import Pusher from "pusher-js";
 
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>({}); // Used for li html elements
-
-  let pusher: any;
-  let channel: any;
-
-  useEffect(() => {
-    pusher = new Pusher("4c6550e4e866a013a371", {
-      cluster: "eu",
-      forceTLS: true
-    });
-
-    channel = pusher.subscribe("notifications");
-
-    channel.bind("user_update", function(data: any) {
-      setUpdate(data);
-    });
-
-    channel.bind("pusher:subscription_succeeded", function(members: any) {
-      console.log("successfully subscribed! - Pusher");
-    });
-  }, []);
 
   useEffect(() => {
     function getNotification() {

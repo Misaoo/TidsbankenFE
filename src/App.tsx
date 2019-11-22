@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import AuthRoute from "./components/auth/AuthRoute";
 import Auth from "./components/auth/Auth";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -42,7 +43,7 @@ const App: React.FC = () => {
         <Router>
           <Header />
           <Switch>
-            <Route exact path="/" component={Landing} />
+            <Redirect exact from="/" to="/login" />
             <Route path="/login" component={Login} />
             <Route path="/2fa" component={TwoFactorAuth} />
             <AuthRoute path="/test" component={MyView} />

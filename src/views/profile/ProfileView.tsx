@@ -18,10 +18,10 @@ const ProfileView = (props:any) => {
         <main className={profileStyle.ProfileWrapper}>
             <aside>
                 <SideBarComponent email={email} setEmail={setEmail}/>
-                {/* <SettingComponent email={email}/> */}
+                <SettingComponent email={email}/>
             </aside>
             <div>
-                {/* <VacationComponent /> */}
+                <VacationComponent />
             </div>
         </main>  
     )

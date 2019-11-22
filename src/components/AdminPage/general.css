@@ -1,9 +1,13 @@
+.adminPage {
+  max-height: 90vh;
+}
+
 .requestContent {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   padding: 2%;
   overflow-y: auto;
-  height: 65vh;
+  max-height: 63vh;
   column-gap: 2%;
   row-gap: 4%;
 }
@@ -12,7 +16,7 @@
   grid-template-columns: repeat(2, 1fr);
   padding: 2%;
   overflow-y: auto;
-  height: 65vh;
+  max-height: 63vh;
   column-gap: 2%;
   row-gap: 4%;
 }

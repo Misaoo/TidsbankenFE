@@ -5,6 +5,7 @@ import Navbar from "./Navbar/Navbar";
 import GeneralTab from "./GeneralTab/GeneralTab";
 import RequestTab from "./RequestsTab/RequestTab";
 import UsersTab from "./UsersTab/UsersTab";
+import "./general.css";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class AdminPage extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="adminPage">
         <Router>
           <h1>Admin Page</h1>
           <Navbar style={this.state.style} />
@@ -68,7 +69,7 @@ class AdminPage extends Component {
             <Redirect exact from="/admin" to="/admin/general" />
           </Switch>
         </Router>
-      </React.Fragment>
+      </div>
     );
   }
 }
