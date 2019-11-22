@@ -21,7 +21,6 @@ const Header = (props: any) => {
       withCredentials: true
     }).then(response => {
       setUpdate(response.data);
-      console.log(response.data)
     });}
 
   const removeNotification=(value:any)=>{
@@ -29,14 +28,12 @@ const Header = (props: any) => {
         method: "DELETE",
         withCredentials: true    
     }).then (()=>{
-      console.log("done");
       getNotifications();
     });
   }
 
   const getNotifications=() => {
     callNotifications();
-    console.log("test")
       const liElement = update.map((value:any)=>{
         return <li 
                   onClick={()=>removeNotification(value.notificationId)} 
