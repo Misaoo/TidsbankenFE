@@ -33,9 +33,6 @@ const RequestsComponent = (props: any) => {
         Promise.all(fetches)
             .then((res: any) => {
                 reversedComments.map((comment: any) => {
-                    console.log(res);
-                    console.log(comment);
-                    console.log(res.filter((user: any) => user.userId === comment.userId));
                     let user = res.filter((user: any) => user.userId === comment.userId)[0];
                     list = [...list, <div key={comment.commentId} className={styles.comment}><div className={styles.message}>{comment.comment}</div><span className={styles.messageOwner}>{user.name + " " + user.lastName + ":"}</span></div>];
                 });
