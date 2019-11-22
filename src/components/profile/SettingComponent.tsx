@@ -23,12 +23,18 @@ const SettingComponent = (props: any) => {
     function Update3faModal(){ setshowModal3(true); }
 
     useEffect(() =>{
+<<<<<<< HEAD
         NewAuth(user!.twoFacAut);
     },[])
+=======
+        if(user) {
+            NewAuth(user!.twoFacAut!);
+        }
+    },[user])
+>>>>>>> 94a7c214ce9db8d4b95819dbe99c69b347e32c02
 
     // Sets new useState for auth - switches the number from 0 to 1 or 1 to 0
     function NewAuth(number:any){
-        console.log(number);
         if(number == 0){
             setTwoAuth(1);
         } else if (number == 1){
@@ -38,7 +44,6 @@ const SettingComponent = (props: any) => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(user);
 
         let oldPassword = testOldPassword();
         let newPassword = testNewPasswords();

@@ -24,4 +24,7 @@
     border-top-right-radius: 15px;
     font-size: 20px;
     padding: 20px 0;
+    background: linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%);
+    color: white;
+    font-weight: normal;
 }
