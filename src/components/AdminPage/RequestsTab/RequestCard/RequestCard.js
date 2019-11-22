@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import RequestModifier from "./RequestModifier/RequestModifier";
+import "../../general.css";
 
 class RequestCard extends Component {
   constructor(props) {
@@ -9,8 +10,15 @@ class RequestCard extends Component {
       showPopup: false,
       name: this.props.request.requestId,
       lastName: "",
-      statusText: ""
+      statusText: "",
+      dates: []
     };
+    let keyVal = 0;
+    this.props.request.dates.map(date => {
+      this.state.dates.push(
+        <li key={keyVal++}>{new Date(date).toLocaleDateString("se")}</li>
+      );
+    });
   }
   componentDidMount() {
     axios(
@@ -34,7 +42,7 @@ class RequestCard extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="cardBody">
         {this.state.showPopup && (
           <RequestModifier
             requesterName={this.state.name}
@@ -45,20 +53,18 @@ class RequestCard extends Component {
           />
         )}
         <div
+          className="cardContent"
           onClick={() => {
             this.setPopup();
           }}
-          style={{ borderStyle: "solid" }}
         >
-          Request ID: {this.props.request.requestId}
+          <b>Request ID:</b> {this.props.request.requestId}
           <br />
-          Dates: {this.props.request.dates.toString()}
+          <b>Dates:</b> <ul>{this.state.dates}</ul>
           <br />
-          Status: {this.props.request.status}
-          <br />
-          Requester: {this.state.name} {this.state.lastName}
+          <b>Requester:</b> {this.state.name} {this.state.lastName}
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

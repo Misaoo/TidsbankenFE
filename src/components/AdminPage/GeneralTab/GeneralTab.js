@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import ExportImport from "./ExportImport/ExportImport";
 
 const GeneralTab = props => {
   const [input, setInput] = useState({ maximumVacationDays: " " });
@@ -29,7 +30,6 @@ const GeneralTab = props => {
     } else {
       setMaximumVacationDays().then(data => {
         setData(data.data);
-        console.log(data);
       });
     }
   };
@@ -39,6 +39,11 @@ const GeneralTab = props => {
   };
 
   useEffect(() => {
+    props.updateStyling({
+      general: { backgroundColor: "red" },
+      requests: {},
+      users: {}
+    });
     axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
       method: "GET",
       withCredentials: true
@@ -62,6 +67,7 @@ const GeneralTab = props => {
           OK
         </Button>
       </form>
+      <ExportImport />
     </div>
   );
 };

@@ -92,30 +92,36 @@ class UserModifier extends Component {
             <h1>Edit User</h1>
             <br></br>
             <form onSubmit={this.handleSubmit}>
-              <TextField
-                name="name"
-                variant="outlined"
-                label="Name"
-                defaultValue={this.props.user.name}
-                onChange={this.handleChange}
-                fullWidth
-              ></TextField>
-              <TextField
-                name="lastName"
-                variant="outlined"
-                label="Last Name"
-                defaultValue={this.props.user.lastName}
-                onChange={this.handleChange}
-                fullWidth
-              ></TextField>
-              <TextField
-                name="email"
-                variant="outlined"
-                label="Email"
-                defaultValue={this.props.user.email}
-                onChange={this.handleChange}
-                fullWidth
-              ></TextField>
+              <div className={styles.textField}>
+                <TextField
+                  name="name"
+                  variant="outlined"
+                  label="Name"
+                  defaultValue={this.props.user.name}
+                  onChange={this.handleChange}
+                  fullWidth
+                ></TextField>
+              </div>
+              <div className={styles.textField}>
+                <TextField
+                  name="lastName"
+                  variant="outlined"
+                  label="Last Name"
+                  defaultValue={this.props.user.lastName}
+                  onChange={this.handleChange}
+                  fullWidth
+                ></TextField>
+              </div>
+              <div className={styles.textField}>
+                <TextField
+                  name="email"
+                  variant="outlined"
+                  label="Email"
+                  defaultValue={this.props.user.email}
+                  onChange={this.handleChange}
+                  fullWidth
+                ></TextField>
+              </div>
               <br></br>
               <b>Administrator</b>
               <br></br>
@@ -157,47 +163,55 @@ class UserModifier extends Component {
               ></input>
               <label>False</label>
               <br></br>
-              <Button variant="contained" type="submit" color="secondary">
-                Submit
-              </Button>
+              <div className={styles.textField}>
+                <Button variant="contained" type="submit" color="secondary">
+                  Submit
+                </Button>
+              </div>
             </form>
           </div>
           <div></div>
           <div className={styles.contentLeft}>
             <h3>Set new password</h3>
             <form onSubmit={this.handleSubmitPassword}>
-              <TextField
-                name="passwordTop"
-                variant="outlined"
-                label="Password"
-                type="password"
-                value={this.state.passwordTop}
-                onChange={this.handleChange}
-                fullWidth
-              ></TextField>
-              <TextField
-                name="passwordBottom"
-                variant="outlined"
-                label="Verify password"
-                type="password"
-                value={this.state.passwordBottom}
-                onChange={this.handleChange}
-                fullWidth
-              ></TextField>
-              <Button
-                disabled={
-                  !(
-                    this.state.passwordTop === this.state.passwordBottom &&
-                    !(this.state.passwordBottom === "") &&
-                    !(this.state.passwordTop === "")
-                  )
-                }
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                Set new password
-              </Button>
+              <div className={styles.textField}>
+                <TextField
+                  name="passwordTop"
+                  variant="outlined"
+                  label="Password"
+                  type="password"
+                  value={this.state.passwordTop}
+                  onChange={this.handleChange}
+                  fullWidth
+                ></TextField>
+              </div>
+              <div className={styles.textField}>
+                <TextField
+                  name="passwordBottom"
+                  variant="outlined"
+                  label="Verify password"
+                  type="password"
+                  value={this.state.passwordBottom}
+                  onChange={this.handleChange}
+                  fullWidth
+                ></TextField>
+              </div>
+              <div className={styles.textField}>
+                <Button
+                  disabled={
+                    !(
+                      this.state.passwordTop === this.state.passwordBottom &&
+                      !(this.state.passwordBottom === "") &&
+                      !(this.state.passwordTop === "")
+                    )
+                  }
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  Set new password
+                </Button>
+              </div>
             </form>
             <div>
               <PictureUpload
@@ -206,14 +220,16 @@ class UserModifier extends Component {
                 updateList={this.props.updateList}
               />
             </div>
-            <div>
-              <h3>Delete User</h3>
-              <form onSubmit={this.handleSubmitDeleteUser}>
-                <Button variant="contained" type="submit" color="secondary">
-                  Delete User
-                </Button>
-              </form>
-            </div>
+            {this.props.user.isAdmin === 0 && (
+              <div>
+                <h3>Delete User</h3>
+                <form onSubmit={this.handleSubmitDeleteUser}>
+                  <Button variant="contained" type="submit" color="secondary">
+                    Delete User
+                  </Button>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       </div>

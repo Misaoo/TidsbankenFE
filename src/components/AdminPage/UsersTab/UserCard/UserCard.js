@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserModifier from "./UserModifier/UserModifier";
+import "../../general.css";
 
 class UserCard extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class UserCard extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div className="cardBody">
         {this.state.showPopup && (
           <UserModifier
             user={this.props.user}
@@ -25,22 +26,25 @@ class UserCard extends Component {
           />
         )}
         <div
+          className="userCardContent"
           onClick={() => {
             this.setPopup();
           }}
-          style={{ borderStyle: "solid" }}
         >
-          Name: {this.props.user.name} {this.props.user.lastName}
-          <br />
-          Email: {this.props.user.email}
-          <br />
-          Admin: {this.props.user.isAdmin === 1 && "True"}
-          {this.props.user.isAdmin === 0 && "False"}
-          <br />
-          2FA: {this.props.user.twoFacAut === 1 && "True"}
-          {this.props.user.twoFacAut === 0 && "False"}
+          <div className="userCardImage">
+            <img src={this.props.user.profilePic} alt="" />
+          </div>
+          <div>
+            <b>Name:</b> {this.props.user.name} {this.props.user.lastName}{" "}
+            {this.props.user.isAdmin === 1 && <b>(Admin)</b>}
+            <br />
+            <b>Email:</b> {this.props.user.email}
+            <br />
+            <b>2FA:</b> {this.props.user.twoFacAut === 1 && "Enabled"}
+            {this.props.user.twoFacAut === 0 && "Disabled"}
+          </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

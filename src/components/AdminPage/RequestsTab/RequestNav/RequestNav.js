@@ -1,38 +1,55 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import "../../general.css";
 
-const Navbar = props => {
-  //let address = props.address;
-
-  return (
-    <div>
-      <Link
-        to={{ pathname: "/admin/requests/pending" }}
-        onClick={() =>
-          props.setData(process.env.REACT_APP_API_URL + "/request/allPending")
-        }
-      >
-        <Button variant="contained">Pending</Button>
-      </Link>
-      <Link
-        to={{ pathname: "/admin/requests/approved" }}
-        onClick={() =>
-          props.setData(process.env.REACT_APP_API_URL + "/request/allApproved")
-        }
-      >
-        <Button variant="contained">Approved</Button>
-      </Link>
-      <Link
-        to={{ pathname: "/admin/requests/denied" }}
-        onClick={() =>
-          props.setData(process.env.REACT_APP_API_URL + "/request/allDenied")
-        }
-      >
-        <Button variant="contained">Denied</Button>
-      </Link>
-    </div>
-  );
-};
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div className="nestedNavbarOuter">
+        <div className="nestedNavbar">
+          <Link
+            className="navbarButton"
+            style={this.props.style.pending}
+            onClick={() => {
+              this.props.setData(
+                process.env.REACT_APP_API_URL + "/request/allPending"
+              );
+            }}
+            to={{ pathname: "/admin/requests/pending" }}
+          >
+            Pending
+          </Link>
+          <Link
+            className="navbarButton"
+            style={this.props.style.approved}
+            onClick={() => {
+              this.props.setData(
+                process.env.REACT_APP_API_URL + "/request/allApproved"
+              );
+            }}
+            to={{ pathname: "/admin/requests/approved" }}
+          >
+            Approved
+          </Link>
+          <Link
+            className="navbarButton"
+            style={this.props.style.denied}
+            onClick={() => {
+              this.props.setData(
+                process.env.REACT_APP_API_URL + "/request/allDenied"
+              );
+            }}
+            to={{ pathname: "/admin/requests/denied" }}
+          >
+            Denied
+          </Link>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Navbar;

@@ -57,9 +57,11 @@ class PictureUpload extends Component {
           </div>
 
           {this.state.showUpload && (
-            <Button variant="contained" type="submit" color="primary">
-              Upload Picture
-            </Button>
+            <div className="uploadButton">
+              <Button variant="contained" type="submit" color="primary">
+                Upload Picture
+              </Button>
+            </div>
           )}
         </form>
       </div>

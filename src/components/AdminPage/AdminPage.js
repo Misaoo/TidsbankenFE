@@ -11,8 +11,18 @@ class AdminPage extends Component {
     super(props);
 
     this.state = {
-      requests: []
+      requests: [],
+      style: {
+        general: {},
+        requests: {},
+        users: {}
+      }
     };
+  }
+  updateStyling(style) {
+    this.setState({
+      style: style
+    });
   }
 
   render() {
@@ -20,19 +30,40 @@ class AdminPage extends Component {
       <React.Fragment>
         <Router>
           <h1>Admin Page</h1>
-          <Navbar />
+          <Navbar style={this.state.style} />
           <Switch>
             <Route
               path="/admin/general"
-              render={props => <GeneralTab {...props} />}
+              render={props => {
+                return (
+                  <GeneralTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
             ></Route>
             <Route
               path="/admin/requests"
-              render={props => <RequestTab {...props} />}
+              render={props => {
+                return (
+                  <RequestTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
             ></Route>
             <Route
               path="/admin/users"
-              render={props => <UsersTab {...props} />}
+              render={props => {
+                return (
+                  <UsersTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
             ></Route>
             <Redirect exact from="/admin" to="/admin/general" />
           </Switch>
