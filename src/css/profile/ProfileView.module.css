@@ -1,0 +1,12 @@
+/* @value global: "./global.css";
+@value bg-color from global; */
+
+.ProfileWrapper{
+    display:grid;
+    grid-template-columns: minmax(250px,max-content) 1fr;
+    min-height: calc(100% - 40px);
+}
+
+.ProfileWrapper aside{
+    background-color: #efefef;
+}

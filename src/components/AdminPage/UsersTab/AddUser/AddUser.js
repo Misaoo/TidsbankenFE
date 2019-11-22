@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import "./AddUser.css";
 import AddPicture from "./AddPicture/AddPicture";
+import commonStyles from "../../../../css/Common.module.css";
 
 class PictureUpload extends Component {
   constructor(props) {
@@ -18,6 +18,9 @@ class PictureUpload extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+    this.props.updateStyling(this.props.styling);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -54,60 +57,72 @@ class PictureUpload extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Add user</h1>
-
+      <div className="outerAddUser">
         <form onSubmit={this.handleSubmit}>
           <div className="userSubmit">
             <div className="inputFields">
               <div>
                 <h4>Required Fields</h4>
-                <TextField
-                  name="name"
-                  variant="outlined"
-                  label="Name"
-                  value={this.state.name}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
+                <div className="textField">
+                  <TextField
+                    name="name"
+                    variant="outlined"
+                    label="Name"
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                    fullWidth
+                  ></TextField>
+                </div>
                 <br></br>
-                <TextField
-                  name="lastName"
-                  variant="outlined"
-                  label="Last Name"
-                  value={this.state.lastName}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
+                <div className="textField">
+                  <TextField
+                    className="textField"
+                    name="lastName"
+                    variant="outlined"
+                    label="Last Name"
+                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                    fullWidth
+                  ></TextField>
+                </div>
                 <br></br>
-                <TextField
-                  name="email"
-                  variant="outlined"
-                  label="Email"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
+                <div className="textField">
+                  <TextField
+                    className="textField"
+                    name="email"
+                    variant="outlined"
+                    label="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    fullWidth
+                  ></TextField>
+                </div>
                 <br></br>
-                <TextField
-                  name="passwordTop"
-                  variant="outlined"
-                  label="Password"
-                  type="password"
-                  value={this.state.passwordTop}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
+                <div className="textField">
+                  <TextField
+                    className="textField"
+                    name="passwordTop"
+                    variant="outlined"
+                    label="Password"
+                    type="password"
+                    value={this.state.passwordTop}
+                    onChange={this.handleChange}
+                    fullWidth
+                  ></TextField>
+                </div>
                 <br></br>
-                <TextField
-                  name="passwordBottom"
-                  variant="outlined"
-                  label="Verify password"
-                  type="password"
-                  value={this.state.passwordBottom}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
+                <div className="textField">
+                  <TextField
+                    className="textField"
+                    name="passwordBottom"
+                    variant="outlined"
+                    label="Verify password"
+                    type="password"
+                    value={this.state.passwordBottom}
+                    onChange={this.handleChange}
+                    fullWidth
+                  ></TextField>
+                </div>
                 {this.state.passwordTop !== "" &&
                   this.state.passwordBottom !== this.state.passwordTop && (
                     <div>
@@ -128,7 +143,8 @@ class PictureUpload extends Component {
                 />
               </div>
             </div>
-            <Button
+            <button
+              className={commonStyles.button} 
               disabled={
                 !(
                   this.state.name !== "" &&
@@ -139,12 +155,10 @@ class PictureUpload extends Component {
                 )
               }
               variant="contained"
-              type="submit"
-              color="primary"
-              fullWidth
+              type="submit"  
             >
               Add User
-            </Button>
+            </button>
           </div>
         </form>
       </div>

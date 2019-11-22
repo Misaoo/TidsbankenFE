@@ -1,18 +1,30 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import RequestNav from "./RequestNav/RequestNav";
 import RequestCard from "./RequestCard/RequestCard";
+import "../general.css";
+import CardList from "../CardList/CardList";
 
 class RequestTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      style: {
+        general: {},
+        requests: {},
+        users: {}
+      }
     };
   }
   componentDidMount() {
+    this.props.updateStyling({
+      general: {},
+      requests: { backgroundColor: "red" },
+      users: {}
+    });
     this.getData(process.env.REACT_APP_API_URL + "/request/allPending");
   }
   getData(link) {
@@ -35,37 +47,69 @@ class RequestTab extends Component {
       });
     });
   }
+  updateStyling(style) {
+    this.setState({
+      style: style
+    });
+  }
+
   render() {
     return (
       <div>
-        <h1>Requests</h1>
         <Router>
-          <RequestNav setData={this.getData.bind(this)} />
+          <RequestNav
+            setData={this.getData.bind(this)}
+            style={this.state.style}
+          />
           <Switch>
             <Route
               path="/admin/requests/pending"
               render={() => (
-                <div>
-                  <h1>Pending Requests</h1>
-                  {this.state.data}
+                <div className="requestContent">
+                  <CardList
+                    key="pending"
+                    content={this.state.data}
+                    styling={{
+                      pending: { backgroundColor: "red" },
+                      approved: {},
+                      denied: {}
+                    }}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
                 </div>
               )}
             ></Route>
             <Route
               path="/admin/requests/approved"
               render={() => (
-                <div>
-                  <h1>Approved Requests</h1>
-                  {this.state.data}
+                <div className="requestContent">
+                  <CardList
+                    key="approved"
+                    content={this.state.data}
+                    styling={{
+                      pending: {},
+                      approved: { backgroundColor: "red" },
+                      denied: {}
+                    }}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
                 </div>
               )}
             ></Route>
             <Route
               path="/admin/requests/denied"
               render={() => (
-                <div>
-                  <h1>Denied Requests</h1>
-                  {this.state.data}
+                <div className="requestContent">
+                  <CardList
+                    key="denied"
+                    content={this.state.data}
+                    styling={{
+                      pending: {},
+                      approved: {},
+                      denied: { backgroundColor: "red" }
+                    }}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
                 </div>
               )}
             ></Route>

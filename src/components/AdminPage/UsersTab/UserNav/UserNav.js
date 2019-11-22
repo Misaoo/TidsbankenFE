@@ -1,22 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import "../../general.css";
 
-const Navbar = props => {
-  //let address = props.address;
-
-  return (
-    <div>
-      <Link to={{ pathname: "/admin/users/allUsers" }}>
-        <Button onClick={() => props.updateUsers()} variant="contained">
-          All users
-        </Button>
-      </Link>
-      <Link to={{ pathname: "/admin/users/addUser" }}>
-        <Button variant="contained">Add user</Button>
-      </Link>
-    </div>
-  );
-};
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <div className="nestedNavbar">
+          <Link
+            className="navbarButton"
+            to={{ pathname: "/admin/users/allUsers" }}
+            style={this.props.style.allUsers}
+            onClick={() => {
+              this.props.updateUsers();
+            }}
+          >
+            All users
+          </Link>
+          <Link
+            className="navbarButton"
+            to={{ pathname: "/admin/users/addUser" }}
+            style={this.props.style.addUsers}
+          >
+            Add user
+          </Link>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Navbar;

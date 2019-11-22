@@ -1,0 +1,63 @@
+.module {
+    display: grid;
+    grid-template-areas: "request comments";
+    padding: 20px;
+    gap: 20px;
+    grid-template-columns: 1fr max-content;
+    justify-items: center;
+}
+
+.request {
+    grid-area: request;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 80px 40px 40px 50px auto;
+}
+
+.comments {
+    /* background-color: green; */
+    grid-area: comments;
+    width: 100%;
+}
+
+.comment {
+    /* background-color: red; */
+    display: grid;
+    grid-template-areas: "owner message";
+    grid-template-columns: max-content 1fr;
+}
+
+.message {
+    grid-area: message;
+    /* background-color: purple; */
+}
+
+.messageOwner {
+    grid-area: owner;
+    text-align: right;
+    font-weight: bold;
+    margin-right: 10px;
+    /* background-color: aliceblue; */
+}
+
+.status {
+    padding: 4px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.approved {
+    background-color: #37eba8;
+}
+
+.denied {
+    background-color: #fa7260;
+}
+
+.pending {
+    background-color: #fae153;
+}
+
+.img {
+    max-width: 100%;
+}

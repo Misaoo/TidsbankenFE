@@ -1,0 +1,42 @@
+.module {
+    padding: 20px;
+    width: 100%;
+    display: inline-block;
+    box-shadow: 0 0 20px -12px black;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.closeButton {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.closeButton:hover {
+    cursor: pointer;
+}
+
+.contentContainer {
+    display: grid;
+    grid-template-areas: "boxIcon cont";
+    grid-template-columns: 100px 1fr;
+}
+
+.boxIcon {
+    grid-area: boxIcon;
+    font-size: 15px;
+    color: rgb(170, 170, 170);
+    align-self: center;
+    justify-self: center;
+    margin-right: 20px;
+}
+
+.content {
+    grid-area: cont;
+}

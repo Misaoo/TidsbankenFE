@@ -1,11 +1,18 @@
-@value bg-color: #F0F0F0;
-@value btn-color: #314353;
-@value secondare-text-color: #707070;
-@value third-text-color: white;
-@value bg-h1-color: darkgrey;
+/* Background colors */
+@value bg-color: #f9f9f9;
 @value error-text-bg-color: red;
+@value bg-h1-color: darkgrey;
 @value modal-bg-color: hsla(0, 0%, 37.6%, 0.7);
 @value popover-bg-color: hsla(0, 0%, 37.6%, 1);
-@value box-shadow: 1px 1px 1px 1px solid black;
-@value disabled-btn-bg-color: grey;
+@value disabled-btn-bg-color: linear-gradient(151deg, rgba(114,129,127,1) 0%, rgba(114,121,126,1) 100%);
+@value btn-color: linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%);
+
+/* text colors */
+@value secondare-text-color: #707070;
+@value third-text-color: white;
+@value grey-text-color: grey;
+
+/* Shadows */
+@value box-shadow: 0 0 20px -12px #408bc4;
+
 

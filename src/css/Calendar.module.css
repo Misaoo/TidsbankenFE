@@ -4,8 +4,9 @@
     display: grid;
     grid-template-areas:
         "calendarHeading calendarHeading"
+        "helpInfo helpInfo"
         "calendarA calendarB";
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 50px auto 1fr;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
@@ -74,10 +75,14 @@
 
 .currentYearMonth {
     grid-area: currentYearMonth;
-    margin: 0;
-    text-align: center;
     align-self: center;
     color: #314353;
+}
+
+.currentYearMonth h2, .currentYearMonth span {
+    margin: 0;
+    text-align: center;
+    display: block;
 }
 
 .calendar {
@@ -102,10 +107,12 @@
     transition: .1s all;
     position: relative;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 42px auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 57px auto;
     align-content: end;
     border: 1px solid white;
+    min-height: 90px;
+    grid-auto-flow: dense;
 }
 
 .day:hover:not(.ineligible):not(.empty):not(.daySelect) {
@@ -113,6 +120,9 @@
     cursor: pointer;
 }
 
+.daySelect:hover {
+    cursor: pointer;
+}
 
 .weekend {
     width: 100%;
@@ -120,6 +130,14 @@
     background-color: hsla(0, 0%, 100%, 0.2);
     position: absolute;
     pointer-events: none;
+}
+
+.daySuccess {
+    background-color: #428cca !important;
+}
+
+.dayError {
+    background-color: #ff6c6c !important;
 }
 
 .empty {
@@ -159,19 +177,10 @@
 .monthName {
     grid-area: monthName;
     text-align: center;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: bold;
     align-self: center;
     color: #598995;
-}
-
-.monthDropdown {
-    align-self: center;
-    display: inline-block;
-    margin: 0 auto;
-    width: auto;
-    position: relative;
-    left: 25px;
 }
 
 .daySelect {
@@ -213,6 +222,7 @@
     text-align: center;
     font-size: 18px;
     font-weight: bold;
+    user-select: none;
 }
 
 .mark {
@@ -222,9 +232,11 @@
     align-self: end;
     margin: 1px 2px;
     font-size: 10px;
-    padding: 2px 8px;
+    padding: 1px 8px;
     color: black;
     width: max-content;
+    border-radius: 3px;
+    text-decoration: none;
 }
 
 .mark:hover {
@@ -232,8 +244,98 @@
     cursor: pointer;
 }
 
+.approved {
+    background-color: #37eba8;
+}
+
+.denied {
+    background-color: #fa7260;
+}
+
+.pending {
+    background-color: #fae153;
+}
+
 .ineligible {
     background-color: #999;
     cursor: default;
     color: #7b7b7b;
+    background: repeating-linear-gradient( 45deg, #bc6060, #bc6060 10px, #984646 10px, #984646 20px );
+}
+
+.ineligibleMessage {
+    align-self: center;
+    justify-self: center;
+    color: #bdbdbd;
+    position: absolute;
+}
+
+.action {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 24px;
+    background-color: hsl(0, 0%, 100%);
+    padding: 10px;
+    color: #68a3d5;
+    box-shadow: 3px 3px 12px -4px black;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    transition: .1s all;
+    overflow: hidden;
+}
+
+.action:hover {
+    cursor: pointer;
+    background-color: #68a3d5;
+    color: white;
+    box-shadow: 2px 2px 12px -6px black;
+}
+
+.action:hover svg {
+    animation-name: grow;
+    animation-duration: .4s;
+}
+
+.helpInfo {
+    grid-area: helpInfo;
+}
+
+
+@keyframes grow {
+    from {
+        transform: translateY(-100px)
+    }   
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+
+@media (max-width: 1215px) {
+    .mark {
+        margin: 0;
+        font-size: 10px;
+        padding: 2px 3px;
+    }
+
+    .dayBase {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 940px) {
+    .module {
+        grid-template-areas:
+            "calendarHeading"
+            "calendarA"
+            "calendarB";
+        grid-template-rows: 50px 1fr 1fr;
+        grid-template-columns: 1fr;
+    }
 }

@@ -5,6 +5,7 @@
 @value third-text-color from global;
 @value bg-h1-color from global;
 @value error-text-bg-color from global;
+@value box-shadow from global;
 
 #login_wrapper{
     width: 70%;
@@ -14,29 +15,22 @@
     top: 42%;
     transform: translateY(-50%);
     background-color: bg-color;
-    border-radius: 15px;
+    border-radius: 5px;
     padding:15px;
+    overflow:hidden;
+    box-shadow: box-shadow;
 }
-
-/* #login_wrapper input{
-    display: block;
-    width: 100%;
-    margin: auto;
-    border-radius: 15px;
-    height: 30px;
-    text-indent: 10px;
-} */
 
 #login_wrapper h1:first-child{
     text-align: center;
     margin-top: -15px;
-    background-color: bg-h1-color;
     width: calc(100% + 30px);
-    margin-left:-15px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    font-size: 20px;
+    margin-left: -15px;
+    font-size: 22px;
     padding: 20px 0;
+    background: linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%);
+    color: white;
+    font-weight: normal;
 }
 
 #forgot_password{
@@ -64,20 +58,13 @@
     margin:15px 0px 5px 10px;
 }
 
-.submit_login{
-    height: 45px;
-    border-radius: 15px;
-    margin-top: 30px;
-    width: 100%;
-    background-color: btn-color;
-    color:third-text-color;
-}
-
 #errorMessage{
     height:5px;
     margin:0px;
     padding:0px;
     color: error-text-bg-color;
+    position: relative;
+    margin-top: 15px;
 }
 
 #popOver{

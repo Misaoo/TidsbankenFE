@@ -10,7 +10,8 @@ class Comment extends Component {
     this.state = {
       popup: false,
       text: this.props.comment.comment,
-      commenter: "User " + this.props.comment.userId + ": "
+      commenter: "User " + this.props.comment.userId + ": ",
+      isAdmin: false
     };
     this.getName();
     this.handleChange = this.handleChange.bind(this);
@@ -47,7 +48,11 @@ class Comment extends Component {
       method: "POST",
       withCredentials: true
     }).then(res => {
-      if (res.data.userId === this.props.comment.userId) {
+      if (
+        res.data.userId === this.props.comment.userId &&
+        new Date(this.props.comment.createdAt) >
+          new Date(Date.now() - 60 * 60 * 24 * 1000)
+      ) {
         this.setState({
           popup: !this.state.popup
         });
@@ -78,6 +83,7 @@ class Comment extends Component {
       }
     ).then(res => {
       this.setState({
+        isAdmin: res.data.isAdmin === 1,
         commenter: res.data.name + " " + res.data.lastName
       });
     });
@@ -89,7 +95,9 @@ class Comment extends Component {
     }
     return (
       <div className={styles.comment} onClick={() => this.togglePopup()}>
-        <b>{this.state.commenter}: </b>
+        <b>
+          {this.state.commenter} {this.state.isAdmin && <b>(admin)</b>} :{" "}
+        </b>
         {this.props.comment.comment} <b>{edited}</b>
         {this.state.popup && (
           <div>

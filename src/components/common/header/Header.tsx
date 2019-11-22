@@ -126,6 +126,9 @@ const Header = (props: any) => {
           <li>
             <Link to="/logout">Logout</Link>
           </li>
+          <li>
+            <Link to="/requests/1">Requests</Link>
+          </li>
         </ul>
       </Dropdown>
       <Link to="/users">Users</Link>

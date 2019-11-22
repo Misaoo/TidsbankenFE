@@ -5,39 +5,71 @@ import Navbar from "./Navbar/Navbar";
 import GeneralTab from "./GeneralTab/GeneralTab";
 import RequestTab from "./RequestsTab/RequestTab";
 import UsersTab from "./UsersTab/UsersTab";
+import "./general.css";
 
 class AdminPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      requests: []
+      requests: [],
+      style: {
+        general: {},
+        requests: {},
+        users: {}
+      }
     };
+  }
+  updateStyling(style) {
+    this.setState({
+      style: style
+    });
   }
 
   render() {
     return (
-      <React.Fragment>
+      <div className="adminPage">
         <Router>
           <h1>Admin Page</h1>
-          <Navbar />
+          <Navbar style={this.state.style} />
           <Switch>
             <Route
               path="/admin/general"
-              render={props => <GeneralTab {...props} />}
+              render={props => {
+                return (
+                  <GeneralTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
             ></Route>
             <Route
               path="/admin/requests"
-              render={props => <RequestTab {...props} />}
+              render={props => {
+                return (
+                  <RequestTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
             ></Route>
             <Route
               path="/admin/users"
-              render={props => <UsersTab {...props} />}
+              render={props => {
+                return (
+                  <UsersTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
             ></Route>
             <Redirect exact from="/admin" to="/admin/general" />
           </Switch>
         </Router>
-      </React.Fragment>
+      </div>
     );
   }
 }
