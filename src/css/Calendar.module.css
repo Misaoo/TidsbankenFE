@@ -107,11 +107,12 @@
     transition: .1s all;
     position: relative;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 42px auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 57px auto;
     align-content: end;
     border: 1px solid white;
     min-height: 90px;
+    grid-auto-flow: dense;
 }
 
 .day:hover:not(.ineligible):not(.empty):not(.daySelect) {
@@ -231,10 +232,11 @@
     align-self: end;
     margin: 1px 2px;
     font-size: 10px;
-    padding: 2px 8px;
+    padding: 1px 8px;
     color: black;
     width: max-content;
     border-radius: 3px;
+    text-decoration: none;
 }
 
 .mark:hover {
@@ -259,6 +261,13 @@
     cursor: default;
     color: #7b7b7b;
     background: repeating-linear-gradient( 45deg, #bc6060, #bc6060 10px, #984646 10px, #984646 20px );
+}
+
+.ineligibleMessage {
+    align-self: center;
+    justify-self: center;
+    color: #bdbdbd;
+    position: absolute;
 }
 
 .action {
@@ -311,7 +320,7 @@
 @media (max-width: 1215px) {
     .mark {
         margin: 0;
-        font-size: 9px;
+        font-size: 10px;
         padding: 2px 3px;
     }
 
