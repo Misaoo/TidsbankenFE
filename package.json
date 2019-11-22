@@ -42,7 +42,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^12.12.5",
+    "@types/node": "^12.12.11",
     "@types/pusher-js": "^4.2.2"
   }
 }
