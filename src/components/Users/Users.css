@@ -11,6 +11,10 @@
   text-align: center;
 }
 
+.userPageH1 {
+  padding-left: 15px;
+}
+
 .userCard {
   padding: 5%;
   box-shadow: 0 0 20px -12px black;

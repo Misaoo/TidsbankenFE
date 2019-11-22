@@ -1,11 +1,44 @@
 .requestCardUser {
   margin-bottom: 1vw;
-  border-style: ridge;
   padding: 1vw;
   padding-right: 3vw;
-  box-shadow: 0 0 20px -12px black;
+  box-shadow: 0 0 20px -12px #408bc4;
   border-radius: 5%;
   width: max-content;
+}
+
+.requestCardUser li {
+  padding: 5px;
+}
+
+.requestCardUser a {
+  text-decoration: none;
+  color: black;
+}
+
+.requestCardUser:hover {
+  cursor: pointer;
+  background-color: rgb(241, 241, 241);
+}
+
+.userPageContainer {
+  display: grid;
+  grid-template-areas: "user vacations";
+  padding: 40px;
+}
+
+.userWrapper {
+  grid-area: user;
+}
+
+.vacationWrapper {
+  grid-area: vacations;
+}
+
+
+.userPageContainer ul {
+  list-style-type: none;
+  padding: 0;
 }
 
 .userPictureContainer {
@@ -22,6 +55,3 @@
   object-fit: cover;
 }
 
-.userPageContainer {
-  padding: 1%;
-}
