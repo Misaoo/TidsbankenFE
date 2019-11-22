@@ -6,7 +6,6 @@ class RequestCardList extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log("card list mount");
     this.props.updateStyling(this.props.styling);
   }
   render() {
