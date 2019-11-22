@@ -25,7 +25,7 @@ class UsersTab extends Component {
     this.props.updateStyling({
       general: {},
       requests: {},
-      users: { backgroundColor: "red" }
+      users: { backgroundColor: "#3D8ABB" }
     });
     this.getUsers();
   }
@@ -71,7 +71,7 @@ class UsersTab extends Component {
                     key="users"
                     content={this.state.users}
                     styling={{
-                      allUsers: { backgroundColor: "red" },
+                      allUsers: { backgroundColor: "#3D8ABB" },
                       addUsers: {}
                     }}
                     updateStyling={this.updateStyling.bind(this)}
@@ -86,7 +86,7 @@ class UsersTab extends Component {
                   updateStyling={this.updateStyling.bind(this)}
                   styling={{
                     allUsers: {},
-                    addUsers: { backgroundColor: "red" }
+                    addUsers: { backgroundColor: "#3D8ABB" }
                   }}
                 />
               )}

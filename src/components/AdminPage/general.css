@@ -24,7 +24,7 @@
   border-radius: 25px;
   padding: 4%;
   box-shadow: 0 0 20px -12px black;
-  margin-bottom:15px;
+  margin-bottom: 15px;
 }
 
 .userCardContent {
@@ -55,7 +55,7 @@
   justify-content: center;
 }
 
-.userCardImage img{
+.userCardImage img {
   min-width: 100%;
   object-fit: cover;
 }
@@ -80,7 +80,7 @@
 }
 
 .navbarButton:hover {
-  background-color: red;
+  background-color: #3d8abb;
 }
 
 .nestedNavbar {

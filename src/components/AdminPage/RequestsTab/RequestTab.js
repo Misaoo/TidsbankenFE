@@ -22,7 +22,7 @@ class RequestTab extends Component {
   componentDidMount() {
     this.props.updateStyling({
       general: {},
-      requests: { backgroundColor: "red" },
+      requests: { backgroundColor: "#3D8ABB" },
       users: {}
     });
     this.getData(process.env.REACT_APP_API_URL + "/request/allPending");
@@ -70,7 +70,7 @@ class RequestTab extends Component {
                     key="pending"
                     content={this.state.data}
                     styling={{
-                      pending: { backgroundColor: "red" },
+                      pending: { backgroundColor: "#3D8ABB" },
                       approved: {},
                       denied: {}
                     }}
@@ -88,7 +88,7 @@ class RequestTab extends Component {
                     content={this.state.data}
                     styling={{
                       pending: {},
-                      approved: { backgroundColor: "red" },
+                      approved: { backgroundColor: "#3D8ABB" },
                       denied: {}
                     }}
                     updateStyling={this.updateStyling.bind(this)}
@@ -106,7 +106,7 @@ class RequestTab extends Component {
                     styling={{
                       pending: {},
                       approved: {},
-                      denied: { backgroundColor: "red" }
+                      denied: { backgroundColor: "#3D8ABB" }
                     }}
                     updateStyling={this.updateStyling.bind(this)}
                   />

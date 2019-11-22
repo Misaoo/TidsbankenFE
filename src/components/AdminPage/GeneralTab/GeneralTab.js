@@ -40,7 +40,7 @@ const GeneralTab = props => {
 
   useEffect(() => {
     props.updateStyling({
-      general: { backgroundColor: "red" },
+      general: { backgroundColor: "#3D8ABB" },
       requests: {},
       users: {}
     });
