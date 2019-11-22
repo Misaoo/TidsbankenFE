@@ -1,0 +1,45 @@
+.wrapper{
+    margin-top:45px;
+}
+
+.button{
+    display:block;
+    margin:auto !important;
+    margin-top:15px !important;
+    width: calc(100% - 30px);
+}
+
+.twoFabBtn{
+    width: calc(100% - 40px);
+    bottom: 0;
+    position: absolute;
+}
+
+.twoFactorAuthimg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.twoFactorAuthimg img{
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+.notActivated{
+    color:grey;
+}
+
+.Activated{
+    color:green;
+}
+
+.modal{
+    min-height: 350px;
+    min-width: 350px;
+}

@@ -41,7 +41,7 @@ const LoginComponent = (props: any) => {
                     minutesLeft: minutes,
                     secondsLeft: seconds,
                 });
-                setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
+                setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
             }
         }, 1000);
     }
@@ -68,7 +68,7 @@ const LoginComponent = (props: any) => {
     }, [user])
 
     useEffect(() => {
-        setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
+        setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
     }, [ls])
 
     const timeLeft = (): number => {
@@ -78,7 +78,6 @@ const LoginComponent = (props: any) => {
     const setCounterInLocalStorage = () => {
         const timeTo = new Date().getTime() + (5 * 60000);
         localStorage.setItem("timeTo", timeTo.toString());
-
     }
 
     const handleSubmit = async (event: any) => {
@@ -89,13 +88,14 @@ const LoginComponent = (props: any) => {
                 setUser(response.data);
                 setSuccess(true);
                 setLoggedIn(true);
+                sessionStorage.setItem("auth", JSON.stringify(new Date()));
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {
                 setError(true);
                 let errorData = error.response.data;
                 if (errorData.hasOwnProperty("timeOut") || errorData['numOfAttemptedLogins'] === 5) {
-                    setMessage(`You have made 5 attempts, please try again in ${ls.minutesLeft} minutes`)
+                    setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`)
                     setCounterInLocalStorage();
                     timer();
                     setBtnDisabled(true);
@@ -143,7 +143,7 @@ const LoginComponent = (props: any) => {
                     />
                     <p id={styles.errorMessage}>{error && message}</p>
 
-                    <button className={commonStyles.button + " " + styles.submit_login} type="submit" disabled={btnDisabled}>Login</button>
+                    <button className={commonStyles.button} type="submit" disabled={btnDisabled}>Login</button>
 
                     <Popover
                         trigger="Forgot password?"
@@ -151,7 +151,7 @@ const LoginComponent = (props: any) => {
                         id={styles.popOver}
                     >
                         Please contact your administrator for a new password
-                        </Popover>
+                    </Popover>
                 </form>
             </div>
         </>

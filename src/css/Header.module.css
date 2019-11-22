@@ -2,7 +2,7 @@
 @value btn-color from global;
 
 .module {
-  background-color: btn-color;
+  background: btn-color;
   color: white;
   width: 100%;
 }

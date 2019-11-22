@@ -26,6 +26,7 @@ const TwoFactorAuthComponent = (props: any) => {
             if (login.status === 200) {
                 setUser(login.data);
                 setSuccess(true);
+                sessionStorage.setItem("auth", JSON.stringify(new Date()));
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {

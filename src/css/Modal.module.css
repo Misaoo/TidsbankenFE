@@ -41,6 +41,7 @@
     min-width: 350px;
     min-height: 350px;
     max-height: 100vh;
+    overflow:hidden;
 }
 
 .content p {

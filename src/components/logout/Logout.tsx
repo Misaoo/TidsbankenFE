@@ -14,6 +14,7 @@ const Logout = (props: any) => {
                 if (res.status === 200) {
                     setUser({});
                     setSuccess(true);
+                    sessionStorage.removeItem("auth");
                 } else {
                     setError(true);
                 }
