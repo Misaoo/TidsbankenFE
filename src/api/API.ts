@@ -127,7 +127,6 @@ export default {
     logout, 
     authorize,
     user,
-<<<<<<< HEAD
     allApprovedVacReqs,
     userPendingVacReqs,
     userDeniedVacReqs,
@@ -137,8 +136,7 @@ export default {
     getIneligibleDays,
     getVacationRequest,
     getVacationRequestComments,
-    postVacationRequestComment
-=======
+    postVacationRequestComment,
     updateUser,
     updateUserImage,
     updateUserPassword,
@@ -146,5 +144,4 @@ export default {
     vacationsApproved,
     vacationsDenied,
     vacationsPending
->>>>>>> auth
 };
