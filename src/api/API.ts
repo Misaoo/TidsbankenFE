@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as process from "process";
 
 const login = (email: string, password: string) =>
   axios(`${process.env.REACT_APP_API_URL}/login`, {
