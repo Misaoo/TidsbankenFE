@@ -32,6 +32,60 @@ const user = (id: number) =>
     withCredentials: true
 });
 
+const allApprovedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allApproved`, {
+    method: "GET",
+    withCredentials: true
+});
+
+
+const userPendingVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allPending`, {
+    method: "GET",
+    withCredentials: true
+});
+
+
+const userDeniedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allDenied`, {
+    method: "GET",
+    withCredentials: true
+});
+
+const getVacationDays = () => axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
+    method: "GET",
+    withCredentials: true
+});
+
+const submitVacationRequest = (dates: string[]) => axios(process.env.REACT_APP_API_URL + "/request", {
+    method: "POST",
+    withCredentials: true,
+    data: {dates: dates}
+});
+
+const submitIneligibleDay = (date: string) => axios(process.env.REACT_APP_API_URL + "/ineligible", {
+    method: "POST",
+    withCredentials: true,
+    data: {date: date}
+});
+
+const getIneligibleDays = () => axios(process.env.REACT_APP_API_URL + "/ineligible", {
+    method: "GET",
+    withCredentials: true
+});
+
+const getVacationRequest = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/${id}`, {
+    method: "GET",
+    withCredentials: true
+});
+
+const getVacationRequestComments = (id: number) => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
+    method: "GET",
+    withCredentials: true
+});
+
+const postVacationRequestComment = (id: number, comment: string) => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
+    method: "POST", 
+    withCredentials: true, 
+    data: { "comment": comment }
+});
 const updateUser = (id:number, userId: number, email:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
     method: "PATCH",
     withCredentials: true,
@@ -83,6 +137,16 @@ export default {
     logout, 
     authorize,
     user,
+    allApprovedVacReqs,
+    userPendingVacReqs,
+    userDeniedVacReqs,
+    getVacationDays,
+    submitVacationRequest,
+    submitIneligibleDay,
+    getIneligibleDays,
+    getVacationRequest,
+    getVacationRequestComments,
+    postVacationRequestComment,
     updateUser,
     updateUserImage,
     updateUserPassword,

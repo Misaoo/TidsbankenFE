@@ -89,6 +89,7 @@ const LoginComponent = (props: any) => {
                 setUser(response.data);
                 setSuccess(true);
                 setLoggedIn(true);
+                sessionStorage.setItem("auth", JSON.stringify(new Date()));
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {

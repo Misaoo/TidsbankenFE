@@ -9,7 +9,12 @@ import {
   faAngleDown,
   faAngleUp,
   faCaretLeft,
-  faCaretRight
+  faCaretRight,
+  faCalendarPlus,
+  faTimes,
+  faQuestionCircle,
+  faExclamationCircle,
+  faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 // Own components
@@ -26,9 +31,10 @@ import Dashboard from "./views/dashboard/Dashboard";
 import Logout from "./components/logout/Logout";
 import AdminPage from "./components/AdminPage/AdminPage";
 import Users from "./components/Users/Users";
+import Requests from "./views/requests/Requests";
 import User from "./components/User/User";
 
-library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight);
+library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle);
 
 const App: React.FC = () => {
   return (
@@ -44,6 +50,7 @@ const App: React.FC = () => {
             <AuthRoute path="/profile" component={ProfileView} />
             <Route path="/dashboard" component={Dashboard} />
             <AuthRoute path="/logout" component={Logout} />
+            <Route path="/requests/:id" component={Requests} />
             <Route path="/admin" component={AdminPage} />
             <Route path="/users" component={Users} />
             <Route path="/user/:user_id" component={User} />
