@@ -8,17 +8,21 @@ const VacationComponent = (props: any) => {
     let [ approvedVacationdays, setApprovedVacationsdays ] = useState<any[]>([]);
     let [ deniedVacationdays, setDeniedVacationsdays ] = useState();
     let [ pendingVacationdays, setPendingVacationsdays ] = useState();
-    // let [ historyVacationdays, setHistoryVacationsdays ] = useState();
 
-    useEffect(() => {
-        getFromServer();
-    }, [user]);
+    useEffect(() =>{
+        if(user){
+            getFromServer(user!.userId!);   // Get image from server
+        }
+    }, [user])
 
-    async function getFromServer(){
+    async function getFromServer(id:any){
+        console.log(id);
         try {
-            let response1 = await API.vacationsApproved(user!.userId);
-            let response2 = await API.vacationsDenied(user!.userId);
-            let response3 = await API.vacationsPending(user!.userId);
+            console.log(id);
+                let response1 = await API.vacationsApproved(id);
+                let response2 = await API.vacationsDenied(id);
+                let response3 = await API.vacationsPending(id);
+                
             if (response1.status === 200 || response2.status === 200 || response3.status === 200) {
                 console.log(response1.data);
                 addResponseDataToLi(response1, setApprovedVacationsdays);

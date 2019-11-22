@@ -62,7 +62,7 @@ const SideBarComponent = (props: any) => {
 
     async function getFromServer(userId:number){
         try {
-            let response = await API.user(5);
+            let response = await API.user(userId);
             if (response.status === 200) {
                 console.log(response.data);
                 setImg(response.data.profilePic);
