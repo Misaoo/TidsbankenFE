@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Popover from '../common/popover/Popover';
 import AuthContext from '../auth/AuthContext';
 import API from '../../api/API';
+import Button from "@material-ui/core/Button";
 
 const LoginComponent = (props: any) => {
     const { user, setUser } = useContext(AuthContext);
@@ -142,7 +143,12 @@ const LoginComponent = (props: any) => {
                     />
                     <p id={styles.errorMessage}>{error && message}</p>
 
-                    <button className={commonStyles.button} type="submit" disabled={btnDisabled}>Login</button>
+                    <button 
+                        className={commonStyles.button} 
+                        type="submit" disabled={btnDisabled}
+                    >
+                        Login
+                    </button>
 
                     <Popover
                         trigger="Forgot password?"

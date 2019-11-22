@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import "./AddUser.css";
 import AddPicture from "./AddPicture/AddPicture";
+import commonStyles from "../../../../css/Common.module.css";
 
 class PictureUpload extends Component {
   constructor(props) {
@@ -143,7 +143,8 @@ class PictureUpload extends Component {
                 />
               </div>
             </div>
-            <Button
+            <button
+              className={commonStyles.button} 
               disabled={
                 !(
                   this.state.name !== "" &&
@@ -154,12 +155,10 @@ class PictureUpload extends Component {
                 )
               }
               variant="contained"
-              type="submit"
-              color="primary"
-              fullWidth
+              type="submit"  
             >
               Add User
-            </Button>
+            </button>
           </div>
         </form>
       </div>

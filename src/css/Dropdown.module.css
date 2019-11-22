@@ -4,7 +4,6 @@
 }
 
 .target {
-    /* background-color: hsla(0, 0%, 0%, 0.2); */
     user-select: none;
     padding: 10px 10px;
 }
@@ -45,6 +44,9 @@
 
 .items ul{
     list-style-type: none;
-    padding-left: 15px;
-    padding-right:15px;
+}
+
+.items ul li{
+    width: 100%;
+    text-indent: 15px;
 }

@@ -60,8 +60,8 @@
 .button:disabled,
 .button[disabled]{
   border: 1px solid #999999;
-  background-color: disabled-btn-bg-color;
-  color: #666666;
+  background: disabled-btn-bg-color;
+  color: lightgrey;
   cursor: default;
 }
 
