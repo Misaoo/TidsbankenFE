@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./User.css";
 
 class User extends Component {
   constructor(props) {
@@ -38,10 +39,18 @@ class User extends Component {
         withCredentials: true
       }
     ).then(res => {
-      console.log(res.data);
       res.data.map(request => {
+        let tempDates = [];
+        var dateIndex = 0;
+        request.dates.map(date => {
+          tempDates.push(
+            <li key={dateIndex++}>{new Date(date).toLocaleDateString("se")}</li>
+          );
+        });
         tempRequests.push(
-          <div key={request.requestId}>{request.dates.toString()}</div>
+          <li className="requestCardUser" key={request.requestId}>
+            <ul>{tempDates}</ul>
+          </li>
         );
       });
       if (tempRequests.length === 0) {
@@ -55,14 +64,18 @@ class User extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <img src={this.state.profilePic} alt="" />
-        <h1>
-          {this.state.name} {this.state.lastName}
-        </h1>
-        <h3>Vacations</h3>
-        {this.state.requests}
-      </React.Fragment>
+      <div>
+        <div className="userPageContainer">
+          <div className="userPictureContainer">
+            <img className="userPicture" src={this.state.profilePic} alt="" />
+          </div>
+          <h1>
+            {this.state.name} {this.state.lastName}
+          </h1>
+          <h3>Vacations</h3>
+          <ul>{this.state.requests}</ul>
+        </div>
+      </div>
     );
   }
 }

@@ -5,12 +5,21 @@
   padding: 20px;
 }
 .userCard {
+  padding: 5%;
+  box-shadow: 0 0 20px -12px black;
+  border-radius: 5%;
   word-break: normal;
   display: grid;
   grid-template-rows: 11.5vw minmax(50px, auto);
 }
 
+.userCard:hover {
+  cursor: pointer;
+  background-color: rgb(241, 241, 241);
+}
+
 .userImg {
+  border-radius: 5%;
   width: 100%;
   height: 100%;
   object-fit: cover;
