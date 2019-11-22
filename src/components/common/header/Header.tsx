@@ -15,33 +15,34 @@ const Header = (props: any) => {
     callNotifications();
   }, []);
 
-  const callNotifications =()=>{
+  const callNotifications = () => {
     axios(process.env.REACT_APP_API_URL + "/notification", {
       method: "GET",
       withCredentials: true
     }).then(response => {
       setUpdate(response.data);
-    });}
+    });
+  }
 
-  const removeNotification=(value:any)=>{
-      return axios(process.env.REACT_APP_API_URL + "/notification/" + value, {
-        method: "DELETE",
-        withCredentials: true    
-    }).then (()=>{
+  const removeNotification = (value: any) => {
+    return axios(process.env.REACT_APP_API_URL + "/notification/" + value, {
+      method: "DELETE",
+      withCredentials: true
+    }).then(() => {
       getNotifications();
     });
   }
 
-  const getNotifications=() => {
+  const getNotifications = () => {
     callNotifications();
-      const liElement = update.map((value:any)=>{
-        return <li 
-                  onClick={()=>removeNotification(value.notificationId)} 
-                  key={value.notificationId}>
-                  <Link to="/profile">{value.message}</Link>
-                </li>
-      });
-      setLiArray(liElement);    
+    const liElement = update.map((value: any) => {
+      return <li
+        onClick={() => removeNotification(value.notificationId)}
+        key={value.notificationId}>
+        <Link to="/profile">{value.message}</Link>
+      </li>
+    });
+    setLiArray(liElement);
   }
 
   const loggedIn =
@@ -60,9 +61,9 @@ const Header = (props: any) => {
       {loggedIn && (
         <>
           <Link to="/dashboard">Dashboard</Link>
-          <Dropdown 
-          title={"Notifications"}
-          cb={() => getNotifications()}          >
+          <Dropdown
+            title={"Notifications"}
+            cb={() => getNotifications()}          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
@@ -81,9 +82,10 @@ const Header = (props: any) => {
         <>
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/admin">Admin</Link>
-          <Dropdown 
-          title={"Notifications"} 
-          cb={() => getNotifications()}          >
+          <Dropdown
+            title={"Notifications"}
+            cb={() => getNotifications()}
+          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>

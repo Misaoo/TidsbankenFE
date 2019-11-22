@@ -64,7 +64,6 @@ const SideBarComponent = (props: any) => {
         try {
             let response = await API.user(userId);
             if (response.status === 200) {
-                console.log(response.data);
                 setImg(response.data.profilePic);
                 setName(response.data.name);
                 setLastName(response.data.lastName);
