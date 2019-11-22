@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
+
 const GeneralTab = props => {
   const [input, setInput] = useState({ maximumVacationDays: " " });
   const [data, setData] = useState({ maximumVacationDays: "unlimited" });
@@ -29,7 +30,6 @@ const GeneralTab = props => {
     } else {
       setMaximumVacationDays().then(data => {
         setData(data.data);
-        console.log(data);
       });
     }
   };

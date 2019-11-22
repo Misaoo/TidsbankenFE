@@ -10,7 +10,6 @@ const Dropdown = (props: any) => {
 
     const handleClick = (event: any) => {
         setShowDropdown(!showDropdown);
-        console.log(props);
         if (props.cb) {
             props.cb();
         }
