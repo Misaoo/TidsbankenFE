@@ -10,21 +10,6 @@ const Header = (props: any) => {
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>({}); // Used for li html elements
 
-  let pusher: any;
-  let channel: any;
-
-  useEffect(() => {
-    channel = pusher.subscribe("notifications");
-
-    channel.bind("user_update", function(data: any) {
-      setUpdate(data);
-    });
-
-    channel.bind("pusher:subscription_succeeded", function(members: any) {
-      console.log("successfully subscribed! - Pusher");
-    });
-  }, []);
-
   useEffect(() => {
     function getNotification() {
       // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
