@@ -79,7 +79,6 @@ const SideBarComponent = (props: any) => {
             if (error.response.status === 418) {
             }
             console.log(error);
-            
         }
     }
 

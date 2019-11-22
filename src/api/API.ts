@@ -66,6 +66,11 @@ const vacationsPending = (id:number) => axios(`${process.env.REACT_APP_API_URL}/
     withCredentials: true,
 });
 
+const deleteAccount = (id:number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+    method: "DELETE",
+    withCredentials: true,
+});
+
 
 export default { 
     login, 
@@ -79,5 +84,6 @@ export default {
     updateUser2fa,
     vacationsApproved,
     vacationsDenied,
-    vacationsPending
+    vacationsPending,
+    deleteAccount
 };

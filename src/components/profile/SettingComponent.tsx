@@ -10,6 +10,7 @@ const SettingComponent = (props: any) => {
     const { user } = useContext(AuthContext);
     let [showModal, setshowModal] = useState(false);
     let [showModal2, setshowModal2] = useState(false);
+    let [showModal3, setshowModal3] = useState(false);
 
     let [oldPass, setOldPass] = useState();
     let [newPass1, setNewPass1] = useState();
@@ -17,13 +18,9 @@ const SettingComponent = (props: any) => {
 
     let [twoAuth, setTwoAuth ] = useState();
 
-    function UpdatePasswordModal(){
-        setshowModal(true);
-    }
-
-    function Update2faModal(){
-        setshowModal2(true);
-    }
+    function UpdatePasswordModal(){ setshowModal(true); }
+    function Update2faModal(){ setshowModal2(true); }
+    function Update3faModal(){ setshowModal3(true); }
 
     useEffect(() =>{
         NewAuth(user!.twoFacAut!);
@@ -118,6 +115,32 @@ const SettingComponent = (props: any) => {
           
     }
 
+    const deleteAccount = async (event:any) => {
+        event.preventDefault();
+        
+
+        //UPDATE 2fa
+        try {
+            let response = await API.deleteAccount(user!.userId);
+            if (response.status === 200) {
+                console.log("deleted account");
+                
+                if (typeof window !== 'undefined') {
+                    window.location.href = "/logout";
+               }
+            }
+        } catch (error) {
+            if (error.response.status === 401 || error.response.status === 504) {
+                console.log(error);
+                console.log("asd");
+            }
+            // If TwoFactorAuthentication
+            if (error.response.status === 418) {
+            }
+            console.log(error);
+        }
+    }
+
     function testNewPasswords(){
         if(newPass1 === newPass2){
             return true;
@@ -129,7 +152,8 @@ const SettingComponent = (props: any) => {
     return (
         <div className={SettingsStyles.wrapper}>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={Update2faModal}>Two factor authentication</button>
+            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update2faModal}>Two factor authentication</button>
+            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update3faModal}>Delete account</button>
 
             <Modal display={showModal} setDisplay={setshowModal}>
                 <h1>New password</h1>
@@ -175,6 +199,12 @@ const SettingComponent = (props: any) => {
                     }
                 })()} </div>
             </Modal> 
+
+            <Modal display={showModal3} setDisplay={setshowModal3}>
+                <h1>Delete account</h1>
+                <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p>
+                <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button>
+            </Modal>
         </div>
     )
 }
