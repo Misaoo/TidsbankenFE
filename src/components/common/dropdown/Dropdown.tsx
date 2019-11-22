@@ -10,11 +10,17 @@ const Dropdown = (props: any) => {
 
     const handleClick = (event: any) => {
         setShowDropdown(!showDropdown);
+        if (props.cb) {
+            props.cb();
+        }
     };
 
     const closeDropDown = (event: any) => {
         if (dropdownRef && !(dropdownRef as any).current.contains(event.target)) {
             setShowDropdown(false);
+            if (props.cb) {
+                props.cb();
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ExportImport from "./ExportImport/ExportImport";
 
+
 const GeneralTab = props => {
   const [input, setInput] = useState({ maximumVacationDays: " " });
   const [data, setData] = useState({ maximumVacationDays: "unlimited" });
@@ -55,7 +56,7 @@ const GeneralTab = props => {
   return (
     <div>
       <h1>General</h1>
-      <h3>Current maximum vacation days: {data.maximumVacationDays}</h3>
+      <h3>Current maximum: {data.maximumVacationDays}</h3>
       <form onSubmit={handleSubmit}>
         <TextField
           name="maximumVacationDays"
