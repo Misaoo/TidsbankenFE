@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./User.css";
+import { Link } from 'react-router-dom';
 
 class User extends Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class User extends Component {
   componentDidMount() {
     axios(
       process.env.REACT_APP_API_URL +
-        "/user/" +
-        this.props.match.params.user_id,
+      "/user/" +
+      this.props.match.params.user_id,
       {
         method: "GET",
         withCredentials: true
@@ -32,8 +33,8 @@ class User extends Component {
     let tempRequests = [];
     axios(
       process.env.REACT_APP_API_URL +
-        "/request/approved/" +
-        this.props.match.params.user_id,
+      "/request/approved/" +
+      this.props.match.params.user_id,
       {
         method: "GET",
         withCredentials: true
@@ -49,7 +50,9 @@ class User extends Component {
         });
         tempRequests.push(
           <li className="requestCardUser" key={request.requestId}>
-            <ul>{tempDates}</ul>
+            <Link to={`/requests/${request.requestId}`}>
+              <ul>{tempDates}</ul>
+            </Link>
           </li>
         );
       });
@@ -66,14 +69,18 @@ class User extends Component {
     return (
       <div>
         <div className="userPageContainer">
-          <div className="userPictureContainer">
-            <img className="userPicture" src={this.state.profilePic} alt="" />
+          <div className="userWrapper">
+            <div className="userPictureContainer">
+              <img className="userPicture" src={this.state.profilePic} alt="" />
+            </div>
+            <h1>
+              {this.state.name} {this.state.lastName}
+            </h1>
           </div>
-          <h1>
-            {this.state.name} {this.state.lastName}
-          </h1>
-          <h3>Vacations</h3>
-          <ul>{this.state.requests}</ul>
+          <div className="vacationWrapper">
+            <h2>Vacations</h2>
+            <ul>{this.state.requests}</ul>
+          </div>
         </div>
       </div>
     );
