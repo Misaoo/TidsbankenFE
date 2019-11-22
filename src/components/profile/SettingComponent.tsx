@@ -23,15 +23,10 @@ const SettingComponent = (props: any) => {
     function Update3faModal(){ setshowModal3(true); }
 
     useEffect(() =>{
-<<<<<<< HEAD
-        NewAuth(user!.twoFacAut);
-    },[])
-=======
         if(user) {
             NewAuth(user!.twoFacAut!);
         }
     },[user])
->>>>>>> 94a7c214ce9db8d4b95819dbe99c69b347e32c02
 
     // Sets new useState for auth - switches the number from 0 to 1 or 1 to 0
     function NewAuth(number:any){

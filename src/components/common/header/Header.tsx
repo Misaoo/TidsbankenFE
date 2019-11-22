@@ -60,18 +60,11 @@ const Header = (props: any) => {
     <header className={styles.module}>
       {loggedIn && (
         <>
-<<<<<<< HEAD
-          <Link className={commonStyles.backgroundColor} to="/dashboard">Dashboard</Link>
-          <Dropdown 
-          title={"Notifications"}
-          cb={() => getNotifications()}          >
-=======
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/users">Users</Link>
           <Dropdown
             title={"Notifications"}
             cb={() => getNotifications()}          >
->>>>>>> 94a7c214ce9db8d4b95819dbe99c69b347e32c02
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
@@ -88,13 +81,6 @@ const Header = (props: any) => {
       )}
       {loggedInAdmin && (
         <>
-<<<<<<< HEAD
-          <Link className={commonStyles.backgroundColor} to="/dashboard">Dashboard</Link>
-          <Link className={commonStyles.backgroundColor} to="/admin">Admin</Link>
-          <Dropdown 
-          title={"Notifications"} 
-          cb={() => getNotifications()}          >
-=======
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/users">Users</Link>
           <Link to="/admin">Admin</Link>
@@ -102,7 +88,6 @@ const Header = (props: any) => {
             title={"Notifications"}
             cb={() => getNotifications()}
           >
->>>>>>> 94a7c214ce9db8d4b95819dbe99c69b347e32c02
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
@@ -122,35 +107,6 @@ const Header = (props: any) => {
           <Link className={commonStyles.backgroundColor} to="/login">Login</Link>
         </>
       )}
-<<<<<<< HEAD
-      {/* <Dropdown title={"All routes"}>
-        <ul className={commonStyles.dropdown}>
-          <li>
-            <Link to="/">/</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/2fa">2FA</Link>
-          </li>
-          <li>
-            <Link to="/test">Test</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
-          <li>
-            <Link to="/requests/1">Requests</Link>
-          </li>
-        </ul>
-      </Dropdown> */}
-      <Link className={commonStyles.backgroundColor} to="/users">Users</Link>
-=======
->>>>>>> 94a7c214ce9db8d4b95819dbe99c69b347e32c02
     </header>
   );
 };
