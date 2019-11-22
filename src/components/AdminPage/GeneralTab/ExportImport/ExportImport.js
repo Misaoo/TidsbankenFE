@@ -3,6 +3,7 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./ExportImport.css";
+import "../../general.css";
 
 class ExportImport extends Component {
   constructor(props) {
@@ -108,6 +109,7 @@ class ExportImport extends Component {
         <Button
           variant="contained"
           color="primary"
+          className="button"
           onClick={() => this.getData()}
         >
           get all data
@@ -115,6 +117,7 @@ class ExportImport extends Component {
         <Button
           variant="contained"
           color="primary"
+          className="button"
           onClick={() => this.setData()}
         >
           set data

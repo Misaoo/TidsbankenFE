@@ -1,3 +1,14 @@
+@value global: "./global.css";
+@value btn-color from global;
+
+.padding{
+  padding:15px;
+}
+
+.indent{
+  text-indent:15px;
+}
+
 .requestContent {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -86,4 +97,13 @@
 .nestedNavbar {
   width: auto;
   padding-top: 3px;
+}
+
+.buttonSize{
+  padding: 15px 14px !important;
+}
+
+.button{
+  margin-right:15px !important;
+  background: btn-color;
 }

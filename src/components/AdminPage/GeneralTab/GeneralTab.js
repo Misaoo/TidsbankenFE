@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ExportImport from "./ExportImport/ExportImport";
 
-
 const GeneralTab = props => {
   const [input, setInput] = useState({ maximumVacationDays: " " });
   const [data, setData] = useState({ maximumVacationDays: "unlimited" });
@@ -54,7 +53,7 @@ const GeneralTab = props => {
   }, []);
   //let address = props.address;
   return (
-    <div>
+    <div className="padding">
       <h1>General</h1>
       <h3>Current maximum: {data.maximumVacationDays}</h3>
       <form onSubmit={handleSubmit}>
@@ -64,7 +63,7 @@ const GeneralTab = props => {
           label="New Maximum"
           onChange={handleChange}
         />
-        <Button variant="contained" type="submit">
+        <Button className="buttonSize" variant="contained" type="submit">
           OK
         </Button>
       </form>

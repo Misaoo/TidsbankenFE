@@ -59,7 +59,7 @@ const Header = (props: any) => {
     <header className={styles.module}>
       {loggedIn && (
         <>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link className={commonStyles.backgroundColor} to="/dashboard">Dashboard</Link>
           <Dropdown 
           title={"Notifications"}
           cb={() => getNotifications()}          >
@@ -79,8 +79,8 @@ const Header = (props: any) => {
       )}
       {loggedInAdmin && (
         <>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/admin">Admin</Link>
+          <Link className={commonStyles.backgroundColor} to="/dashboard">Dashboard</Link>
+          <Link className={commonStyles.backgroundColor} to="/admin">Admin</Link>
           <Dropdown 
           title={"Notifications"} 
           cb={() => getNotifications()}          >
@@ -100,10 +100,10 @@ const Header = (props: any) => {
       )}
       {loggedOut && (
         <>
-          <Link to="/login">Login</Link>
+          <Link className={commonStyles.backgroundColor} to="/login">Login</Link>
         </>
       )}
-      <Dropdown title={"All routes"}>
+      {/* <Dropdown title={"All routes"}>
         <ul className={commonStyles.dropdown}>
           <li>
             <Link to="/">/</Link>
@@ -127,8 +127,8 @@ const Header = (props: any) => {
             <Link to="/requests/1">Requests</Link>
           </li>
         </ul>
-      </Dropdown>
-      <Link to="/users">Users</Link>
+      </Dropdown> */}
+      <Link className={commonStyles.backgroundColor} to="/users">Users</Link>
     </header>
   );
 };

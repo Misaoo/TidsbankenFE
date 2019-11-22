@@ -30,7 +30,7 @@ class AdminPage extends Component {
     return (
       <div className="adminPage">
         <Router>
-          <h1>Admin Page</h1>
+          <h1 className="indent">Admin Page</h1>
           <Navbar style={this.state.style} />
           <Switch>
             <Route

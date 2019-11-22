@@ -23,7 +23,7 @@ const SettingComponent = (props: any) => {
     function Update3faModal(){ setshowModal3(true); }
 
     useEffect(() =>{
-        NewAuth(user!.twoFacAut!);
+        NewAuth(user!.twoFacAut);
     },[])
 
     // Sets new useState for auth - switches the number from 0 to 1 or 1 to 0
@@ -189,6 +189,7 @@ const SettingComponent = (props: any) => {
                 <div className={SettingsStyles.twoFactorAuthimg}><img src={pictures} alt="2fa picture"/></div>
                 
                 <div>{(() => {
+                    console.log(twoAuth);
                     switch(twoAuth) {
                     case 1:
                         return <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={update2fa} value={1} >Activate 2fa</button>;
