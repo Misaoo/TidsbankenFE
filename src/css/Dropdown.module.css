@@ -40,13 +40,14 @@
 
 .items a {
     color: white;
+    padding-left: 15px;
 }
 
 .items ul{
     list-style-type: none;
+    padding: 0;
 }
 
 .items ul li{
     width: 100%;
-    text-indent: 15px;
 }

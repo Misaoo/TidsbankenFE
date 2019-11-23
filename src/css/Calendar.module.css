@@ -1,3 +1,6 @@
+@value global: "./global.css";
+@value box-shadow from global;
+
 .module {
     width: 100%;
     height: auto;
@@ -20,7 +23,7 @@
         "prev currentYearMonth todayBtn next";
     grid-template-columns: 70px 1fr auto 70px;
     background-color: white;
-    box-shadow: 0 0 20px -12px black;
+    box-shadow: box-shadow;
 }
 
 .calendarA {
@@ -36,8 +39,8 @@
     background: transparent;
     border: none;
     transition: .1s all;
-    background-color: #ff6200;
-    color: white;
+    background-color: #ffd804;
+    color: #314353;
 }
 
 .prevBtn:hover,
@@ -96,7 +99,7 @@
     /* height: 50vh; */
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0 0 20px -12px black;
+    box-shadow: box-shadow;
 }
 
 .day {
@@ -115,7 +118,7 @@
     grid-auto-flow: dense;
 }
 
-.day:hover:not(.ineligible):not(.empty):not(.daySelect) {
+.day:hover:not(.ineligible):not(.empty):not(.daySelect):not(.past) {
     background-color: #41596f;
     cursor: pointer;
 }
@@ -132,13 +135,6 @@
     pointer-events: none;
 }
 
-.daySuccess {
-    background-color: #428cca !important;
-}
-
-.dayError {
-    background-color: #ff6c6c !important;
-}
 
 .empty {
     background-color: transparent;
@@ -225,6 +221,10 @@
     user-select: none;
 }
 
+.past .mark {
+    filter: saturate(.4);
+}
+
 .mark {
     height: 15px;
     display: inline-block;
@@ -268,6 +268,10 @@
     justify-self: center;
     color: #bdbdbd;
     position: absolute;
+}
+
+.past {
+    background-color: #d9d9d9;
 }
 
 .action {
