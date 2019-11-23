@@ -1,140 +1,150 @@
-import axios from "axios";
+import axios, { AxiosPromise, AxiosRequestConfig } from "axios";
 
-const login = (email: string, password: string) =>
-  axios(`${process.env.REACT_APP_API_URL}/login`, {
+const unauthorizedOrForbidden = (error: any):void => {
+    if (error.response.status === 401 || error.response.status === 403) {
+        window.location.href = "/logout";
+    }
+}
+
+const axiosWrapper = (url: string, options: AxiosRequestConfig): any => {
+    return axios(url, options).catch(unauthorizedOrForbidden);
+}
+
+// Not using the catch all to allow it to return the correct response.
+const login = (email: string, password: string): any => axios(`${process.env.REACT_APP_API_URL}/login`, {
     method: "POST",
     withCredentials: true,
     data: { email, password }
-  });
+});
 
-const login2fa = (token: string) =>
-  axios(`${process.env.REACT_APP_API_URL}/login2fa`, {
+// Not using the catch all to allow it to return the correct response.
+const login2fa = (token: string): any => axios(`${process.env.REACT_APP_API_URL}/login2fa`, {
     method: "POST",
     withCredentials: true,
     data: { password2fa: token }
-  });
+});
 
-const logout = () =>
-  axios(`${process.env.REACT_APP_API_URL}/logout`, {
+// Not using the catch all to allow it to return the correct response.
+const logout = (): any => axios(`${process.env.REACT_APP_API_URL}/logout`, {
     method: "POST",
     withCredentials: true
-  });
+});
 
-const authorize = () =>
-  axios(`${process.env.REACT_APP_API_URL}/authorize`, {
+// Not using the catch all to allow it to return the correct response.
+const authorize = (): any => axios(`${process.env.REACT_APP_API_URL}/authorize`, {
     method: "POST",
     withCredentials: true
-  });
+});
 
-const user = (id: number) =>
-  axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const user = (id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
     method: "GET",
     withCredentials: true
 });
 
-const allApprovedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allApproved`, {
-    method: "GET",
-    withCredentials: true
-});
-
-
-const userPendingVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allPending`, {
+const allApprovedVacReqs = (): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/allApproved`, {
     method: "GET",
     withCredentials: true
 });
 
 
-const userDeniedVacReqs = () => axios(`${process.env.REACT_APP_API_URL}/request/allDenied`, {
+const userPendingVacReqs = (): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/allPending`, {
     method: "GET",
     withCredentials: true
 });
 
-const getVacationDays = () => axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
+
+const userDeniedVacReqs = (): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/allDenied`, {
     method: "GET",
     withCredentials: true
 });
 
-const submitVacationRequest = (dates: string[]) => axios(process.env.REACT_APP_API_URL + "/request", {
-    method: "POST",
-    withCredentials: true,
-    data: {dates: dates}
+// Not using the catch all to allow it to return the correct response.
+const getVacationDays = (): any => axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
+    method: "GET",
+    withCredentials: true
 });
 
-const submitIneligibleDay = (date: string) => axios(process.env.REACT_APP_API_URL + "/ineligible", {
+const submitVacationRequest = (dates: string[]): any => axiosWrapper(process.env.REACT_APP_API_URL + "/request", {
     method: "POST",
     withCredentials: true,
-    data: {date: date}
+    data: { dates: dates }
 });
 
-const getIneligibleDays = () => axios(process.env.REACT_APP_API_URL + "/ineligible", {
+const submitIneligibleDay = (date: string): any => axiosWrapper(process.env.REACT_APP_API_URL + "/ineligible", {
+    method: "POST",
+    withCredentials: true,
+    data: { date: date }
+});
+
+const getIneligibleDays = (): any => axiosWrapper(process.env.REACT_APP_API_URL + "/ineligible", {
     method: "GET",
     withCredentials: true
 });
 
-const getVacationRequest = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/${id}`, {
+const getVacationRequest = (id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/${id}`, {
     method: "GET",
     withCredentials: true
 });
 
-const getVacationRequestComments = (id: number) => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
+const getVacationRequestComments = (id: number): any => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
     method: "GET",
     withCredentials: true
 });
 
-const postVacationRequestComment = (id: number, comment: string) => axios(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
-    method: "POST", 
-    withCredentials: true, 
+const postVacationRequestComment = (id: number, comment: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/${id}/comment`, {
+    method: "POST",
+    withCredentials: true,
     data: { "comment": comment }
 });
-const updateUser = (id:number, userId: number, email:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const updateUser = (id: number, userId: number, email: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
     method: "PATCH",
     withCredentials: true,
-    data: {userId,email}
+    data: { userId, email }
 });
 
-const updateUserImage = (id:number, userId: number, profilePic:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const updateUserImage = (id: number, userId: number, profilePic: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
     method: "PATCH",
     withCredentials: true,
-    data: {userId,profilePic}
+    data: { userId, profilePic }
 });
 
-const updateUserPassword = (id:number, userId: number, password:string) => axios(`${process.env.REACT_APP_API_URL}/user/${id}/update_password`, {
+const updateUserPassword = (id: number, userId: number, password: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}/update_password`, {
     method: "POST",
     withCredentials: true,
-    data: {userId,password}
+    data: { userId, password }
 });
 
-const updateUser2fa = (id:number, userId: number, twoFacAut:number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const updateUser2fa = (id: number, userId: number, twoFacAut: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
     method: "PATCH",
     withCredentials: true,
-    data: {userId,twoFacAut}
+    data: { userId, twoFacAut }
 });
 
-const vacationsApproved = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/approved/${id}`, {
+const vacationsApproved = (id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/approved/${id}`, {
     method: "GET",
     withCredentials: true,
 });
 
-const vacationsDenied = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/denied/${id}`, {
+const vacationsDenied = (id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/denied/${id}`, {
     method: "GET",
     withCredentials: true,
 });
 
-const vacationsPending = (id:number) => axios(`${process.env.REACT_APP_API_URL}/request/pending/${id}`, {
+const vacationsPending = (id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/request/pending/${id}`, {
     method: "GET",
     withCredentials: true,
 });
 
-const deleteAccount = (id:number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const deleteAccount = (id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
     method: "DELETE",
     withCredentials: true,
 });
 
 
-export default { 
-    login, 
-    login2fa, 
-    logout, 
+export default {
+    login,
+    login2fa,
+    logout,
     authorize,
     user,
     allApprovedVacReqs,
