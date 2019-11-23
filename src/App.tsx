@@ -47,14 +47,14 @@ const App: React.FC = () => {
             <Redirect exact from="/" to="/login" />
             <Route path="/login" component={Login} />
             <Route path="/2fa" component={TwoFactorAuth} />
-            <AuthRoute path="/test" component={MyView} />
+            {/* <AuthRoute path="/test" component={MyView} /> */}
             <AuthRoute path="/profile" component={ProfileView} />
-            <Route path="/dashboard" component={Dashboard} />
+            <AuthRoute path="/dashboard" component={Dashboard} />
             <AuthRoute path="/logout" component={Logout} />
-            <Route path="/requests/:id" component={Requests} />
-            <Route path="/admin" component={AdminPage} />
-            <Route path="/users" component={Users} />
-            <Route path="/user/:user_id" component={User} />
+            <AuthRoute path="/requests/:id" component={Requests} />
+            <AuthRoute path="/admin" component={AdminPage} />
+            <AuthRoute path="/users" component={Users} />
+            <AuthRoute path="/user/:user_id" component={User} />
             <Route component={ViewNotFound} />
           </Switch>
         </Router>
