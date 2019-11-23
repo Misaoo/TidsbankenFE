@@ -18,7 +18,7 @@ class User extends Component {
     axios(
       process.env.REACT_APP_API_URL +
       "/user/" +
-      this.props.match.params.user_id,
+      this.props.computedMatch.params.user_id,
       {
         method: "GET",
         withCredentials: true
@@ -34,7 +34,7 @@ class User extends Component {
     axios(
       process.env.REACT_APP_API_URL +
       "/request/approved/" +
-      this.props.match.params.user_id,
+      this.props.computedMatch.params.user_id,
       {
         method: "GET",
         withCredentials: true
