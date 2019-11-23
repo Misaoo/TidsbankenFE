@@ -87,9 +87,9 @@ const LoginComponent = (props: any) => {
             let response = await API.login(input.email, input.password);
             if (response.status === 200) {
                 setUser(response.data);
+                sessionStorage.setItem("auth", JSON.stringify(new Date()));
                 setSuccess(true);
                 setLoggedIn(true);
-                sessionStorage.setItem("auth", JSON.stringify(new Date()));
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {

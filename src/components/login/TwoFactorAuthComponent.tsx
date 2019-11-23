@@ -25,13 +25,13 @@ const TwoFactorAuthComponent = (props: any) => {
             let login = await API.login2fa(token);
             if (login.status === 200) {
                 setUser(login.data);
-                setSuccess(true);
                 sessionStorage.setItem("auth", JSON.stringify(new Date()));
+                setSuccess(true);
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setError(true);
-                setMessage(`Something went wrong`);
+                setMessage(`The token was not correct, please try again`);
             }
         }
     }
