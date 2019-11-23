@@ -3,12 +3,12 @@ import styles from '../../../css/Calendar.module.css';
 import { format, addMonths } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalendarContext from './CalendarContext';
-import { daysBetween, normalizeInterval } from './calendarUtils';
+import { normalizeInterval, validDatesInInterval } from './calendarUtils';
 
 const CalendarHeading = (props: any) => {
 
-    let { selectedRange, maxVacDays } = useContext(CalendarContext);
-    let daysSelected: number = selectedRange.start && selectedRange.end && daysBetween(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }));
+    let { selectedRange, maxVacDays, inelDays } = useContext(CalendarContext);
+    let daysSelected: number = selectedRange.start && selectedRange.end && validDatesInInterval(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }), inelDays).length;
 
     return (
         <div className={styles.calendarHeading}>

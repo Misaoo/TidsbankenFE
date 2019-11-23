@@ -46,7 +46,7 @@ const Calendar = (props: any) => {
             .then((res: any) => {
                 setAllApprovedReqs(res.data);
             })
-            .catch(error => {
+            .catch((error: any) => {
                 setError(true);
             })
 
@@ -54,14 +54,14 @@ const Calendar = (props: any) => {
             .then((res: any) => {
                 setPendingReqs(res.data);
             })
-            .catch(error => {
+            .catch((error: any) => {
                 setError(true);
             })
         API.userDeniedVacReqs()
             .then((res: any) => {
                 setDeniedReqs(res.data);
             })
-            .catch(error => {
+            .catch((error: any) => {
                 setError(true);
             })
 
@@ -142,7 +142,8 @@ const Calendar = (props: any) => {
             // modalContent, 
             setModalContent,
             inelDays,
-            setUpdate
+            setUpdate,
+            currentDate
         }}>
 
 

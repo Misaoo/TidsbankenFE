@@ -14,7 +14,7 @@ const Auth = (props: any) => {
     useEffect(() => {
         try {
             API.authorize()
-                .then(res => {
+                .then((res: any) => {
                     if (res.status === 200) {
                         setUser(res.data as userType);
                         setAuthed(true);
