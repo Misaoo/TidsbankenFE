@@ -10,11 +10,11 @@ const Logout = (props: any) => {
 
     useEffect(() => {
         API.logout()
-            .then(res => {
+            .then((res: any) => {
                 if (res.status === 200) {
                     setUser({});
-                    setSuccess(true);
                     sessionStorage.removeItem("auth");
+                    setSuccess(true);
                 } else {
                     setError(true);
                 }
