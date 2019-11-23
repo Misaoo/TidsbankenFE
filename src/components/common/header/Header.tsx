@@ -11,10 +11,15 @@ const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>([]); // Used for li html elements
+  const [notificationCount, setNotificationCount] = useState<number>(0);
 
   useEffect(() => {
     callNotifications();
   }, []);
+
+  useEffect(() => {
+    setNotificationCount(update.length);
+  }, [update]);
 
   const callNotifications = () => {
     axios(process.env.REACT_APP_API_URL + "/notification", {
@@ -39,7 +44,8 @@ const Header = (props: any) => {
     const liElement = update.map((value: any) => {
       return <li
         onClick={() => removeNotification(value.notificationId)}
-        key={value.notificationId}>
+        key={value.notificationId}
+        className={commonStyles.dropdown}>
         <Link to="/profile">{value.message}</Link>
       </li>
     });
@@ -65,8 +71,9 @@ const Header = (props: any) => {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/users">Users</Link>
           <Dropdown
-            title={"Notifications"}
-            cb={() => getNotifications()}          >
+            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
+            cb={getNotifications}
+          >
             <ul>{liArray}</ul>
           </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
@@ -88,7 +95,7 @@ const Header = (props: any) => {
           <Link to="/admin">Admin</Link>
           <Dropdown
             title={"Notifications"}
-            cb={() => getNotifications()}
+            cb={getNotifications}
           >
             <ul>{liArray}</ul>
           </Dropdown>
