@@ -11,7 +11,7 @@
     grid-area: request;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 80px 40px 40px 50px auto;
+    grid-template-rows: 80px 40px 40px 30px 40px auto;
 }
 
 .comments {
@@ -60,4 +60,22 @@
 
 .img {
     max-width: 100%;
+}
+
+.dates {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.dates > div {
+    font-size: 12px;
+    padding: 4px 20px;
+    border-radius: 5px;
+    background-color:
+    #314353;
+    color:
+    white;
+    width: max-content;
+    display: inline-block;
+    margin: 2px;
 }

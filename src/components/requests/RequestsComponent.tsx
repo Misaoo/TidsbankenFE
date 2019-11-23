@@ -5,6 +5,7 @@ import reqStyles from '../../css/Request.module.css';
 import commonStyles from '../../css/Common.module.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { format } from 'date-fns';
 
 const RequestsComponent = (props: any) => {
 
@@ -71,12 +72,20 @@ const RequestsComponent = (props: any) => {
                 // setError(true);
             })
 
-    }, [success]);
+    }, [props.id, success]);
 
 
     const getStatus = (status: number) => {
         let statuses = ['Pending', 'Denied', 'Approved'];
         return statuses[status];
+    }
+
+    const createDays = () => {
+        let arr: any = [];
+        req.dates.map((date: any, index: number) => {
+            arr = [...arr, <div key={index} title={format(new Date(date), 'EEE do MMMM')}>{format(new Date(date), 'yyyy-MM-dd')}</div>]
+        });
+        return arr;
     }
 
     const handleChange = (event: any) => {
@@ -106,6 +115,7 @@ const RequestsComponent = (props: any) => {
                 <p>Request ID:  <Link to={"/requests/" + req.requestId}>{req.requestId}</Link></p>
                 <p>Owner: <Link to={"/user/" + req.userId}>{owner.name + " " + owner.lastName}</Link></p>
                 <p>Request status: <span className={styles[getStatus(req.status).toLowerCase()] + " " + styles.status}>{getStatus(req.status)}</span></p>
+                <p>Vacation days:</p><div className={styles.dates}> {createDays()}</div>
                 <img className={styles.img} src={owner.profilePic} alt={owner.name + " " + owner.lastName + "\'s profile picture"} />
             </div>}
             {req && owner && comments && showComments && <>
