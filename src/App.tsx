@@ -14,7 +14,8 @@ import {
   faTimes,
   faQuestionCircle,
   faExclamationCircle,
-  faCheckCircle
+  faCheckCircle,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 
 // Own components
@@ -34,7 +35,7 @@ import Users from "./components/Users/Users";
 import Requests from "./views/requests/Requests";
 import User from "./components/User/User";
 
-library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle);
+library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock);
 
 const App: React.FC = () => {
   return (

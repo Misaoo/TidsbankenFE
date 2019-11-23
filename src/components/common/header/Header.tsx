@@ -5,6 +5,7 @@ import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
 import Dropdown from "../dropdown/Dropdown";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
@@ -58,6 +59,7 @@ const Header = (props: any) => {
 
   return (
     <header className={styles.module}>
+      <Link to="/" className={styles.logo}><FontAwesomeIcon icon="clock" /> TB</Link>
       {loggedIn && (
         <>
           <Link to="/dashboard">Dashboard</Link>
