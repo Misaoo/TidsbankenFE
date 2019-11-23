@@ -6,10 +6,11 @@ import commonStyles from '../../../css/Common.module.css';
 import { format, eachDayOfInterval } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalendarContext from './CalendarContext';
+import { validDatesInInterval } from './calendarUtils';
 
 const AddRequest = (props: any) => {
     const { user } = useContext(AuthContext);
-    const { setUpdate } = useContext(CalendarContext);
+    const { setUpdate, inelDays } = useContext(CalendarContext);
 
     const [type, setType] = useState("vacation");
     const [dates, setDates] = useState<Date[]>([]);
@@ -17,7 +18,7 @@ const AddRequest = (props: any) => {
     const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
-        setDates(eachDayOfInterval(props.range))
+        setDates(validDatesInInterval(props.range, inelDays));
     }, [props.range])
 
     const handleSubmit = (event: any) => {
@@ -30,7 +31,6 @@ const AddRequest = (props: any) => {
         dates.map((date) => {
             formatedDates = [...formatedDates, format(date, 'yyyy-MM-dd')];
         });
-        // console.log(formatedDates);
 
         if (formatedDates.length > 0) {
 
@@ -76,9 +76,9 @@ const AddRequest = (props: any) => {
         setType(event.target.name);
     }
 
-    const createDays = (interval: any) => {
+    const createDays = () => {
         let arr: any = [];
-        eachDayOfInterval(interval).map((date: any, index: number) => {
+        dates.map((date: any, index: number) => {
             arr = [...arr, <div key={index} title={format(date, 'EEE do MMMM')}>{format(date, 'yyyy-MM-dd')}</div>]
         });
         return arr;
@@ -99,7 +99,7 @@ const AddRequest = (props: any) => {
             <h3>Selected days:</h3>
             <div>
                 <div className={styles.selectedDaysGrid}>
-                    {createDays(props.range)}
+                    {createDays()}
                 </div>
             </div>
         </div>

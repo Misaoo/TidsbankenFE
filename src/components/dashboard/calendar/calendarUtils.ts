@@ -26,7 +26,19 @@ export const daysBetween = (interval: Interval): number => {
     return eachDayOfInterval({ start: interval.start, end: interval.end }).length;
 }
 
-export const datesInInterval = (interval: Interval, dates: Date[]): boolean => {
+export const validDatesInInterval = (interval: Interval, dates: []): Date[] => {
+    let eachDay = eachDayOfInterval(interval);
+    let validDates:any = [];
+
+    eachDay.map((date: Date) => {
+        if (!isIneligible(date, dates)) {
+            validDates.push(date);
+        }
+    })
+    return validDates;
+}
+
+export const datesInInterval = (interval: Interval, dates: []): boolean => {
     let output = false;
 
     if (interval.start === undefined || interval.end === undefined) {
@@ -37,8 +49,8 @@ export const datesInInterval = (interval: Interval, dates: Date[]): boolean => {
         return false;
     }
 
-    dates.map(date => {
-        if (isWithinInterval(date, interval)) {
+    dates.map((date: any) => {
+        if (isWithinInterval(new Date(date.date), interval)) {
             output = true;
         }
     });
