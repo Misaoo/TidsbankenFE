@@ -49,7 +49,7 @@ const SideBarComponent = (props: any) => {
               videoConstraints={videoConstraints}
               mirrored={true}
             />
-            <button className={sidebarStyles.screenshotButton} onClick={capture}>Capture photo</button>
+            <button className={commonStyles.button + " " + sidebarStyles.buttonTweaks_webcam} onClick={capture}>Capture photo</button>
           </>
         );
       };
@@ -218,10 +218,10 @@ const SideBarComponent = (props: any) => {
             </form>
 
             <Modal display={showModal} setDisplay={setshowModal}>
-                <p>Please provide link to picture</p>
-                <form onSubmit={savePicture}>
-                    <input type="text" onChange={pictureForm}/>
-                    <button type="submit">Save</button>
+                <form onSubmit={savePicture} >
+                    <label className={commonStyles.label} htmlFor="savePic">Please provide link to picture</label>
+                    <input type="text" name="savePic" onChange={pictureForm} className={commonStyles.input} />
+                    <button type="submit" className={commonStyles.button + " " + sidebarStyles.buttonTweaks}>Save</button>
                 </form>
             </Modal>
 

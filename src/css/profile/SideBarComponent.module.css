@@ -116,5 +116,22 @@ video{
     position: relative;
 }
 
+/******************/
+/***** BUTTON *****/
+/******************/
+.buttonTweaks{
+    position: absolute;
+    width: calc(100% - 45px);
+    bottom: 0;
+}
+
+.buttonTweaks_webcam{
+    position: absolute;
+    width: calc(100% - 45px);
+    bottom: 15px;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
 
 
