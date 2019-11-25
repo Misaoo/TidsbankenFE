@@ -47,9 +47,15 @@ const GeneralTab = props => {
     axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
       method: "GET",
       withCredentials: true
-    }).then(response => {
-      setData(response.data);
-    });
+    })
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
+      });
   }, []);
   //let address = props.address;
   return (

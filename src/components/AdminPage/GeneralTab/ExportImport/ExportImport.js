@@ -25,13 +25,19 @@ class ExportImport extends Component {
       axios(process.env.REACT_APP_API_URL + "/allData", {
         method: "GET",
         withCredentials: true
-      }).then(res => {
-        this.setState({
-          outputData: res.data,
-          showData: true,
-          setData: false
+      })
+        .then(res => {
+          this.setState({
+            outputData: res.data,
+            showData: true,
+            setData: false
+          });
+        })
+        .catch(error => {
+          if (error.response.status === 401 || error.response.status === 403) {
+            window.location.href = "/logout";
+          }
         });
-      });
     } else {
       this.setState({
         showData: false

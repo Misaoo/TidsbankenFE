@@ -47,17 +47,23 @@ class Comment extends Component {
     axios(process.env.REACT_APP_API_URL + "/authorize", {
       method: "POST",
       withCredentials: true
-    }).then(res => {
-      if (
-        res.data.userId === this.props.comment.userId &&
-        new Date(this.props.comment.createdAt) >
-          new Date(Date.now() - 60 * 60 * 24 * 1000)
-      ) {
-        this.setState({
-          popup: !this.state.popup
-        });
-      }
-    });
+    })
+      .then(res => {
+        if (
+          res.data.userId === this.props.comment.userId &&
+          new Date(this.props.comment.createdAt) >
+            new Date(Date.now() - 60 * 60 * 24 * 1000)
+        ) {
+          this.setState({
+            popup: !this.state.popup
+          });
+        }
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
+      });
   }
   deleteComment() {
     axios(

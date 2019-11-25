@@ -27,12 +27,18 @@ class RequestCard extends Component {
         method: "GET",
         withCredentials: true
       }
-    ).then(res => {
-      this.setState({
-        name: res.data.name,
-        lastName: res.data.lastName
+    )
+      .then(res => {
+        this.setState({
+          name: res.data.name,
+          lastName: res.data.lastName
+        });
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
       });
-    });
   }
   setPopup() {
     this.setState({

@@ -32,20 +32,26 @@ class RequestTab extends Component {
     axios(link, {
       method: "GET",
       withCredentials: true
-    }).then(res => {
-      res.data.map(req => {
-        requests.push(
-          <RequestCard
-            key={req.requestId}
-            request={req}
-            updateData={this.getData.bind(this)}
-          />
-        );
+    })
+      .then(res => {
+        res.data.map(req => {
+          requests.push(
+            <RequestCard
+              key={req.requestId}
+              request={req}
+              updateData={this.getData.bind(this)}
+            />
+          );
+        });
+        this.setState({
+          data: requests
+        });
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
       });
-      this.setState({
-        data: requests
-      });
-    });
   }
   updateStyling(style) {
     this.setState({

@@ -37,16 +37,22 @@ class PictureUpload extends Component {
         password: this.state.passwordBottom,
         profilePic: this.state.profilePic
       }
-    }).then(() => {
-      this.setState({
-        name: "",
-        lastName: "",
-        email: "",
-        passwordTop: "",
-        passwordBottom: "",
-        profilePic: ""
+    })
+      .then(() => {
+        this.setState({
+          name: "",
+          lastName: "",
+          email: "",
+          passwordTop: "",
+          passwordBottom: "",
+          profilePic: ""
+        });
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
       });
-    });
     event.preventDefault();
   }
   setPicture(image) {
@@ -144,7 +150,7 @@ class PictureUpload extends Component {
               </div>
             </div>
             <button
-              className={commonStyles.button} 
+              className={commonStyles.button}
               disabled={
                 !(
                   this.state.name !== "" &&
@@ -155,7 +161,7 @@ class PictureUpload extends Component {
                 )
               }
               variant="contained"
-              type="submit"  
+              type="submit"
             >
               Add User
             </button>
