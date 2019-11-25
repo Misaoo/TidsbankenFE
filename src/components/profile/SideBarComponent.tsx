@@ -14,6 +14,7 @@ const SideBarComponent = (props: any) => {
   const [lastName, setLastName] = useState();
   const [admin, setAdmin] = useState();
 
+
   const [saved, setSaved] = useState(false);
 
   let [timer, setTimer] = useState(0);
@@ -30,13 +31,13 @@ const SideBarComponent = (props: any) => {
 
   const WebcamCapture = () => {
     const webcamRef = React.useRef(null);
-
     const capture = React.useCallback(() => {
-      console.log("WEBCAM KÖRS!!!!!! _____ ");
+     
       const imageSrc = (webcamRef as any).current.getScreenshot();
+
       updateUserImage(imageSrc);
       setImg(imageSrc);
-    }, [webcamRef]);
+    }, [webcamRef, user]);
 
     return (
       <>
@@ -76,22 +77,45 @@ const SideBarComponent = (props: any) => {
         props.setEmail(response.data.email);
       }
     } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) {
-        console.log(error);
-      }
-      // If TwoFactorAuthentication
-      if (error.response.status === 418) {
-      }
-      console.log(error);
+      // if (error.response.status === 401 || error.response.status === 504) {
+      //   console.log(error);
+      // }
+      // // If TwoFactorAuthentication
+      // if (error.response.status === 418) {
+      // }
+      // console.log(error);
     }
   }
 
-  async function updateUserEmail() {
+  async function updateUserImage(img: string) {
+    if(user && user.name) {
+      try {
+        let response = await API.updateUserImage(user.userId, img);
+        if (response.status === 200) {
+          console.log("image");
+        }
+      } catch (error) {
+        // if (error.response.status === 401 || error.response.status === 504) {
+        //   console.log(error);
+        // }
+        // // If TwoFactorAuthentication
+        // if (error.response.status === 418) {
+        // }
+        // console.log(error);
+      }
+    }
+  }
+
+  function handleChangePicture(e: any) {
+    setBrowsePic(e.target.files[0]);
+  }
+
+  async function updateUserEmail(userId: number, email:string) {
     try {
       let response = await API.updateUser(
-        user!.userId,
-        user!.userId,
-        props.email
+        userId,
+        email
+        // props.email
       );
       if (response.status === 200) {
         setSaved(true);
@@ -102,48 +126,28 @@ const SideBarComponent = (props: any) => {
         );
       }
     } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) {
-        console.log(error);
-      }
-      // If TwoFactorAuthentication
-      if (error.response.status === 418) {
-      }
-      console.log(error);
+      // if (error.response.status === 401 || error.response.status === 504) {
+      //   console.log(error);
+      // }
+      // // If TwoFactorAuthentication
+      // if (error.response.status === 418) {
+      // }
+      // console.log(error);
     }
-  }
-
-  async function updateUserImage(img: string) {
-    try {
-      let response = await API.updateUserImage(user!.userId, user!.userId, img);
-      if (response.status === 200) {
-        console.log("image");
-      }
-    } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) {
-        console.log(error);
-      }
-      // If TwoFactorAuthentication
-      if (error.response.status === 418) {
-      }
-      console.log(error);
-    }
-  }
-
-  function handleChangePicture(e: any) {
-    setBrowsePic(e.target.files[0]);
   }
 
   function handleChange(e: any) {
     e.preventDefault();
     let type = e.target.type;
-    props.setEmail(e.target.value);
+    let value = e.target.value;
+    props.setEmail(value);
 
     // CLICK OUTSIDE CONTAINER
-    window.onclick = function() {
+    window.onclick = function () {
       if (type == "email") {
         window.clearTimeout(timer); //cancel the previous timer.
-        if (user && user.hasOwnProperty("userId")) {
-          updateUserEmail(); // Update user in server
+        if (user && user.userId) {
+          updateUserEmail(user.userId, value); // Update user in server
         }
       }
       window.onclick = null;
@@ -153,7 +157,9 @@ const SideBarComponent = (props: any) => {
     document.addEventListener("keydown", function enterKey(event: any) {
       if (event.keyCode === 13) {
         console.log("test");
-        updateUserEmail();
+        if (user && user.userId) {
+          updateUserEmail(user.userId, value);
+        }
         window.clearTimeout(timer); //cancel the previous timer.
       }
       document.removeEventListener("keydown", enterKey); // cancel the previous eventlistener
@@ -176,7 +182,7 @@ const SideBarComponent = (props: any) => {
     }
     var reader = new FileReader();
     reader.readAsDataURL(browsePic);
-    reader.onloadend = function() {
+    reader.onloadend = function () {
       base64data = reader.result;
       axios(process.env.REACT_APP_API_URL + "/user/" + userId, {
         method: "PATCH",
@@ -190,32 +196,32 @@ const SideBarComponent = (props: any) => {
     };
   }
 
-  async function savePicture(e: any) {
-    e.preventDefault();
-    try {
-      let response = await API.updateUserImage(
-        user!.userId,
-        user!.userId,
-        pictureString
-      );
-      if (response.status === 200) {
-        console.log("new image saved in database");
-        setImg(pictureString);
-      }
-    } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) {
-        console.log(error);
-      }
-      // If TwoFactorAuthentication
-      if (error.response.status === 418) {
-      }
-      console.log(error);
-    }
-  }
+  // async function savePicture(e: any) {
+  //   e.preventDefault();
+  //   try {
+  //     let response = await API.updateUserImage(
+  //       user!.userId,
+  //       user!.userId,
+  //       pictureString
+  //     );
+  //     if (response.status === 200) {
+  //       console.log("new image saved in database");
+  //       setImg(pictureString);
+  //     }
+  //   } catch (error) {
+  //     if (error.response.status === 401 || error.response.status === 504) {
+  //       console.log(error);
+  //     }
+  //     // If TwoFactorAuthentication
+  //     if (error.response.status === 418) {
+  //     }
+  //     console.log(error);
+  //   }
+  // }
 
-  function pictureForm(e: any) {
-    setPictureString(e.target.value);
-  }
+  // function pictureForm(e: any) {
+  //   setPictureString(e.target.value);
+  // }
 
   return (
     <div className={sidebarStyles.SideBarWrapper}>
