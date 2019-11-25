@@ -79,13 +79,13 @@ class ExportImport extends Component {
     var reader = new FileReader();
     reader.readAsBinaryString(this.state.inputData);
     reader.onloadend = function() {
-      console.log(JSON.parse(reader.result));
-      /*
       axios(process.env.REACT_APP_API_URL + "/allData", {
         method: "POST",
         withCredentials: true,
         data: JSON.parse(reader.result)
-      }).then(() => {alert("Database reloaded successfully")});*/
+      }).then(() => {
+        alert("Database reloaded successfully");
+      });
     };
     this.setState({
       reallySure: false
