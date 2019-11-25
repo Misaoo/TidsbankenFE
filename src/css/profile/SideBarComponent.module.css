@@ -49,6 +49,7 @@
     border-radius: 50%;
     text-align: center;
     overflow: hidden;
+    margin:auto;
 }
 
 .SideBarWrapper img{

@@ -3,7 +3,7 @@
 
 .ProfileWrapper{
     display:grid;
-    grid-template-columns: minmax(250px,max-content) 1fr;
+    grid-template-columns: minmax(320px,max-content) 1fr;
     min-height: calc(100% - 40px);
 }
 
