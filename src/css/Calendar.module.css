@@ -222,7 +222,7 @@
 }
 
 .past .mark {
-    filter: saturate(.4);
+    filter: saturate(.1);
 }
 
 .mark {
