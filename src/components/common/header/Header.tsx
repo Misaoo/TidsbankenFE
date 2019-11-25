@@ -46,7 +46,7 @@ const Header = (props: any) => {
         onClick={() => removeNotification(value.notificationId)}
         key={value.notificationId}
         className={commonStyles.dropdown}>
-        <Link to="/profile">{value.message}</Link>
+        <Link to={"/requests/"+ value.requestId}>{value.message}</Link>
       </li>
     });
     setLiArray(liElement);
