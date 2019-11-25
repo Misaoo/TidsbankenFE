@@ -94,7 +94,7 @@ const Header = (props: any) => {
           <Link to="/users">Users</Link>
           <Link to="/admin">Admin</Link>
           <Dropdown
-            title={"Notifications"}
+            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
             cb={getNotifications}
           >
             <ul>{liArray}</ul>
