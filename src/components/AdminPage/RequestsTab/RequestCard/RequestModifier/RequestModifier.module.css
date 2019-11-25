@@ -23,6 +23,7 @@
   grid-template-columns: 35% 65%;
   background-color: white;
   height: 75%;
+  max-height: calc(100% - 30px);
   width: 65%;
   position: relative;
   box-sizing: border-box;
