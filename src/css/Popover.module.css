@@ -6,10 +6,11 @@
 .wrapper{
     min-width: 100px;
     background-color: hsla(0, 0%, 37.6%, 1);
-    position: absolute;
+    position: relative;
     padding: 10px;
     padding-right: 10px;
     border-radius: 10px;
     box-shadow: box-shadow;
     color: third-text-color;
+    margin-top:15px;
 }
