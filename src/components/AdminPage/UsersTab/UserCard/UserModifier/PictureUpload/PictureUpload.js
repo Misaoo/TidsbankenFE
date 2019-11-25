@@ -35,9 +35,15 @@ class PictureUpload extends Component {
         data: {
           profilePic: base64data
         }
-      }).then(() => {
-        updatefunc();
-      });
+      })
+        .then(() => {
+          updatefunc();
+        })
+        .catch(error => {
+          if (error.response.status === 401 || error.response.status === 403) {
+            window.location.href = "/logout";
+          }
+        });
     };
     this.setState({
       showUpload: false

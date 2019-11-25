@@ -52,20 +52,26 @@ class CommentSection extends Component {
         method: "GET",
         withCredentials: true
       }
-    ).then(res => {
-      res.data.map(comment => {
-        tempComments.push(
-          <Comment
-            key={comment.commentId}
-            comment={comment}
-            updateComments={this.getComments.bind(this)}
-          />
-        );
+    )
+      .then(res => {
+        res.data.map(comment => {
+          tempComments.push(
+            <Comment
+              key={comment.commentId}
+              comment={comment}
+              updateComments={this.getComments.bind(this)}
+            />
+          );
+        });
+        this.setState({
+          comments: tempComments
+        });
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
       });
-      this.setState({
-        comments: tempComments
-      });
-    });
   }
 
   render() {

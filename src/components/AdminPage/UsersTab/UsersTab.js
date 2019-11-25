@@ -34,20 +34,26 @@ class UsersTab extends Component {
     axios(process.env.REACT_APP_API_URL + "/user/all", {
       method: "GET",
       withCredentials: true
-    }).then(res => {
-      res.data.map(user => {
-        tempArr.push(
-          <UserCard
-            key={user.userId}
-            user={user}
-            updateUsers={this.getUsers.bind(this)}
-          />
-        );
+    })
+      .then(res => {
+        res.data.map(user => {
+          tempArr.push(
+            <UserCard
+              key={user.userId}
+              user={user}
+              updateUsers={this.getUsers.bind(this)}
+            />
+          );
+        });
+        this.setState({
+          users: tempArr
+        });
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
       });
-      this.setState({
-        users: tempArr
-      });
-    });
   }
   updateStyling(style) {
     this.setState({
