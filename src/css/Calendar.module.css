@@ -222,7 +222,7 @@
 }
 
 .past .mark {
-    filter: saturate(.4);
+    filter: saturate(.1);
 }
 
 .mark {
@@ -261,6 +261,10 @@
     cursor: default;
     color: #7b7b7b;
     background: repeating-linear-gradient( 45deg, #bc6060, #bc6060 10px, #984646 10px, #984646 20px );
+}
+
+.past.ineligible {
+    filter: saturate(0);
 }
 
 .ineligibleMessage {
