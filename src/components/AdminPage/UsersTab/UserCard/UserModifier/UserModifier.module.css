@@ -25,6 +25,7 @@
   grid-template-columns: 45% 10% 45%;
   background-color: white;
   height: auto;
+  max-height: calc(100% - 30px);
   width: 65%;
   position: relative;
   box-sizing: border-box;
