@@ -14,10 +14,8 @@ const Modal = (props: any) => {
         }
 
         document.addEventListener("keydown", hide);
-        document.body.style.overflow = 'hidden';
         return (() => {
             document.removeEventListener("keydown", hide);
-            document.body.style.overflow = 'unset';
         });
     }, [setDisplay]);
 
