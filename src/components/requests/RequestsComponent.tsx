@@ -116,7 +116,7 @@ const RequestsComponent = (props: any) => {
                 <p>Owner: <Link to={"/user/" + req.userId}>{owner.name + " " + owner.lastName}</Link></p>
                 <p>Request status: <span className={styles[getStatus(req.status).toLowerCase()] + " " + styles.status}>{getStatus(req.status)}</span></p>
                 <p>Vacation days:</p><div className={styles.dates}> {createDays()}</div>
-                <img className={styles.img} src={owner.profilePic} alt={owner.name + " " + owner.lastName + "\'s profile picture"} />
+                {/* <img className={styles.img} src={owner.profilePic} alt={owner.name + " " + owner.lastName + "\'s profile picture"} /> */}
             </div>}
             {req && owner && comments && showComments && <>
                 <div className={styles.comments}>
