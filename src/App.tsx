@@ -44,7 +44,7 @@ const App: React.FC = () => {
         <Router>
           <Header />
           <Switch>
-            <Redirect exact from="/" to="/login" />
+            <Redirect exact from="/" to="/dashboard" />
             <Route path="/login" component={Login} />
             <Route path="/2fa" component={TwoFactorAuth} />
             {/* <AuthRoute path="/test" component={MyView} /> */}

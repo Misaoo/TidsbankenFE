@@ -70,9 +70,15 @@ class UserModifier extends Component {
     axios(process.env.REACT_APP_API_URL + "/user/" + this.props.user.userId, {
       method: "DELETE",
       withCredentials: true
-    }).then(() => {
-      this.props.updateList();
-    });
+    })
+      .then(() => {
+        this.props.updateList();
+      })
+      .catch(error => {
+        if (error.response.status === 401 || error.response.status === 403) {
+          window.location.href = "/logout";
+        }
+      });
     event.preventDefault();
   }
 
