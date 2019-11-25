@@ -4,7 +4,8 @@ import SettingsStyles from '../../css/profile/SettingComponent.module.css';
 import commonStyles from '../../css/Common.module.css';
 import API from '../../api/API';
 import Modal from '../common/modal/Modal';
-import pictures from '../../pic/undraw_authentication_fsn5.svg'
+import authpicture from '../../pic/undraw_authentication_fsn5.svg';
+import removepicture from '../../pic/undraw_notify_88a4.svg';
 
 const SettingComponent = (props: any) => {
     const { user } = useContext(AuthContext);
@@ -23,8 +24,8 @@ const SettingComponent = (props: any) => {
     function Update3faModal(){ setshowModal3(true); }
 
     useEffect(() =>{
-        if(user) {
-            NewAuth(user!.twoFacAut!);
+        if(user && user.name) {
+            NewAuth(user.twoFacAut);
         }
     },[user])
 
@@ -46,7 +47,7 @@ const SettingComponent = (props: any) => {
         //Update password in database
         if(await oldPassword === true && newPassword === true){
             try {
-                let response = await API.updateUserPassword(user!.userId, user!.userId, newPass1);
+                let response = await API.updateUserPassword(user!.userId, newPass1);
                 if (response.status === 200) {
                     console.log("USER updated his password");
                 }
@@ -68,24 +69,20 @@ const SettingComponent = (props: any) => {
 
     // Test old password so it's correct compared to the one in the database
     const testOldPassword = async () => {
-        console.log(props.email);
-        console.log(oldPass);
         try {
-            let response = await API.login(props.email, oldPass);
+            // let response = await API.login(props.email, oldPass);
+            let response = await API.validatePassword(oldPass)
             if (response.status === 200) {
-                console.log("test");
                 return true;
             }
         } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
-                console.log("asd");
-                return false;
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-                console.log("ga");
-                return false;
-            }
+            // if (error.response.status === 401 || error.response.status === 504) {
+            //     return false;
+            // }
+            // // If TwoFactorAuthentication
+            // if (error.response.status === 418) {
+            //     return false;
+            // }
         }
     }
 
@@ -96,16 +93,13 @@ const SettingComponent = (props: any) => {
         
         //UPDATE 2fa
         try {
-            let response = await API.updateUser2fa(user!.userId, user!.userId, number);
-            console.log(number);
+            let response = await API.updateUser2fa(user!.userId, number);
             if (response.status === 200) {
-                console.log("Updated users 2fa");
                 NewAuth(number);
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {
                 console.log(error);
-                console.log("asd");
             }
             // If TwoFactorAuthentication
             if (error.response.status === 418) {
@@ -186,7 +180,7 @@ const SettingComponent = (props: any) => {
 
                 <p>Two Factor Authentication, or 2FA, adds an extra layer of protection to ensure the security of your accounts beyond just a username and password.</p>
                 
-                <div className={SettingsStyles.twoFactorAuthimg}><img src={pictures} alt="2fa picture"/></div>
+                <div className={SettingsStyles.twoFactorAuthimg}><img src={authpicture} alt="2fa picture"/></div>
                 
                 <div>{(() => {
                     console.log(twoAuth);
@@ -204,6 +198,7 @@ const SettingComponent = (props: any) => {
             <Modal display={showModal3} setDisplay={setshowModal3}>
                 <h1>Delete account</h1>
                 <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p>
+                <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa picture"/></div>
                 <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button>
             </Modal>
         </div>

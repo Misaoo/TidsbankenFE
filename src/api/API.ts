@@ -24,6 +24,12 @@ const login2fa = (token: string): any => axios(`${process.env.REACT_APP_API_URL}
     data: { password2fa: token }
 });
 
+const validatePassword = (password: string): any => axios(`${process.env.REACT_APP_API_URL}/validate`, {
+    method: "POST",
+    withCredentials: true,
+    data: { password }
+});
+
 // Not using the catch all to allow it to return the correct response.
 const logout = (): any => axios(`${process.env.REACT_APP_API_URL}/logout`, {
     method: "POST",
@@ -96,25 +102,25 @@ const postVacationRequestComment = (id: number, comment: string): any => axiosWr
     withCredentials: true,
     data: { "comment": comment }
 });
-const updateUser = (id: number, userId: number, email: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const updateUser = (userId: number, email: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
     method: "PATCH",
     withCredentials: true,
     data: { userId, email }
 });
 
-const updateUserImage = (id: number, userId: number, profilePic: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const updateUserImage = (userId: number, profilePic: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
     method: "PATCH",
     withCredentials: true,
     data: { userId, profilePic }
 });
 
-const updateUserPassword = (id: number, userId: number, password: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}/update_password`, {
+const updateUserPassword = (userId: number, password: string): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${userId}/update_password`, {
     method: "POST",
     withCredentials: true,
     data: { userId, password }
 });
 
-const updateUser2fa = (id: number, userId: number, twoFacAut: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+const updateUser2fa = (userId: number, twoFacAut: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
     method: "PATCH",
     withCredentials: true,
     data: { userId, twoFacAut }
@@ -144,6 +150,7 @@ const deleteAccount = (id: number): any => axiosWrapper(`${process.env.REACT_APP
 export default {
     login,
     login2fa,
+    validatePassword,
     logout,
     authorize,
     user,
