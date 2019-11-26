@@ -60,7 +60,6 @@ const TwoFactorAuthComponent = (props: any) => {
                         onChange={handleChange}
                         value={token}
                         minLength={5}
-                        maxLength={6}
                         ref={inputRef}
                     />
                     <p id={styles.errorMessage}>{error && message}</p>
