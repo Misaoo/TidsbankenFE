@@ -27,7 +27,7 @@
 .contentContainer {
     display: grid;
     grid-template-areas: "boxIcon cont";
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 200px 1fr;
 }
 
 .boxIcon {

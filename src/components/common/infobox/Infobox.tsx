@@ -26,7 +26,7 @@ const Infobox = (props: any) => {
             </div>
             <div className={styles.contentContainer}>
                 <div className={styles.boxIcon}>
-                    <FontAwesomeIcon icon={props.icon} size="2x" />
+                    {props.image}
                 </div>
                 <div className={styles.content}>
                     {props.children}

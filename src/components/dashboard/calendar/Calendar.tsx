@@ -10,6 +10,8 @@ import API from '../../../api/API';
 import { addMonths, subMonths } from 'date-fns';
 import { daysBetween, normalizeInterval } from './calendarUtils';
 import CalendarAdmin from './CalendarAdmin';
+import bookingpicture from '../../../pic/undraw_booking_33fn.svg';
+
 
 const Calendar = (props: any) => {
 
@@ -186,7 +188,7 @@ const Calendar = (props: any) => {
                     currentDate={currentDate}
                     selectedDate={selectedDate}
                 />
-                <Infobox className={styles.helpInfo} infoboxId="calendarHelpInfo" icon="question-circle">
+                <Infobox className={styles.helpInfo} infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking image" height="100px" />}>
                     <h2>Calendar</h2>
                     <p>Here you can see your approved, pending and denied requests, as well as your colleagues approved vacation requests</p>
                     <h3>Request vacation</h3>
