@@ -230,13 +230,15 @@
     display: inline-block;
     background-color: #37eba8;
     align-self: end;
-    margin: 1px 2px;
+    margin: 1px 1px;
     font-size: 10px;
-    padding: 1px 8px;
-    color: black;
+    padding: 1px 4px;
+    color:
+    black;
     width: max-content;
     border-radius: 3px;
     text-decoration: none;
+    transition: .1s all;
 }
 
 .mark:hover {

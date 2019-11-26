@@ -6,7 +6,7 @@ import RequestComponent from '../../requests/RequestsComponent';
 
 const Mark = (props: any) => {
     
-    const {setModalContent, setModal} = useContext(CalendarContext);
+    const {setModalContent, setModal, userNames} = useContext(CalendarContext);
 
     const handleClick = (event: any) => {
         event.stopPropagation();
@@ -15,9 +15,7 @@ const Mark = (props: any) => {
     }
 
     return (
-        // <Link  to={"/requests/" + props.vacReq.requestId}>
-        <span onClick={handleClick} className={styles.mark + " " + styles[props.type]} data-reqid={props.vacReq.requestId} >user {props.vacReq.userId}</span>
-        // </Link>
+        <span onClick={handleClick} className={styles.mark + " " + styles[props.type]} data-reqid={props.vacReq.requestId} >{userNames[props.vacReq.userId]}</span>
     )
 }
 

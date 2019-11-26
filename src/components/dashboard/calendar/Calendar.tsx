@@ -23,6 +23,7 @@ const Calendar = (props: any) => {
     const [allApprovedReqs, setAllApprovedReqs] = useState<any>();
     const [deniedReqs, setDeniedReqs] = useState<any>();
     const [pendingReqs, setPendingReqs] = useState<any>();
+    const [userNames, setUserNames] = useState<any>({});
     const [maxVacDays, setMaxVacDays] = useState<any>();
     const [inelDays, setInelDays] = useState<any>();
     const [error, setError] = useState(false);
@@ -57,6 +58,7 @@ const Calendar = (props: any) => {
             .catch((error: any) => {
                 setError(true);
             })
+
         API.userDeniedVacReqs()
             .then((res: any) => {
                 setDeniedReqs(res.data);
@@ -75,7 +77,7 @@ const Calendar = (props: any) => {
                     return;
                 }
                 setError(true);
-            });
+            })
 
         API.getIneligibleDays()
             .then((res: any) => {
@@ -84,7 +86,33 @@ const Calendar = (props: any) => {
             .catch((error: any) => {
                 console.log(error);
             })
+
     }, [update]);
+
+    useEffect(() => {
+        if (allApprovedReqs && allApprovedReqs !== undefined &&
+            deniedReqs && deniedReqs !== undefined &&
+            pendingReqs && pendingReqs !== undefined) {
+
+            let set: Set<number> = new Set<number>();
+            allApprovedReqs.map((req: any) => set.add(req.userId));
+            deniedReqs.map((req: any) => set.add(req.userId));
+            pendingReqs.map((req: any) => set.add(req.userId));
+            
+            const fetches = Array.from(set).map(async (userId: number) => {
+                return (await API.user(userId)).data;
+            });
+    
+            Promise.all(fetches)
+                .then((res: any[]) => {
+                    let newState = {};
+                    res.map((user:any) => {
+                        newState = {...newState, [user.userId]: `${user.name} ${user.lastName.substring(0,1)}.`};
+                    })
+                    setUserNames(newState);
+                })
+        }
+    }, [allApprovedReqs, deniedReqs, pendingReqs]);
 
     useEffect(() => {
         const switchMonth = (event: KeyboardEvent) => {
@@ -99,21 +127,14 @@ const Calendar = (props: any) => {
         return (() => document.removeEventListener("keydown", switchMonth));
     }, [selectedDate]);
 
-    // useEffect(() => {
-    //     if (allApprovedReqs) {
-    //         console.log(allApprovedReqs);
-    //     }
-    // }, [allApprovedReqs])
-
-
     useEffect(() => {
         if (selectedRange.start && selectedRange.end) {
             let daysSelected: number = selectedRange.start && selectedRange.end && daysBetween(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }));
             if (maxVacDays > 0) {
                 setDaysLeft(maxVacDays - daysSelected);
             } else {
-                // setDaysLeft(-1);
-                setDaysLeft(5);
+                setDaysLeft(-1);
+                // setDaysLeft(5);
             }
         }
     }, [selectedRange.end])
@@ -143,7 +164,8 @@ const Calendar = (props: any) => {
             setModalContent,
             inelDays,
             setUpdate,
-            currentDate
+            currentDate,
+            userNames
         }}>
 
 
@@ -174,7 +196,7 @@ const Calendar = (props: any) => {
                 </>}
             </div>
 
-        </CalendarContext.Provider >
+        </CalendarContext.Provider>
     );
 }
 
