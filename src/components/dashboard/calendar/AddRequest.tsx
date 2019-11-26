@@ -10,7 +10,7 @@ import { validDatesInInterval } from './calendarUtils';
 
 const AddRequest = (props: any) => {
     const { user } = useContext(AuthContext);
-    const { setUpdate, inelDays } = useContext(CalendarContext);
+    const { setUpdateRequests, setUpdateIneligible, inelDays } = useContext(CalendarContext);
 
     const [type, setType] = useState("vacation");
     const [dates, setDates] = useState<Date[]>([]);
@@ -32,14 +32,14 @@ const AddRequest = (props: any) => {
             formatedDates = [...formatedDates, format(date, 'yyyy-MM-dd')];
         });
 
-        if (formatedDates.length > 0) {
+        if (formatedDates && formatedDates.length > 0) {
 
             if (type === "vacation") {
                 // Send vacation request
                 API.submitVacationRequest(formatedDates)
                     .then((res: any) => {
                         setSuccess(true);
-                        setUpdate((u:number) => u + 1);
+                        setUpdateRequests((u: number) => u + 1);
                     })
                     .catch((error: any) => {
                         setError(true);
@@ -49,22 +49,18 @@ const AddRequest = (props: any) => {
             if (type === "ineligible") {
 
                 // Send ineligible days
-                const fetches = formatedDates.map((date: string) => {
-                    API.submitIneligibleDay(date)
-                        .then((res: any) => {
-                            return res.data;
-                        })
-                });
+                const fetches = formatedDates.map((date: string) => API.submitIneligibleDay(date));
 
                 Promise.all(fetches)
                     .then((res: any) => {
                         setSuccess(true);
+                        setUpdateIneligible((u: number) => u + 1);
                     })
                     .catch((error: any) => {
                         setError(true);
                     })
                     .finally(() => {
-                        setUpdate((u:number) => u + 1);
+                        setUpdateIneligible((u: number) => u + 1);
                     })
             }
 
@@ -72,7 +68,6 @@ const AddRequest = (props: any) => {
     }
 
     const handleChange = (event: any) => {
-        // setInput({...input, [event.target.name]: !input[event.target.name]});
         setType(event.target.name);
     }
 

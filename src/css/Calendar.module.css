@@ -8,7 +8,8 @@
     grid-template-areas:
         "calendarHeading calendarHeading"
         "helpInfo helpInfo"
-        "calendarA calendarB";
+        "calendarA calendarB"
+        "calendarAdmin calendarAdmin";
     grid-template-rows: 50px auto 1fr;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -32,6 +33,59 @@
 
 .calendarB {
     grid-area: calendarB;
+}
+
+.calendarAdmin {
+    grid-area: calendarAdmin;
+    padding: 20px;
+    width: 100%;
+    display: inline-block;
+    box-shadow: box-shadow;
+    box-sizing: border-box;
+}
+
+.calendarAdmin > div {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 40px;
+    grid-auto-flow: column;
+}
+
+.calendarAdmin > div > div {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin-top:10px;
+}
+
+.calendarAdmin > div > div:hover {
+    background-color: #f9f9f9;
+}
+
+
+.calendarAdmin > div > div p, .calendarAdmin > div > div button {
+    margin: 0;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.calendarAdmin > div > div p {
+    border-color: #eee;
+    border-style: solid;
+    border-width: 1px 0 1px 1px;
+    border-radius: 5px 0 0 5px;
+    height: 100%;
+    padding-left: 15px;
+}
+
+.calendarAdmin > div > div button {
+    border-color: #eee;
+    border-style: solid;
+    border-width: 1px 1px 1px 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.calendarAdmin > div > div button:hover {
+    cursor: pointer;
 }
 
 .prevBtn,

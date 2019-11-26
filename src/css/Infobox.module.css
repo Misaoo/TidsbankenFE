@@ -1,8 +1,10 @@
+@value global: "./global.css";
+@value box-shadow from global;
 .module {
     padding: 20px;
     width: 100%;
     display: inline-block;
-    box-shadow: 0 0 20px -12px black;
+    box-shadow: box-shadow;
     position: relative;
     box-sizing: border-box;
 }

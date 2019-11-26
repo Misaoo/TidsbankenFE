@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from '../../../css/Calendar.module.css';
 import CalendarHeading from './CalendarHeading';
 import CalendarDisplay from './CalendarDisplay';
 import CalendarContext from './CalendarContext';
+import AuthContext from '../../auth/AuthContext';
 import Modal from '../../common/modal/Modal';
 import Infobox from '../../common/infobox/Infobox';
 import API from '../../../api/API';
-
-import {
-    addMonths,
-    subMonths,
-} from 'date-fns';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { addMonths, subMonths } from 'date-fns';
 import { daysBetween, normalizeInterval } from './calendarUtils';
-
+import CalendarAdmin from './CalendarAdmin';
 
 const Calendar = (props: any) => {
+
+    const { user } = useContext(AuthContext);
 
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -27,7 +25,11 @@ const Calendar = (props: any) => {
     const [maxVacDays, setMaxVacDays] = useState<any>();
     const [inelDays, setInelDays] = useState<any>();
     const [error, setError] = useState(false);
-    const [update, setUpdate] = useState(0);
+
+    // const [update, setUpdate] = useState(0);
+
+    const [updateRequests, setUpdateRequests] = useState<number>(0);
+    const [updateIneligible, setUpdateIneligible] = useState<number>(0);
 
     const [selectionType, setSelectionType] = useState("success");
 
@@ -42,7 +44,9 @@ const Calendar = (props: any) => {
 
     useEffect(() => {
         setCurrentDate(new Date());
+    }, [updateRequests, updateIneligible])
 
+    useEffect(() => {
         API.allApprovedVacReqs()
             .then((res: any) => {
                 setAllApprovedReqs(res.data);
@@ -78,7 +82,9 @@ const Calendar = (props: any) => {
                 }
                 setError(true);
             })
+    }, [updateRequests])
 
+    useEffect(() => {
         API.getIneligibleDays()
             .then((res: any) => {
                 setInelDays(res.data);
@@ -86,8 +92,7 @@ const Calendar = (props: any) => {
             .catch((error: any) => {
                 console.log(error);
             })
-
-    }, [update]);
+    }, [updateIneligible]);
 
     useEffect(() => {
         if (allApprovedReqs && allApprovedReqs !== undefined &&
@@ -98,16 +103,16 @@ const Calendar = (props: any) => {
             allApprovedReqs.map((req: any) => set.add(req.userId));
             deniedReqs.map((req: any) => set.add(req.userId));
             pendingReqs.map((req: any) => set.add(req.userId));
-            
+
             const fetches = Array.from(set).map(async (userId: number) => {
                 return (await API.user(userId)).data;
             });
-    
+
             Promise.all(fetches)
                 .then((res: any[]) => {
                     let newState = {};
-                    res.map((user:any) => {
-                        newState = {...newState, [user.userId]: `${user.name} ${user.lastName.substring(0,1)}.`};
+                    res.map((user: any) => {
+                        newState = { ...newState, [user.userId]: `${user.name} ${user.lastName.substring(0, 1)}.` };
                     })
                     setUserNames(newState);
                 })
@@ -145,6 +150,9 @@ const Calendar = (props: any) => {
         setModal(true);
     }
 
+    const loggedInAdmin =
+        user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
+
     return (
         <CalendarContext.Provider value={{
             selectedDate,
@@ -160,10 +168,10 @@ const Calendar = (props: any) => {
             daysLeft,
             selectionType,
             setSelectionType,
-            // modalContent, 
             setModalContent,
             inelDays,
-            setUpdate,
+            setUpdateRequests,
+            setUpdateIneligible,
             currentDate,
             userNames
         }}>
@@ -193,6 +201,7 @@ const Calendar = (props: any) => {
                         month={addMonths(selectedDate, 1)}
                         className={styles.calendarB}
                     />
+                    {loggedInAdmin && inelDays && <CalendarAdmin ineligibleDays={inelDays} className={styles.calendarAdmin} setUpdateIneligible={setUpdateIneligible} />}
                 </>}
             </div>
 
