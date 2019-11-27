@@ -263,7 +263,7 @@ const SideBarComponent = (props: any) => {
         </div>
       </form>
 
-      <Modal display={showModal} setDisplay={setshowModal}>
+      <Modal display={showModal} setDisplay={setshowModal} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
           <label className={commonStyles.label} htmlFor="savePic">
             Please provide link to picture
@@ -283,7 +283,7 @@ const SideBarComponent = (props: any) => {
         </form>
       </Modal>
 
-      <Modal display={showModal2} setDisplay={setshowModal2}>
+      <Modal display={showModal2} setDisplay={setshowModal2} title="Take a picture">
         {WebcamCapture()}
       </Modal>
     </div>

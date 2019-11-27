@@ -23,8 +23,11 @@ const Modal = (props: any) => {
         return (
             <div className={styles.module} onClick={event => props.setDisplay(false)}>
                 <div className={styles.content} onClick={event => event.stopPropagation()}>
-                    <span className={styles.closeButton} onClick={event => props.setDisplay(false)}><FontAwesomeIcon icon="times" /></span>
-                    { props.children }
+                    <div className={styles.header}>
+                        {props.title && <h2>{props.title}</h2>}
+                        <span className={styles.closeButton} onClick={event => props.setDisplay(false)}><FontAwesomeIcon icon="times" /></span>
+                    </div>
+                    {props.children}
                 </div>
             </div>
         )

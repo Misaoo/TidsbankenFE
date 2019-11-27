@@ -3,7 +3,7 @@
   grid-template-areas:
     ". downloadButton"
     "exportarea exportarea";
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 60% 40%;
 }
 
 .downloadButton {

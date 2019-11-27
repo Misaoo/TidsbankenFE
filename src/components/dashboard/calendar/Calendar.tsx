@@ -180,7 +180,7 @@ const Calendar = (props: any) => {
 
 
             <div className={styles.module}>
-                {modal && <Modal display={modal} setDisplay={setModal} >{modalContent}</Modal>}
+                {modal && <Modal display={modal} setDisplay={setModal} title="hello">{modalContent}</Modal>}
                 <CalendarHeading
                     onPrev={decreaseMonth}
                     onNext={increaseMonth}

@@ -149,8 +149,7 @@ const SettingComponent = (props: any) => {
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update2faModal}>Two factor authentication</button>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update3faModal}>Delete account</button>
 
-            <Modal display={showModal} setDisplay={setshowModal}>
-                <h1>New password</h1>
+            <Modal display={showModal} setDisplay={setshowModal} title="New password">
                 <form onSubmit={handleSubmit}>
                     <label className={commonStyles.label} htmlFor="OldPassword">Old Password</label>
                     <input className={commonStyles.input} type="password" name="OldPassword" value={oldPass} placeholder="Enter your old password" onChange={handleChangeOldPass}/>
@@ -165,8 +164,8 @@ const SettingComponent = (props: any) => {
                 </form>
             </Modal>
 
-            <Modal className={SettingsStyles.modal} display={showModal2} setDisplay={setshowModal2}>
-                <h1>Two Factor Authentication - is {(() => {
+            <Modal className={SettingsStyles.modal} display={showModal2} setDisplay={setshowModal2} title="Two factor authentication">
+                <h3>Two Factor Authentication - is {(() => {
                     switch(twoAuth) {
                     case 1:
                         return <span className={SettingsStyles.notActivated}>not activated</span>;         
@@ -175,7 +174,7 @@ const SettingComponent = (props: any) => {
                     default:
                         return null;
                     }
-                })()} for your account</h1>
+                })()} for your account</h3>
                 
 
                 <p>Two Factor Authentication, or 2FA, adds an extra layer of protection to ensure the security of your accounts beyond just a username and password.</p>
@@ -195,8 +194,7 @@ const SettingComponent = (props: any) => {
                 })()} </div>
             </Modal> 
 
-            <Modal display={showModal3} setDisplay={setshowModal3}>
-                <h1>Delete account</h1>
+            <Modal display={showModal3} setDisplay={setshowModal3} title="Delete Account">
                 <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p>
                 <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa picture"/></div>
                 <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button>

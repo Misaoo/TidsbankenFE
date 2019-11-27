@@ -111,7 +111,7 @@ class ExportImport extends Component {
   render() {
     return (
       <div>
-        <h1>EXPORT/IMPORT DATA</h1>
+        <h1>Export / Import Data</h1>
         <Button
           variant="contained"
           color="primary"

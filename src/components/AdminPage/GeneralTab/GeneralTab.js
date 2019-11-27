@@ -59,20 +59,23 @@ const GeneralTab = props => {
   }, []);
   //let address = props.address;
   return (
-    <div className="padding">
-      <h1>General</h1>
-      <h3>Current maximum: {data.maximumVacationDays}</h3>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          name="maximumVacationDays"
-          variant="outlined"
-          label="New Maximum"
-          onChange={handleChange}
-        />
-        <Button className="buttonSize" variant="contained" type="submit">
-          OK
-        </Button>
-      </form>
+    <div className="padding generalTab">
+      <h1>General site settings</h1>
+      <p>Here you can set the maximum vacations days that a user is allowed to request. And also export / import the vacation data if needed.</p>
+      <div>
+        <h3>Maximum vacation days: {data.maximumVacationDays}</h3>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            name="maximumVacationDays"
+            variant="outlined"
+            label="New max vacation days"
+            onChange={handleChange}
+          />
+          <Button className="buttonSize" variant="contained" type="submit">
+            Set
+          </Button>
+        </form>
+      </div> 
       <ExportImport />
     </div>
   );

@@ -12,13 +12,13 @@
 }
 
 .userPageH1 {
-  padding-left: 15px;
+  padding-left: 20px;
 }
 
 .userCard {
   padding: 5%;
   box-shadow: 0 0 20px -12px #408bc4;
-  border-radius: 5%;
+  border-radius: 10px;
   word-break: normal;
   display: grid;
   grid-template-rows: 11.5vw minmax(50px, auto);

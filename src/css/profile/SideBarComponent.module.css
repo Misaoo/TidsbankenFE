@@ -128,8 +128,8 @@ video{
 
 .buttonTweaks_webcam{
     position: absolute;
-    width: calc(100% - 45px);
-    bottom: 15px;
+    width: calc(100% - 75px);
+    bottom: 35px;
     margin: auto;
     left: 0;
     right: 0;

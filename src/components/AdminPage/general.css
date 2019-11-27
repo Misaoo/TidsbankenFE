@@ -1,28 +1,30 @@
 @value global: "./global.css";
 @value btn-color from global;
 
-.padding{
-  padding:15px;
+.padding {
+  padding: 0 20px;
 }
 
-.indent{
-  text-indent:15px;
+.indent {
+  padding-left: 20px;
 }
 
 .requestContent {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 2%;
-  grid-column-gap: 2%;
-  column-gap: 2%;
-  grid-row-gap: 4%;
-  row-gap: 1%;
+  padding: 20px;
+  gap: 20px;
+  grid-auto-rows: max-content;
+  /* grid-column-gap: 2%; */
+  /* column-gap: 2%; */
+  /* grid-row-gap: 4%; */
+  /* row-gap: 1%; */
 }
 
 .userContent {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding: 2%;
+  padding: 20px;
   column-gap: 2%;
   row-gap: 4%;
 }
@@ -32,28 +34,31 @@
 }
 
 .cardContent {
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 4%;
-  box-shadow: 0 0 20px -12px black;
-  margin-bottom: 15px;
+  box-shadow: 0 0 20px -12px #408bc4;
+  height: 100%;
+  box-sizing: border-box;
+  transition: .1s all;
 }
 
 .userCardContent {
   display: grid;
   grid-template-columns: 20% 80%;
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 4%;
-  box-shadow: 0 0 20px -12px black;
+  box-shadow: 0 0 20px -12px #408bc4;
+  transition: .1s all;
 }
 
 .userCardContent:hover {
   cursor: pointer;
-  background-color: rgb(241, 241, 241);
+  background-color: #f9f9f9;
 }
 
 .cardContent:hover {
   cursor: pointer;
-  background-color: rgb(241, 241, 241);
+  background-color: #f9f9f9;
 }
 
 .userCardImage {
@@ -80,6 +85,7 @@
   background-color: #314353;
   display: block;
   height: 100%;
+  padding-left: 20px;
 }
 
 .navbarButton {
@@ -97,6 +103,18 @@
 .nestedNavbar {
   width: auto;
   padding-top: 3px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.nestedNavbar a:first-of-type {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.nestedNavbar a:last-of-type {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .buttonSize{
@@ -106,4 +124,38 @@
 .button{
   margin-right:15px !important;
   background: btn-color;
+}
+
+.generalTab {
+  display: grid;
+  grid-template-areas:
+  "title title"
+  "info info"
+  "max export";
+  column-gap: 20px;
+}
+
+.generalTab > h1 {
+  grid-area: title;
+  margin-bottom: 0;
+}
+
+.generalTab > p {
+  grid-area: info;
+  margin-bottom: 50px;
+  max-width: 50%;
+  min-width: 300px;
+}
+
+.generalTab > div:first-of-type, .generalTab > div:last-of-type {
+  box-shadow: 0 0 20px -12px #408bc4;
+  padding: 20px;
+}
+
+.generalTab > div:first-of-type {
+  grid-area: max;
+}
+
+.generalTab > div:last-of-type {
+  grid-area: export;
 }
