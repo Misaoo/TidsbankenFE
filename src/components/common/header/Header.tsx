@@ -68,14 +68,7 @@ const Header = (props: any) => {
       <Link to="/" className={styles.logo}><FontAwesomeIcon icon="clock" /> TB</Link>
       {loggedIn && (
         <>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/users">Users</Link>
-          <Dropdown
-            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
-            cb={getNotifications}
-          >
-            <ul>{liArray}</ul>
-          </Dropdown>
+          <Link to="/dashboard">Dashboard</Link>         
           <Dropdown title={(user && user.name) || "Menu"}>
             <ul className={commonStyles.dropdown}>
               <li>
@@ -86,19 +79,18 @@ const Header = (props: any) => {
               </li>
             </ul>
           </Dropdown>
+          <Dropdown
+            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
+            cb={getNotifications}
+          >
+            <ul>{liArray}</ul>
+          </Dropdown>
+          <Link to="/users">Users</Link>
         </>
       )}
       {loggedInAdmin && (
         <>
           <Link to="/dashboard">Dashboard</Link>
-          <Link to="/users">Users</Link>
-          <Link to="/admin">Admin</Link>
-          <Dropdown
-            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
-            cb={getNotifications}
-          >
-            <ul>{liArray}</ul>
-          </Dropdown>
           <Dropdown title={(user && user.name) || "Menu"}>
             <ul className={commonStyles.dropdown}>
               <li>
@@ -109,6 +101,14 @@ const Header = (props: any) => {
               </li>
             </ul>
           </Dropdown>
+          <Dropdown
+            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
+            cb={getNotifications}
+          >
+            <ul>{liArray}</ul>
+          </Dropdown>
+          <Link to="/users">Users</Link>
+          <Link to="/admin">Admin</Link>
         </>
       )}
       {loggedOut && (
