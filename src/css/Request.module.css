@@ -5,8 +5,7 @@
         "title"
         "days"
         "inputs";
-    grid-template-rows: 30px minmax(120px, 1fr) min-content;
-    /* margin-top: 40px; */
+    grid-template-rows: 30px minmax(170px, 1fr) min-content;
 }
 
 .form {
@@ -81,4 +80,9 @@
 
 .error svg, .success svg {
     margin-right: 10px;
+}
+
+.view {
+    max-width: 50vw;
+    padding: 20px;
 }

@@ -6,11 +6,12 @@ import RequestComponent from '../../requests/RequestsComponent';
 
 const Mark = (props: any) => {
     
-    const {setModalContent, setModal, userNames} = useContext(CalendarContext);
+    const {setModalContent, setModal, setModalTitle, userNames} = useContext(CalendarContext);
 
     const handleClick = (event: any) => {
         event.stopPropagation();
         setModalContent(<RequestComponent id={props.vacReq.requestId} />)
+        setModalTitle("Request Details");
         setModal((b: any) => !b);
     }
 

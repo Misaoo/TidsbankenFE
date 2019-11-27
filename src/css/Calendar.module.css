@@ -393,13 +393,15 @@
     }
 }
 
-@media (max-width: 940px) {
+@media (max-width: 1070px) {
     .module {
         grid-template-areas:
             "calendarHeading"
+            "helpInfo"
             "calendarA"
-            "calendarB";
-        grid-template-rows: 50px 1fr 1fr;
+            "calendarB"
+            "calendarAdmin";
+        grid-template-rows: 50px max-content 1fr 1fr max-content;
         grid-template-columns: 1fr;
     }
 }

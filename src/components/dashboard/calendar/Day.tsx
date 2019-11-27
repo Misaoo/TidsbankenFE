@@ -19,6 +19,7 @@ const Day = (props: any) => {
         maxVacDays,
         setSelectionType,
         setModalContent,
+        setModalTitle,
         inelDays,
         currentDate
     } = useContext(CalendarContext);
@@ -88,6 +89,7 @@ const Day = (props: any) => {
                 <span
                     onClick={() => {
                         setModalContent(<AddRequest range={selectedRange} />);
+                        setModalTitle("Create Request");
                         setModal((b: any) => !b);
                     }}
                     className={styles.action}>

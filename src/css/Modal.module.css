@@ -84,3 +84,9 @@
     from {opacity: 0;}
     to {opacity: 100;}
 }
+
+@media (max-width: 1215px) {
+    .content {
+        width: 48%;
+    }
+}
