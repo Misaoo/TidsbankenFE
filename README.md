@@ -1,4 +1,18 @@
 # Tidsbanken frontend
+Frontend code for the Tidsbanken application, which is a vacation request management system.
+
+## Team: Magic Vision
+Andreas Poulsen
+
+Victor Heijler
+
+Elliot Gustafsson
+
+Alexandra Bjäremo
+
+## Backend repo
+The backend repo can be found at https://github.com/ab223zm/Tidsbanken
+
 
 
 ## Plan
