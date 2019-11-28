@@ -66,10 +66,12 @@
     background: btn-color;
     color: third-text-color;
     border:none;
+    transition: .1s all;
 }
 
 .button:hover {
     cursor: pointer;
+    background: linear-gradient(151deg, rgb(39, 112, 106) 0%, rgb(65, 126, 177) 100%);
 }
 
 .button:focus {

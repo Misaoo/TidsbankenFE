@@ -12,6 +12,7 @@
   padding: 10px 20px;
   display: inline-block;
   text-decoration: none;
+  transition: .1s all;
 }
 
 .module a:hover {
