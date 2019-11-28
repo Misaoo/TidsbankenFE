@@ -96,7 +96,6 @@ const LoginComponent = (props: any) => {
         setLoggedIn(true);
       }
     } catch (error) {
-      console.log(error);
       if (error.response.status === 401 || error.response.status === 504) {
         setError(true);
         let errorData = error.response.data;
