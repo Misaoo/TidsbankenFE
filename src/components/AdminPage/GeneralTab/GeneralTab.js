@@ -52,7 +52,7 @@ const GeneralTab = props => {
         setData(response.data);
       })
       .catch(error => {
-        if (error.response.status === 401 || error.response.status === 403) {
+        if (error.status === 401 || error.status === 403) {
           window.location.href = "/logout";
         }
       });
@@ -61,7 +61,10 @@ const GeneralTab = props => {
   return (
     <div className="padding generalTab">
       <h1>General site settings</h1>
-      <p>Here you can set the maximum vacations days that a user is allowed to request. And also export / import the vacation data if needed.</p>
+      <p>
+        Here you can set the maximum vacations days that a user is allowed to
+        request. And also export / import the vacation data if needed.
+      </p>
       <div>
         <h3>Maximum vacation days: {data.maximumVacationDays}</h3>
         <form onSubmit={handleSubmit}>
@@ -75,7 +78,7 @@ const GeneralTab = props => {
             Set
           </Button>
         </form>
-      </div> 
+      </div>
       <ExportImport />
     </div>
   );

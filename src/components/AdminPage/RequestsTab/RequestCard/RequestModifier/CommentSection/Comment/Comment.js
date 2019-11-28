@@ -36,9 +36,15 @@ class Comment extends Component {
             comment: this.state.text
           }
         }
-      ).then(() => {
-        this.props.updateComments();
-      });
+      )
+        .then(() => {
+          this.props.updateComments();
+        })
+        .catch(error => {
+          if (error.status === 401 || error.status === 403) {
+            window.location.href = "/logout";
+          }
+        });
     }
 
     event.preventDefault();
