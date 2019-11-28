@@ -135,8 +135,8 @@ const LoginComponent = (props: any) => {
 
     return (
         <>
-            {loggedIn ? <Redirect to="/dashboard" /> : ""}
-            {loggedIn2fa ? <Redirect to="/2fa" /> : ""}
+            {success && loggedIn ? <Redirect to="/dashboard" /> : ""}
+            {success && loggedIn2fa ? <Redirect to="/2fa" /> : ""}
             <div id={styles.login_wrapper}>
                 <h1>LOGIN</h1>
                 <form onSubmit={handleSubmit}>
