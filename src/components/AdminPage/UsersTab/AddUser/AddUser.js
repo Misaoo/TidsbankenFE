@@ -49,7 +49,7 @@ class PictureUpload extends Component {
         });
       })
       .catch(error => {
-        if (error.response.status === 401 || error.response.status === 403) {
+        if (error.status === 401 || error.status === 403) {
           window.location.href = "/logout";
         }
       });
