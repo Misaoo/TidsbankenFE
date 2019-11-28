@@ -54,6 +54,7 @@ class CommentSection extends Component {
       }
     )
       .then(res => {
+        res.data.reverse();
         res.data.map(comment => {
           tempComments.push(
             <Comment
