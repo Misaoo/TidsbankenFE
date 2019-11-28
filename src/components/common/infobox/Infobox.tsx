@@ -15,24 +15,25 @@ const Infobox = (props: any) => {
     }, []);
 
     const handleClick = (event: any) => {
-        setHide(true);
+        setHide(r => !r);
         localStorage.setItem(props.infoboxId, "true");
     }
 
     return <>
-        {!hide && <div className={styles.module + " " + props.className}>
+
+        <div className={styles.module + " " + props.className + " " + (hide ? styles.collapseHelp : '')}>
             <div className={styles.closeButton} onClick={handleClick}>
-                <FontAwesomeIcon icon="times" />
+                <FontAwesomeIcon icon="question-circle" />
             </div>
-            <div className={styles.contentContainer}>
+            {!hide && <div className={styles.contentContainer}>
                 <div className={styles.boxIcon}>
                     {props.image}
                 </div>
                 <div className={styles.content}>
                     {props.children}
                 </div>
-            </div>
-        </div>}
+            </div>}
+        </div>
     </>
 }
 

@@ -7,11 +7,12 @@
     box-shadow: box-shadow;
     position: relative;
     box-sizing: border-box;
+    justify-self: end;
 }
 
 .closeButton {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     position: absolute;
     top: 5px;
     right: 5px;
@@ -41,4 +42,8 @@
 
 .content {
     grid-area: cont;
+}
+
+.collapseHelp {
+    width: 15px;
 }

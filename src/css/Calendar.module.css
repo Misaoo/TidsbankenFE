@@ -6,11 +6,11 @@
     height: auto;
     display: grid;
     grid-template-areas:
-        "calendarHeading calendarHeading"
         "helpInfo helpInfo"
+        "calendarHeading calendarHeading"
         "calendarA calendarB"
         "calendarAdmin calendarAdmin";
-    grid-template-rows: 50px auto 1fr;
+    grid-template-rows: auto 50px 1fr auto;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     padding: 20px;
@@ -396,12 +396,12 @@
 @media (max-width: 1070px) {
     .module {
         grid-template-areas:
-            "calendarHeading"
             "helpInfo"
+            "calendarHeading"
             "calendarA"
             "calendarB"
             "calendarAdmin";
-        grid-template-rows: 50px max-content 1fr 1fr max-content;
+        grid-template-rows: max-content 50px  1fr 1fr max-content;
         grid-template-columns: 1fr;
     }
 }

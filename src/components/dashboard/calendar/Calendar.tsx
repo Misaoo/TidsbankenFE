@@ -79,7 +79,10 @@ const Calendar = (props: any) => {
                 setMaxVacDays(res.data.maximumVacationDays)
             })
             .catch((error: any) => {
-                if (error.response.status === 501) {
+                if (error.response && (error.response.status === 401 ||error.response.status === 403)) {
+                    window.location.href = "/logout";
+                }
+                if (error.response && (error.response.status === 501)) {
                     setMaxVacDays(-1);
                     return;
                 }

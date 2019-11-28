@@ -1,4 +1,4 @@
-import axios, { AxiosPromise, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const unauthorizedOrForbidden = (error: any):void => {
     if (error.response.status === 401 || error.response.status === 403) {
