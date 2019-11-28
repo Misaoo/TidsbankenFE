@@ -5,16 +5,21 @@ import { Redirect } from 'react-router-dom';
 import AuthContext from '../auth/AuthContext';
 import API from '../../api/API';
 
+/*
+    This component represents the two factor auth input component.
+*/
+
 const TwoFactorAuthComponent = (props: any) => {
     const { setUser } = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);
 
-    const [token, setToken] = useState("");
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [message, setMessage] = useState("");
-    const [disabled, setDisabled] = useState(true);
+    const [token, setToken] = useState<string>("");
+    const [success, setSuccess] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>("");
+    const [disabled, setDisabled] = useState<boolean>(true);
 
+    // Make sure the input is focused on mount.
     useEffect(() => {
         (inputRef.current as any).focus();
     }, [])

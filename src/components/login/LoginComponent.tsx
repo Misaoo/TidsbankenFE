@@ -111,74 +111,79 @@ const LoginComponent = (props: any) => {
         }, 1000);
     }
 
-    useEffect(() => {
-        const getTimeLeft = () => {
-            if (localStorage.getItem("timeTo")) {
-                if (timeLeft() > 0) {
-                    timer();
-                    setBtnDisabled(true);
-                    setError(true);
-                } else {
-                    setBtnDisabled(false);
-                    localStorage.removeItem("timeTo");
-                }
-            }
+  useEffect(() => {
+    const getTimeLeft = () => {
+      if (localStorage.getItem("timeTo")) {
+        if (timeLeft() > 0) {
+          timer();
+          setBtnDisabled(true);
+          setError(true);
+        } else {
+          setBtnDisabled(false);
+          localStorage.removeItem("timeTo");
         }
-        getTimeLeft();
-        (inputRef.current as any).focus();
-    }, []);
+      }
+    };
+    getTimeLeft();
+    (inputRef.current as any).focus();
+  }, []);
 
 
     /**********************/
     /* HTML */
     /**********************/
 
-    return (
-        <>
-            {success && loggedIn ? <Redirect to="/dashboard" /> : ""}
-            {success && loggedIn2fa ? <Redirect to="/2fa" /> : ""}
-            <div id={styles.login_wrapper}>
-                <h1>LOGIN</h1>
-                <form onSubmit={handleSubmit}>
-                    <label className={commonStyles.label} htmlFor="email">Email</label>
-                    <input
-                        name="email"
-                        className={commonStyles.input}
-                        type="email"
-                        placeholder="Enter your email"
-                        onChange={handleChange}
-                        value={input.email}
-                        ref={inputRef}
-                    />
-                    <label className={commonStyles.label} htmlFor="password">Password</label>
-                    <input
-                        name="password"
-                        className={commonStyles.input}
-                        type="password"
-                        placeholder="Enter your password"
-                        onChange={handleChange}
-                        value={input.password}
-                    />
-                    <p id={styles.errorMessage}>{error && message}</p>
+  return (
+    <>
+      {success && loggedIn ? <Redirect to="/dashboard" /> : ""}
+      {success && loggedIn2fa ? <Redirect to="/2fa" /> : ""}
+      <div id={styles.login_wrapper}>
+        <h1>LOGIN</h1>
+        <form onSubmit={handleSubmit}>
+          <label className={commonStyles.label} htmlFor="email">
+            Email
+          </label>
+          <input
+            name="email"
+            className={commonStyles.input}
+            type="email"
+            placeholder="Enter your email"
+            onChange={handleChange}
+            value={input.email}
+            ref={inputRef}
+          />
+          <label className={commonStyles.label} htmlFor="password">
+            Password
+          </label>
+          <input
+            name="password"
+            className={commonStyles.input}
+            type="password"
+            placeholder="Enter your password"
+            onChange={handleChange}
+            value={input.password}
+          />
+          <p id={styles.errorMessage}>{error && message}</p>
 
-                    <button 
-                        className={commonStyles.button} 
-                        type="submit" disabled={btnDisabled}
-                    >
-                        Login
-                    </button>
+          <button
+            className={commonStyles.button}
+            type="submit"
+            disabled={btnDisabled}
+          >
+            Login
+          </button>
 
-                    <Popover
-                        trigger="Forgot password?"
-                        triggerId={styles.forgot_password}
-                        id={styles.popOver}
-                    >
-                        Please contact your administrator for a new password
-                    </Popover>
-                </form>
-            </div>
-        </>
-    )
-}
+          <Popover
+            trigger="Forgot password?"
+            triggerId={styles.forgot_password}
+            id={styles.popOver}
+          >
+            Please contact your administrator for a new password
+          </Popover>
+        </form>
+      </div>
+    </>
+  );
+};
 
 export default LoginComponent;

@@ -5,6 +5,18 @@ import AuthRoute from "./components/auth/AuthRoute";
 import Auth from "./components/auth/Auth";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import "./App.css";
+import Header from "./components/common/header/Header";
+import ViewNotFound from "./views/common/ViewNotFound";
+import ProfileView from "./views/profile/ProfileView";
+import Login from "./views/login/Login";
+import TwoFactorAuth from "./views/login/TwoFactorAuth";
+import Dashboard from "./views/dashboard/Dashboard";
+import Logout from "./components/logout/Logout";
+import AdminPage from "./components/AdminPage/AdminPage";
+import Users from "./components/Users/Users";
+import Requests from "./views/requests/Requests";
+import User from "./components/User/User";
+
 import {
   faAngleDown,
   faAngleUp,
@@ -18,23 +30,6 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Own components
-import Header from "./components/common/header/Header";
-
-// own Views
-import ViewNotFound from "./views/common/ViewNotFound";
-import MyView from "./views/common/MyView";
-import ProfileView from "./views/profile/ProfileView";
-import Landing from "./views/landing/Landing";
-import Login from "./views/login/Login";
-import TwoFactorAuth from "./views/login/TwoFactorAuth";
-import Dashboard from "./views/dashboard/Dashboard";
-import Logout from "./components/logout/Logout";
-import AdminPage from "./components/AdminPage/AdminPage";
-import Users from "./components/Users/Users";
-import Requests from "./views/requests/Requests";
-import User from "./components/User/User";
-
 library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock);
 
 const App: React.FC = () => {
@@ -47,7 +42,6 @@ const App: React.FC = () => {
             <Redirect exact from="/" to="/dashboard" />
             <Route path="/login" component={Login} />
             <Route path="/2fa" component={TwoFactorAuth} />
-            {/* <AuthRoute path="/test" component={MyView} /> */}
             <AuthRoute path="/profile" component={ProfileView} />
             <AuthRoute path="/dashboard" component={Dashboard} />
             <AuthRoute path="/logout" component={Logout} />

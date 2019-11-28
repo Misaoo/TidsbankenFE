@@ -70,17 +70,23 @@ class RequestModifier extends Component {
         method: "DELETE",
         withCredentials: true
       }
-    ).then(() => {
-      let link = "";
-      if (this.props.requestData.status === 0) {
-        link = process.env.REACT_APP_API_URL + "/request/allPending";
-      } else if (this.props.requestData.status === 1) {
-        link = process.env.REACT_APP_API_URL + "/request/allDenied";
-      } else {
-        link = process.env.REACT_APP_API_URL + "/request/allApproved";
-      }
-      this.props.updateList(link);
-    });
+    )
+      .then(() => {
+        let link = "";
+        if (this.props.requestData.status === 0) {
+          link = process.env.REACT_APP_API_URL + "/request/allPending";
+        } else if (this.props.requestData.status === 1) {
+          link = process.env.REACT_APP_API_URL + "/request/allDenied";
+        } else {
+          link = process.env.REACT_APP_API_URL + "/request/allApproved";
+        }
+        this.props.updateList(link);
+      })
+      .catch(error => {
+        if (error.status === 401 || error.status === 403) {
+          window.location.href = "/logout";
+        }
+      });
     event.preventDefault();
   }
 

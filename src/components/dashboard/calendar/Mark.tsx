@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import styles from '../../../css/Calendar.module.css';
-import { Link } from 'react-router-dom';
 import CalendarContext from './CalendarContext';
 import RequestComponent from '../../requests/RequestsComponent';
+
+/*
+    A Mark is representing a vacation request and can have a different color (css class) base on the mark type (approved, denied, pending).
+*/
 
 const Mark = (props: any) => {
     

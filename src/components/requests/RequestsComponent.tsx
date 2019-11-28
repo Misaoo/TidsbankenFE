@@ -7,6 +7,11 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from 'date-fns';
 
+/*
+    The requests component represents a detailed view for a specific request. 
+    It is used when a user clicks on a mark (See Mark.tsx) and in a view (See views/requests/Requests.tsx)
+*/
+
 const RequestsComponent = (props: any) => {
 
     const [req, setReq] = useState<any>();
@@ -18,6 +23,9 @@ const RequestsComponent = (props: any) => {
     const [commentText, setCommentText] = useState("");
     const [showComments, setShowComments] = useState(true);
 
+
+    // Creates a list of divs that represents the comments on a request.
+    // It makes sure to fetch the users info (mainly to get the name of the user) only once per user
     const createCommentList = (comments: any) => {
         let reversedComments = [...comments].reverse();
         let list: any = [];
@@ -44,6 +52,7 @@ const RequestsComponent = (props: any) => {
             });
     }
 
+    // On Mount / when props.id or success changes, fetch the vacation request and then the comments for that request
     useEffect(() => {
         API.getVacationRequest(props.id)
             .then((res: any) => {
@@ -80,6 +89,7 @@ const RequestsComponent = (props: any) => {
         return statuses[status];
     }
 
+    // Creates the small divs representing the list of days that are pertaining to the request
     const createDays = () => {
         let arr: any = [];
         req.dates.map((date: any, index: number) => {
@@ -116,7 +126,6 @@ const RequestsComponent = (props: any) => {
                 <p>Owner: <Link to={"/user/" + req.userId}>{owner.name + " " + owner.lastName}</Link></p>
                 <p>Request status: <span className={styles[getStatus(req.status).toLowerCase()] + " " + styles.status}>{getStatus(req.status)}</span></p>
                 <p>Vacation days:</p><div className={styles.dates}> {createDays()}</div>
-                {/* <img className={styles.img} src={owner.profilePic} alt={owner.name + " " + owner.lastName + "\'s profile picture"} /> */}
             </div>}
             {req && owner && comments && showComments && <>
                 <div className={styles.comments}>

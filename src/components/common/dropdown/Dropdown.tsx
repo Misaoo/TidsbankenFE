@@ -2,6 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../../css/Dropdown.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/*
+    The Dropdown component takes it's dropdown content as child elements and it uses eventlisteners 
+    on the document to close the dropdown when you click outside it.
+
+    The component takes a title as a prop which is displayed as the menuitem.
+    
+    Example: 
+
+    <Dropdown title={(user && user.name) || "Menu"}>
+        <ul className={commonStyles.dropdown}>
+            <li>
+                <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+                <Link to="/logout">Logout</Link>
+            </li>
+        </ul>
+    </Dropdown>
+*/
+
 const Dropdown = (props: any) => {
 
     const [showDropdown, setShowDropdown] = useState(false);

@@ -8,6 +8,8 @@ const Logout = (props: any) => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
+    // Logout in backend, then clear user in context, remove sessionStorage and redirect to login
+
     useEffect(() => {
         API.logout()
             .then((res: any) => {

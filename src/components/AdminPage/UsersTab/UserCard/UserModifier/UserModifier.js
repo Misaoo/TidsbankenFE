@@ -39,9 +39,15 @@ class UserModifier extends Component {
         isAdmin: this.state.isAdmin,
         twoFacAut: this.state.twoFacAut
       }
-    }).then(() => {
-      this.props.updateList();
-    });
+    })
+      .then(() => {
+        this.props.updateList();
+      })
+      .catch(error => {
+        if (error.status === 401 || error.status === 403) {
+          window.location.href = "/logout";
+        }
+      });
 
     event.preventDefault();
   }

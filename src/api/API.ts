@@ -1,5 +1,13 @@
 import axios, { AxiosRequestConfig } from "axios";
 
+
+/*
+    This code consolidates a lot of the API requests that the application uses (for the most part)
+    Any request that results in the user being logged out if they attempt it and the backend responds with
+    401 Unauthorized or 403 Forbidden is wrapped with the function axiosWrapper. All other requests (like login etc.)
+    use Axios straight away.
+*/
+
 const unauthorizedOrForbidden = (error: any):void => {
     if (error.response.status === 401 || error.response.status === 403) {
         window.location.href = "/logout";

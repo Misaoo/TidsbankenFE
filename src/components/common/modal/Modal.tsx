@@ -2,6 +2,22 @@ import React, { useEffect } from 'react';
 import styles from '../../../css/Modal.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/*
+    The Modal component displays it's provided child elements in a box, with darkened and clickable background.
+    It listenes to presses on the escape key and closes when pressed.
+
+    The component is hidden and displayed based on a state that is outside the component 
+    (to allow for external activation of the modal, eg. a button or event somewhere else).
+    This allows for great flexibility in how this component can be used in the application.
+
+    The component therefore takes three props: display (a boolean state), setDisplay (to set the boolean state) and title (to put a title in the modal top bar)
+
+    Example:
+         <Modal display={showModal} setDisplay={setshowModal} title="My modal title">
+            <p>My content</p>
+         </Modal>
+*/
+
 const Modal = (props: any) => {
 
     const { setDisplay } = props;
