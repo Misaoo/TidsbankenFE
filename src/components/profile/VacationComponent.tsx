@@ -4,18 +4,26 @@ import API from "../../api/API";
 import vacationStyles from "../../css/profile/VacationComponent.module.css";
 import { Link } from "react-router-dom";
 
+/*************/
+/* Displayes the: 
+    1. vacation information for the userpage */
+/*************/
+
 const VacationComponent = (props: any) => {
   const { user } = useContext(AuthContext);
-  let [approvedVacationdays, setApprovedVacationsdays] = useState<any[]>([]);
-  let [deniedVacationdays, setDeniedVacationsdays] = useState();
-  let [pendingVacationdays, setPendingVacationsdays] = useState();
+  let [approvedVacationdays, setApprovedVacationsdays] = useState<any[]>([]); // handles the approved vacation days
+  let [deniedVacationdays, setDeniedVacationsdays] = useState();              // handles the denied vacation days
+  let [pendingVacationdays, setPendingVacationsdays] = useState();            // handles the pending vacation days
 
+
+  /* Runs first to get all information from server*/
   useEffect(() => {
     if (user && user.userId) {
-      getFromServer(user!.userId!); // Get image from server
+      getFromServer(user!.userId!);
     }
   }, [user]);
 
+  /* gets the vacation information from server */
   async function getFromServer(id: any) {
     try {
       let response1 = await API.vacationsApproved(id);
@@ -32,17 +40,14 @@ const VacationComponent = (props: any) => {
         addResponseDataToLi(response3, setPendingVacationsdays);
       }
     } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) {
-        console.log(error);
-      }
+      if (error.response.status === 401 || error.response.status === 504) { }
       // If TwoFactorAuthentication
-      if (error.response.status === 418) {
-      }
-      console.log(error);
+      if (error.response.status === 418) { }
     }
     // console.log(approvedVacationdays);
   }
 
+  // Adds the information to html element. 
   function addResponseDataToLi(response: any, where: any) {
     var arr = []; // Is used for temporary storing for setting state after loop is done
     let i = 0; // Unique key for html elements
@@ -60,6 +65,10 @@ const VacationComponent = (props: any) => {
     }
     where(arr);
   }
+
+  /**********************/
+  /* HTML */
+  /**********************/
 
   return (
     <div className={vacationStyles.wrapper}>

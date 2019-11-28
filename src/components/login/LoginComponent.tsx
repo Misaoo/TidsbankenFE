@@ -5,25 +5,89 @@ import { Redirect } from 'react-router-dom';
 import Popover from '../common/popover/Popover';
 import AuthContext from '../auth/AuthContext';
 import API from '../../api/API';
-import Button from "@material-ui/core/Button";
+
+/* Handling of login functionality */
 
 const LoginComponent = (props: any) => {
     const { user, setUser } = useContext(AuthContext);
-    let inputRef = useRef<HTMLInputElement>(null);
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [loggedIn2fa, setLoggedIn2fa] = useState(false);
-    const [message, setMessage] = useState("");
-    const [btnDisabled, setBtnDisabled] = useState(false);
-    const [input, setInput] = useState({
+    let inputRef = useRef<HTMLInputElement>(null);          // handles the input
+    const [success, setSuccess] = useState(false);          // handles if the user has a successfull login
+    const [error, setError] = useState(false);              // handles error
+    const [loggedIn, setLoggedIn] = useState(false);        // handles if the user has a successfull login
+    const [loggedIn2fa, setLoggedIn2fa] = useState(false);  // handles if the user has a successfull login and have 2fa
+    const [message, setMessage] = useState("");             // What message to show user if he/she get unsuccesfull login
+    const [btnDisabled, setBtnDisabled] = useState(false);  // disables the button when user have an unsuccesful login
+    const [input, setInput] = useState({                    // Input for email and password
         email: "",
         password: ""
     });
-    const [ls, setLs] = useState({
+    const [ls, setLs] = useState({                          // handles how many minuts and seconds it is left on the cooldown
         minutesLeft: 0,
         secondsLeft: 0,
     });
+
+    /**********************/
+    /* SUBMIT */
+    /**********************/
+    
+    /* Checkes if the user entered a correct email and password for logged in */
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+        try {
+            let response = await API.login(input.email, input.password);
+            if (response.status === 200) {
+                setUser(response.data);
+                sessionStorage.setItem("auth", JSON.stringify(new Date()));
+                setSuccess(true);
+                setLoggedIn(true);
+            }
+        } catch (error) {
+            if (error.response.status === 401 || error.response.status === 504) {
+                setError(true);
+                let errorData = error.response.data;
+                if (errorData.hasOwnProperty("timeOut") || errorData['numOfAttemptedLogins'] === 5) {
+                    setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`)
+                    setCounterInLocalStorage();
+                    timer();
+                    setBtnDisabled(true);
+                } else {
+                    setMessage(`You have ${(5 - errorData['numOfAttemptedLogins'])} attempts left`);
+                }
+            }
+            // If TwoFactorAuthentication
+            if (error.response.status === 418) {
+                setSuccess(true);
+                setLoggedIn2fa(true);
+            }
+        }
+    }
+
+    /**********************/
+    /* INPUT FIELDS */
+    /**********************/
+
+    //Takes input from input fields
+    const handleChange = (event: any) => {
+        setInput({ ...input, [event.target.name]: event.target.value });
+    }
+
+    /**********************/
+    /* Localhost */
+    /**********************/
+    // When the user update the page while having a timeout becouse user entered wrong password before, he/she must see a the timer. We store the timer in localhost and on server and make sure its correct. 
+    
+    useEffect(() => {
+        setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
+    }, [ls])
+
+    const timeLeft = (): number => {
+        return Number(localStorage.getItem("timeTo")) - Date.now();
+    }
+
+    const setCounterInLocalStorage = () => {
+        const timeTo = new Date().getTime() + (5 * 60000);
+        localStorage.setItem("timeTo", timeTo.toString());
+    }
 
     const timer = () => {
         let timer: number = window.setInterval(() => {
@@ -64,62 +128,15 @@ const LoginComponent = (props: any) => {
         (inputRef.current as any).focus();
     }, []);
 
-    useEffect(() => {
-        console.log(user);
-    }, [user])
 
-    useEffect(() => {
-        setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
-    }, [ls])
-
-    const timeLeft = (): number => {
-        return Number(localStorage.getItem("timeTo")) - Date.now();
-    }
-
-    const setCounterInLocalStorage = () => {
-        const timeTo = new Date().getTime() + (5 * 60000);
-        localStorage.setItem("timeTo", timeTo.toString());
-    }
-
-    const handleSubmit = async (event: any) => {
-        event.preventDefault();
-        try {
-            let response = await API.login(input.email, input.password);
-            if (response.status === 200) {
-                setUser(response.data);
-                sessionStorage.setItem("auth", JSON.stringify(new Date()));
-                setSuccess(true);
-                setLoggedIn(true);
-            }
-        } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
-                setError(true);
-                let errorData = error.response.data;
-                if (errorData.hasOwnProperty("timeOut") || errorData['numOfAttemptedLogins'] === 5) {
-                    setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`)
-                    setCounterInLocalStorage();
-                    timer();
-                    setBtnDisabled(true);
-                } else {
-                    setMessage(`You have ${(5 - errorData['numOfAttemptedLogins'])} attempts left`);
-                }
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-                setSuccess(true);
-                setLoggedIn2fa(true);
-            }
-        }
-    }
-
-    const handleChange = (event: any) => {
-        setInput({ ...input, [event.target.name]: event.target.value });
-    }
+    /**********************/
+    /* HTML */
+    /**********************/
 
     return (
         <>
-            {success && loggedIn ? <Redirect to="/dashboard" /> : ""}
-            {success && loggedIn2fa ? <Redirect to="/2fa" /> : ""}
+            {loggedIn ? <Redirect to="/dashboard" /> : ""}
+            {loggedIn2fa ? <Redirect to="/2fa" /> : ""}
             <div id={styles.login_wrapper}>
                 <h1>LOGIN</h1>
                 <form onSubmit={handleSubmit}>
