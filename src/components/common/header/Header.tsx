@@ -7,6 +7,13 @@ import Dropdown from "../dropdown/Dropdown";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
+/*
+  The header component is responsible for displaying the links in the header bar.
+  Different links are displayed depending if the user is logged in, logged out or if they are a logged in admin.
+  Here notifications are also handled.
+*/
+
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
