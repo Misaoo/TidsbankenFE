@@ -107,6 +107,7 @@ class Comment extends Component {
         {this.props.comment.comment} <b>{edited}</b>
         {this.state.popup && (
           <div>
+            <br />
             <form onSubmit={this.handleSubmit}>
               <TextField
                 type="text"
