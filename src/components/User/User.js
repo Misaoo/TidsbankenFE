@@ -46,30 +46,22 @@ class User extends Component {
         withCredentials: true
       }
     ).then(res => {
-      res.data
-        .map(request => {
-          let tempDates = [];
-          var dateIndex = 0;
-          request.dates.map(date => {
-            tempDates.push(
-              <li key={dateIndex++}>
-                {new Date(date).toLocaleDateString("se")}
-              </li>
-            );
-          });
-          tempRequests.push(
-            <li className="requestCardUser" key={request.requestId}>
-              <Link to={`/requests/${request.requestId}`}>
-                <ul>{tempDates}</ul>
-              </Link>
-            </li>
+      res.data.map(request => {
+        let tempDates = [];
+        var dateIndex = 0;
+        request.dates.map(date => {
+          tempDates.push(
+            <li key={dateIndex++}>{new Date(date).toLocaleDateString("se")}</li>
           );
-        })
-        .catch(error => {
-          if (error.status === 401 || error.status === 403) {
-            window.location.href = "/logout";
-          }
         });
+        tempRequests.push(
+          <li className="requestCardUser" key={request.requestId}>
+            <Link to={`/requests/${request.requestId}`}>
+              <ul>{tempDates}</ul>
+            </Link>
+          </li>
+        );
+      });
       if (tempRequests.length === 0) {
         tempRequests = "This user does not have any approved vacations";
       }
