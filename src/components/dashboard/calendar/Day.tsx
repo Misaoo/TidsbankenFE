@@ -1,12 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from '../../../css/Calendar.module.css';
-import { format, isToday, addDays, isWeekend, isSameDay, differenceInDays, areIntervalsOverlapping, subDays, isAfter, eachDayOfInterval, isBefore } from 'date-fns';
+import { format, isToday, isWeekend, subDays, isBefore } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isIneligible, datesInInterval, normalizeInterval, isIntervalNormalized, daysBetween, validDatesInInterval } from './calendarUtils';
+import { isIneligible, normalizeInterval, validDatesInInterval } from './calendarUtils';
 import CalendarContext from './CalendarContext';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddRequest from './AddRequest';
 
+/*
+    The Day component represents a day element in the calendar. A Day can have a number of 
+    different css classes to show different days. A Day also includes different marks to 
+    represent the vacation requests. 
+*/
 
 const Day = (props: any) => {
 
@@ -25,7 +30,11 @@ const Day = (props: any) => {
     } = useContext(CalendarContext);
 
 
+    /*
+        The selection of a day is checked here.
+    */
     const select = (event: any) => {
+        // A days that is clicked can't be already selected, can't be 'empty' and can't be ineligible
         if (!selected && !props.empty && !isIneligible(props.date, inelDays) && !isBefore(props.date, subDays(currentDate, 1))) {
 
             // Set first selected day as start.
@@ -42,16 +51,6 @@ const Day = (props: any) => {
                     setSelectedRange(normalizeInterval({ ...selectedRange, end: props.date }));
                 }
             }
-
-            // Don't allow selection of times before (currentDate)
-            // Don't allow for selection of more days than maxVacationdays unless you are an admin
-            // Make a new selection start without having to clear the old selection first
-            // Move the displaying of amount of selected days to the selection
-            // Make selection not clamp to the ineligible days
-            // Make createRequest modal show the right component
-            // if you are admin, you have option to mark days as ineligible.
-            // Make viewrequest modal show the right component
-            // Make the marking be onclick, per day, and if shift is held, mark all days (except ineligible) until the day?
 
             // Clear both dates
             if (selectedRange.start && selectedRange.end) {

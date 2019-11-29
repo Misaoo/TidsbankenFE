@@ -15,75 +15,29 @@ The backend repo can be found at https://github.com/ab223zm/Tidsbanken
 
 
 
-## Plan
+## Running the front end
+Clone this repo.
+```
+cd TidsbankenFrontend
+```
+Add a file called '.env.local' to the root of the repo (on same level as package.json and the src folder).
+This file should contain exactly this: 
+```
+REACT_APP_API_URL=https://tidsbanken-backend.herokuapp.com
+```
 
-### Endpoints/views
+(If you already started the server before adding this, then restart the server for the environment variable changes to take effect)
 
+Start the front end server with: 
 
-| Endpoint           | Description   |
-| ------------------ | ------------- |
-| /                  | Content Cell  |
-| /login             | Content Cell  |
-| /2fa               | Content Cell  |
-| /dashboard         | Content Cell  |
-| /user/:id          | Content Cell  |
-| /user/:id/history  | Content Cell  |
-| /admin             | Content Cell  |
+```
+npm start
+```
 
+The components folder contains... components and the view folder contains components that act purely as component rendering components. The views are linked in the app.tsx routes.  
 
+---
 
-### Components per endpoint/view
-| Component     | View           | Description |
-| ------------- | -------------- | ----------- |
-| Header        | All views      | Header contains links. If logged in: User profile, Logout button, Dashboard, notification dropdown list. If logged in and admin: logged in content + Admin area.  |
-| Footer        | All views      | Containts copyright information, or links or both. |
-| Calendar      | /dashboard     | The main calendar with overview and links to all request. |
-| Modal | Any view | Displays child components as content |
-| CreateVacationRequest | /dashboard | Shows form to create vacation request. |
-| CreateIneligiblePeriod | /dashboard | Modal to create a new ineligble period. |
-| LoginForm     | /login         | Contains loginform. |
-| UserProfile   | /user/:id      | Lists users information.  |
-| ChangeUserProfile | /user/:id | Changes users information. |
-| CreateUserForm    | /admin      | Form to create a user, including if admin or not. |
-| UpdateUserForm     | /admin      | Form to update user info, including if admin or not. |
-| UserList | /admin | Lists all users. |
-| VacationSettings | /admin | Settings for max period of vacation days. |
-| ImportExportData | /admin | Component for importing / exporting data as JSON. |
-|2FAForm| /2fa | Component for sending 2fa |
-
-
-### Some Views and Components structure
-
-#### Views
-    - Login
-    - Dashboard
-    - Requests (If allowed to deviate from requirements, then maybe not)
-    - User
-    - Admin
-
-
-#### Components
-    - Common
-        - Header
-        - Footer
-        - Modal
-    - Calendar
-        - Calendar
-        - ...
-    - Requests
-        - CreateVacationRequest
-    - Admin
-        - CreateIneligiblePeriod
-        - UserList
-        - VacationSettings
-        - Data
-            - Import
-            - Export
-    - User
-        - UserProfile
-    - Auth
-        - LoginForm
-        - Logout
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

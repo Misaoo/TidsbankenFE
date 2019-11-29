@@ -7,25 +7,35 @@ import Modal from '../common/modal/Modal';
 import authpicture from '../../pic/undraw_authentication_fsn5.svg';
 import removepicture from '../../pic/undraw_notify_88a4.svg';
 
+/* This file controlls three buttons in the profile page: 
+        1. change password 
+        2. change autentication 
+        3. delete account  
+*/
+
 const SettingComponent = (props: any) => {
     const { user } = useContext(AuthContext);
-    let [showModal, setshowModal] = useState(false);
-    let [showModal2, setshowModal2] = useState(false);
-    let [showModal3, setshowModal3] = useState(false);
+    let [showModal, setshowModal] = useState(false);    //popup for password
+    let [showModal2, setshowModal2] = useState(false);  //popup for two factor authentication
+    let [showModal3, setshowModal3] = useState(false);  //popup for delete account
 
-    let [oldPass, setOldPass] = useState();
-    let [newPass1, setNewPass1] = useState();
-    let [newPass2, setNewPass2] = useState();
+    let [oldPass, setOldPass] = useState();             // used for controlling if the old password is equal to the one that the user enters in the input fields in the popup
+    let [newPass1, setNewPass1] = useState();           // new password
+    let [newPass2, setNewPass2] = useState();           // new password have to match
 
-    let [twoAuth, setTwoAuth ] = useState();
+    let [twoAuth, setTwoAuth ] = useState();            // Used to show if the user have two factor authentication or not        
 
-    function UpdatePasswordModal(){ setshowModal(true); }
-    function Update2faModal(){ setshowModal2(true); }
-    function Update3faModal(){ setshowModal3(true); }
 
+    /*******************************/
+    /* AUTHENTICATION */
+    /*******************************/
+
+    function Update2faModal(){ setshowModal2(true); }       // is called when the user pressed the authentication button. This makes the popup show. 
+
+    // checks if user have two factor authentication and sets and send the infomration to NewAuth that sets it in a useState. 
     useEffect(() =>{
         if(user && user.name) {
-            NewAuth(user.twoFacAut);
+            NewAuth(user.twoFacAut);    
         }
     },[user])
 
@@ -38,7 +48,36 @@ const SettingComponent = (props: any) => {
         }
     }
 
-    const handleSubmit = async (event: any) => {
+    // update 2fa for database
+    const update2fa = async (event: any) => {
+        event.preventDefault();
+        let number=event.target.value;
+        
+        //UPDATE 2fa
+        try {
+            let response = await API.updateUser2fa(user!.userId, number);
+            if (response.status === 200) {
+                NewAuth(number);
+            }
+        } catch (error) {
+            if (error.response.status === 401 || error.response.status === 504) {
+                console.log(error);
+            }
+            if (error.response.status === 418) {
+            }
+            console.log(error);
+        }
+          
+    }
+
+    /*******************************/
+    /* PASSOWRD */
+    /*******************************/
+
+    function UpdatePasswordModal(){ setshowModal(true); }   // is called when the user pressed the password button. This makes the popup show. 
+
+    // When user presses the submit button for changing password it changes to 
+    const handlePasswordSubmit = async (event: any) => {
         event.preventDefault();
 
         let oldPassword = testOldPassword();
@@ -63,9 +102,9 @@ const SettingComponent = (props: any) => {
         }  
     }
 
-    function handleChangeOldPass(event:any){ setOldPass(event.target.value); }
-    function handleChangeNewPass1(event:any){ setNewPass1(event.target.value); }
-    function handleChangeNewPass2(event:any){ setNewPass2(event.target.value); }
+    function handleChangeOldPass(event:any){ setOldPass(event.target.value); }      // gets the old password from the input field and send it further to a function that checks if it is the correct
+    function handleChangeNewPass1(event:any){ setNewPass1(event.target.value); }    // Takes the new password and sets it
+    function handleChangeNewPass2(event:any){ setNewPass2(event.target.value); }    // Takes the new password and sets it
 
     // Test old password so it's correct compared to the one in the database
     const testOldPassword = async () => {
@@ -76,44 +115,26 @@ const SettingComponent = (props: any) => {
                 return true;
             }
         } catch (error) {
-            // if (error.response.status === 401 || error.response.status === 504) {
-            //     return false;
-            // }
-            // // If TwoFactorAuthentication
-            // if (error.response.status === 418) {
-            //     return false;
-            // }
+            console.log(error);
         }
     }
 
-    // update 2fa for database
-    const update2fa = async (event: any) => {
-        event.preventDefault();
-        let number=event.target.value;
-        
-        //UPDATE 2fa
-        try {
-            let response = await API.updateUser2fa(user!.userId, number);
-            if (response.status === 200) {
-                NewAuth(number);
-            }
-        } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
-                console.log(error);
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-            }
-            console.log(error);
-        }
-          
+    // Checks if new password are matching in the input fields
+    function testNewPasswords(){
+        if(newPass1 === newPass2){ return true;
+        } else { return false; }
     }
+
+    /*******************************/
+    /* DELETE ACCOUNT */
+    /*******************************/
+
+    function DeleteModal(){ setshowModal3(true); }       // is called when the user pressed the delete account button. This makes the popup show. 
 
     const deleteAccount = async (event:any) => {
         event.preventDefault();
         
-
-        //UPDATE 2fa
+        // DELETE ACCOUNT
         try {
             let response = await API.deleteAccount(user!.userId);
             if (response.status === 200) {
@@ -135,22 +156,18 @@ const SettingComponent = (props: any) => {
         }
     }
 
-    function testNewPasswords(){
-        if(newPass1 === newPass2){
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /**********************/
+    /* HTML */
+    /**********************/
 
     return (
         <div className={SettingsStyles.wrapper}>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update2faModal}>Two factor authentication</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update3faModal}>Delete account</button>
+            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={DeleteModal}>Delete account</button>
 
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handlePasswordSubmit}>
                     <label className={commonStyles.label} htmlFor="OldPassword">Old Password</label>
                     <input className={commonStyles.input} type="password" name="OldPassword" value={oldPass} placeholder="Enter your old password" onChange={handleChangeOldPass}/>
 

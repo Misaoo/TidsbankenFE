@@ -3,6 +3,11 @@ import API from '../../../api/API';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+/*
+    The CalendarAdmin component is responsible for listing ineligble days and allowing for 
+    the admin to remove them. The component is only rendered if the user is an admin.
+*/
+
 const CalendarAdmin = (props: any) => {
 
     const [success, setSuccess] = useState<any>(false);

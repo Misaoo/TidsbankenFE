@@ -5,9 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalendarContext from './CalendarContext';
 import { normalizeInterval, validDatesInInterval } from './calendarUtils';
 
+/*
+    The CalendarHeading is concerned with the navigation of the calendar. 
+    It retrieves props for some functionality and it uses context for some other functionality.
+*/
+
 const CalendarHeading = (props: any) => {
 
     let { selectedRange, maxVacDays, inelDays } = useContext(CalendarContext);
+    
+    // Gets the number of days selected
     let daysSelected: number = selectedRange.start && selectedRange.end && validDatesInInterval(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }), inelDays).length;
 
     return (

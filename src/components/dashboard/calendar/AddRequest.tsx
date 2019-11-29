@@ -3,10 +3,14 @@ import API from '../../../api/API';
 import AuthContext from '../../auth/AuthContext';
 import styles from '../../../css/Request.module.css';
 import commonStyles from '../../../css/Common.module.css';
-import { format, eachDayOfInterval } from 'date-fns';
+import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalendarContext from './CalendarContext';
 import { validDatesInInterval } from './calendarUtils';
+
+/*
+    The AddRequest component is responsible for display dates in a selection and sending either a vacation request or to set ineligible days.
+*/
 
 const AddRequest = (props: any) => {
     const { user } = useContext(AuthContext);
@@ -17,6 +21,7 @@ const AddRequest = (props: any) => {
     const [success, setSuccess] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
 
+    // Only have dates that are valid (ie. filter away ineligble days)
     useEffect(() => {
         setDates(validDatesInInterval(props.range, inelDays));
     }, [props.range])
@@ -28,6 +33,7 @@ const AddRequest = (props: any) => {
 
         let formatedDates: string[] = [];
 
+        // Format dates
         dates.map((date) => {
             formatedDates = [...formatedDates, format(date, 'yyyy-MM-dd')];
         });
@@ -51,6 +57,7 @@ const AddRequest = (props: any) => {
                 // Send ineligible days
                 const fetches = formatedDates.map((date: string) => API.submitIneligibleDay(date));
 
+                // Submit the ineligible days one by one, since that is what the backend requires.
                 Promise.all(fetches)
                     .then((res: any) => {
                         setSuccess(true);
@@ -63,7 +70,6 @@ const AddRequest = (props: any) => {
                         setUpdateIneligible((u: number) => u + 1);
                     })
             }
-
         }
     }
 
@@ -84,6 +90,7 @@ const AddRequest = (props: any) => {
         user.hasOwnProperty("name") &&
         user.hasOwnProperty("isAdmin") &&
         user.isAdmin === 0;
+
     const loggedInAdmin =
         user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
 
