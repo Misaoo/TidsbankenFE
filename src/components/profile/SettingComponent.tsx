@@ -41,9 +41,9 @@ const SettingComponent = (props: any) => {
 
     // Sets new useState for auth - switches the number from 0 to 1 or 1 to 0
     function NewAuth(number:any){
-        if(number == 0){
+        if(number === 0){
             setTwoAuth(1);
-        } else if (number == 1){
+        } else if (number === 1){
             setTwoAuth(0);
         }
     }
@@ -196,7 +196,7 @@ const SettingComponent = (props: any) => {
 
                 <p>Two Factor Authentication, or 2FA, adds an extra layer of protection to ensure the security of your accounts beyond just a username and password.</p>
                 
-                <div className={SettingsStyles.twoFactorAuthimg}><img src={authpicture} alt="2fa picture"/></div>
+                <div className={SettingsStyles.twoFactorAuthimg}><img src={authpicture} alt="2fa"/></div>
                 
                 <div>{(() => {
                     console.log(twoAuth);
@@ -213,7 +213,7 @@ const SettingComponent = (props: any) => {
 
             <Modal display={showModal3} setDisplay={setshowModal3} title="Delete Account">
                 <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p>
-                <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa picture"/></div>
+                <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa"/></div>
                 <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button>
             </Modal>
         </div>

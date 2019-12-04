@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import "../../general.css";
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="nestedNavbarOuter">

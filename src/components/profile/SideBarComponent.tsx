@@ -172,7 +172,7 @@ const SideBarComponent = (props: any) => {
 
     // CLICK OUTSIDE CONTAINER
     window.onclick = function () {
-      if (type == "email") {
+      if (type === "email") {
         window.clearTimeout(timer); //cancel the previous timer.
         if (user && user.userId) {
           updateUserEmail(user.userId, value); // Update user in server
@@ -216,7 +216,7 @@ const SideBarComponent = (props: any) => {
         <h1>
           {name} {lastName}
         </h1>
-        <h3>{admin == "1" ? "Admin" : "Employee"}</h3>
+        <h3>{admin === "1" ? "Admin" : "Employee"}</h3>
 
         <div className={sidebarStyles.text}>
           <label className={commonStyles.label} htmlFor="email">

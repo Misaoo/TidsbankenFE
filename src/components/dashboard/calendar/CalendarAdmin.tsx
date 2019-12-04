@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import API from '../../../api/API';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CalendarAdmin = (props: any) => {
 
-    const [success, setSuccess] = useState<any>(false);
+    const [setSuccess] = useState<any>(false);
     const [error, setError] = useState<any>(false);
 
     const removeIneligbleDay = (id: number) => {

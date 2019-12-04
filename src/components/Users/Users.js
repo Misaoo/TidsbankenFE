@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import UserCard from "./UserCard/UserCard";
+import UserCard from "./UserCard";
 
 class Users extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Users extends Component {
         })
           .then(res => {
             res.data.map(user => {
-              if (user.userId != userdata.data.userId) {
+              if (user.userId !== userdata.data.userId) {
                 tempArr.push(
                   <UserCard
                     key={user.userId}
