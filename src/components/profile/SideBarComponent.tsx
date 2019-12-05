@@ -139,6 +139,7 @@ const SideBarComponent = (props: any) => {
       setshowModalWebcam(true);
     }
   }
+
   
   /**********************/
   /* HTML */
@@ -175,7 +176,7 @@ const SideBarComponent = (props: any) => {
           value={props.email} 
         />
       </div>
-
+      
       <Modal display={showModalPicture} setDisplay={setshowModalPicture} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
           <label className={commonStyles.label} htmlFor="savePic">

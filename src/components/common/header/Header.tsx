@@ -64,8 +64,8 @@ const Header = (props: any) => {
     user.hasOwnProperty("name") &&
     user.hasOwnProperty("isAdmin") &&
     user.isAdmin === 0;
-  const loggedInAdmin =
-    user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
+  const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
+  const loggedInSuperUser = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
   const loggedOut =
     Object.entries(user as object).length === 0 &&
     (user as object).constructor === Object;
@@ -118,6 +118,14 @@ const Header = (props: any) => {
           <Link to="/admin">Admin</Link>
         </>
       )}
+      {loggedInSuperUser && (
+          <>
+            <Link to="/profile">Profile</Link>
+            <Link to="/admin">Admin</Link>
+            <Link to="/logout">Logout</Link>
+          </>
+        )
+      }
       {loggedOut && (
         <>
           <Link className={commonStyles.backgroundColor} to="/login">Login</Link>

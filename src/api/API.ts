@@ -8,7 +8,7 @@ import axios, { AxiosRequestConfig } from "axios";
     use Axios straight away.
 */
 
-const unauthorizedOrForbidden = (error: any):void => {
+const unauthorizedOrForbidden = (error: any): void => {
     if (error.response.status === 401 || error.response.status === 403) {
         window.location.href = "/logout";
     }
