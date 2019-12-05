@@ -176,6 +176,7 @@ const SettingComponent = (props: any) => {
                         return null;
                     }
                 })()} </div>
+              </Modal>   
         </div>
     )
 }
