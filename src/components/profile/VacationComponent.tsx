@@ -15,6 +15,7 @@ const VacationComponent = (props: any) => {
   let [deniedVacationdays, setDeniedVacationsdays] = useState();              // handles the denied vacation days
   let [pendingVacationdays, setPendingVacationsdays] = useState();            // handles the pending vacation days
 
+  let [totalDeniedVacationRequests, setTotalDeniedVacationRequests] = useState();     // handles total denied vacation days
 
   /* Runs first to get all information from server*/
   useEffect(() => {
@@ -29,7 +30,12 @@ const VacationComponent = (props: any) => {
     await API.vacationsDenied(id)
       .then((response: any) => {
         if(response.status === 200) {
-          addResponseDataToLi(response, setDeniedVacationsdays)
+          // addResponseDataToLi only accepts array input, thus convert single object to an array with single element
+          let tempArr = []
+          tempArr.push(response.data[response.data.length-1])
+
+          addResponseDataToLi(tempArr, setDeniedVacationsdays)
+          setTotalDeniedVacationRequests(response.data.length)
         }
       })
       .catch((error: any) => {
@@ -47,7 +53,7 @@ const VacationComponent = (props: any) => {
     await API.vacationsApproved(id)
       .then((response: any) => {
         if(response.status === 200) {
-          addResponseDataToLi(response, setApprovedVacationsdays)
+          addResponseDataToLi(response.data, setApprovedVacationsdays)
         }
       })
       .catch((error: any) => {
@@ -65,7 +71,7 @@ const VacationComponent = (props: any) => {
     await API.vacationsPending(id)
       .then((response: any) => {
         if(response.status === 200) {
-          addResponseDataToLi(response, setPendingVacationsdays)
+          addResponseDataToLi(response.data, setPendingVacationsdays)
         }
       })
       .catch((error: any) => {
@@ -85,7 +91,7 @@ const VacationComponent = (props: any) => {
   function addResponseDataToLi(response: any, where: any) {
     var arr = []; // Is used for temporary storing for setting state after loop is done
     let i = 0; // Unique key for html elements
-    for (let obj of response.data) {
+    for (let obj of response) {
       for (let date of obj.dates) {
         i++;
         let dateOnly = date.substring(0, date.indexOf("T"));
@@ -118,7 +124,8 @@ const VacationComponent = (props: any) => {
 
       <div>
         <h1>Denied vacation days</h1>
-        <ul>{deniedVacationdays}</ul>
+        <h2>Total denied vacation requests: {totalDeniedVacationRequests}</h2>
+        <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
       </div>
     </div>
   );
