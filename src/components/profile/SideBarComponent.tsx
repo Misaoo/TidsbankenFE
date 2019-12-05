@@ -11,7 +11,6 @@ import axios from "axios";
   // This file handles the:
   //    1. picture functionality, 
   //    2. name of user, 
-  //    3. email
   /**********************/
 
 const SideBarComponent = (props: any) => {
@@ -20,8 +19,6 @@ const SideBarComponent = (props: any) => {
   const [name, setName] = useState();                         // first name for user
   const [lastName, setLastName] = useState();                 // Lastname
   const [admin, setAdmin] = useState();                       // If user is admin or not
-
-  let [timer, setTimer] = useState(0);                        // handles a timer that resets the save message
 
   let [showModalPicture, setshowModalPicture] = useState(false);      // Show and set picture 
   let [showModalWebcam, setshowModalWebcam] = useState(false);        // Show and set webcam  
