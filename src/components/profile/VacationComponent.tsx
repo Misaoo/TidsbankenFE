@@ -25,26 +25,60 @@ const VacationComponent = (props: any) => {
 
   /* gets the vacation information from server */
   async function getFromServer(id: any) {
-    try {
-      let response1 = await API.vacationsApproved(id);
-      let response2 = await API.vacationsDenied(id);
-      let response3 = await API.vacationsPending(id);
 
-      if (
-        response1.status === 200 ||
-        response2.status === 200 ||
-        response3.status === 200
-      ) {
-        addResponseDataToLi(response1, setApprovedVacationsdays);
-        addResponseDataToLi(response2, setDeniedVacationsdays);
-        addResponseDataToLi(response3, setPendingVacationsdays);
-      }
-    } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) { }
-      // If TwoFactorAuthentication
-      if (error.response.status === 418) { }
-    }
-    // console.log(approvedVacationdays);
+    await API.vacationsDenied(id)
+      .then((response: any) => {
+        if(response.status === 200) {
+          addResponseDataToLi(response, setDeniedVacationsdays)
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.status === 401) {
+          //error message
+        }
+        else if (error.response.status === 418) {
+          //error message
+        }
+        else if (error.response.status === 504) {
+          //error message
+        }
+      })
+
+    await API.vacationsApproved(id)
+      .then((response: any) => {
+        if(response.status === 200) {
+          addResponseDataToLi(response, setApprovedVacationsdays)
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.status === 401) {
+          //error message
+        }
+        else if (error.response.status === 418) {
+          //error message
+        }
+        else if (error.response.status === 504) {
+          //error message
+        }
+      })
+
+    await API.vacationsPending(id)
+      .then((response: any) => {
+        if(response.status === 200) {
+          addResponseDataToLi(response, setPendingVacationsdays)
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.status === 401) {
+          //error message
+        }
+        else if (error.response.status === 418) {
+          //error message
+        }
+        else if (error.response.status === 504) {
+          //error message
+        }
+      })
   }
 
   // Adds the information to html element. 
