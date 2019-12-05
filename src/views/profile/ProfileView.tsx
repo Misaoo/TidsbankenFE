@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import AuthContext from '../../components/auth/AuthContext';
+import React, { useState } from 'react';
 import profileStyle from '../../css/profile/ProfileView.module.css';
 
 // Specific components regarding profile
@@ -11,7 +10,6 @@ type MyProps = { }
 type MyState = { }
 
 const ProfileView = (props:any) => {
-    const { user } = useContext(AuthContext);
     const [ email, setEmail ] = useState();
 
     return(
