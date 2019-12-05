@@ -164,7 +164,7 @@ const SettingComponent = (props: any) => {
         <div className={SettingsStyles.wrapper}>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update2faModal}>Two factor authentication</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={DeleteModal}>Delete account</button>
+            {/*<button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={DeleteModal}>Delete account</button>*/}
 
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
                 <form onSubmit={handlePasswordSubmit}>
