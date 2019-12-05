@@ -17,12 +17,11 @@ const SettingComponent = (props: any) => {
     const { user } = useContext(AuthContext);
     let [showModal, setshowModal] = useState(false);    //popup for password
     let [showModal2, setshowModal2] = useState(false);  //popup for two factor authentication
-    let [showModal3, setshowModal3] = useState(false);  //popup for delete account
+    // let [showModal3, setshowModal3] = useState(false);  //popup for delete account
 
     let [oldPass, setOldPass] = useState();             // used for controlling if the old password is equal to the one that the user enters in the input fields in the popup
     let [newPass1, setNewPass1] = useState();           // new password
     let [newPass2, setNewPass2] = useState();           // new password have to match
-
     let [twoAuth, setTwoAuth ] = useState();            // Used to show if the user have two factor authentication or not        
 
 
@@ -129,32 +128,32 @@ const SettingComponent = (props: any) => {
     /* DELETE ACCOUNT */
     /*******************************/
 
-    function DeleteModal(){ setshowModal3(true); }       // is called when the user pressed the delete account button. This makes the popup show. 
+    // function DeleteModal(){ setshowModal3(true); }       // is called when the user pressed the delete account button. This makes the popup show. 
 
-    const deleteAccount = async (event:any) => {
-        event.preventDefault();
+    // const deleteAccount = async (event:any) => {
+    //     event.preventDefault();
         
-        // DELETE ACCOUNT
-        try {
-            let response = await API.deleteAccount(user!.userId);
-            if (response.status === 200) {
-                console.log("deleted account");
+    //     // DELETE ACCOUNT
+    //     try {
+    //         let response = await API.deleteAccount(user!.userId);
+    //         if (response.status === 200) {
+    //             console.log("deleted account");
                 
-                if (typeof window !== 'undefined') {
-                    window.location.href = "/logout";
-               }
-            }
-        } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
-                console.log(error);
-                console.log("asd");
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-            }
-            console.log(error);
-        }
-    }
+    //             if (typeof window !== 'undefined') {
+    //                 window.location.href = "/logout";
+    //            }
+    //         }
+    //     } catch (error) {
+    //         if (error.response.status === 401 || error.response.status === 504) {
+    //             console.log(error);
+    //             console.log("asd");
+    //         }
+    //         // If TwoFactorAuthentication
+    //         if (error.response.status === 418) {
+    //         }
+    //         console.log(error);
+    //     }
+    // }
 
     /**********************/
     /* HTML */
@@ -164,7 +163,7 @@ const SettingComponent = (props: any) => {
         <div className={SettingsStyles.wrapper}>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update2faModal}>Two factor authentication</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={DeleteModal}>Delete account</button>
+            {/* <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={DeleteModal}>Delete account</button> */}
 
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
                 <form onSubmit={handlePasswordSubmit}>
@@ -211,11 +210,11 @@ const SettingComponent = (props: any) => {
                 })()} </div>
             </Modal> 
 
-            <Modal display={showModal3} setDisplay={setshowModal3} title="Delete Account">
-                <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p>
-                <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa picture"/></div>
-                <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button>
-            </Modal>
+            {/* <Modal display={showModal3} setDisplay={setshowModal3} title="Delete Account"> */}
+                {/* <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p> */}
+                {/* <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa picture"/></div> */}
+                {/* <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button> */}
+            {/* </Modal> */}
         </div>
     )
 }
