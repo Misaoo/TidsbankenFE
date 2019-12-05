@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CalendarAdmin = (props: any) => {
 
-    const [setSuccess] = useState<any>(false);
+    const [success, setSuccess] = useState<any>(false);
     const [error, setError] = useState<any>(false);
 
     const removeIneligbleDay = (id: number) => {
@@ -22,6 +22,7 @@ const CalendarAdmin = (props: any) => {
                 }
             })
             .catch((error: any) => {
+                console.log(error)
                 setError(true);
             })
     }
