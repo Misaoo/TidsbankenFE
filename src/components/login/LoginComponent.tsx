@@ -9,7 +9,7 @@ import API from '../../api/API';
 /* Handling of login functionality */
 
 const LoginComponent = (props: any) => {
-    const { user, setUser } = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);          // handles the input
     const [success, setSuccess] = useState(false);          // handles if the user has a successfull login
     const [error, setError] = useState(false);              // handles error
@@ -126,6 +126,7 @@ const LoginComponent = (props: any) => {
     };
     getTimeLeft();
     (inputRef.current as any).focus();
+    // eslint-disable-next-line
   }, []);
 
 

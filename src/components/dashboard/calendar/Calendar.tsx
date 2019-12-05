@@ -129,6 +129,7 @@ const Calendar = (props: any) => {
             Promise.all(fetches)
                 .then((res: any[]) => {
                     let newState = {};
+                    // eslint-disable-next-line
                     res.map((user: any) => {
                         newState = { ...newState, [user.userId]: `${user.name} ${user.lastName.substring(0, 1)}.` };
                     })
@@ -149,6 +150,7 @@ const Calendar = (props: any) => {
 
         document.addEventListener("keydown", switchMonth);
         return (() => document.removeEventListener("keydown", switchMonth));
+        // eslint-disable-next-line
     }, [selectedDate]);
 
     // Calculate how many days are selected when a second date has been marked
@@ -162,6 +164,7 @@ const Calendar = (props: any) => {
                 // setDaysLeft(5);
             }
         }
+        // eslint-disable-next-line
     }, [selectedRange.end])
 
     const handleVacReqClick = (event: any, vacReqId: number) => {
@@ -207,7 +210,7 @@ const Calendar = (props: any) => {
                     currentDate={currentDate}
                     selectedDate={selectedDate}
                 />
-                <Infobox className={styles.helpInfo} infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking image" height="100px" />}>
+                <Infobox className={styles.helpInfo} infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking" height="100px" />}>
                     <h2>Calendar</h2>
                     <p>Here you can see your approved, pending and denied requests, as well as your colleagues approved vacation requests</p>
                     <h3>Request vacation</h3>

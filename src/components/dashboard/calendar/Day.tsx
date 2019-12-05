@@ -15,7 +15,7 @@ import AddRequest from './AddRequest';
 
 const Day = (props: any) => {
 
-    const [selected, setSelected] = useState(false);
+    const [selected] = useState(false);
 
     const {
         selectedRange,
