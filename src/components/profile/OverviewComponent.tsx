@@ -45,7 +45,6 @@ const OverviewComponent = (props: any) => {
             tempArr.push(response.data[response.data.length-1])
             setTotalDeniedVacationRequests(response.data.length)
           }
-
           addResponseDataToLi(tempArr, setDeniedVacationsdays)
         }
       })
@@ -114,7 +113,7 @@ const OverviewComponent = (props: any) => {
         arr.push(liElement);
       }
       // separate requests in new lines instead of having all of them in one
-      arr.push(<br></br>)
+      arr.push(<br key={++i}></br>)
     }
     where(arr);
   }
