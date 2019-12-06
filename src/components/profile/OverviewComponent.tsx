@@ -35,9 +35,9 @@ const OverviewComponent = (props: any) => {
 
   /* gets the vacation information from server */
   async function getFromServer(id: any) {
-
     await API.vacationsDenied(id)
       .then((response: any) => {
+        console.log(response)
         if(response.status === 200) {
           // addResponseDataToLi only accepts array input, thus convert single object to an array with single element
           let tempArr = []
@@ -46,6 +46,7 @@ const OverviewComponent = (props: any) => {
             setTotalDeniedVacationRequests(response.data.length)
           }
           addResponseDataToLi(tempArr, setDeniedVacationsdays)
+
         }
       })
       .catch((error: any) => {
@@ -144,6 +145,7 @@ const OverviewComponent = (props: any) => {
                 <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
               </>
             )}
+
           </div>
         </div>
       )}

@@ -10,7 +10,7 @@ type MyProps = { }
 type MyState = { }
 
 const ProfileView = (props:any) => {
-    const [ email, setEmail ] = useState();
+    const [ email, setEmail ] = useState('');
 
     return(
         <main className={profileStyle.ProfileWrapper}>
