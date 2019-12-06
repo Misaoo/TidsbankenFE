@@ -11,7 +11,6 @@ import axios from "axios";
   // This file handles the:
   //    1. picture functionality, 
   //    2. name of user, 
-  //    3. email
   /**********************/
 
 const SideBarComponent = (props: any) => {
@@ -20,9 +19,6 @@ const SideBarComponent = (props: any) => {
   const [name, setName] = useState();                         // first name for user
   const [lastName, setLastName] = useState();                 // Lastname
   const [admin, setAdmin] = useState();                       // If user is admin or not
-
-  const [saved, setSaved] = useState(false);                  // handles a small message that tells user if email has been saved to database
-  let [timer, setTimer] = useState(0);                        // handles a timer that resets the save message
 
   let [showModalPicture, setshowModalPicture] = useState(false);      // Show and set picture 
   let [showModalWebcam, setshowModalWebcam] = useState(false);        // Show and set webcam  
@@ -144,55 +140,6 @@ const SideBarComponent = (props: any) => {
     }
   }
 
-  /**********************/
-  /* EMAIL */
-  /**********************/
-  async function updateUserEmail(userId: number, email:string) {
-    try {
-      let response = await API.updateUser(
-        userId,
-        email
-      );
-      if (response.status === 200) {
-        setSaved(true);
-        setTimer(
-          window.setTimeout(() => {
-            setSaved(false);
-          }, 3000)
-        );
-      }
-    } catch (error) { }
-  }
-  
-  function handleChange(e: any) {
-    e.preventDefault();
-    let type = e.target.type;
-    let value = e.target.value;
-    props.setEmail(value);
-
-    // CLICK OUTSIDE CONTAINER
-    window.onclick = function () {
-      if (type === "email") {
-        window.clearTimeout(timer); //cancel the previous timer.
-        if (user && user.userId) {
-          updateUserEmail(user.userId, value); // Update user in server
-        }
-      }
-      window.onclick = null;
-    };
-
-    // ENTER KEYPRESS
-    document.addEventListener("keydown", function enterKey(event: any) {
-      if (event.keyCode === 13) {
-        console.log("test");
-        if (user && user.userId) {
-          updateUserEmail(user.userId, value);
-        }
-        window.clearTimeout(timer); //cancel the previous timer.
-      }
-      document.removeEventListener("keydown", enterKey); // cancel the previous eventlistener
-    });
-  }
   
   /**********************/
   /* HTML */
@@ -212,32 +159,24 @@ const SideBarComponent = (props: any) => {
         <img src={img} alt="profilepicture" />
       </div>
 
-      <form onSubmit={handleChange}>
-        <h1>
-          {name} {lastName}
-        </h1>
-        <h3>{admin === "1" ? "Admin" : "Employee"}</h3>
+      <h1>
+        {name} {lastName}
+      </h1>
+      <h3>{admin == "1" ? "Admin" : "Employee"}</h3>
 
-        <div className={sidebarStyles.text}>
-          <label className={commonStyles.label} htmlFor="email">
-            Email
-          </label>
-          <p>{saved ? "Saved" : ""}</p>
-          <input
-            className={commonStyles.input}
-            name="email"
-            type="email"
-            value={props.email}
-            onChange={handleChange}
-            onKeyPress={e => {
-              if (e.key === "Enter") {
-                handleChange(e);
-              }
-            }}
-          />
-        </div>
-      </form>
-
+      <div className={sidebarStyles.text}>
+        <label className={commonStyles.label} htmlFor="email">
+          Email
+        </label>
+        <input
+          className={commonStyles.input}
+          disabled
+          name="email"
+          type="email"
+          value={props.email} 
+        />
+      </div>
+      
       <Modal display={showModalPicture} setDisplay={setshowModalPicture} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
           <label className={commonStyles.label} htmlFor="savePic">
