@@ -90,7 +90,7 @@ const OverviewComponent = (props: any) => {
             <h1>Upcoming vacation days</h1>
             <ul>{approvedVacationdays}</ul>
           </div>
-
+          
           <div>
             <h1>Denied vacation days</h1>
             <ul>{deniedVacationdays}</ul>
