@@ -126,6 +126,7 @@ const Header = (props: any) => {
           </>
         )
       }
+
       {loggedOut && (
         <>
           <Link className={commonStyles.backgroundColor} to="/login">Login</Link>
