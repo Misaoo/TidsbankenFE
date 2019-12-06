@@ -1,7 +1,8 @@
 @value global: "./global.css";
 @value btn-color from global;
 
-.module {
+/* OLD CODE */
+/* .module {
   background: btn-color;
   color: white;
   width: 100%;
@@ -21,11 +22,35 @@
 }
 
 .logo {
-  color: #2b8382 !important;
   font-weight: bold;
-  background-color: white !important;
+} */
+
+
+
+/* NEW CODE */
+/* Main Navbar module */
+.module {
+  background: btn-color;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+  transition: .1s all;
+}
+.module a {
+  padding: 5px;
+  text-align: center;
+  color: #fff;
+  text-decoration: none !important;
+}
+/* Showing the active link in the navbar */
+.activeLinks {
+  text-align: center;
+  margin: 5px;
+  padding: 5px;
+  width: 100px !important;
+  background-color: #273642;
+  color: #fff;
+  text-decoration-style: none !important;
 }
 
-.logo svg {
-  padding-right: 5px;
-}
+

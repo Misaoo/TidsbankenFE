@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AuthContext from "../../auth/AuthContext";
 import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
@@ -7,13 +7,16 @@ import Dropdown from "../dropdown/Dropdown";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+/* Material Ui */
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
 
 /*
   The header component is responsible for displaying the links in the header bar.
   Different links are displayed depending if the user is logged in, logged out or if they are a logged in admin.
   Here notifications are also handled.
 */
-
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
@@ -53,7 +56,7 @@ const Header = (props: any) => {
         onClick={() => removeNotification(value.notificationId)}
         key={value.notificationId}
         className={commonStyles.dropdown}>
-        <Link to={"/requests/"+ value.requestId}>{value.message}</Link>
+        <NavLink to={"/requests/" + value.requestId}>{value.message}</NavLink>
       </li>
     });
     setLiArray(liElement);
@@ -64,75 +67,81 @@ const Header = (props: any) => {
     user.hasOwnProperty("name") &&
     user.hasOwnProperty("isAdmin") &&
     user.isAdmin === 0;
-  const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
-  const loggedInSuperUser = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
+  const loggedInAdmin =
+    user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
   const loggedOut =
     Object.entries(user as object).length === 0 &&
     (user as object).constructor === Object;
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+ 
   return (
+
     <header className={styles.module}>
-      <Link to="/" className={styles.logo}><FontAwesomeIcon icon="clock" /> TB</Link>
-      {loggedIn && (
-        <>
-          <Link to="/dashboard">Dashboard</Link>         
-          <Dropdown title={(user && user.name) || "Menu"}>
-            <ul className={commonStyles.dropdown}>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </ul>
-          </Dropdown>
-          <Dropdown
-            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
-            cb={getNotifications}
-          >
-            <ul>{liArray}</ul>
-          </Dropdown>
-          <Link to="/users">Users</Link>
-        </>
-      )}
-      {loggedInAdmin && (
-        <>
-          <Link to="/dashboard">Dashboard</Link>
-          <Dropdown title={(user && user.name) || "Menu"}>
-            <ul className={commonStyles.dropdown}>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </ul>
-          </Dropdown>
-          <Dropdown
-            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
-            cb={getNotifications}
-          >
-            <ul>{liArray}</ul>
-          </Dropdown>
-          <Link to="/users">Users</Link>
-          <Link to="/admin">Admin</Link>
-        </>
-      )}
-      {loggedInSuperUser && (
-          <>
-            <Link to="/profile">Profile</Link>
-            <Link to="/admin">Admin</Link>
-            <Link to="/logout">Logout</Link>
-          </>
-        )
-      }
-      {loggedOut && (
-        <>
-          <Link className={commonStyles.backgroundColor} to="/login">Login</Link>
-        </>
-      )}
+      <AppBar position="static" className={styles.module}>
+        <Toolbar>
+
+          {/* Loggin as regular user */}
+          {loggedIn && (
+            <div className="NavlinkContainer">
+              
+              <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
+              <NavLink activeClassName={styles.activeLinks} to="/users"> Users </NavLink>
+              <Dropdown title={(user && user.name) || "Menu"}>
+                <ul className={commonStyles.dropdown}>
+                  <li>
+                    <NavLink activeClassName={styles.activeLinks} to="/profile"> Profile </NavLink>
+                  </li>
+                  <li>
+                    <NavLink activeClassName={styles.activeLinks} to="/logout"> Logout </NavLink>
+                  </li>
+                </ul>
+              </Dropdown>
+            </div>
+          )} 
+
+        {/* Loggin as Admin */}
+        {loggedInAdmin && (
+            <div className="NavlinkContainer">
+              <NavLink to="/"><FontAwesomeIcon icon="clock" /> TB</NavLink>
+              <NavLink activeClassName={styles.activeLinks} to="/dashboard">Dashboard</NavLink>
+              <NavLink activeClassName={styles.activeLinks} to="/users">Users</NavLink>
+              <Dropdown title={(user && user.name) || "Menu"}>
+                <ul className={commonStyles.dropdown}>
+                  <li>
+                    <NavLink activeClassName={styles.activeLinks} to="/admin">Admin</NavLink>
+                  </li>
+                  <li>
+                    <NavLink activeClassName={styles.activeLinks} to="/profile">Profile</NavLink>
+                  </li>
+                  <li>
+                    <NavLink activeClassName={styles.activeLinks} to="/logout">Logout</NavLink>
+                  </li>
+                </ul>
+              </Dropdown>
+            </div>
+          )}
+
+          {/* Links showing after user logout */}
+           {loggedOut && (
+            <>
+             <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography>
+              <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink>
+            </>
+          )} 
+
+        </Toolbar>
+      </AppBar>
     </header>
   );
 };
-
 export default Header;
+
+
