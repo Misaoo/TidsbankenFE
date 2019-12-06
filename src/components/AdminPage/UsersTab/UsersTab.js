@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext,Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
@@ -7,12 +7,15 @@ import UserCard from "./UserCard/UserCard";
 import AddUser from "./AddUser/AddUser";
 import "../general.css";
 import CardList from "../CardList/CardList";
+import authContext from '../../auth/AuthContext'
 
 class UsersTab extends Component {
   //let address = props.address;
+  static contextType = authContext
   constructor(props) {
     super(props);
     this.state = {
+      isAdmin : '',
       users: [],
       style: {
         general: {},
@@ -28,6 +31,8 @@ class UsersTab extends Component {
       users: { backgroundColor: "#3D8ABB" }
     });
     this.getUsers();
+    let { user } = this.context
+     this.state.isAdmin = user.isAdmin
   }
   getUsers() {
     let tempArr = [];
@@ -89,6 +94,7 @@ class UsersTab extends Component {
               path="/admin/users/addUser"
               render={() => (
                 <AddUser
+                  isAdmin = {this.state.isAdmin}
                   updateStyling={this.updateStyling.bind(this)}
                   styling={{
                     allUsers: {},
