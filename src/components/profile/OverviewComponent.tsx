@@ -14,7 +14,8 @@ const OverviewComponent = (props: any) => {
   let [approvedVacationdays, setApprovedVacationsdays] = useState<any[]>([]); // handles the approved vacation days
   let [deniedVacationdays, setDeniedVacationsdays] = useState();              // handles the denied vacation days
   let [pendingVacationdays, setPendingVacationsdays] = useState();            // handles the pending vacation days
-
+  let [totalDeniedVacationRequests, setTotalDeniedVacationRequests] = useState();
+  
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
@@ -32,16 +33,17 @@ const OverviewComponent = (props: any) => {
 
   /* gets the vacation information from server */
   async function getFromServer(id: any) {
-
     await API.vacationsDenied(id)
       .then((response: any) => {
+        console.log(response)
         if(response.status === 200) {
           // addResponseDataToLi only accepts array input, thus convert single object to an array with single element
           let tempArr = []
-          tempArr.push(response.data[response.data.length-1])
-
-          addResponseDataToLi(tempArr, setDeniedVacationsdays)
-          // setTotalDeniedVacationRequests(response.data.length)
+          if(response.data.length!=0){
+            tempArr.push(response.data[response.data.length-1])
+            addResponseDataToLi(tempArr, setDeniedVacationsdays)
+            setTotalDeniedVacationRequests(response.data.length)
+          }
         }
       })
       .catch((error: any) => {
@@ -132,7 +134,8 @@ const OverviewComponent = (props: any) => {
 
           <div>
             <h1>Denied vacation days</h1>
-            <ul>{deniedVacationdays}</ul>
+            <h2>Total denied vacation requests: {totalDeniedVacationRequests}</h2><ul>
+            <b>Latest denied request:</b> {deniedVacationdays}</ul>
           </div>
         </div>
       )}
