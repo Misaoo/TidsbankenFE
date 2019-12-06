@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import profileStyle from '../../css/profile/ProfileView.module.css';
 
 // Specific components regarding profile
-import VacationComponent from '../../components/profile/VacationComponent';
+import OverviewComponent from '../../components/profile/OverviewComponent';
 import SideBarComponent from '../../components/profile/SideBarComponent';
 import SettingComponent from '../../components/profile/SettingComponent';
 
@@ -19,7 +19,7 @@ const ProfileView = (props:any) => {
                 <SettingComponent email={email}/>
             </aside>
             <div>
-                <VacationComponent />
+                <OverviewComponent/>
             </div>
         </main>  
     )
