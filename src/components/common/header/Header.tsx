@@ -66,7 +66,9 @@ const Header = (props: any) => {
     user.isAdmin === 0;
   const loggedInAdmin =
     user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
-  const loggedOut =
+    const loggedInSuperAdmin =
+    user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
+    const loggedOut =
     Object.entries(user as object).length === 0 &&
     (user as object).constructor === Object;
 
@@ -96,6 +98,29 @@ const Header = (props: any) => {
         </>
       )}
       {loggedInAdmin && (
+        <>
+          <Link to="/dashboard">Dashboard</Link>
+          <Dropdown title={(user && user.name) || "Menu"}>
+            <ul className={commonStyles.dropdown}>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link to="/logout">Logout</Link>
+              </li>
+            </ul>
+          </Dropdown>
+          <Dropdown
+            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
+            cb={getNotifications}
+          >
+            <ul>{liArray}</ul>
+          </Dropdown>
+          <Link to="/users">Users</Link>
+          <Link to="/admin">Admin</Link>
+        </>
+      )}
+      {loggedInSuperAdmin && (
         <>
           <Link to="/dashboard">Dashboard</Link>
           <Dropdown title={(user && user.name) || "Menu"}>
