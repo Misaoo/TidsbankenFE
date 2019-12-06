@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import profileStyle from '../../css/profile/ProfileView.module.css';
 
 // Specific components regarding profile
+import OverviewComponent from '../../components/profile/OverviewComponent';
 import SideBarComponent from '../../components/profile/SideBarComponent';
 import SettingComponent from '../../components/profile/SettingComponent';
-import OverviewComponent from '../../components/profile/OverviewComponent';
+
+type MyProps = { }
+type MyState = { }
 
 const ProfileView = (props:any) => {
     const [ email, setEmail ] = useState();
@@ -16,7 +19,7 @@ const ProfileView = (props:any) => {
                 <SettingComponent email={email}/>
             </aside>
             <div>
-                <OverviewComponent />
+                <OverviewComponent/>
             </div>
         </main>  
     )
