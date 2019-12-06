@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import API from '../../../api/API';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,6 +22,7 @@ const CalendarAdmin = (props: any) => {
                 }
             })
             .catch((error: any) => {
+                console.log(error)
                 setError(true);
             })
     }
