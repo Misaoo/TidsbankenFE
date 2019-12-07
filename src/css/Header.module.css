@@ -1,56 +1,38 @@
 @value global: "./global.css";
 @value btn-color from global;
 
-/* OLD CODE */
-/* .module {
-  background: btn-color;
-  color: white;
-  width: 100%;
-}
-
-.module a {
-  color: white;
-  padding: 10px 20px;
-  display: inline-block;
-  text-decoration: none;
-  transition: .1s all;
-}
-
-.module a:hover {
-  cursor: pointer;
-  background-color: #273642;
-}
-
-.logo {
-  font-weight: bold;
-} */
-
-
-
-/* NEW CODE */
 /* Main Navbar module */
 .module {
   background: btn-color;
-  width: 100%;
-  display: inline-block;
-  text-decoration: none;
-  transition: .1s all;
 }
+
 .module a {
-  padding: 5px;
-  text-align: center;
   color: #fff;
+  margin: 0px;
+  padding: 10px;
   text-decoration: none !important;
 }
-/* Showing the active link in the navbar */
+
 .activeLinks {
-  text-align: center;
-  margin: 5px;
-  padding: 5px;
-  width: 100px !important;
   background-color: #273642;
-  color: #fff;
-  text-decoration-style: none !important;
+  /* background-color: #273642; */
 }
 
+.titleTest {
+  text-align: center;
+}
 
+@media only screen and (min-width: 360px) and (max-width: 768px) {
+  .module a {
+    color: #fff;
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none !important;
+  }
+
+  .menuBtn {
+    border-radius:10px;
+    cursor:pointer;
+    color: #fff !important;
+  }
+}

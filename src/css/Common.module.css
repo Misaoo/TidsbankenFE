@@ -100,14 +100,12 @@
     text-decoration: none;
     width: 100%;
     display: block;
+    margin: 0px;
     padding: 10px;
     box-sizing: border-box;
+    
 }
 
 .dropdown a:hover {
     background-color: #4288c5;
-}
-
-.backgroundColor:hover{
-    background:#273642;
 }
