@@ -1,12 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AuthContext from "../../auth/AuthContext";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ExportImport from "./ExportImport/ExportImport";
 
 const GeneralTab = props => {
+  const {user} = useContext(AuthContext);
   const [input, setInput] = useState({ maximumVacationDays: " " });
   const [data, setData] = useState({ maximumVacationDays: "unlimited" });
+  const loggedIn =
+    user &&
+    user.hasOwnProperty("name") &&
+    user.hasOwnProperty("isAdmin") &&
+    user.isAdmin === 0;
+  const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
+  const loggedInSuperUser = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
 
   const setMaximumVacationDays = () => {
     const { maximumVacationDays } = input;
@@ -59,28 +68,40 @@ const GeneralTab = props => {
   }, []);
   //let address = props.address;
   return (
-    <div className="padding generalTab">
-      <h1>General site settings</h1>
-      <p>
-        Here you can set the maximum vacations days that a user is allowed to
-        request. And also export / import the vacation data if needed.
-      </p>
-      <div>
-        <h3>Maximum vacation days: {data.maximumVacationDays}</h3>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            name="maximumVacationDays"
-            variant="outlined"
-            label="New max vacation days"
-            onChange={handleChange}
-          />
-          <Button className="buttonSize" variant="contained" type="submit">
-            Set
-          </Button>
-        </form>
-      </div>
-      <ExportImport />
-    </div>
+    <>
+      {(loggedIn || loggedInAdmin) && (
+        <div className="padding generalTab">
+          <h1>General site settings</h1>
+          <p>
+            Here you can set the maximum vacations days that a user is allowed to
+            request. And also export / import the vacation data if needed.
+          </p>
+          <div>
+            <h3>Maximum vacation days: {data.maximumVacationDays}</h3>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                name="maximumVacationDays"
+                variant="outlined"
+                label="New max vacation days"
+                onChange={handleChange}
+              />
+              <Button className="buttonSize" variant="contained" type="submit">
+                Set
+              </Button>
+            </form>
+          </div>
+          <ExportImport />
+        </div>
+      )}
+      {loggedInSuperUser && (
+        <div className="padding generalTab">
+          <h1>User statistics</h1>
+          <p>
+            Put statistical user data here.
+          </p>
+        </div>
+      )}
+    </>
   );
 };
 
