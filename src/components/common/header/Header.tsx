@@ -23,12 +23,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 /*
   The header component is responsible for displaying the links in the header bar.
   Different links are displayed depending if the user is logged in, logged out or if they are a logged in admin.
-  Here notifications are also handled.
 */
 
 const Header = (props: any) => {
 
   const { user } = useContext(AuthContext);
+
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>([]); // Used for li html elements
   const loggedIn =
@@ -62,6 +62,7 @@ const Header = (props: any) => {
   return (
 
     <header className={styles.module}>
+
       <AppBar position="static" className={styles.module}>
         <Toolbar>
 
@@ -164,7 +165,6 @@ const Header = (props: any) => {
 
         </Toolbar>
       </AppBar>
-
     </header>
   );
 };
