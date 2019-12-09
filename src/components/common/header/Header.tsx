@@ -11,53 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /*
   The header component is responsible for displaying the links in the header bar.
   Different links are displayed depending if the user is logged in, logged out or if they are a logged in admin.
-  Here notifications are also handled.
 */
 
 const Header = (props: any) => {
   const { user } = useContext(AuthContext);
-  const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
-  const [update, setUpdate] = useState<any>([]); // Used for li html elements
-  const [notificationCount, setNotificationCount] = useState<number>(0);
-
-  useEffect(() => {
-    callNotifications();
-  }, []);
-
-  useEffect(() => {
-    setNotificationCount(update.length);
-  }, [update]);
-
-  const callNotifications = () => {
-    axios(process.env.REACT_APP_API_URL + "/notification", {
-      method: "GET",
-      withCredentials: true
-    }).then(response => {
-      setUpdate(response.data);
-    });
-  }
-
-  const removeNotification = (value: any) => {
-    return axios(process.env.REACT_APP_API_URL + "/notification/" + value, {
-      method: "DELETE",
-      withCredentials: true
-    }).then(() => {
-      getNotifications();
-    });
-  }
-
-  const getNotifications = () => {
-    callNotifications();
-    const liElement = update.map((value: any) => {
-      return <li
-        onClick={() => removeNotification(value.notificationId)}
-        key={value.notificationId}
-        className={commonStyles.dropdown}>
-        <Link to={"/requests/"+ value.requestId}>{value.message}</Link>
-      </li>
-    });
-    setLiArray(liElement);
-  }
 
   const loggedIn =
     user &&
@@ -76,52 +33,24 @@ const Header = (props: any) => {
       {loggedIn && (
         <>
           <Link to="/dashboard">Dashboard</Link>         
-          <Dropdown title={(user && user.name) || "Menu"}>
-            <ul className={commonStyles.dropdown}>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </ul>
-          </Dropdown>
-          <Dropdown
-            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
-            cb={getNotifications}
-          >
-            <ul>{liArray}</ul>
-          </Dropdown>
           <Link to="/users">Users</Link>
+          <Link to="/profile">Profile</Link>
+          <Link to="/logout">Logout</Link>
         </>
       )}
       {loggedInAdmin && (
         <>
           <Link to="/dashboard">Dashboard</Link>
-          <Dropdown title={(user && user.name) || "Menu"}>
-            <ul className={commonStyles.dropdown}>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </ul>
-          </Dropdown>
-          <Dropdown
-            title={`Notifications ${notificationCount > 0 ? '*' : ''}`}
-            cb={getNotifications}
-          >
-            <ul>{liArray}</ul>
-          </Dropdown>
           <Link to="/users">Users</Link>
           <Link to="/admin">Admin</Link>
+          <Link to="/profile">Profile</Link>
+          <Link to="/logout">Logout</Link>
         </>
       )}
       {loggedInSuperUser && (
           <>
-            <Link to="/profile">Profile</Link>
             <Link to="/admin">Admin</Link>
+            <Link to="/profile">Profile</Link>
             <Link to="/logout">Logout</Link>
           </>
         )
