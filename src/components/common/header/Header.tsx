@@ -147,7 +147,7 @@ const Header = (props: any) => {
           {/* DESKTOP */}
           <Box component="span" display={{ xs: 'none', lg: 'block', xl: 'block' }}>
 
-            <Grid item xl={12} className={styles.testGrid}>
+            {/* <Grid item xl={12} className={styles.testGrid}> */}
               {/* Logged in as User */}
               {loggedIn && (
                 <>
@@ -173,11 +173,11 @@ const Header = (props: any) => {
               {/* Links showing after user logout */}
               {loggedOut && (
                 <>
-                  {/* <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography> */}
-                  <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink>
+                  <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography>
+                  {/* <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink> */}
                 </>
               )}
-            </Grid>
+            {/* </Grid> */}
 
           </Box>
           {/* END OF DESKTOP */}
