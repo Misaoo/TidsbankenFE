@@ -1,6 +1,8 @@
 @value global: "./global.css";
 @value btn-color from global;
 
+
+
 /* Main Navbar module */
 .module {
   background: btn-color;
@@ -14,7 +16,11 @@
 }
 
 .activeLinks {
-  background-color: #273642;
+  /* text-shadow: 1px 1px 10px #000; */
+  color: #fff;
+  text-shadow: -1px 1px 10px rgb(44, 202, 168), 
+  -1px 1px 10px rgb(44, 202, 168),
+  -1px 1px 10px rgb(44, 202, 168);
   /* background-color: #273642; */
 }
 
@@ -22,17 +28,9 @@
   text-align: center;
 }
 
-@media only screen and (min-width: 360px) and (max-width: 768px) {
-  .module a {
-    color: #fff;
-    margin: 5px;
-    padding: 5px;
-    text-decoration: none !important;
-  }
-
-  .menuBtn {
-    border-radius:10px;
-    cursor:pointer;
-    color: #fff !important;
-  }
+.menuBtn {
+  border-radius:10px;
+  cursor:pointer;
+  color: #fff !important;
 }
+

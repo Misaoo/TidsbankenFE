@@ -8,12 +8,17 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /* Material Ui */
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import Button from "@material-ui/core/Button"
-import Box from "@material-ui/core/Box"
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 import Collapse from '@material-ui/core/Collapse';
+import Menu from '@material-ui/core/Menu';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
+
 
 
 
@@ -25,10 +30,10 @@ import Collapse from '@material-ui/core/Collapse';
 */
 
 const Header = (props: any) => {
+
   const { user } = useContext(AuthContext);
   const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
   const [update, setUpdate] = useState<any>([]); // Used for li html elements
-
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
@@ -47,14 +52,20 @@ const Header = (props: any) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const menuClick = () => {
-    setOpen(!open);
-  };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+ /*  const menuClick = () => {
+    setOpen(!open);
+  }; */
 
+  const handleToggle = () => {
+    setOpen(prevOpen => !prevOpen);
+  };
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+ 
 
   return (
 
@@ -62,76 +73,72 @@ const Header = (props: any) => {
       <AppBar position="static" className={styles.module}>
         <Toolbar>
 
-          {/* This box component only shows on mobile and tablet */}
-          <Box component="span" display={{ xs: 'block', sm: 'block', md: 'none' }}>
-            {/* Toggle button */}
-            <Button size="small" className={styles.menuBtn} onClick={menuClick}> <FontAwesomeIcon icon="clock" /> Menu </Button>
-          </Box>
-
-
           {/* MOBILE VIEW WITH COLLAPSE */}
           <Box component="span" display={{ xs: 'block', sm: 'block', md: 'none' }}>
+
+            {/* Toggle button */}
+            <Button
+              className={styles.menuBtn}
+              ref={anchorRef}
+              aria-controls={open ? 'menu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggle}
+            >
+              Menu
+            </Button>
+
             {/* Link menu */}
             <Collapse in={open} timeout="auto" unmountOnExit>
-              <Box component="span" display="block">
+              <MenuList autoFocusItem={open} id="menu-list-grow">
 
                 {/* Logged in as User */}
                 {loggedIn && (
-                  <>
-                    <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={menuClick}> Dashboard </NavLink>
-                    <Dropdown activeClassName={styles.activeLinks}  title={(user && user.name) || "Menu"} onClick={menuClick}>
-                      <ul className={commonStyles.dropdown}>
-                        <li>
-                          <NavLink to="/profile"> Profile </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to="/logout"> Logout </NavLink>
-                        </li>
-                      </ul>
-                    </Dropdown>
-                    {/* <Dropdown activeClassName={styles.activeLinks}  title={(user && user.name) || "Menu"} onClick={menuClick}>
-                      <ul >
-                        <li>
-                          <NavLink to="/profile"> Profile </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to="/logout"> Logout </NavLink>
-                        </li>
-                      </ul>
-                    </Dropdown> */}
-                  </>
+                  <div>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={handleClose}> Dashboard </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/profile" onClick={handleClose}> {(user && user.name)} </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/logout" onClick={handleClose}> Logout </NavLink>
+                    </MenuItem>
+                  </div>
                 )}
 
                 {/* Logged in as Admin */}
                 {loggedInAdmin && (
-                  <>
-                    <NavLink activeClassName={styles.activeLinks} to="/dashboard">Dashboard</NavLink>
-                    <NavLink activeClassName={styles.activeLinks} to="/users">Users</NavLink>
-                    <Dropdown title={(user && user.name) || "Menu"}>
-                      <ul className={commonStyles.dropdown}>
-                        <li>
-                          <NavLink activeClassName={styles.activeLinks} to="/admin">Admin</NavLink>
-                        </li>
-                        <li>
-                          <NavLink activeClassName={styles.activeLinks} to="/profile">Profile</NavLink>
-                        </li>
-                        <li>
-                          <NavLink activeClassName={styles.activeLinks} to="/logout">Logout</NavLink>
-                        </li>
-                      </ul>
-                    </Dropdown>
-                  </>
+                  <div>
+                    {/* <MenuItem>
+                      <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+                    </MenuItem> */}
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={handleToggle}> Dashboard </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/users" onClick={handleToggle}> Users </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/admin" onClick={handleToggle}> Admin tool </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/profile" onClick={handleToggle}> {(user && user.name)} </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/logout" onClick={handleToggle}> Logout </NavLink>
+                    </MenuItem>
+                  </div>
                 )}
-
                 {/* Links showing after user logout */}
-                {loggedOut && (
-                  <>
-                    {/* <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography> */}
-                    <NavLink to="/login"> Login </NavLink>
-                  </>
-                )}
-
-              </Box>
+                {/* <MenuItem>
+                  {loggedOut && (
+                    <>
+                      <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography>
+                      <NavLink to="/login"> Login </NavLink>
+                    </>
+                  )}
+                </MenuItem> */}
+              </MenuList>
             </Collapse>
           </Box>
           {/* END OF MOBILE VIEW */}
@@ -139,53 +146,39 @@ const Header = (props: any) => {
 
           {/* DESKTOP */}
           <Box component="span" display={{ xs: 'none', lg: 'block', xl: 'block' }}>
-            {/* Logged in as User */}
-            {loggedIn && (
-              <>
-                <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
-                <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
-                <Dropdown activeClassName={styles.activeLinks} title={(user && user.name) || "Menu"}>
-                  <ul className={commonStyles.dropdown}>
-                    <li>
-                      <NavLink activeClassName={styles.activeLinks} to="/profile"> Profile </NavLink>
-                    </li>
-                    <li>
-                      <NavLink activeClassName={styles.activeLinks} to="/logout"> Logout </NavLink>
-                    </li>
-                  </ul>
-                </Dropdown>
-              </>
-            )}
 
-            {/* Logged in as Admin */}
-            {loggedInAdmin && (
-              <>
-                <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken</NavLink>
-                <NavLink activeClassName={styles.activeLinks} to="/dashboard">Dashboard</NavLink>
-                <NavLink activeClassName={styles.activeLinks} to="/users">Users</NavLink>
-                <Dropdown title={(user && user.name) || "Menu"}>
-                  <ul className={commonStyles.dropdown}>
-                    <li>
-                      <NavLink activeClassName={styles.activeLinks} to="/admin">Admin</NavLink>
-                    </li>
-                    <li>
-                      <NavLink activeClassName={styles.activeLinks} to="/profile">Profile</NavLink>
-                    </li>
-                    <li>
-                      <NavLink activeClassName={styles.activeLinks} to="/logout">Logout</NavLink>
-                    </li>
-                  </ul>
-                </Dropdown>
-              </>
-            )}
+            <Grid item xl={12} className={styles.testGrid}>
+              {/* Logged in as User */}
+              {loggedIn && (
+                <>
+                  <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/profile"> {(user && user.name)} </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/logout"> Logout </NavLink>
+                </>
+              )}
 
-            {/* Links showing after user logout */}
-            {loggedOut && (
-              <>
-                <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography>
-                {/* <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink> */}
-              </>
-            )}
+              {/* Logged in as Admin */}
+              {loggedInAdmin && (
+                <>
+                  <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/users"> Users </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/admin"> Admin tool </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/profile"> {(user && user.name)} </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/logout"> Logout </NavLink>
+                </>
+              )}
+
+              {/* Links showing after user logout */}
+              {loggedOut && (
+                <>
+                  {/* <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography> */}
+                  <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink>
+                </>
+              )}
+            </Grid>
+
           </Box>
           {/* END OF DESKTOP */}
 
@@ -196,4 +189,4 @@ const Header = (props: any) => {
 };
 export default Header;
 
-
+{/* <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography> */ }
