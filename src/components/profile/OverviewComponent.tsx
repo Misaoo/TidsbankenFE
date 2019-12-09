@@ -3,6 +3,8 @@ import AuthContext from "../auth/AuthContext";
 import API from "../../api/API";
 import vacationStyles from "../../css/profile/VacationComponent.module.css";
 import { Link } from "react-router-dom";
+import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
 
 /*************/
 /* Displayes the: 
@@ -13,9 +15,10 @@ const OverviewComponent = (props: any) => {
   const { user } = useContext(AuthContext);
   let [approvedVacationdays, setApprovedVacationsdays] = useState<any[]>([]); // handles the approved vacation days
   let [deniedVacationdays, setDeniedVacationsdays] = useState();              // handles the denied vacation days
-  let [pendingVacationdays, setPendingVacationsdays] = useState();            // handles the pending vacation days
-
+  let [pendingVacationdays, setPendingVacationsdays] = useState(); 
+  let [previousVacationdays, setPrevious] = useState<any[]>([]);          // handles the pending vacation days
   let [totalDeniedVacationRequests, setTotalDeniedVacationRequests] = useState();     // handles total denied vacation days
+
 
 
   const loggedIn =
@@ -25,6 +28,12 @@ const OverviewComponent = (props: any) => {
     user.isAdmin === 0;
   const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
   const loggedInSuperUser = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
+
+  const [open, setOpen] = React.useState(false);
+  const handleToggle = () => {
+    setOpen(prevOpen => !prevOpen);
+  };
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
 
   /* Runs first to get all information from server*/
   useEffect(() => {
@@ -63,8 +72,10 @@ const OverviewComponent = (props: any) => {
 
     await API.vacationsApproved(id)
       .then((response: any) => {
+        console.log(response)
         if(response.status === 200) {
-          addResponseDataToLi(response.data, setApprovedVacationsdays)
+          addResponseDataToLi(response.data, setApprovedVacationsdays);
+          previousDate(response.data, setPrevious);
         }
       })
       .catch((error: any) => {
@@ -97,6 +108,31 @@ const OverviewComponent = (props: any) => {
         }
       })
   }
+//separate dates from todays date
+   function previousDate(response: any, where: any) {
+    var now = new Date();
+    var arr = []; // Is used for temporary storing for setting state after loop is done
+    let i = 0; // Unique key for html elements
+    for (let obj of response) {
+      for (let date of obj.dates) {
+        i++;
+        console.log(date);
+        let dateOnly = date.substring(0, date.indexOf("T"));
+        if(now > new Date(date)){
+          const liElement = (
+              <Link key={i} to={{ pathname: "/requests/" + obj.requestId }}>
+                <li>{dateOnly}</li>
+              </Link>
+          );
+          arr.push(liElement);
+          }
+      }
+      // separate requests in new lines instead of having all of them in one
+      arr.push(<br key={++i}></br>)
+    }
+    where(arr);
+  }
+
 
   // Adds the information to html element. 
   function addResponseDataToLi(response: any, where: any) {
@@ -145,7 +181,19 @@ const OverviewComponent = (props: any) => {
                 <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
               </>
             )}
+          </div>
 
+          <div>
+            <h1>Previous vacation days</h1>
+            {/* Toggle button */}
+            <Button className={vacationStyles.collapseButton}
+              onClick={handleToggle}
+            >
+              <p>Show me</p>
+            </Button>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+            <ul>{previousVacationdays}</ul>
+            </Collapse>
           </div>
         </div>
       )}
