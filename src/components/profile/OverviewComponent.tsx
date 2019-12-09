@@ -15,6 +15,9 @@ const OverviewComponent = (props: any) => {
   let [deniedVacationdays, setDeniedVacationsdays] = useState();              // handles the denied vacation days
   let [pendingVacationdays, setPendingVacationsdays] = useState();            // handles the pending vacation days
 
+  let [totalDeniedVacationRequests, setTotalDeniedVacationRequests] = useState();     // handles total denied vacation days
+
+
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
@@ -32,16 +35,18 @@ const OverviewComponent = (props: any) => {
 
   /* gets the vacation information from server */
   async function getFromServer(id: any) {
-
     await API.vacationsDenied(id)
       .then((response: any) => {
+        console.log(response)
         if(response.status === 200) {
           // addResponseDataToLi only accepts array input, thus convert single object to an array with single element
           let tempArr = []
-          tempArr.push(response.data[response.data.length-1])
-
+          if(response.data.length > 0) {
+            tempArr.push(response.data[response.data.length-1])
+            setTotalDeniedVacationRequests(response.data.length)
+          }
           addResponseDataToLi(tempArr, setDeniedVacationsdays)
-          // setTotalDeniedVacationRequests(response.data.length)
+
         }
       })
       .catch((error: any) => {
@@ -108,6 +113,8 @@ const OverviewComponent = (props: any) => {
         );
         arr.push(liElement);
       }
+      // separate requests in new lines instead of having all of them in one
+      arr.push(<br key={++i}></br>)
     }
     where(arr);
   }
@@ -129,10 +136,16 @@ const OverviewComponent = (props: any) => {
             <h1>Upcoming vacation days</h1>
             <ul>{approvedVacationdays}</ul>
           </div>
-
+          
           <div>
             <h1>Denied vacation days</h1>
-            <ul>{deniedVacationdays}</ul>
+            {totalDeniedVacationRequests > 0 && (
+              <>
+                <h2>Total denied vacation requests: {totalDeniedVacationRequests}</h2>
+                <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
+              </>
+            )}
+
           </div>
         </div>
       )}

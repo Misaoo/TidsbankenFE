@@ -14,13 +14,15 @@ class PictureUpload extends Component {
       email: "",
       passwordTop: "",
       passwordBottom: "",
-      profilePic: ""
+      profilePic: "",
+      region : "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     this.props.updateStyling(this.props.styling);
+    console.log(this.props)
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -35,7 +37,8 @@ class PictureUpload extends Component {
         lastName: this.state.lastName,
         email: this.state.email,
         password: this.state.passwordBottom,
-        profilePic: this.state.profilePic
+        profilePic: this.state.profilePic,
+        region : this.state.region
       }
     })
       .then(() => {
@@ -45,7 +48,8 @@ class PictureUpload extends Component {
           email: "",
           passwordTop: "",
           passwordBottom: "",
-          profilePic: ""
+          profilePic: "",
+          region : ""
         });
       })
       .catch(error => {
@@ -104,6 +108,18 @@ class PictureUpload extends Component {
                   ></TextField>
                 </div>
                 <br></br>
+                <div className="textField">
+                <TextField
+                  className="textField"
+                  name="region"
+                  variant="outlined"
+                  label="Region"
+                  value={this.state.region}
+                  onChange={this.handleChange}
+                  fullWidth
+                ></TextField>
+              </div>         
+              <br></br>      
                 <div className="textField">
                   <TextField
                     className="textField"
