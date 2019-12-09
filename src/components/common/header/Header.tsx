@@ -5,7 +5,8 @@ import styles from "../../../css/Header.module.css";
 import commonStyles from "../../../css/Common.module.css";
 import Dropdown from "../dropdown/Dropdown";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 /* Material Ui */
 import AppBar from "@material-ui/core/AppBar";
@@ -17,10 +18,6 @@ import Collapse from '@material-ui/core/Collapse';
 import Menu from '@material-ui/core/Menu';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
-
-
-
 
 
 /*
@@ -55,18 +52,13 @@ const Header = (props: any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
- /*  const menuClick = () => {
-    setOpen(!open);
-  }; */
-
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
   };
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
- 
 
+ 
   return (
 
     <header className={styles.module}>
@@ -84,7 +76,7 @@ const Header = (props: any) => {
               aria-haspopup="true"
               onClick={handleToggle}
             >
-              Menu
+              <FontAwesomeIcon icon="bars" />
             </Button>
 
             {/* Link menu */}
@@ -109,9 +101,7 @@ const Header = (props: any) => {
                 {/* Logged in as Admin */}
                 {loggedInAdmin && (
                   <div>
-                    {/* <MenuItem>
-                      <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
-                    </MenuItem> */}
+                    
                     <MenuItem>
                       <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={handleToggle}> Dashboard </NavLink>
                     </MenuItem>
@@ -129,15 +119,7 @@ const Header = (props: any) => {
                     </MenuItem>
                   </div>
                 )}
-                {/* Links showing after user logout */}
-                {/* <MenuItem>
-                  {loggedOut && (
-                    <>
-                      <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography>
-                      <NavLink to="/login"> Login </NavLink>
-                    </>
-                  )}
-                </MenuItem> */}
+
               </MenuList>
             </Collapse>
           </Box>
@@ -145,9 +127,8 @@ const Header = (props: any) => {
 
 
           {/* DESKTOP */}
-          <Box component="span" display={{ xs: 'none', lg: 'block', xl: 'block' }}>
+          <Box component="span" display={{ xs: 'none', md: 'block', lg: 'block', xl: ' block' }}>
 
-            {/* <Grid item xl={12} className={styles.testGrid}> */}
               {/* Logged in as User */}
               {loggedIn && (
                 <>
@@ -177,7 +158,6 @@ const Header = (props: any) => {
                   {/* <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink> */}
                 </>
               )}
-            {/* </Grid> */}
 
           </Box>
           {/* END OF DESKTOP */}
