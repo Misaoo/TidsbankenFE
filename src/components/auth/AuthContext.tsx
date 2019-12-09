@@ -11,6 +11,7 @@ export type userType = {
     isAdmin: number,
     twoFacAut: number,
     userId: number,
+    region : String
 }
 
 const AuthContext = React.createContext<Partial<authType>>({});

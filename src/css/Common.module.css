@@ -104,22 +104,21 @@
  *-----------------------------*/
 
 .dropdown {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 .dropdown a {
+    text-align: center !important;
     text-decoration: none;
     width: 100%;
     display: block;
-    padding: 5px;
+    margin: 0px;
+    padding: 10px;
     box-sizing: border-box;
+    
 }
 
 .dropdown a:hover {
-    background-color: #3D8ABB;
-}
-
-.backgroundColor:hover{
-    background:#273642;
+    background-color: #4288c5;
 }
