@@ -15,6 +15,9 @@ const OverviewComponent = (props: any) => {
   let [deniedVacationdays, setDeniedVacationsdays] = useState();              // handles the denied vacation days
   let [pendingVacationdays, setPendingVacationsdays] = useState();            // handles the pending vacation days
 
+  let [totalDeniedVacationRequests, setTotalDeniedVacationRequests] = useState();     // handles total denied vacation days
+
+
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
@@ -32,33 +35,74 @@ const OverviewComponent = (props: any) => {
 
   /* gets the vacation information from server */
   async function getFromServer(id: any) {
-    try {
-      let response1 = await API.vacationsApproved(id);
-      let response2 = await API.vacationsDenied(id);
-      let response3 = await API.vacationsPending(id);
+    await API.vacationsDenied(id)
+      .then((response: any) => {
+        console.log(response)
+        if(response.status === 200) {
+          // addResponseDataToLi only accepts array input, thus convert single object to an array with single element
+          let tempArr = []
+          if(response.data.length > 0) {
+            tempArr.push(response.data[response.data.length-1])
+            setTotalDeniedVacationRequests(response.data.length)
+          }
+          addResponseDataToLi(tempArr, setDeniedVacationsdays)
 
-      if (
-        response1.status === 200 ||
-        response2.status === 200 ||
-        response3.status === 200
-      ) {
-        addResponseDataToLi(response1, setApprovedVacationsdays);
-        addResponseDataToLi(response2, setDeniedVacationsdays);
-        addResponseDataToLi(response3, setPendingVacationsdays);
-      }
-    } catch (error) {
-      if (error.response.status === 401 || error.response.status === 504) { }
-      // If TwoFactorAuthentication
-      if (error.response.status === 418) { }
-    }
-    // console.log(approvedVacationdays);
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.status === 401) {
+          //error message
+        }
+        else if (error.response.status === 418) {
+          //error message
+        }
+        else if (error.response.status === 504) {
+          //error message
+        }
+      })
+
+    await API.vacationsApproved(id)
+      .then((response: any) => {
+        if(response.status === 200) {
+          addResponseDataToLi(response.data, setApprovedVacationsdays)
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.status === 401) {
+          //error message
+        }
+        else if (error.response.status === 418) {
+          //error message
+        }
+        else if (error.response.status === 504) {
+          //error message
+        }
+      })
+
+    await API.vacationsPending(id)
+      .then((response: any) => {
+        if(response.status === 200) {
+          addResponseDataToLi(response.data, setPendingVacationsdays)
+        }
+      })
+      .catch((error: any) => {
+        if (error.response.status === 401) {
+          //error message
+        }
+        else if (error.response.status === 418) {
+          //error message
+        }
+        else if (error.response.status === 504) {
+          //error message
+        }
+      })
   }
 
   // Adds the information to html element. 
   function addResponseDataToLi(response: any, where: any) {
     var arr = []; // Is used for temporary storing for setting state after loop is done
     let i = 0; // Unique key for html elements
-    for (let obj of response.data) {
+    for (let obj of response) {
       for (let date of obj.dates) {
         i++;
         let dateOnly = date.substring(0, date.indexOf("T"));
@@ -69,6 +113,8 @@ const OverviewComponent = (props: any) => {
         );
         arr.push(liElement);
       }
+      // separate requests in new lines instead of having all of them in one
+      arr.push(<br key={++i}></br>)
     }
     where(arr);
   }
@@ -93,7 +139,13 @@ const OverviewComponent = (props: any) => {
           
           <div>
             <h1>Denied vacation days</h1>
-            <ul>{deniedVacationdays}</ul>
+            {totalDeniedVacationRequests > 0 && (
+              <>
+                <h2>Total denied vacation requests: {totalDeniedVacationRequests}</h2>
+                <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
+              </>
+            )}
+
           </div>
         </div>
       )}

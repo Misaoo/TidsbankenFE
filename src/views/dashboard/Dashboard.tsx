@@ -14,9 +14,14 @@ const Dashboard = (props:any) => {
 
     return (
       <>
-        {(loggedIn || loggedInAdmin) && (
+        {loggedIn && (
             <Calendar />
         )}
+
+        {loggedInAdmin && (
+            <Calendar />
+        )}
+
         {loggedInSuperUser && (
             <h1>SUPERUSER</h1>
         )}

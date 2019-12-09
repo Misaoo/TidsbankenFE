@@ -42,7 +42,7 @@ const LoginComponent = (props: any) => {
                 setLoggedIn(true);
             }
         } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
+            /*if (error.response.status === 401 || error.response.status === 504) {
                 setError(true);
                 let errorData = error.response.data;
                 if (errorData.hasOwnProperty("timeOut") || errorData['numOfAttemptedLogins'] === 5) {
@@ -58,7 +58,7 @@ const LoginComponent = (props: any) => {
             if (error.response.status === 418) {
                 setSuccess(true);
                 setLoggedIn2fa(true);
-            }
+            }*/
         }
     }
 

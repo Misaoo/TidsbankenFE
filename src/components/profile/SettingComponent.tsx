@@ -18,10 +18,10 @@ const SettingComponent = (props: any) => {
     let [showModal, setshowModal] = useState(false);    //popup for password
     let [showModal2, setshowModal2] = useState(false);  //popup for two factor authentication
 
+
     let [oldPass, setOldPass] = useState();             // used for controlling if the old password is equal to the one that the user enters in the input fields in the popup
     let [newPass1, setNewPass1] = useState();           // new password
     let [newPass2, setNewPass2] = useState();           // new password have to match
-
     let [twoAuth, setTwoAuth ] = useState();            // Used to show if the user have two factor authentication or not        
 
 
@@ -176,7 +176,7 @@ const SettingComponent = (props: any) => {
                         return null;
                     }
                 })()} </div>
-            </Modal>
+              </Modal>   
         </div>
     )
 }
