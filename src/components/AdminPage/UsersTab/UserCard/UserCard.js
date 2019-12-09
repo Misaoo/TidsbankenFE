@@ -35,13 +35,13 @@ class UserCard extends Component {
             <img src={this.props.user.profilePic} alt="" />
           </div>
           <div>
+        <p></p>
             <b>Name:</b> {this.props.user.name} {this.props.user.lastName}{" "}
             {this.props.user.isAdmin === 1 && <b>(Admin)</b>}
             <br />
             <b>Email:</b> {this.props.user.email}
             <br />
-            <b>2FA:</b> {this.props.user.twoFacAut === 1 && "Enabled"}
-            {this.props.user.twoFacAut === 0 && "Disabled"}
+            <b>Region:</b> {this.props.user.region}
           </div>
         </div>
       </div>
