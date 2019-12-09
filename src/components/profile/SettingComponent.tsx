@@ -17,21 +17,19 @@ const SettingComponent = (props: any) => {
     const { user } = useContext(AuthContext);
     let [showModal, setshowModal] = useState(false);    //popup for password
     let [showModal2, setshowModal2] = useState(false);  //popup for two factor authentication
-    let [showModal3, setshowModal3] = useState(false);  //popup for delete account
+
 
     let [oldPass, setOldPass] = useState();             // used for controlling if the old password is equal to the one that the user enters in the input fields in the popup
     let [newPass1, setNewPass1] = useState();           // new password
     let [newPass2, setNewPass2] = useState();           // new password have to match
-
     let [twoAuth, setTwoAuth ] = useState();            // Used to show if the user have two factor authentication or not        
 
 
     /*******************************/
     /* AUTHENTICATION */
     /*******************************/
-
-    function Update2faModal(){ setshowModal2(true); }       // is called when the user pressed the authentication button. This makes the popup show. 
-
+    
+    function removeAccountModal(){ setshowModal2(true); } 
     // checks if user have two factor authentication and sets and send the infomration to NewAuth that sets it in a useState. 
     useEffect(() =>{
         if(user && user.name) {
@@ -41,33 +39,65 @@ const SettingComponent = (props: any) => {
 
     // Sets new useState for auth - switches the number from 0 to 1 or 1 to 0
     function NewAuth(number:any){
-        if(number == 0){
+        if(number === 0){
             setTwoAuth(1);
-        } else if (number == 1){
+        } else if (number === 1){
             setTwoAuth(0);
         }
     }
 
-    // update 2fa for database
-    const update2fa = async (event: any) => {
+    const deleteAccount = async (event:any) => {
         event.preventDefault();
-        let number=event.target.value;
         
-        //UPDATE 2fa
+        // DELETE ACCOUNT
         try {
-            let response = await API.updateUser2fa(user!.userId, number);
+            let response = await API.removeAccountRequest(user!.userId);
             if (response.status === 200) {
-                NewAuth(number);
+                console.log("deleted account");
+                
+                /*if (typeof window !== 'undefined') {
+                    window.location.href = "/logout";
+               }*/
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {
                 console.log(error);
+                console.log("asd");
             }
+            // If TwoFactorAuthentication
             if (error.response.status === 418) {
             }
             console.log(error);
         }
-          
+    }
+
+    const removeAccountReq = async (event: any) => {
+        event.preventDefault();
+        let remove = event.target.value;
+        console.log('remove ', remove)
+        //send request to api
+        if(remove === '1'){
+            try{
+                // do api call to backend
+                console.log('tjoo')
+                console.log('user: ', user!.userId)
+                let response = await API.removeAccountRequest(user!.userId);
+                if(response.status === 200){
+
+                }
+
+                //setshowModal2(false)
+
+            } catch (error) {
+                console.log(error)
+                /*console.log(error.response)
+                if(error.response.status === 404){
+                    console.log('400 error... print stuff.')
+                }*/
+            }
+        } else {
+            console.log('do nothing :P')
+        }
     }
 
     /*******************************/
@@ -125,37 +155,6 @@ const SettingComponent = (props: any) => {
         } else { return false; }
     }
 
-    /*******************************/
-    /* DELETE ACCOUNT */
-    /*******************************/
-
-    function DeleteModal(){ setshowModal3(true); }       // is called when the user pressed the delete account button. This makes the popup show. 
-
-    const deleteAccount = async (event:any) => {
-        event.preventDefault();
-        
-        // DELETE ACCOUNT
-        try {
-            let response = await API.deleteAccount(user!.userId);
-            if (response.status === 200) {
-                console.log("deleted account");
-                
-                if (typeof window !== 'undefined') {
-                    window.location.href = "/logout";
-               }
-            }
-        } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
-                console.log(error);
-                console.log("asd");
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-            }
-            console.log(error);
-        }
-    }
-
     /**********************/
     /* HTML */
     /**********************/
@@ -163,8 +162,7 @@ const SettingComponent = (props: any) => {
     return (
         <div className={SettingsStyles.wrapper}>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={Update2faModal}>Two factor authentication</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={DeleteModal}>Delete account</button>
+            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={removeAccountModal}>Remove account</button>
 
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
                 <form onSubmit={handlePasswordSubmit}>
@@ -181,41 +179,14 @@ const SettingComponent = (props: any) => {
                 </form>
             </Modal>
 
-            <Modal className={SettingsStyles.modal} display={showModal2} setDisplay={setshowModal2} title="Two factor authentication">
-                <h3>Two Factor Authentication - is {(() => {
-                    switch(twoAuth) {
-                    case 1:
-                        return <span className={SettingsStyles.notActivated}>not activated</span>;         
-                    case 0:
-                        return <span className={SettingsStyles.Activated}>activated</span>;                    
-                    default:
-                        return null;
-                    }
-                })()} for your account</h3>
-                
+            <Modal className={[SettingsStyles.modal, SettingsStyles.modalpa]} display={showModal2} setDisplay={setshowModal2} title="Remove account request">
 
-                <p>Two Factor Authentication, or 2FA, adds an extra layer of protection to ensure the security of your accounts beyond just a username and password.</p>
-                
-                <div className={SettingsStyles.twoFactorAuthimg}><img src={authpicture} alt="2fa picture"/></div>
-                
-                <div>{(() => {
-                    console.log(twoAuth);
-                    switch(twoAuth) {
-                    case 1:
-                        return <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={update2fa} value={1} >Activate 2fa</button>;
-                    case 0:
-                        return <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={update2fa} value={0} >Remove 2fa</button>;
-                    default:
-                        return null;
-                    }
-                })()} </div>
-            </Modal> 
-
-            <Modal display={showModal3} setDisplay={setshowModal3} title="Delete Account">
-                <p>Are you sure? Your account will be permanently deleted and will not be recoverable.</p>
-                <div className={SettingsStyles.twoFactorAuthimg}><img src={removepicture} alt="2fa picture"/></div>
-                <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} onClick={deleteAccount}>Delete my Account</button>
-            </Modal>
+                <div className={commonStyles.buttonplacement}>
+                <h1><p>Are you sure you want to remove your account?<br /> A request will be sent to your admin.</p></h1>
+                    <button className={[commonStyles.buttonpa].join(" ")} onClick={removeAccountReq} value={'1'} >Yes</button>
+                    <button className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >No</button> <br />
+                </div>
+              </Modal>   
         </div>
     )
 }

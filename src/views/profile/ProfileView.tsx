@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
-import AuthContext from '../../components/auth/AuthContext';
+import React, { useState } from 'react';
 import profileStyle from '../../css/profile/ProfileView.module.css';
 
 // Specific components regarding profile
-import VacationComponent from '../../components/profile/VacationComponent';
+import OverviewComponent from '../../components/profile/OverviewComponent';
 import SideBarComponent from '../../components/profile/SideBarComponent';
 import SettingComponent from '../../components/profile/SettingComponent';
 
@@ -11,8 +10,7 @@ type MyProps = { }
 type MyState = { }
 
 const ProfileView = (props:any) => {
-    const { user } = useContext(AuthContext);
-    const [ email, setEmail ] = useState();
+    const [ email, setEmail ] = useState('');
 
     return(
         <main className={profileStyle.ProfileWrapper}>
@@ -21,7 +19,7 @@ const ProfileView = (props:any) => {
                 <SettingComponent email={email}/>
             </aside>
             <div>
-                <VacationComponent />
+                <OverviewComponent/>
             </div>
         </main>  
     )
