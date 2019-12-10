@@ -136,11 +136,7 @@ const OverviewComponent = (props: any) => {
             <h1>Upcoming vacation days</h1>
             <ul>{approvedVacationdays}</ul>
           </div>
-<<<<<<< HEAD
-
-=======
           
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
           <div>
             <h1>Denied vacation days</h1>
             {totalDeniedVacationRequests > 0 && (
@@ -163,8 +159,4 @@ const OverviewComponent = (props: any) => {
   );
 };
 
-<<<<<<< HEAD
 export default OverviewComponent;
-=======
-export default OverviewComponent;
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
