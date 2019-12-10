@@ -81,6 +81,10 @@ const Header = (props: any) => {
             >
               <FontAwesomeIcon icon="bars" />
             </Button>
+            <span>
+            <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+
+            </span>
 
             {/* Link menu */}
             <Collapse in={open} timeout="auto" unmountOnExit>
