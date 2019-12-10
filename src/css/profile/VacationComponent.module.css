@@ -1,5 +1,8 @@
 @value global: "../global.css";
 @value box-shadow from global;
+@value btn-color from global;
+@value third-text-color from global;
+@value disabled-btn-bg-color from global;
 
 .wrapper{
     padding: 15px;
@@ -20,4 +23,15 @@
     padding:25px;
     box-shadow: box-shadow;
     margin-top:15px;
+}
+
+.collapseButton {
+    color: black !important;
+    text-transform: none !important; 
+    font-weight: normal !important
+}
+
+.collapseButton:hover {
+    cursor: pointer;
+    background: white !important;
 }
