@@ -136,12 +136,15 @@ const OverviewComponent = (props: any) => {
 
   // Adds the information to html element. 
   function addResponseDataToLi(response: any, where: any) {
+    var now = new Date();
     var arr = []; // Is used for temporary storing for setting state after loop is done
     let i = 0; // Unique key for html elements
     for (let obj of response) {
       for (let date of obj.dates) {
         i++;
+        console.log(date);
         let dateOnly = date.substring(0, date.indexOf("T"));
+        if (now < new Date(date)) {
         const liElement = (
           <Link key={i} to={{ pathname: "/requests/" + obj.requestId }}>
             <li>{dateOnly}</li>
@@ -149,6 +152,7 @@ const OverviewComponent = (props: any) => {
         );
         arr.push(liElement);
       }
+    }
       // separate requests in new lines instead of having all of them in one
       arr.push(<br key={++i}></br>)
     }
@@ -171,6 +175,17 @@ const OverviewComponent = (props: any) => {
           <div>
             <h1>Upcoming vacation days</h1>
             <ul>{approvedVacationdays}</ul>
+            {/* <div> */}
+            {/* Toggle button */}
+            <Button className={vacationStyles.collapseButton}
+              onClick={handleToggle}
+            >
+              <ul><b>Show previous days</b></ul>
+            </Button>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+            <ul>{previousVacationdays}</ul>
+            </Collapse>
+          {/* </div> */}
           </div>
 
           <div>
@@ -181,19 +196,6 @@ const OverviewComponent = (props: any) => {
                 <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
               </>
             )}
-          </div>
-
-          <div>
-            <h1>Previous vacation days</h1>
-            {/* Toggle button */}
-            <Button className={vacationStyles.collapseButton}
-              onClick={handleToggle}
-            >
-              <p>Show me</p>
-            </Button>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-            <ul>{previousVacationdays}</ul>
-            </Collapse>
           </div>
         </div>
       )}
