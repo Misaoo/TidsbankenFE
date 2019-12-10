@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import UserNav from "./UserNav/UserNav";
-import UserCard from "./UserCard/UserCard";
+import UserCard from "./UserCard/UserCard.tsx";
 import AddUser from "./AddUser/AddUser";
 import "../general.css";
 import CardList from "../CardList/CardList";
