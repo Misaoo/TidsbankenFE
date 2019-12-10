@@ -159,15 +159,12 @@ const removeIneligbleDay = (id: number): any => axiosWrapper(`${process.env.REAC
     withCredentials: true,
 });
 
-<<<<<<< HEAD
-=======
 const removeAccountRequest = (user_Id: number): any => axiosWrapper(`${process.env.REACT_APP_API_URL}/setting/removeaccountreq`, {
     method: 'POST',
     withCredentials: true,
     data: {user_Id}
 });
 
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 
 export default {
     login,
@@ -194,10 +191,6 @@ export default {
     vacationsDenied,
     vacationsPending,
     deleteAccount,
-<<<<<<< HEAD
-    removeIneligbleDay
-=======
     removeIneligbleDay,
     removeAccountRequest
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 };

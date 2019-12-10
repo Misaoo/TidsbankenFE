@@ -1,36 +1,6 @@
 @value global: "./global.css";
 @value btn-color from global;
 
-<<<<<<< HEAD
-.module {
-  background: btn-color;
-  color: white;
-  width: 100%;
-}
-
-.module a {
-  color: white;
-  padding: 10px 20px;
-  display: inline-block;
-  text-decoration: none;
-  transition: .1s all;
-}
-
-.module a:hover {
-  cursor: pointer;
-  background-color: #273642;
-}
-
-.logo {
-  color: #2b8382 !important;
-  font-weight: bold;
-  background-color: white !important;
-}
-
-.logo svg {
-  padding-right: 5px;
-}
-=======
 
 
 /* Main Navbar module */
@@ -62,4 +32,3 @@
   color: #fff !important;
 }
 
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998

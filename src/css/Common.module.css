@@ -68,9 +68,6 @@
     border:none;
     transition: .1s all;
 }
-<<<<<<< HEAD
-
-=======
 .buttonpa {
     height: 45px;
     border-radius: 25px;
@@ -82,7 +79,6 @@
     border:none;
     transition: .1s all;
 }
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 .button:hover {
     cursor: pointer;
     background: linear-gradient(151deg, rgb(39, 112, 106) 0%, rgb(65, 126, 177) 100%);
@@ -99,39 +95,15 @@
   color: lightgrey;
   cursor: default;
 }
-<<<<<<< HEAD
-=======
 .buttonplacement {
     text-align: center;
 }
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 
 /*-----------------------------
  * Dropdown
  *-----------------------------*/
 
 .dropdown {
-<<<<<<< HEAD
-    margin: 0;
-    padding: 0;
-}
-
-.dropdown a {
-    text-decoration: none;
-    width: 100%;
-    display: block;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-.dropdown a:hover {
-    background-color: #3D8ABB;
-}
-
-.backgroundColor:hover{
-    background:#273642;
-}
-=======
     margin: 0px;
     padding: 0px;
 }
@@ -150,4 +122,3 @@
 .dropdown a:hover {
     background-color: #4288c5;
 }
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998

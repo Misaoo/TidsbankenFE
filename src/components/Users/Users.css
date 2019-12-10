@@ -1,63 +1,3 @@
-<<<<<<< HEAD
-.userPage {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 10px;
-  padding: 20px;
-}
-
-.userPage a {
-  text-decoration: none;
-  color: black;
-  text-align: center;
-}
-
-.userPageH1 {
-  padding-left: 20px;
-}
-
-.userCard {
-  padding: 5%;
-  box-shadow: 0 0 20px -12px #408bc4;
-  border-radius: 10px;
-  word-break: normal;
-  display: grid;
-  grid-template-rows: 11.5vw minmax(50px, auto);
-}
-
-.userCard:hover {
-  cursor: pointer;
-  background-color: #f9f9f9;
-}
-
-.userImg {
-  border-radius: 5%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.imgContainer {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-  display: inline-block;
-}
-
-.nameContainer {
-  padding-top: 15px;
-}
-
-@media (max-width: 970px) {
-  .userPage {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .userCard {
-    grid-template-rows: 23vw minmax(50px, auto);
-  }
-}
-=======
 .userPage {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -135,4 +75,3 @@
     font-size: 11px;
   }
 }
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998

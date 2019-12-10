@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-=======
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../auth/AuthContext";
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ExportImport from "./ExportImport/ExportImport";
 
 const GeneralTab = props => {
-<<<<<<< HEAD
-  const [input, setInput] = useState({ maximumVacationDays: " " });
-  const [data, setData] = useState({ maximumVacationDays: "unlimited" });
-=======
   const {user} = useContext(AuthContext);
   const [input, setInput] = useState({ maximumVacationDays: " " });
   const [data, setData] = useState({ maximumVacationDays: "unlimited" });
@@ -24,7 +16,6 @@ const GeneralTab = props => {
     user.isAdmin === 0;
   const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
   const loggedInSuperUser = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 
   const setMaximumVacationDays = () => {
     const { maximumVacationDays } = input;
@@ -77,30 +68,6 @@ const GeneralTab = props => {
   }, []);
   //let address = props.address;
   return (
-<<<<<<< HEAD
-    <div className="padding generalTab">
-      <h1>General site settings</h1>
-      <p>
-        Here you can set the maximum vacations days that a user is allowed to
-        request. And also export / import the vacation data if needed.
-      </p>
-      <div>
-        <h3>Maximum vacation days: {data.maximumVacationDays}</h3>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            name="maximumVacationDays"
-            variant="outlined"
-            label="New max vacation days"
-            onChange={handleChange}
-          />
-          <Button className="buttonSize" variant="contained" type="submit">
-            Set
-          </Button>
-        </form>
-      </div>
-      <ExportImport />
-    </div>
-=======
     <>
       {(loggedIn || loggedInAdmin) && (
         <div className="padding generalTab">
@@ -135,7 +102,6 @@ const GeneralTab = props => {
         </div>
       )}
     </>
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
   );
 };
 

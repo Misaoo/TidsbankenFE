@@ -15,10 +15,7 @@ class UsersTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-=======
       user1 :{},
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
       isAdmin : '',
       users: [],
       style: {
@@ -28,23 +25,13 @@ class UsersTab extends Component {
       }
     };
   }
-<<<<<<< HEAD
-  componentDidMount() {
-=======
   componentDidMount () {
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
     this.props.updateStyling({
       general: {},
       requests: {},
       users: { backgroundColor: "#3D8ABB" }
     });
     this.getUsers();
-<<<<<<< HEAD
-    let { user } = this.context
-     this.state.isAdmin = user.isAdmin
-=======
-
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
   }
   getUsers() {
     let tempArr = [];
@@ -71,13 +58,10 @@ class UsersTab extends Component {
           window.location.href = "/logout";
         }
       });
-<<<<<<< HEAD
-=======
 
     let {user}  = this.context
     this.state.user1= user 
     console.log(this.state.user1)
->>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
   }
   updateStyling(style) {
     this.setState({
