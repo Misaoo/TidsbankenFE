@@ -9,8 +9,7 @@ import removepicture from '../../pic/undraw_notify_88a4.svg';
 
 /* This file controlls three buttons in the profile page: 
         1. change password 
-        2. change autentication 
-        3. delete account  
+        3. delete account request to admin  
 */
 
 const SettingComponent = (props: any) => {
@@ -22,67 +21,31 @@ const SettingComponent = (props: any) => {
     let [oldPass, setOldPass] = useState();             // used for controlling if the old password is equal to the one that the user enters in the input fields in the popup
     let [newPass1, setNewPass1] = useState();           // new password
     let [newPass2, setNewPass2] = useState();           // new password have to match
-    let [twoAuth, setTwoAuth ] = useState();            // Used to show if the user have two factor authentication or not        
+    let [statusText, setStatusText] = useState();
+    let [isRequested, setIsRequested] = useState(false);
 
 
     /*******************************/
     /* AUTHENTICATION */
     /*******************************/
-    
-    function removeAccountModal(){ setshowModal2(true); } 
+
+    function removeAccountModal() { setshowModal2(true); }
     // checks if user have two factor authentication and sets and send the infomration to NewAuth that sets it in a useState. 
-    useEffect(() =>{
-        if(user && user.name) {
-            NewAuth(user.twoFacAut);    
-        }
-    },[user])
-
-    // Sets new useState for auth - switches the number from 0 to 1 or 1 to 0
-    function NewAuth(number:any){
-        if(number === 0){
-            setTwoAuth(1);
-        } else if (number === 1){
-            setTwoAuth(0);
-        }
-    }
-
-    const deleteAccount = async (event:any) => {
-        event.preventDefault();
-        
-        // DELETE ACCOUNT
-        try {
-            let response = await API.removeAccountRequest(user!.userId);
-            if (response.status === 200) {
-                console.log("deleted account");
-                
-                /*if (typeof window !== 'undefined') {
-                    window.location.href = "/logout";
-               }*/
-            }
-        } catch (error) {
-            if (error.response.status === 401 || error.response.status === 504) {
-                console.log(error);
-                console.log("asd");
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-            }
-            console.log(error);
-        }
-    }
 
     const removeAccountReq = async (event: any) => {
         event.preventDefault();
         let remove = event.target.value;
         console.log('remove ', remove)
         //send request to api
-        if(remove === '1'){
-            try{
+        if (remove === '1') {
+            try {
                 // do api call to backend
                 console.log('tjoo')
                 console.log('user: ', user!.userId)
                 let response = await API.removeAccountRequest(user!.userId);
-                if(response.status === 200){
+                if (response.status === 200) {
+                    setStatusText('Account removal request sent.')
+                    setIsRequested(true)
 
                 }
 
@@ -90,10 +53,11 @@ const SettingComponent = (props: any) => {
 
             } catch (error) {
                 console.log(error)
-                /*console.log(error.response)
-                if(error.response.status === 404){
+                console.log(error.response)
+                if (error.response.status === 404) {
                     console.log('400 error... print stuff.')
-                }*/
+                    setStatusText('Something went wrong please try again')
+                }
             }
         } else {
             console.log('do nothing :P')
@@ -104,7 +68,7 @@ const SettingComponent = (props: any) => {
     /* PASSOWRD */
     /*******************************/
 
-    function UpdatePasswordModal(){ setshowModal(true); }   // is called when the user pressed the password button. This makes the popup show. 
+    function UpdatePasswordModal() { setshowModal(true); }   // is called when the user pressed the password button. This makes the popup show. 
 
     // When user presses the submit button for changing password it changes to 
     const handlePasswordSubmit = async (event: any) => {
@@ -112,9 +76,9 @@ const SettingComponent = (props: any) => {
 
         let oldPassword = testOldPassword();
         let newPassword = testNewPasswords();
-        
+
         //Update password in database
-        if(await oldPassword === true && newPassword === true){
+        if (await oldPassword === true && newPassword === true) {
             try {
                 let response = await API.updateUserPassword(user!.userId, newPass1);
                 if (response.status === 200) {
@@ -129,12 +93,12 @@ const SettingComponent = (props: any) => {
                 }
                 console.log(error);
             }
-        }  
+        }
     }
 
-    function handleChangeOldPass(event:any){ setOldPass(event.target.value); }      // gets the old password from the input field and send it further to a function that checks if it is the correct
-    function handleChangeNewPass1(event:any){ setNewPass1(event.target.value); }    // Takes the new password and sets it
-    function handleChangeNewPass2(event:any){ setNewPass2(event.target.value); }    // Takes the new password and sets it
+    function handleChangeOldPass(event: any) { setOldPass(event.target.value); }      // gets the old password from the input field and send it further to a function that checks if it is the correct
+    function handleChangeNewPass1(event: any) { setNewPass1(event.target.value); }    // Takes the new password and sets it
+    function handleChangeNewPass2(event: any) { setNewPass2(event.target.value); }    // Takes the new password and sets it
 
     // Test old password so it's correct compared to the one in the database
     const testOldPassword = async () => {
@@ -150,8 +114,9 @@ const SettingComponent = (props: any) => {
     }
 
     // Checks if new password are matching in the input fields
-    function testNewPasswords(){
-        if(newPass1 === newPass2){ return true;
+    function testNewPasswords() {
+        if (newPass1 === newPass2) {
+            return true;
         } else { return false; }
     }
 
@@ -167,13 +132,13 @@ const SettingComponent = (props: any) => {
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
                 <form onSubmit={handlePasswordSubmit}>
                     <label className={commonStyles.label} htmlFor="OldPassword">Old Password</label>
-                    <input className={commonStyles.input} type="password" name="OldPassword" value={oldPass} placeholder="Enter your old password" onChange={handleChangeOldPass}/>
+                    <input className={commonStyles.input} type="password" name="OldPassword" value={oldPass} placeholder="Enter your old password" onChange={handleChangeOldPass} />
 
                     <label className={commonStyles.label} htmlFor="NewPassword">New Password</label>
-                    <input className={commonStyles.input} type="password" name="NewPassword" value={newPass1} placeholder="Enter your new password" onChange={handleChangeNewPass1}/>
+                    <input className={commonStyles.input} type="password" name="NewPassword" value={newPass1} placeholder="Enter your new password" onChange={handleChangeNewPass1} />
 
                     <label className={commonStyles.label} htmlFor="NewPassword">New Password</label>
-                    <input className={commonStyles.input} type="password" name="NewPassword" value={newPass2} placeholder="Enter your new password" onChange={handleChangeNewPass2}/>
+                    <input className={commonStyles.input} type="password" name="NewPassword" value={newPass2} placeholder="Enter your new password" onChange={handleChangeNewPass2} />
 
                     <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} type="submit">Submit</button>
                 </form>
@@ -182,11 +147,24 @@ const SettingComponent = (props: any) => {
             <Modal className={[SettingsStyles.modal, SettingsStyles.modalpa]} display={showModal2} setDisplay={setshowModal2} title="Remove account request">
 
                 <div className={commonStyles.buttonplacement}>
-                <h1><p>Are you sure you want to remove your account?<br /> A request will be sent to your admin.</p></h1>
-                    <button className={[commonStyles.buttonpa].join(" ")} onClick={removeAccountReq} value={'1'} >Yes</button>
-                    <button className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >No</button> <br />
+                    <h1><p>Are you sure you want to remove your account?<br /> A request will be sent to your admin.</p></h1>
+                    <br />
+
+                    {statusText}
                 </div>
-              </Modal>   
+
+                <div className={commonStyles.buttonplacement}>
+                    {(() => {
+
+                        if (!isRequested) {
+                            return [<button key="btn1"className={[commonStyles.buttonpa].join(" ")} onClick={removeAccountReq} value={'1'} >Yes</button>,
+                            <button key="btn2"className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >No</button>];
+                        } else {
+                            return <button key="btn3" className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >Close</button>
+                        }
+
+                    })()} </div>
+            </Modal>
         </div>
     )
 }
