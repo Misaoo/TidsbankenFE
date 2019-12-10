@@ -19,8 +19,7 @@ const OverviewComponent = (props: any) => {
   let [previousVacationdays, setPrevious] = useState<any[]>([]);          // handles the pending vacation days
   let [totalDeniedVacationRequests, setTotalDeniedVacationRequests] = useState();     // handles total denied vacation days
 
-
-
+  
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
