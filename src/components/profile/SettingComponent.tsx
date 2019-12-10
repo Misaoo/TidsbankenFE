@@ -43,7 +43,7 @@ const SettingComponent = (props: any) => {
                 console.log('tjoo')
                 console.log('user: ', user!.userId)
                 let response = await API.removeAccountRequest(user!.userId);
-                if (response.status === 200) {
+                if (response.status === 202) {
                     setStatusText('Account removal request sent.')
                     setIsRequested(true)
 
