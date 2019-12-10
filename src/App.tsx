@@ -28,9 +28,16 @@ import {
   faExclamationCircle,
   faCheckCircle,
   faClock,
+<<<<<<< HEAD
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock);
+=======
+  faBars,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock, faBars);
+>>>>>>> 1546fe8dc6a1347c76b397e36539b1b8257ea998
 
 const App: React.FC = () => {
   return (
