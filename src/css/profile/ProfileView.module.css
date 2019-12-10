@@ -1,7 +1,7 @@
 /* @value global: "./global.css";
 @value bg-color from global; */
 
-.ProfileWrapper{
+/* .ProfileWrapper{
     display:grid;
     grid-template-columns: minmax(320px,max-content) 1fr;
     min-height: calc(100% - 40px);
@@ -9,4 +9,33 @@
 
 .ProfileWrapper aside{
     background-color: #efefef;
+} */
+
+.sidebarContainer {
+    /* background-color: green !important; */
+    height: 100vh;
+    padding: 10px;
+}
+
+.overviewContainer {
+    height: 100vh;
+}
+
+/* Mobile */
+@media (min-width: 360px) and (max-width: 600px) {
+
+    .sidebarContainer {
+        height: auto;
+        padding: 10px;
+    }
+
+    .overviewContainer {
+        height: auto;
+    }
+
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+
 }
