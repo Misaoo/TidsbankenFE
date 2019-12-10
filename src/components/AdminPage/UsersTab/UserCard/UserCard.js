@@ -34,8 +34,7 @@ class UserCard extends Component {
           <div className="userCardImage">
             <img src={this.props.user.profilePic} alt="" />
           </div>
-          <div>
-        <p></p>
+          <div className="userCardDescription">
             <b>Name:</b> {this.props.user.name} {this.props.user.lastName}{" "}
             {this.props.user.isAdmin === 1 && <b>(Admin)</b>}
             <br />
