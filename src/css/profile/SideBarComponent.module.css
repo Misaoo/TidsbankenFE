@@ -5,43 +5,46 @@
 /***** OVERALL *****/
 /*******************/
 .SideBarWrapper{
-    margin:15px;
-    position: relative;
+    /* margin:15px;
+    position: relative; */
+    background-color: green;
+    padding: 10px;
 }
 
 .SideBarWrapper h1, .SideBarWrapper h3{
     text-align:center;
 }
 
-.text > p {
+/* .text > p {
     display: inline;
     position: absolute;
     right:15px;
     bottom:22px;
     font-style: italic;
     color: third-text-color;
-}
+} */
 
-.SideBarWrapper > form > h3{
+/* .SideBarWrapper > form > h3{
     color: grey-text-color;
     margin-top:-10px;
     font-weight: normal;
-}
+} */
 
 /*******************/
 /***** IMAGE *****/
 /*******************/
 .imageWrapper{
+
     display: flex;
     justify-content: center;
     position: relative;
     height: 22vw;
     width: 22vw;
 
-    max-width: 325px;
-    max-height: 325px;
-    min-width: 175px;
-    min-height: 175px;
+    max-width: 150px;
+    max-height: 150px;
+    min-width: 140px;
+    min-height: 140px;
     
     margin-left: 25px;
     margin-right: 25px;
@@ -53,10 +56,10 @@
 }
 
 .SideBarWrapper img{
-    display: block;
+    /* display: block;
     width: auto;
     height: 100%;
-    margin:auto;
+    margin:auto; */
 }
 
 .imageWrapper .selectNewImage{

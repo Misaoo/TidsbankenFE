@@ -11,31 +11,42 @@
     background-color: #efefef;
 } */
 
+
+/******* 
+Desktop
+*********/
 .sidebarContainer {
     /* background-color: green !important; */
     height: 100vh;
-    padding: 10px;
+    padding: 0px;
 }
 
 .overviewContainer {
     height: 100vh;
 }
 
-/* Mobile */
+/******* 
+Mobile
+*********/
 @media (min-width: 360px) and (max-width: 600px) {
 
     .sidebarContainer {
         height: auto;
-        padding: 10px;
+        padding: 0px;
     }
 
     .overviewContainer {
         height: auto;
+        padding-top: 200px;
     }
 
 }
 
-/* Tablet */
+/******* 
+Tablet
+*********/
 @media (min-width: 768px) and (max-width: 1024px) {
-
+    .sidebarContainer {
+        padding: 0px;
+    }
 }
