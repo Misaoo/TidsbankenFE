@@ -74,7 +74,7 @@ const SideBarComponent = (props: any) => {
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
-          mirrored={true}
+          mirrored={false}
         />
         <button
           className={

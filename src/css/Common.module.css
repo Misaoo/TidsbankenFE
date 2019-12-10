@@ -68,7 +68,17 @@
     border:none;
     transition: .1s all;
 }
-
+.buttonpa {
+    height: 45px;
+    border-radius: 25px;
+    /*margin: 20px 0;*/
+    margin: 30px;
+    width: 25%;
+    background: btn-color;
+    color: third-text-color;
+    border:none;
+    transition: .1s all;
+}
 .button:hover {
     cursor: pointer;
     background: linear-gradient(151deg, rgb(39, 112, 106) 0%, rgb(65, 126, 177) 100%);
@@ -85,28 +95,30 @@
   color: lightgrey;
   cursor: default;
 }
+.buttonplacement {
+    text-align: center;
+}
 
 /*-----------------------------
  * Dropdown
  *-----------------------------*/
 
 .dropdown {
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
 
 .dropdown a {
+    text-align: center !important;
     text-decoration: none;
     width: 100%;
     display: block;
-    padding: 5px;
+    margin: 0px;
+    padding: 10px;
     box-sizing: border-box;
+    
 }
 
 .dropdown a:hover {
-    background-color: #3D8ABB;
-}
-
-.backgroundColor:hover{
-    background:#273642;
+    background-color: #4288c5;
 }
