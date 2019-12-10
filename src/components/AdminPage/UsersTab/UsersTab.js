@@ -15,6 +15,7 @@ class UsersTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user1 :{},
       isAdmin : '',
       users: [],
       style: {
@@ -24,15 +25,14 @@ class UsersTab extends Component {
       }
     };
   }
-  componentDidMount() {
+  componentDidMount () {
     this.props.updateStyling({
       general: {},
       requests: {},
       users: { backgroundColor: "#3D8ABB" }
     });
     this.getUsers();
-    let { user } = this.context
-     this.state.isAdmin = user.isAdmin
+
   }
   getUsers() {
     let tempArr = [];
@@ -59,6 +59,10 @@ class UsersTab extends Component {
           window.location.href = "/logout";
         }
       });
+
+    let {user}  = this.context
+    this.state.user1= user 
+    console.log(this.state.user1)
   }
   updateStyling(style) {
     this.setState({

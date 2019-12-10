@@ -32,6 +32,7 @@ const LoginComponent = (props: any) => {
     
     /* Checkes if the user entered a correct email and password for logged in */
     const handleSubmit = async (event: any) => {
+        setMessage('')
         event.preventDefault();
         try {
             let response = await API.login(input.email, input.password);
@@ -42,6 +43,13 @@ const LoginComponent = (props: any) => {
                 setLoggedIn(true);
             }
         } catch (error) {
+              if(error.response.status === 401 ){
+                setError(true)
+                setMessage('User is not found')
+              } else if(error.response.status === 402 ){
+                setError(true)
+                setMessage('Invalid email or password')
+              }
             /*if (error.response.status === 401 || error.response.status === 504) {
                 setError(true);
                 let errorData = error.response.data;

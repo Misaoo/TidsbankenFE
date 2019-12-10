@@ -42,9 +42,6 @@ class UserModifier extends Component {
         name: this.state.name,
         lastName: this.state.lastName,
         email: this.state.email,
-        profilePic: this.state.profilePic,
-        isAdmin: this.state.isAdmin,
-        twoFacAut: this.state.twoFacAut
       }
     })
       .then(() => {
@@ -151,104 +148,15 @@ class UserModifier extends Component {
                   fullWidth
                 ></TextField>
               </div>
-              <br></br>
-              <b>Administrator</b>
-              <br></br>
-              <input
-                type="radio"
-                name="isAdmin"
-                value={1}
-                defaultChecked={this.state.isAdmin === 1}
-                onChange={this.handleChange}
-              ></input>
-              <label>True</label>
-              <br></br>
-              <input
-                type="radio"
-                name="isAdmin"
-                value={0}
-                defaultChecked={this.state.isAdmin === 0}
-                onChange={this.handleChange}
-              ></input>
-              <label>False</label>
-              <br></br>
-              <b>2FA</b>
-              <br></br>
-              <input
-                type="radio"
-                name="twoFacAut"
-                value={1}
-                defaultChecked={this.state.twoFacAut === 1}
-                onChange={this.handleChange}
-              ></input>
-              <label>True</label>
-              <br></br>
-              <input
-                type="radio"
-                name="twoFacAut"
-                value={0}
-                defaultChecked={this.state.twoFacAut === 0}
-                onChange={this.handleChange}
-              ></input>
-              <label>False</label>
-              <br></br>
-              <div className={styles.textField}>
-                <Button variant="contained" type="submit" color="secondary">
-                  Submit
-                </Button>
-              </div>
+                <div className={styles.textField}>
+                  <Button variant="contained" type="submit" color="secondary">
+                    Submit
+                  </Button>
+                </div>
             </form>
           </div>
           <div></div>
           <div className={styles.contentLeft}>
-            <h3>Set new password</h3>
-            <form onSubmit={this.handleSubmitPassword}>
-              <div className={styles.textField}>
-                <TextField
-                  name="passwordTop"
-                  variant="outlined"
-                  label="Password"
-                  type="password"
-                  value={this.state.passwordTop}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
-              </div>
-              <div className={styles.textField}>
-                <TextField
-                  name="passwordBottom"
-                  variant="outlined"
-                  label="Verify password"
-                  type="password"
-                  value={this.state.passwordBottom}
-                  onChange={this.handleChange}
-                  fullWidth
-                ></TextField>
-              </div>
-              <div className={styles.textField}>
-                <Button
-                  disabled={
-                    !(
-                      this.state.passwordTop === this.state.passwordBottom &&
-                      !(this.state.passwordBottom === "") &&
-                      !(this.state.passwordTop === "")
-                    )
-                  }
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                >
-                  Set new password
-                </Button>
-              </div>
-            </form>
-            <div>
-              <PictureUpload
-                profilePic={this.props.user.profilePic}
-                userId={this.props.user.userId}
-                updateList={this.props.updateList}
-              />
-            </div>
             {this.props.user.isAdmin === 0 && (
               <div>
                 <h3>Delete User</h3>

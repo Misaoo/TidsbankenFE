@@ -1,31 +1,34 @@
 @value global: "./global.css";
 @value btn-color from global;
 
+
+
+/* Main Navbar module */
 .module {
   background: btn-color;
-  color: white;
-  width: 100%;
 }
 
 .module a {
-  color: white;
-  padding: 10px 20px;
-  display: inline-block;
-  text-decoration: none;
-  transition: .1s all;
+  color: #fff;
+  margin: 0px;
+  padding: 5px;
+  text-decoration: none !important;
 }
 
-.module a:hover {
-  cursor: pointer;
-  background-color: #273642;
+.activeLinks {
+  color: #fff;
+  text-shadow: -1px 1px 10px rgb(44, 202, 168), 
+  -1px 1px 10px rgb(44, 202, 168),
+  -1px 1px 10px rgb(44, 202, 168);
 }
 
-.logo {
-  color: #2b8382 !important;
-  font-weight: bold;
-  background-color: white !important;
+.titleTest {
+  text-align: center;
 }
 
-.logo svg {
-  padding-right: 5px;
+.menuBtn {
+  font-size: 20px !important;
+  cursor:pointer;
+  color: #fff !important;
 }
+
