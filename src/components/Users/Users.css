@@ -55,4 +55,23 @@
   .userCard {
     grid-template-rows: 23vw minmax(50px, auto);
   }
+
+  .nameContainer {
+    padding-top: 10px;
+    font-size: small;
+  }
+}
+@media (max-width: 550px) {
+  .userPage {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .userCard {
+    grid-template-rows: 23vw minmax(50px, auto);
+  }
+
+  .nameContainer {
+    padding-top: 10px;
+    font-size: 11px;
+  }
 }

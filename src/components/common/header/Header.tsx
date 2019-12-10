@@ -38,6 +38,8 @@ const Header = (props: any) => {
     user.isAdmin === 0;
   const loggedInAdmin =
     user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
+    const loggedInSuperAdmin =
+    user && user.hasOwnProperty("isAdmin") && user.isAdmin === 2;
   const loggedOut =
     Object.entries(user as object).length === 0 &&
     (user as object).constructor === Object;
@@ -79,6 +81,10 @@ const Header = (props: any) => {
             >
               <FontAwesomeIcon icon="bars" />
             </Button>
+            <span>
+            <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+
+            </span>
 
             {/* Link menu */}
             <Collapse in={open} timeout="auto" unmountOnExit>
@@ -101,6 +107,30 @@ const Header = (props: any) => {
 
                 {/* Logged in as Admin */}
                 {loggedInAdmin && (
+                  <div>
+                    
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={handleToggle}> Dashboard </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/users" onClick={handleToggle}> Users </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/users" onClick={handleToggle}> Users </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/admin" onClick={handleToggle}> Admin tool </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/profile" onClick={handleToggle}> {(user && user.name)} </NavLink>
+                    </MenuItem>
+                    <MenuItem>
+                      <NavLink activeClassName={styles.activeLinks} to="/logout" onClick={handleToggle}> Logout </NavLink>
+                    </MenuItem>
+                  </div>
+                )}
+
+                {loggedInSuperAdmin && (
                   <div>
                     
                     <MenuItem>
@@ -135,6 +165,7 @@ const Header = (props: any) => {
                 <>
                   <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
                   <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/users"> Users </NavLink>
                   <NavLink activeClassName={styles.activeLinks} to="/profile"> {(user && user.name)} </NavLink>
                   <NavLink activeClassName={styles.activeLinks} to="/logout"> Logout </NavLink>
                 </>
@@ -142,6 +173,16 @@ const Header = (props: any) => {
 
               {/* Logged in as Admin */}
               {loggedInAdmin && (
+                <>
+                  <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/users"> Users </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/admin"> Admin tool </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/profile"> {(user && user.name)} </NavLink>
+                  <NavLink activeClassName={styles.activeLinks} to="/logout"> Logout </NavLink>
+                </>
+              )}
+              {loggedInSuperAdmin && (
                 <>
                   <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
                   <NavLink activeClassName={styles.activeLinks} to="/dashboard"> Dashboard </NavLink>
