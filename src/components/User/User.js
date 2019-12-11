@@ -14,6 +14,7 @@ class User extends Component {
       lastName: "",
       profilePic: "",
       groupId : '',
+      vacation: '',
       users: []
     };
   }
