@@ -22,7 +22,42 @@ class Users extends Component {
           method: "GET",
           withCredentials: true
         })
-          .then(res => {
+        .then(res => {
+          res.data.map(user => {
+            if (user.userId !== userdata.data.userId) {
+
+              axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+                method: "GET",
+                withCredentials: true
+              })
+              .then(vacRes => {
+                tempArr.push(
+                  <UserCard
+                    key={user.userId}
+                    user={user}
+                    vacation={vacRes.data.vacation}
+                    updateUsers={this.getUsers.bind(this)}
+                  />
+                );
+                this.setState({
+                  users: tempArr
+                });
+              })
+              /*tempArr.push(
+                <UserCard
+                  key={user.userId}
+                  user={user}
+                  updateUsers={this.getUsers.bind(this)}
+                />
+              );*/
+            }
+          });
+          /*this.setState({
+            users: tempArr
+          });*/
+        })
+
+          /*.then(res => {
             res.data.map(user => {
               if (user.userId !== userdata.data.userId) {
                 tempArr.push(
@@ -37,7 +72,7 @@ class Users extends Component {
             this.setState({
               users: tempArr
             });
-          })
+          })*/
           .catch(error => {
             if (error.status === 401 || error.status === 403) {
               window.location.href = "/logout";
