@@ -78,14 +78,14 @@ const SideBarComponent = (props: any) => {
           videoConstraints={videoConstraints}
           mirrored={false}
         />
-        <button
-          className={
-            commonStyles.button + " " + sidebarStyles.buttonTweaks_webcam
-          }
-          onClick={capture}
-        >
-          Capture photo
-        </button>
+        <div className={sidebarStyles.modalBtnContainer}>
+          <button
+            className={sidebarStyles.modalButtons}
+            onClick={capture}
+          >
+            Capture photo
+          </button>
+        </div>
       </>
     );
   };
@@ -198,12 +198,14 @@ const SideBarComponent = (props: any) => {
             onChange={handleChangePicture}
             className={commonStyles.input}
           />
-          <button
-            type="submit"
-            className={commonStyles.button + " " + sidebarStyles.buttonTweaks}
-          >
-            Save
-          </button>
+          <div className={sidebarStyles.modalBtnContainer}>
+            <button
+              type="submit"
+              className={sidebarStyles.modalButtons}
+            >
+              Save
+            </button>
+          </div>
         </form>
       </Modal>
 
