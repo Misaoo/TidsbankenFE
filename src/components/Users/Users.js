@@ -43,36 +43,9 @@ class Users extends Component {
                   users: tempArr
                 });
               })
-              /*tempArr.push(
-                <UserCard
-                  key={user.userId}
-                  user={user}
-                  updateUsers={this.getUsers.bind(this)}
-                />
-              );*/
             }
           });
-          /*this.setState({
-            users: tempArr
-          });*/
         })
-
-          /*.then(res => {
-            res.data.map(user => {
-              if (user.userId !== userdata.data.userId) {
-                tempArr.push(
-                  <UserCard
-                    key={user.userId}
-                    user={user}
-                    updateUsers={this.getUsers.bind(this)}
-                  />
-                );
-              }
-            });
-            this.setState({
-              users: tempArr
-            });
-          })*/
           .catch(error => {
             if (error.status === 401 || error.status === 403) {
               window.location.href = "/logout";
