@@ -8,7 +8,7 @@ class RequestCard extends Component {
     super(props);
     this.state = {
       showPopup: false,
-      name: this.props.request.userId,
+      name: '',
       lastName: "",
       statusText: "",
       dates: []
