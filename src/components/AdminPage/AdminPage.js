@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./Navbar/Navbar.tsx";
 import GeneralTab from "./GeneralTab/GeneralTab";
 import RequestTab from "./RequestsTab/RequestTab";
-import UsersTab from "./UsersTab/UsersTab";
+import UsersTab from "./UsersTab/UsersTab.tsx";
 import "./general.css";
 
 class AdminPage extends Component {
