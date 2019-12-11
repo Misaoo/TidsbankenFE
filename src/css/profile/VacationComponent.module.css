@@ -13,8 +13,8 @@
     font-size: 12px;
     padding: 8px;
     border-radius: 5px;
-    background-color: #314353;
-    color: white;
+    background-color: #E77C22; /* bg-color of date-cards */
+    color: white; /* textcolor inside date-cards */
     display: inline-block;
     margin: 5px;
 }
@@ -23,6 +23,7 @@
     padding:25px;
     box-shadow: box-shadow;
     margin-top:15px;
+    background-color: white;
 }
 
 .collapseButton {
