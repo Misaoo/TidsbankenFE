@@ -54,7 +54,7 @@ class Users extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="userPageH1">All Users</h1>
+        <h1 className="userPageH1">Group Managers</h1>
         <div className="userPage">{this.state.users}</div>
       </React.Fragment>
     );

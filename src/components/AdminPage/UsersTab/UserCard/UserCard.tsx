@@ -23,14 +23,16 @@ const UserCard = (props: any) => {
         <div className="userCardImage">
           <img src={props.user.profilePic} alt="" />
         </div>
-        <div>
+        <div className="userCardDescription">
           <b>Name:</b> {props.user.name} {props.user.lastName}{" "}
           {props.user.isAdmin === 1 && <b>(Admin)</b>}
           <br />
           <b>Email:</b> {props.user.email}
           <br />
-          <b>2FA:</b> {props.user.twoFacAut === 1 && "Enabled"}
-          {props.user.twoFacAut === 0 && "Disabled"}
+          <b>Region:</b> {props.user.region}
+          <br />
+          <b>Vacation:</b> {props.user.onVacation === 1 && "Yes"}
+          {props.user.onVacation === 0 && "No"}
         </div>
       </div>
     </div>

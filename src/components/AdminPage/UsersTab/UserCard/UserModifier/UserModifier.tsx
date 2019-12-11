@@ -14,9 +14,9 @@ import SettingsStyles from '../../../../../css/profile/SettingComponent.module.c
 import commonStyles from '../../../../../css/Common.module.css';
 
 const UserModifier = (props: any) => {
-  let [name, setName] = useState()
-  let [lastName, setLastName] = useState()
-  let [email, setEmail] = useState()
+  let [name, setName] = useState(props.user.name)
+  let [lastName, setLastName] = useState(props.user.lastName)
+  let [email, setEmail] = useState(props.user.email)
   let [showModal3, setShowModal3] = useState(false)
 
   function handleChangeName(event: any) { setName(event.target.value)}
@@ -31,6 +31,7 @@ const UserModifier = (props: any) => {
         name: name,
         lastName: lastName,
         email: email,
+        profilePic : props.user.profilePic
       }
     })
       .then(() => {

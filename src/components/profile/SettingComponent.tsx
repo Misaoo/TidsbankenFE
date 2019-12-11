@@ -21,9 +21,10 @@ const SettingComponent = (props: any) => {
     let [oldPass, setOldPass] = useState();             // used for controlling if the old password is equal to the one that the user enters in the input fields in the popup
     let [newPass1, setNewPass1] = useState();           // new password
     let [newPass2, setNewPass2] = useState();           // new password have to match
-    let [statusText, setStatusText] = useState();
-    let [isRequested, setIsRequested] = useState(false);
-
+    let [statusText, setStatusText] = useState();       // displays error and success messages to the user in the request remove account modal
+    let [isRequested, setIsRequested] = useState(false); // bool that determains which buttons to show in the request remove account modal ()
+    let [passwdStatus, setPasswdStatus] = useState(false); // bool that determains which buttons to show in the update password modal
+    let [passwdMsg, setPasswdMsg] = useState(); // displays error and success messages to the user
 
     /*******************************/
     /* AUTHENTICATION */
@@ -35,33 +36,24 @@ const SettingComponent = (props: any) => {
     const removeAccountReq = async (event: any) => {
         event.preventDefault();
         let remove = event.target.value;
-        console.log('remove ', remove)
         //send request to api
         if (remove === '1') {
             try {
                 // do api call to backend
-                console.log('tjoo')
-                console.log('user: ', user!.userId)
                 let response = await API.removeAccountRequest(user!.userId);
-                if (response.status === 200) {
+                if (response.status === 202) {
                     setStatusText('Account removal request sent.')
                     setIsRequested(true)
 
                 }
-
                 //setshowModal2(false)
 
             } catch (error) {
-                console.log(error)
-                console.log(error.response)
                 if (error.response.status === 404) {
-                    console.log('400 error... print stuff.')
                     setStatusText('Something went wrong please try again')
                 }
             }
-        } else {
-            console.log('do nothing :P')
-        }
+        } 
     }
 
     /*******************************/
@@ -82,16 +74,16 @@ const SettingComponent = (props: any) => {
             try {
                 let response = await API.updateUserPassword(user!.userId, newPass1);
                 if (response.status === 200) {
-                    console.log("USER updated his password");
+                    setPasswdStatus(true)
+                    setPasswdMsg('Password has been updated.')
+                    //console.log("USER updated his password");
                 }
             } catch (error) {
                 if (error.response.status === 401 || error.response.status === 504) {
-                    console.log(error);
+                    //console.log(error);
+                    setPasswdMsg('Failed to update password')
                 }
-                // If TwoFactorAuthentication
-                if (error.response.status === 418) {
-                }
-                console.log(error);
+                
             }
         }
     }
@@ -109,7 +101,11 @@ const SettingComponent = (props: any) => {
                 return true;
             }
         } catch (error) {
-            console.log(error);
+            //console.log(error);
+            if (error.response.status === 400) {
+                //console.log(error);
+                setPasswdMsg('Old password wrong.')
+            }
         }
     }
 
@@ -117,7 +113,10 @@ const SettingComponent = (props: any) => {
     function testNewPasswords() {
         if (newPass1 === newPass2) {
             return true;
-        } else { return false; }
+        } else {
+            setPasswdMsg('Passwords dont match.') 
+            return false; 
+        }
     }
 
     /**********************/
@@ -130,18 +129,34 @@ const SettingComponent = (props: any) => {
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={removeAccountModal}>Remove account</button>
 
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
-                <form onSubmit={handlePasswordSubmit}>
-                    <label className={commonStyles.label} htmlFor="OldPassword">Old Password</label>
-                    <input className={commonStyles.input} type="password" name="OldPassword" value={oldPass} placeholder="Enter your old password" onChange={handleChangeOldPass} />
+                <div className={commonStyles.buttonplacement}>{ passwdMsg }<br /></div>
+                {(() => {
+                    if(!passwdStatus){
+                        return [<form key="updatePasswdForm" onSubmit={handlePasswordSubmit}>
+                            <label key="oldPass" className={commonStyles.label} htmlFor="OldPassword">Old Password</label>
+                            <input key="oldPassInpt"className={commonStyles.input} type="password" name="OldPassword" placeholder="Enter your old password" onChange={handleChangeOldPass} required/>
 
-                    <label className={commonStyles.label} htmlFor="NewPassword">New Password</label>
-                    <input className={commonStyles.input} type="password" name="NewPassword" value={newPass1} placeholder="Enter your new password" onChange={handleChangeNewPass1} />
+                            <label key="newPass"className={commonStyles.label} htmlFor="NewPassword">New Password</label>
+                            <input key="newPassInpt"className={commonStyles.input} type="password" name="NewPassword" placeholder="Enter your new password" onChange={handleChangeNewPass1} required/>
 
-                    <label className={commonStyles.label} htmlFor="NewPassword">New Password</label>
-                    <input className={commonStyles.input} type="password" name="NewPassword" value={newPass2} placeholder="Enter your new password" onChange={handleChangeNewPass2} />
+                            <label key="newPassVer"className={commonStyles.label} htmlFor="NewPassword">New Password</label>
+                            <input key="newPassVerInp"className={commonStyles.input} type="password" name="NewPassword" placeholder="Enter your new password" onChange={handleChangeNewPass2} required/>
 
-                    <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} type="submit">Submit</button>
-                </form>
+                            
+                            <div key="tryChange" className={commonStyles.buttonplacement}>
+                                <button key="btn1"className={[commonStyles.buttonpa].join(" ")} type="submit">Save</button>
+                                <button key="btn2"className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal(false)} >Cancel</button>
+                            </div>
+                            
+                        </form>]
+                    } else {
+                        //return <button className={[commonStyles.button, SettingsStyles.twoFabBtn].join(" ")} type="submit">Close</button>
+                        return [<div key="changeSuccess" className={commonStyles.buttonplacement}>
+                                    <button key="btn3" className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal(false)} >Close</button>
+                                </div>]
+                    }
+                })()}
+                
             </Modal>
 
             <Modal className={[SettingsStyles.modal, SettingsStyles.modalpa]} display={showModal2} setDisplay={setshowModal2} title="Remove account request">
@@ -157,10 +172,10 @@ const SettingComponent = (props: any) => {
                     {(() => {
 
                         if (!isRequested) {
-                            return [<button key="btn1"className={[commonStyles.buttonpa].join(" ")} onClick={removeAccountReq} value={'1'} >Yes</button>,
-                            <button key="btn2"className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >No</button>];
+                            return [<button key="btn4"className={[commonStyles.buttonpa].join(" ")} onClick={removeAccountReq} value={'1'} >Yes</button>,
+                            <button key="btn5"className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >No</button>];
                         } else {
-                            return <button key="btn3" className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >Close</button>
+                            return <button key="btn6" className={[commonStyles.buttonpa].join(" ")} onClick={event => setshowModal2(false)} >Close</button>
                         }
 
                     })()} </div>
