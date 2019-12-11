@@ -68,7 +68,7 @@
 }
 
 .header {
-    background: linear-gradient(151deg, rgb(41, 130, 123) 0%, rgb(66, 140, 202) 100%);
+    background: #3A84B5;
     height: 50px;
     margin: -20px -20px 20px -20px;
     color: white;
