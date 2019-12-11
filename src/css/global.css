@@ -1,5 +1,7 @@
 /* Background colors */
-@value bg-color: #f9f9f9;
+@value bg-color: white;
+/*bg-color is for sidenavbar only */
+
 @value error-text-bg-color: red;
 @value bg-h1-color: darkgrey;
 @value modal-bg-color: hsla(0, 0%, 37.6%, 0.7);
@@ -13,6 +15,5 @@
 @value grey-text-color: grey;
 
 /* Shadows */
-@value box-shadow: 0 0 20px -12px #408bc4;
-
+@value box-shadow: 1px 1px 10px -3px;
 
