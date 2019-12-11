@@ -165,6 +165,11 @@ const removeAccountRequest = (user_Id: number): any => axiosWrapper(`${process.e
     data: {user_Id}
 });
 
+const getUsersByGroup  =(group_Id: number) : any => axiosWrapper(`${process.env.REACT_APP_API_URL}/user/${group_Id}` , {
+    method: 'GET',
+    withCredentials: true,
+});
+
 
 export default {
     login,
@@ -192,5 +197,6 @@ export default {
     vacationsPending,
     deleteAccount,
     removeIneligbleDay,
-    removeAccountRequest
+    removeAccountRequest,
+    getUsersByGroup
 };
