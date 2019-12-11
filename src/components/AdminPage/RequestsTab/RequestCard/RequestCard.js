@@ -64,11 +64,11 @@ class RequestCard extends Component {
             this.setPopup();
           }}
         >
-          <b>Request ID:</b> {this.props.request.requestId}
           <br />
-          <b>Dates:</b> <ul>{this.state.dates}</ul>
+          <b>Start date:</b> <ul>{this.state.dates[0]}</ul>
+          <b>End date:</b> <ul>{this.state.dates[this.state.dates.length - 1]}</ul>
           <br />
-          <b>Requester:</b> {this.state.name} {this.state.lastName}
+          <b>Employee:</b> {this.state.name} {this.state.lastName}
         </div>
       </div>
     );
