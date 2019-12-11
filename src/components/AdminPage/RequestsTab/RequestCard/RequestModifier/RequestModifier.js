@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import styles from "./RequestModifier.module.css";
 import axios from "axios";
 import CommentSection from "./CommentSection/CommentSection";
+import styles2 from '../../../../../css/Modal.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class RequestModifier extends Component {
   constructor(props) {
@@ -103,19 +105,23 @@ class RequestModifier extends Component {
           onClick={event => event.stopPropagation()}
         >
           <div>
-            <h1>Request {this.props.requestData.requestId}</h1>
-            <h5>
+            <div className={styles2.header}>
+              <h2>Request {this.props.requestData.requestId}</h2>
+              <span className={styles2.closeButton} onClick={event => this.props.setDisplay()}><FontAwesomeIcon icon="times" /></span>
+            </div>
+            <h2>
               {this.props.requesterName} {this.props.requesterLastName}
-            </h5>
+            </h2>
             <ul>{this.state.dates}</ul>
             {this.state.pending && !this.state.myRequest && (
-              <div>
-                <form onSubmit={this.handleSubmitVerdict}>
+              <div className={styles.verdictForms}>
+                <form onSubmit={this.handleSubmitVerdict} className={styles.verdictForm}>
                   <input
                     type="radio"
                     name="verdict"
                     value="2"
                     onChange={this.handleChangeVerdict}
+                    placeholder="Approve"
                   ></input>
                   <label>Approve</label>
                   <br></br>
@@ -124,23 +130,21 @@ class RequestModifier extends Component {
                     name="verdict"
                     value="1"
                     onChange={this.handleChangeVerdict}
+                    placeholder="Deny"
                   ></input>
                   <label>Deny</label>
                   <br></br>
-                  <Button variant="contained" type="submit" color="secondary">
+                  <Button variant="contained" type="submit" color="primary">
                     Submit
+                  </Button>
+                </form>
+                <form onSubmit={this.handleSubmitDelete} className={styles.deleteForm}>
+                  <Button variant="contained" type="submit" color="secondary" className={styles.requestDeleteButton}>
+                    Delete
                   </Button>
                 </form>
               </div>
             )}
-            <div>
-              <h3>Delete Request</h3>
-              <form onSubmit={this.handleSubmitDelete}>
-                <Button variant="contained" type="submit" color="secondary">
-                  Delete Request
-                </Button>
-              </form>
-            </div>
           </div>
           <div>
             <CommentSection requestId={this.props.requestData.requestId} />
