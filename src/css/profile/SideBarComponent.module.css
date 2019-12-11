@@ -1,37 +1,42 @@
 @value global: "../global.css";
 @value grey-text-color from global;
 
+
+
 /*******************/
 /***** OVERALL *****/
 /*******************/
 .SideBarWrapper{
     height: 100vh;
-    width: 300px;
     padding: 5%;
     background-color: #fff;
-    box-shadow: 1px 1px 10px -3px;
+    box-shadow: 1px 1px 5px -3px #000;
 }
 
-.SideBarWrapper h1, .SideBarWrapper h3{
+.SideBarWrapper h1 {
     text-align:center;
 }
+.SideBarWrapper h3 {
+    text-align:center;
+    font-weight: lighter;
+}
+
 
 
 /*******************/
 /***** IMAGE *****/
 /*******************/
 .imageWrapper{
-
     display: flex;
     justify-content: center;
     position: relative;
     height: 22vw;
     width: 22vw;
 
-    max-width: 150px;
-    max-height: 150px;
-    min-width: 140px;
-    min-height: 140px;
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 180px;
+    min-height: 180px;
     
     margin-left: 25px;
     margin-right: 25px;
@@ -40,13 +45,6 @@
     text-align: center;
     overflow: hidden;
     margin:auto;
-}
-
-.SideBarWrapper img{
-    /* display: block;
-    width: auto;
-    height: 100%;
-    margin:auto; */
 }
 
 .imageWrapper .selectNewImage{
@@ -126,9 +124,9 @@ video{
 }
 
 
-/******* 
-Mobile
-*********/
+/********************/
+/***** Mobile ******/
+/********************/
 @media (min-width: 360px) and (max-width: 600px) {
 
     .SideBarWrapper{
@@ -136,13 +134,14 @@ Mobile
         width: auto;
         padding: 5%;
         background-color: #fff;
-        box-shadow: 1px 1px 10px -3px;
+        box-shadow: 1px 1px 5px -3px #000;
     }
+    
 }
 
-/******* 
-Tablet
-*********/
+/********************/
+/***** Tablet ******/
+/********************/
 @media (min-width: 768px) and (max-width: 1024px) {
     .SideBarWrapper{
         height: 100vh;

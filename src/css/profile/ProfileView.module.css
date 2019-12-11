@@ -1,40 +1,35 @@
 
 
-
 /********************/
 /***** Desktop ******/
 /********************/
 .sidebarContainer {
     height: 100vh;
-    padding: 0px;
 }
 
 .overviewContainer {
     height: 100vh;
 }
 
+
 /*******************/
 /***** Mobile ******/
 /*******************/
 @media (min-width: 360px) and (max-width: 600px) {
-
     .sidebarContainer {
         height: auto;
-        padding: 0px;
     }
 
     .overviewContainer {
         height: auto;
-        padding-top: 200px;
+        padding-top: 20px;
     }
-
 }
+
 
 /*******************/
 /***** Tablet *****/
 /*******************/
 @media (min-width: 768px) and (max-width: 1024px) {
-    .sidebarContainer {
-        padding: 0px;
-    }
+    
 }

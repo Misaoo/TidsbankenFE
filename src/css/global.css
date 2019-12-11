@@ -5,7 +5,10 @@
 @value modal-bg-color: hsla(0, 0%, 37.6%, 0.7);
 @value popover-bg-color: hsla(0, 0%, 37.6%, 1);
 @value disabled-btn-bg-color: linear-gradient(151deg, rgba(114,129,127,1) 0%, rgba(114,121,126,1) 100%);
-@value btn-color: linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%);
+@value btn-color: #3A84B5;
+
+
+/* linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%); */
 
 /* text colors */
 @value secondare-text-color: #707070;
