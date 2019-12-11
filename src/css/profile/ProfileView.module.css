@@ -1,22 +1,10 @@
-/* @value global: "./global.css";
-@value bg-color from global; */
-
-/* .ProfileWrapper{
-    display:grid;
-    grid-template-columns: minmax(320px,max-content) 1fr;
-    min-height: calc(100% - 40px);
-}
-
-.ProfileWrapper aside{
-    background-color: #efefef;
-} */
 
 
-/******* 
-Desktop
-*********/
+
+/********************/
+/***** Desktop ******/
+/********************/
 .sidebarContainer {
-    /* background-color: green !important; */
     height: 100vh;
     padding: 0px;
 }
@@ -25,9 +13,9 @@ Desktop
     height: 100vh;
 }
 
-/******* 
-Mobile
-*********/
+/*******************/
+/***** Mobile ******/
+/*******************/
 @media (min-width: 360px) and (max-width: 600px) {
 
     .sidebarContainer {
@@ -42,9 +30,9 @@ Mobile
 
 }
 
-/******* 
-Tablet
-*********/
+/*******************/
+/***** Tablet *****/
+/*******************/
 @media (min-width: 768px) and (max-width: 1024px) {
     .sidebarContainer {
         padding: 0px;
