@@ -20,7 +20,6 @@
 
 .content {
   display: grid;
-  grid-template-columns: 35% 65%;
   background-color: white;
   height: 75%;
   max-height: calc(100% - 30px);
@@ -33,6 +32,12 @@
   align-self: center;
   justify-self: center;
   overflow-y: auto;
+}
+
+@media screen and (min-width: 800px) {
+    .content {
+        grid-template-columns: 35% 65%;
+    }
 }
 
 .content p {

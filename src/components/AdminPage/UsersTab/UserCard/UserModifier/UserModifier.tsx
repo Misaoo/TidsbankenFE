@@ -34,7 +34,7 @@ const UserModifier = (props: any) => {
       }
     })
       .then(() => {
-        props.updateList();
+        props.updateList(true);
       })
       .catch(error => {
         if (error.status === 401 || error.status === 403) {
@@ -51,7 +51,7 @@ const UserModifier = (props: any) => {
       withCredentials: true
     })
       .then(() => {
-        props.updateList();
+        props.updateList(true);
       })
       .catch(error => {
         if (error.response.status === 401 || error.response.status === 403) {
