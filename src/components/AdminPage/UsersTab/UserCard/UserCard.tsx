@@ -23,7 +23,7 @@ const UserCard = (props: any) => {
         <div className="userCardImage">
           <img src={props.user.profilePic} alt="" />
         </div>
-        <div>
+        <div className="userCardDescription">
           <b>Name:</b> {props.user.name} {props.user.lastName}{" "}
           {props.user.isAdmin === 1 && <b>(Admin)</b>}
           <br />
