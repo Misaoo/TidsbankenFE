@@ -25,7 +25,9 @@ class UserCard extends Component {
             <div className="nameContainer">
               <b>
                 {this.props.user.name} {this.props.user.lastName}
-              </b>
+              </b> <br />
+              {this.props.user.isAdmin == 0 && <span><b>On vacation: </b> {this.props.vacation}</span>
+              }
             </div>
           </div>
         </Link>

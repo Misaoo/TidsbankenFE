@@ -14,6 +14,7 @@ class User extends Component {
       lastName: "",
       profilePic: "",
       groupId : '',
+      vacation: '',
       users: []
     };
   }
@@ -28,7 +29,6 @@ class User extends Component {
       }
     )
       .then(res => {
-        console.log('Resuld is : ' + res.data.groupId)
         this.setState({
           name: res.data.name,
           groupId : res.data.groupId,
@@ -43,8 +43,6 @@ class User extends Component {
           withCredentials: true
         })
           .then(userdata => {
-            console.log('state: ', this.state)
-            console.log('groupid: ', this.state.groupId)
             axios(process.env.REACT_APP_API_URL + "/user/group/" + this.state.groupId, {
               method: "GET",
               withCredentials: true
@@ -52,17 +50,25 @@ class User extends Component {
               .then(res => {
                 res.data.map(user => {
                   if (user.userId !== userdata.data.userId) {
-                    tempArr.push(
-                      <UserCard
-                        key={user.userId}
-                        user={user}
-                        updateUsers={this.getUsers.bind(this)}
-                      />
-                    );
+      
+                    axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+                      method: "GET",
+                      withCredentials: true
+                    })
+                    .then(vacRes => {
+                      tempArr.push(
+                        <UserCard
+                          key={user.userId}
+                          user={user}
+                          vacation={vacRes.data.vacation}
+                          updateUsers={this.getUsers.bind(this)}
+                        />
+                      );
+                      this.setState({
+                        users: tempArr
+                      });
+                    })
                   }
-                });
-                this.setState({
-                  users: tempArr
                 });
               })
               .catch(error => {
@@ -82,46 +88,6 @@ class User extends Component {
           window.location.href = "/logout";
         }
       });
-       console.log(this.state.groupId)
-    /*let tempArr = [];
-    axios(process.env.REACT_APP_API_URL + "/authorize", {
-      method: "POST",
-      withCredentials: true
-    })
-      .then(userdata => {
-        console.log('state: ', this.state)
-        console.log('groupid: ', this.state.groupId)
-        axios(process.env.REACT_APP_API_URL + "/user/group/d23c2bd6-d042-443a-9b78-e976c0c39918",{//+parent.state.groupId, {
-          method: "GET",
-          withCredentials: true
-        })
-          .then(res => {
-            res.data.map(user => {
-              if (user.userId !== userdata.data.userId) {
-                tempArr.push(
-                  <UserCard
-                    key={user.userId}
-                    user={user}
-                    updateUsers={this.getUsers.bind(this)}
-                  />
-                );
-              }
-            });
-            this.setState({
-              users: tempArr
-            });
-          })
-          .catch(error => {
-            if (error.status === 401 || error.status === 403) {
-              window.location.href = "/logout";
-            }
-          });
-      })
-      .catch(error => {
-        if (error.status === 401 || error.status === 403) {
-          window.location.href = "/logout";
-        }
-      });*/
     this.getUsers()
   }
 
