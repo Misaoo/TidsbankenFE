@@ -45,7 +45,7 @@ const OverviewComponent = (props: any) => {
   async function getFromServer(id: any) {
     await API.vacationsDenied(id)
       .then((response: any) => {
-        console.log(response)
+        //console.log(response)
         if(response.status === 200) {
           // addResponseDataToLi only accepts array input, thus convert single object to an array with single element
           let tempArr = []
@@ -71,7 +71,7 @@ const OverviewComponent = (props: any) => {
 
     await API.vacationsApproved(id)
       .then((response: any) => {
-        console.log(response)
+        //console.log(response)
         if(response.status === 200) {
           addResponseDataToLi(response.data, setApprovedVacationsdays);
           previousDate(response.data, setPrevious);
@@ -115,7 +115,7 @@ const OverviewComponent = (props: any) => {
     for (let obj of response) {
       for (let date of obj.dates) {
         i++;
-        console.log(date);
+        //console.log(date);
         let dateOnly = date.substring(0, date.indexOf("T"));
         if(now > new Date(date)){
           const liElement = (
@@ -141,7 +141,7 @@ const OverviewComponent = (props: any) => {
     for (let obj of response) {
       for (let date of obj.dates) {
         i++;
-        console.log(date);
+        //console.log(date);
         let dateOnly = date.substring(0, date.indexOf("T"));
         if (now < new Date(date)) {
         const liElement = (
