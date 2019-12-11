@@ -36,33 +36,24 @@ const SettingComponent = (props: any) => {
     const removeAccountReq = async (event: any) => {
         event.preventDefault();
         let remove = event.target.value;
-        console.log('remove ', remove)
         //send request to api
         if (remove === '1') {
             try {
                 // do api call to backend
-                console.log('tjoo')
-                console.log('user: ', user!.userId)
                 let response = await API.removeAccountRequest(user!.userId);
                 if (response.status === 202) {
                     setStatusText('Account removal request sent.')
                     setIsRequested(true)
 
                 }
-
                 //setshowModal2(false)
 
             } catch (error) {
-                console.log(error)
-                console.log(error.response)
                 if (error.response.status === 404) {
-                    console.log('400 error... print stuff.')
                     setStatusText('Something went wrong please try again')
                 }
             }
-        } else {
-            console.log('do nothing :P')
-        }
+        } 
     }
 
     /*******************************/
