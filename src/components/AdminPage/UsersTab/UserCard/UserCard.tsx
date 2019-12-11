@@ -29,8 +29,10 @@ const UserCard = (props: any) => {
           <br />
           <b>Email:</b> {props.user.email}
           <br />
-          <b>2FA:</b> {props.user.twoFacAut === 1 && "Enabled"}
-          {props.user.twoFacAut === 0 && "Disabled"}
+          <b>Region:</b> {props.user.region}
+          <br />
+          <b>Vacation:</b> {props.user.onVacation === 1 && "Yes"}
+          {props.user.onVacation === 0 && "No"}
         </div>
       </div>
     </div>
