@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./User.css";
+import UserCard from "../Users/UserCard";
+
 import { Link } from "react-router-dom";
 
 class User extends Component {
@@ -11,7 +13,8 @@ class User extends Component {
       name: "",
       lastName: "",
       profilePic: "",
-      requests: []
+      groupId : '',
+      users: []
     };
   }
   componentDidMount() {
@@ -25,70 +28,114 @@ class User extends Component {
       }
     )
       .then(res => {
+        console.log('Resuld is : ' + res.data.groupId)
         this.setState({
           name: res.data.name,
+          groupId : res.data.groupId,
           lastName: res.data.lastName,
           profilePic: res.data.profilePic
         });
+      })
+      .then(() => {
+        let tempArr = [];
+        axios(process.env.REACT_APP_API_URL + "/authorize", {
+          method: "POST",
+          withCredentials: true
+        })
+          .then(userdata => {
+            console.log('state: ', this.state)
+            console.log('groupid: ', this.state.groupId)
+            axios(process.env.REACT_APP_API_URL + "/user/group/" + this.state.groupId, {
+              method: "GET",
+              withCredentials: true
+            })
+              .then(res => {
+                res.data.map(user => {
+                  if (user.userId !== userdata.data.userId) {
+                    tempArr.push(
+                      <UserCard
+                        key={user.userId}
+                        user={user}
+                        updateUsers={this.getUsers.bind(this)}
+                      />
+                    );
+                  }
+                });
+                this.setState({
+                  users: tempArr
+                });
+              })
+              .catch(error => {
+                if (error.status === 401 || error.status === 403) {
+                  window.location.href = "/logout";
+                }
+              });
+          })
+          .catch(error => {
+            if (error.status === 401 || error.status === 403) {
+              window.location.href = "/logout";
+            }
+          });
       })
       .catch(error => {
         if (error.status === 401 || error.status === 403) {
           window.location.href = "/logout";
         }
       });
-    let tempRequests = [];
-    axios(
-      process.env.REACT_APP_API_URL +
-        "/request/approved/" +
-        this.props.computedMatch.params.user_id,
-      {
-        method: "GET",
-        withCredentials: true
-      }
-    ).then(res => {
-      res.data.map(request => {
-        let tempDates = [];
-        var dateIndex = 0;
-        request.dates.map(date => {
-          tempDates.push(
-            <li key={dateIndex++}>{new Date(date).toLocaleDateString("se")}</li>
-          );
-        });
-        tempRequests.push(
-          <li className="requestCardUser" key={request.requestId}>
-            <Link to={`/requests/${request.requestId}`}>
-              <ul>{tempDates}</ul>
-            </Link>
-          </li>
-        );
-      });
-      if (tempRequests.length === 0) {
-        tempRequests = "This user does not have any approved vacations";
-      }
-      this.setState({
-        requests: tempRequests
-      });
-    });
+       console.log(this.state.groupId)
+    /*let tempArr = [];
+    axios(process.env.REACT_APP_API_URL + "/authorize", {
+      method: "POST",
+      withCredentials: true
+    })
+      .then(userdata => {
+        console.log('state: ', this.state)
+        console.log('groupid: ', this.state.groupId)
+        axios(process.env.REACT_APP_API_URL + "/user/group/d23c2bd6-d042-443a-9b78-e976c0c39918",{//+parent.state.groupId, {
+          method: "GET",
+          withCredentials: true
+        })
+          .then(res => {
+            res.data.map(user => {
+              if (user.userId !== userdata.data.userId) {
+                tempArr.push(
+                  <UserCard
+                    key={user.userId}
+                    user={user}
+                    updateUsers={this.getUsers.bind(this)}
+                  />
+                );
+              }
+            });
+            this.setState({
+              users: tempArr
+            });
+          })
+          .catch(error => {
+            if (error.status === 401 || error.status === 403) {
+              window.location.href = "/logout";
+            }
+          });
+      })
+      .catch(error => {
+        if (error.status === 401 || error.status === 403) {
+          window.location.href = "/logout";
+        }
+      });*/
+    this.getUsers()
+  }
+
+  getUsers() {
+   
   }
 
   render() {
     return (
-      <div>
-        <div className="userPageContainer">
-          <div className="userWrapper">
-            <div className="userPictureContainer">
-              <img className="userPicture" src={this.state.profilePic} alt="" />
-            </div>
-            <h1>
-              {this.state.name} {this.state.lastName}
-            </h1>
-          </div>
-          <div className="vacationWrapper">
-            <h2>Vacations</h2>
-            <ul>{this.state.requests}</ul>
-          </div>
-        </div>
-      </div>
+      <React.Fragment>
+      <h1 className="userPageH1">Group Employees</h1>
+      <p className="userPageH1">   Group Manager  : {this.state.name} {this.state.lastName}</p>
+      <div className="userPage">{this.state.users}</div>
+    </React.Fragment>
     );
   }
 }
