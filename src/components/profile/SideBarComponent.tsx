@@ -6,6 +6,8 @@ import commonStyles from "../../css/Common.module.css";
 import Modal from "../common/modal/Modal";
 import Webcam from "react-webcam";
 import axios from "axios";
+import SettingComponent from "../../components/profile/SettingComponent";
+
 
   /**********************/
   // This file handles the:
@@ -147,6 +149,7 @@ const SideBarComponent = (props: any) => {
 
   return (
     <div className={sidebarStyles.SideBarWrapper}>
+      
       <div className={sidebarStyles.imageWrapper}>
         <div className={sidebarStyles.selectNewImage}>
           <div onClick={evt => changeImage("browse", evt)}>
@@ -176,6 +179,13 @@ const SideBarComponent = (props: any) => {
           value={props.email} 
         />
       </div>
+
+      <div>
+        <SettingComponent></SettingComponent>
+      </div>
+
+
+
       
       <Modal display={showModalPicture} setDisplay={setshowModalPicture} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
