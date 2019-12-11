@@ -9,18 +9,21 @@ import axios from "axios";
 import SettingComponent from "../../components/profile/SettingComponent";
 
 
-  /**********************/
-  // This file handles the:
-  //    1. picture functionality, 
-  //    2. name of user, 
-  /**********************/
+/**********************/
+// This file handles the:
+//    1. picture functionality, 
+//    2. name of user, 
+/**********************/
 
 const SideBarComponent = (props: any) => {
-  const { user } = useContext(AuthContext);   
+  const { user } = useContext(AuthContext);
   const [img, setImg] = useState();                           // handles image for user 
   const [name, setName] = useState();                         // first name for user
   const [lastName, setLastName] = useState();                 // Lastname
   const [admin, setAdmin] = useState();                       // If user is admin or not
+  const [usremail, setEmail] = useState();
+  const [webcamMsg, setWebcamMsg] = useState();
+  const [imgUploadMsg, setImgUploadMsg] = useState();
 
   let [showModalPicture, setshowModalPicture] = useState(false);      // Show and set picture 
   let [showModalWebcam, setshowModalWebcam] = useState(false);        // Show and set webcam  
@@ -45,6 +48,7 @@ const SideBarComponent = (props: any) => {
         setName(response.data.name);
         setLastName(response.data.lastName);
         setAdmin(response.data.isAdmin);
+        setEmail(response.data.email);
         props.setEmail(response.data.email);
       }
     } catch (error) { }
@@ -62,7 +66,7 @@ const SideBarComponent = (props: any) => {
   const WebcamCapture = () => {
     const webcamRef = React.useRef(null);
     const capture = React.useCallback(() => {
-     
+
       const imageSrc = (webcamRef as any).current.getScreenshot();
 
       updateUserImage(imageSrc);
@@ -71,19 +75,33 @@ const SideBarComponent = (props: any) => {
 
     return (
       <>
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          videoConstraints={videoConstraints}
-          mirrored={false}
-        />
-        <button
-          className={sidebarStyles.modalButtons}
-          onClick={capture}
-        >
-          Capture photo
+        <div className={commonStyles.buttonplacement}>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+            mirrored={false}
+          />
+        </div>
+
+        <div className={commonStyles.buttonplacement}>
+          <br />
+          {webcamMsg}
+          <br />
+          <button
+            className={commonStyles.buttonpa}
+            onClick={capture}
+          >
+            Capture photo
         </button>
+          <button
+            className={commonStyles.buttonpa}
+            onClick={event => setshowModalWebcam(false)}
+          >
+            Close
+        </button>
+        </div>
       </>
     );
   };
@@ -107,11 +125,25 @@ const SideBarComponent = (props: any) => {
         method: "PATCH",
         withCredentials: true,
         data: {
+          userId: userId,
+          email: usremail,
+          name: name,
+          lastName: lastName,
+          isAdmin: admin,
           profilePic: base64data
         }
-      }).then(() => {
-        setImg(base64data);
-      });
+      }).then(res => {
+        if (res.status === 200) {
+          setImgUploadMsg('Image uploaded.')
+          setImg(base64data);
+        }
+      })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            //console.log(error);
+            setImgUploadMsg('Failed to upload image.')
+          }
+        })
     };
   }
 
@@ -120,11 +152,31 @@ const SideBarComponent = (props: any) => {
   /**********************/
 
   async function updateUserImage(img: string) {
-    if(user && user.name) {
-      try {
-        let response = await API.updateUserImage(user.userId, img);
-        if (response.status === 200) { }
-      } catch (error) { }
+    if (user && user.name) {
+      axios(process.env.REACT_APP_API_URL + "/user/" + user.userId, {
+        method: "PATCH",
+        withCredentials: true,
+        data: {
+          userId: user.userId,
+          email: user.email,
+          name: user.name,
+          lastName: user.lastName,
+          isAdmin: user.isAdmin,
+          profilePic: img
+        }
+      })
+        .then(res => {
+          if (res.status === 200) {
+            //console.log('ok picture stored')
+            setWebcamMsg('Image saved')
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            //console.log(error);
+            setWebcamMsg('Failed to save image from webcam')
+          }
+        });
     }
   }
 
@@ -140,14 +192,14 @@ const SideBarComponent = (props: any) => {
     }
   }
 
-  
+
   /**********************/
   /* HTML */
   /**********************/
 
   return (
     <div className={sidebarStyles.SideBarWrapper}>
-      
+
       <div className={sidebarStyles.imageWrapper}>
         <div className={sidebarStyles.selectNewImage}>
           <div onClick={evt => changeImage("browse", evt)}>
@@ -174,7 +226,7 @@ const SideBarComponent = (props: any) => {
           disabled
           name="email"
           type="email"
-          value={props.email} 
+          value={props.email}
         />
       </div>
 
@@ -184,7 +236,7 @@ const SideBarComponent = (props: any) => {
 
 
 
-      
+
       <Modal display={showModalPicture} setDisplay={setshowModalPicture} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
           <label className={commonStyles.label} htmlFor="savePic">
@@ -196,12 +248,21 @@ const SideBarComponent = (props: any) => {
             onChange={handleChangePicture}
             className={commonStyles.input}
           />
-          <div className={sidebarStyles.modalBtnContainer}>
+          <div className={commonStyles.buttonplacement}>
+            <br />
+            {imgUploadMsg}
+            <br />
             <button
               type="submit"
-              className={sidebarStyles.modalButtons}
+              className={commonStyles.buttonpa}
             >
               Save
+            </button>
+            <button
+              className={commonStyles.buttonpa}
+              onClick={event => setshowModalPicture(false)}
+            >
+              close
             </button>
           </div>
         </form>

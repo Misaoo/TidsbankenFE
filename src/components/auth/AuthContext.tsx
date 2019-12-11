@@ -7,11 +7,13 @@ export type authType = {
 
 export type userType = {
     name: string,
+    email: string,
     lastName: string,
     isAdmin: number,
     twoFacAut: number,
     userId: number,
-    region : String
+    region : String,
+    profilePic: string
 }
 
 const AuthContext = React.createContext<Partial<authType>>({});
