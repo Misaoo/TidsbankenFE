@@ -1,11 +1,16 @@
 /* Background colors */
-@value bg-color: #f9f9f9;
+@value bg-color: white;
+/*bg-color is for sidenavbar only */
+
 @value error-text-bg-color: red;
 @value bg-h1-color: darkgrey;
 @value modal-bg-color: hsla(0, 0%, 37.6%, 0.7);
 @value popover-bg-color: hsla(0, 0%, 37.6%, 1);
 @value disabled-btn-bg-color: linear-gradient(151deg, rgba(114,129,127,1) 0%, rgba(114,121,126,1) 100%);
-@value btn-color: linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%);
+@value btn-color: #3A84B5;
+
+
+/* linear-gradient(151deg, rgba(41,130,123,1) 0%, rgba(66,140,202,1) 100%); */
 
 /* text colors */
 @value secondare-text-color: #707070;
@@ -13,6 +18,5 @@
 @value grey-text-color: grey;
 
 /* Shadows */
-@value box-shadow: 0 0 20px -12px #408bc4;
-
+@value box-shadow: 1px 1px 10px -3px;
 

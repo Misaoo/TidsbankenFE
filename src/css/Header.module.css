@@ -5,7 +5,7 @@
 
 /* Main Navbar module */
 .module {
-  background: btn-color;
+  background-color: #3A84B5 !important;
 }
 
 .module a {
