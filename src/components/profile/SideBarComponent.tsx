@@ -78,14 +78,12 @@ const SideBarComponent = (props: any) => {
           videoConstraints={videoConstraints}
           mirrored={false}
         />
-        <div className={sidebarStyles.modalBtnContainer}>
-          <button
-            className={sidebarStyles.modalButtons}
-            onClick={capture}
-          >
-            Capture photo
-          </button>
-        </div>
+        <button
+          className={sidebarStyles.modalButtons}
+          onClick={capture}
+        >
+          Capture photo
+        </button>
       </>
     );
   };
