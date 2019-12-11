@@ -1,3 +1,78 @@
+@media screen and (min-width: 600px) {
+  .content {
+    grid-template-columns: 35% 65%;
+  }
+
+  .commentsContainer {
+    margin-top: 50px;
+  }
+
+  .commentSubmit {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+  }
+
+  .verdictForms {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .verdictForm {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-bottom: 5%;
+  }
+
+  .deleteForm {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .requestDeleteButton {
+    width: 50%;
+    align-self: flex-end;
+  }
+
+  .commentButton {
+    justify-self: flex-end;
+  }
+
+  .commentTextfield {
+    min-width: 72%;
+    max-width: 72%;
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+  .verdictForms {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .verdictForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .deleteForm {
+    display: flex;
+  }
+
+  .requestDeleteButton {
+    align-self: flex-end;
+  }
+
+  .commentSubmit {
+    margin-top: 2%;
+  }
+}
+
 .module {
   background-color: rgba(0, 0, 0, 0.507);
   height: 100vh;
@@ -20,7 +95,6 @@
 
 .content {
   display: grid;
-  grid-template-columns: 35% 65%;
   background-color: white;
   height: 75%;
   max-height: calc(100% - 30px);
@@ -35,30 +109,36 @@
   overflow-y: auto;
 }
 
+@media screen and (min-width: 800px) {
+    .content {
+        grid-template-columns: 35% 65%;
+    }
+}
+
 .content p {
   margin: 0;
 }
 
 .comments {
   overflow-y: auto;
-  max-height: 72%;
-  min-height: 72%;
+  max-height: 50%;
+  min-height: 50%;
   border-style: solid;
+  padding: 5px;
 }
 
-.commentSubmit {
-  margin-top: 5%;
-  display: grid;
-  grid-template-columns: 80% 20%;
+.commentButton {
+  margin: 2% 0 5% 0;
 }
+
 textarea {
   resize: none;
-  width: 90%;
 }
 
 .comment {
   margin-bottom: 5px;
   word-break: break-all;
+  font-size: 0.8em;
 }
 
 .comment:hover {

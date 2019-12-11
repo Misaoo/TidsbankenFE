@@ -79,9 +79,7 @@ const SideBarComponent = (props: any) => {
           mirrored={false}
         />
         <button
-          className={
-            commonStyles.button + " " + sidebarStyles.buttonTweaks_webcam
-          }
+          className={sidebarStyles.modalButtons}
           onClick={capture}
         >
           Capture photo
@@ -198,12 +196,14 @@ const SideBarComponent = (props: any) => {
             onChange={handleChangePicture}
             className={commonStyles.input}
           />
-          <button
-            type="submit"
-            className={commonStyles.button + " " + sidebarStyles.buttonTweaks}
-          >
-            Save
-          </button>
+          <div className={sidebarStyles.modalBtnContainer}>
+            <button
+              type="submit"
+              className={sidebarStyles.modalButtons}
+            >
+              Save
+            </button>
+          </div>
         </form>
       </Modal>
 

@@ -11,7 +11,7 @@ const UserCard = (props: any) => {
         <UserModifier
           user={props.user}
           setDisplay={setShowPopUp}
-          updateList={props.updateUsers}
+          updateList={(e: any) => props.updateUsers(e)}
         />
       )}
       <div
