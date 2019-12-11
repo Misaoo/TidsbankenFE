@@ -19,6 +19,7 @@ import User from "./components/User/User";
 
 import {
   faAngleDown,
+  faAngleDoubleDown,
   faAngleUp,
   faCaretLeft,
   faCaretRight,
@@ -31,7 +32,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faAngleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock, faBars);
+library.add(faAngleDown, faAngleDoubleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock, faBars);
 
 const App: React.FC = () => {
   return (
