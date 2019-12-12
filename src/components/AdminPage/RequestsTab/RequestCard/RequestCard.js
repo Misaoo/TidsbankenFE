@@ -15,7 +15,7 @@ class RequestCard extends Component {
     };
     let keyVal = 0;
     this.props.request.dates.map(date => {
-      this.state.dates.push(
+      return this.state.dates.push(
         <li key={keyVal++}>{new Date(date).toLocaleDateString("se")}</li>
       );
     });
