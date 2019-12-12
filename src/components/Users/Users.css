@@ -43,6 +43,11 @@
   grid-template-rows: 11.5vw minmax(50px, auto);
 }
 
+.infoBox{
+  margin-top: 1%;
+  
+}
+
 .userCard:hover {
   cursor: pointer;
   background-color: #f9f9f9;
