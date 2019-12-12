@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AuthContext from "../auth/AuthContext";
 import API from "../../api/API";
 import vacationStyles from "../../css/profile/VacationComponent.module.css";
@@ -35,13 +35,13 @@ const OverviewComponent = (props: any) => {
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
   };
-  const anchorRef = useRef<HTMLButtonElement>(null);
 
   /* Runs first to get all information from server*/
   useEffect(() => {
     if (user && user.userId) {
       getFromServer(user!.userId!);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, [user]);
 
   /* gets the vacation information from server */

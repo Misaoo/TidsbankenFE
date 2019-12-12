@@ -23,6 +23,7 @@ const UsersTab = (props: any) => {
       requests: {},
       users: { backgroundColor: "#3D8ABB" }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, [])
 
   const getUserData = () => {

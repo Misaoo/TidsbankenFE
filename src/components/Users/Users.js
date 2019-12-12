@@ -28,7 +28,7 @@ class Users extends Component {
           res.data.map(user => {
             if (user.userId !== userdata.data.userId) {
 
-              axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+              return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
                 method: "GET",
                 withCredentials: true
               })
@@ -45,6 +45,8 @@ class Users extends Component {
                   users: tempArr
                 });
               })
+            } else {
+              return "wrong"
             }
           });
         })

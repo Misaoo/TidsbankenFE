@@ -17,7 +17,7 @@ class UserCard extends Component {
           
       
             
-           {this.props.vacation == 'no' && 
+           {this.props.vacation === 'no' && 
            <div className="userCardGreen">
                 <div className="imgContainer">
                     <img
@@ -35,7 +35,7 @@ class UserCard extends Component {
            </div>
           
            }  
-              { this.props.vacation == 'yes' && 
+              { this.props.vacation === 'yes' && 
               <div className="userCardRed">
                 <div className="imgContainer">
                     <img

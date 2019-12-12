@@ -37,6 +37,7 @@ const SideBarComponent = (props: any) => {
     if (user && user.userId) {
       getFromServer(user.userId); // Get image from server
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, [user]);
 
   // Gets all information from user on server and displays it. Example, image - name - email etc. 
@@ -71,7 +72,7 @@ const SideBarComponent = (props: any) => {
 
       updateUserImage(imageSrc);
       setImg(imageSrc);
-    }, [webcamRef, user]);
+    }, [webcamRef]);
 
     return (
       <>
@@ -215,7 +216,7 @@ const SideBarComponent = (props: any) => {
       <h1>
         {name} {lastName}
       </h1>
-      <h3>{admin == "1" ? "Admin" : "Employee"}</h3>
+      <h3>{admin === "1" ? "Admin" : "Employee"}</h3>
 
       <div className={sidebarStyles.text}>
         <label className={commonStyles.label} htmlFor="email">
