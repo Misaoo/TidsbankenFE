@@ -31,8 +31,6 @@ const UserCard = (props: any) => {
           <br />
           <b>Region:</b> {props.user.region}
           <br />
-          <b>Vacation:</b> {props.user.onVacation === 1 && "Yes"}
-          {props.user.onVacation === 0 && "No"}
         </div>
       </div>
     </div>
