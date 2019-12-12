@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
@@ -7,7 +7,6 @@ import UserCard from "./UserCard/UserCard";
 import AddUser from "./AddUser/AddUser";
 import "../general.css";
 import CardList from "../CardList/CardList";
-import authContext from "../../auth/AuthContext"
 
 const UsersTab = (props: any) => {
   let [users, setUsers] = useState()
@@ -34,16 +33,16 @@ const UsersTab = (props: any) => {
       withCredentials: true
     })
       .then((res: any) => {
-        res.data.map((user: any) => {
-          const userElement = (
+        const userElement = res.data.map((user: any) => {
+          return (
             <UserCard
               key={user.userId}
               user={user}
               updateUsers={() => getUserData()}
             ></UserCard>
           )
-          tempArr.push(userElement)
-        })        
+        })     
+        tempArr.push(userElement)   
         setUsers(tempArr)
       })
       .catch(error => {

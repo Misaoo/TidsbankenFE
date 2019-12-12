@@ -14,13 +14,6 @@ const Navbar = (props: any) => {
   return (
     <div className="navBarOuter">
       <div className="navbar">
-        <Link
-          className="navbarButton"
-          style={props.style.general}
-          to={{ pathname: "/admin/general" }}
-        >
-          General
-        </Link>
         {(loggedIn || loggedInAdmin) && (
           <>
             <Link
