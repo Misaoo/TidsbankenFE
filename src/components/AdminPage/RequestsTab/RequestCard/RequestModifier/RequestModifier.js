@@ -109,10 +109,12 @@ class RequestModifier extends Component {
               <h2>Request {this.props.requestData.requestId}</h2>
               <span className={styles2.closeButton} onClick={event => this.props.setDisplay()}><FontAwesomeIcon icon="times" /></span>
             </div>
-            <h2>
-              {this.props.requesterName} {this.props.requesterLastName}
-            </h2>
-            <ul>{this.state.dates}</ul>
+            <div className={styles.datesOverview}>
+              <h2>
+                {this.props.requesterName} {this.props.requesterLastName}
+              </h2>
+              <ul>{this.state.dates}</ul>
+            </div>
             {this.state.pending && !this.state.myRequest && (
               <div className={styles.verdictForms}>
                 <form onSubmit={this.handleSubmitVerdict} className={styles.verdictForm}>

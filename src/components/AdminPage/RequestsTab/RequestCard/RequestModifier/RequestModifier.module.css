@@ -115,8 +115,7 @@
 
 .comments {
   overflow-y: auto;
-  max-height: 50%;
-  min-height: 50%;
+  min-height: 25vh;
   border-style: solid;
   padding: 5px;
 }
@@ -138,4 +137,8 @@ textarea {
 .comment:hover {
   background-color: rgb(180, 180, 180);
   cursor: pointer;
+}
+
+.datesOverview {
+  margin-top: 50px;
 }
