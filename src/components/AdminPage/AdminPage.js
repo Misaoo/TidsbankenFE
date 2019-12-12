@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar/Navbar.tsx";
 import RequestTab from "./RequestsTab/RequestTab";
+import GeneralTab from "./GeneralTab/GeneralTab"; 
 import UsersTab from "./UsersTab/UsersTab.tsx";
 import "./general.css";
 
@@ -54,7 +55,18 @@ class AdminPage extends Component {
                 );
               }}
             ></Route>
-            <Redirect exact from="/admin" to="/admin/requests" />
+              <Route
+              path="/admin/general"
+              render={props => {
+                return (
+                  <GeneralTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
+            ></Route>
+            <Redirect exact from="/admin" to="/admin/users" />
           </Switch>
         </Router>
       </div>

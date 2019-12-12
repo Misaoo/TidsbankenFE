@@ -187,3 +187,26 @@
   margin-right:15px !important;
   background: btn-color;
 }
+.generalTab {
+  column-gap: 20px;
+  padding: 10px;
+}
+
+.generalTab > h1 {
+  grid-area: title;
+  margin-bottom: 5%;
+}
+
+.generalTab > p {
+  grid-area: info;
+  margin-bottom: 50px;
+  max-width: 50%;
+  min-width: 300px;
+}
+
+.generalTab > div:first-of-type, .generalTab > div:last-of-type {
+  box-shadow: 0 0 20px -12px #408bc4;
+  padding: 20px;
+  margin-bottom: 5%;
+}
+
