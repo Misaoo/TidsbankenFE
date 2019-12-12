@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserCard from "./UserCard";
+import Infobox from '../../components/common/infobox/Infobox';
+import bookingpicture from '../../pic/undraw_booking_33fn.svg';
 
 class Users extends Component {
   constructor(props) {
@@ -62,6 +64,12 @@ class Users extends Component {
   render() {
     return (
       <React.Fragment>
+         <Infobox className="infoBox" infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking" height="100px"/>}>
+            <h2>Employees page</h2>
+            <p>Here you can see your all managers in your region</p>
+            <h3>Employees status</h3>
+            <p>The ones that are in red are in vacation and not available at the moment</p>
+          </Infobox>
         <h1 className="userPageH1">Group Managers</h1>
         <div className="userPage">{this.state.users}</div>
       </React.Fragment>
