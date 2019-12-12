@@ -15,6 +15,7 @@
     grid-auto-rows: max-content;
 
   }
+  
   .userContent {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -28,6 +29,7 @@
   .userCardDescription {
     margin-left: 5%;
   }
+
   .requestContent {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -49,6 +51,7 @@
   .userCardDescription {
     margin-left: 5%;
   }
+
   .requestContent {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -58,8 +61,6 @@
 
   }
 }
-
-
 
 @media screen and (min-width: 1024px) {
   .userContent {
@@ -83,15 +84,9 @@
   }
 }
 
-.padding {
-  padding: 0 20px;
-}
-
 .indent {
   padding-left: 20px;
 }
-
-
 
 .userContent {
   display: grid;
@@ -188,44 +183,7 @@
   border-bottom-right-radius: 5px;
 }
 
-.buttonSize{
-  padding: 15px 14px !important;
-}
-
 .button{
   margin-right:15px !important;
   background: btn-color;
-}
-
-.generalTab {
-  grid-template-areas:
-  "title title"
-  "info info"
-  "max export";
-  column-gap: 20px;
-}
-
-.generalTab > h1 {
-  grid-area: title;
-  margin-bottom: 0;
-}
-
-.generalTab > p {
-  grid-area: info;
-  margin-bottom: 50px;
-  max-width: 50%;
-  min-width: 300px;
-}
-
-.generalTab > div:first-of-type, .generalTab > div:last-of-type {
-  box-shadow: 0 0 20px -12px #408bc4;
-  padding: 20px;
-}
-
-.generalTab > div:first-of-type {
-  grid-area: max;
-}
-
-.generalTab > div:last-of-type {
-  grid-area: export;
 }

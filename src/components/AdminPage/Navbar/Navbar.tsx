@@ -9,18 +9,10 @@ const Navbar = (props: any) => {
     user &&
     user.hasOwnProperty("name") &&
     user.hasOwnProperty("isAdmin") &&
-    user.isAdmin === 0;
   const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
   return (
     <div className="navBarOuter">
       <div className="navbar">
-        <Link
-          className="navbarButton"
-          style={props.style.general}
-          to={{ pathname: "/admin/general" }}
-        >
-          General
-        </Link>
         {(loggedIn || loggedInAdmin) && (
           <>
             <Link
@@ -30,6 +22,13 @@ const Navbar = (props: any) => {
             >
               Requests
             </Link>
+             <Link
+          className="navbarButton"
+          style={props.style.general}
+          to={{ pathname: "/admin/general" }}
+        >
+          General
+        </Link>
           </>
         )}
         <Link
