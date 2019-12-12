@@ -152,6 +152,33 @@ video{
         height: 100vh;
         width: auto;
         padding: 5%;
+        background-color: red;
+        box-shadow: 1px 1px 10px -3px;
+    }
+
+    .modalBtnContainer {
+        margin-top: 30%;
+    }
+    
+    .modalButtons {
+        background-color: #3A84B5;
+        border: 0px;
+        border-radius: 30px;
+        height: 40px;
+        width: 100%;
+        color: #fff;
+    }
+}
+
+/********************/
+/***** Tablet ******/
+/********************/
+@media (min-width: 1024px) and (max-width: 1424px) {
+    
+    .SideBarWrapper{
+        height: 100vh;
+        width: max-content;
+        padding: 5%;
         background-color: #fff;
         box-shadow: 1px 1px 10px -3px;
     }

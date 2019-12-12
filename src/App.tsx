@@ -2,11 +2,13 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import AuthRoute from "./components/auth/AuthRoute";
+import AuthRouteAdmin from "./components/auth/AuthRouteAdmin";
 import Auth from "./components/auth/Auth";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import "./App.css";
 import Header from "./components/common/header/Header";
 import ViewNotFound from "./views/common/ViewNotFound";
+import Unauthorized from "./views/common/Unauthorized"
 import ProfileView from "./views/profile/ProfileView";
 import Login from "./views/login/Login";
 import TwoFactorAuth from "./views/login/TwoFactorAuth";
@@ -44,13 +46,14 @@ const App: React.FC = () => {
             <Redirect exact from="/" to="/dashboard" />
             <Route path="/login" component={Login} />
             <Route path="/2fa" component={TwoFactorAuth} />
+            <Route path="/unauthorized" component={Unauthorized} />
             <AuthRoute path="/profile" component={ProfileView} />
             <AuthRoute path="/dashboard" component={Dashboard} />
             <AuthRoute path="/logout" component={Logout} />
             <AuthRoute path="/requests/:id" component={Requests} />
-            <AuthRoute path="/admin" component={AdminPage} />
-            <AuthRoute path="/users" component={Users} />
-            <AuthRoute path="/user/:user_id" component={User} />
+            <AuthRouteAdmin path="/admin" component={AdminPage} />
+            <AuthRouteAdmin path="/users" component={Users} />
+            <AuthRouteAdmin path="/user/:user_id" component={User} />
             <Route component={ViewNotFound} />
           </Switch>
         </Router>
