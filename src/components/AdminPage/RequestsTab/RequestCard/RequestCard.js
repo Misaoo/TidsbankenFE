@@ -11,7 +11,8 @@ class RequestCard extends Component {
       name: '',
       lastName: "",
       statusText: "",
-      dates: []
+      dates: [],
+      loading : false,
     };
     let keyVal = 0;
     this.props.request.dates.map(date => {
@@ -21,6 +22,7 @@ class RequestCard extends Component {
     });
   }
   componentDidMount() {
+    this.state.loading = true
     axios(
       process.env.REACT_APP_API_URL + "/user/" + this.props.request.userId,
       {
@@ -33,6 +35,8 @@ class RequestCard extends Component {
           name: res.data.name,
           lastName: res.data.lastName
         });
+        this.state.loading= false
+
       })
       .catch(error => {
         if (error.status === 401 || error.status === 403) {
@@ -49,7 +53,8 @@ class RequestCard extends Component {
   render() {
     return (
       <div className="cardBody">
-        {this.state.showPopup && (
+        {/* { && <p>loading</p>} */}
+        {this.state.showPopup && this.state.loading == false && (
           <RequestModifier
             requesterName={this.state.name}
             requesterLastName={this.state.lastName}
