@@ -8,7 +8,7 @@ const Navbar = (props: any) => {
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
-    user.hasOwnProperty("isAdmin") &&
+    user.hasOwnProperty("isAdmin") 
   const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
   return (
     <div className="navBarOuter">
