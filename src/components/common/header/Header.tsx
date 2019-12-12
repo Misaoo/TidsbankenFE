@@ -39,8 +39,7 @@ const Header = (props: any) => {
 
 
   /* Material ui varibles */
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -190,5 +189,3 @@ const Header = (props: any) => {
   );
 };
 export default Header;
-
-{/* <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography> */ }

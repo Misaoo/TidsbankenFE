@@ -35,7 +35,7 @@ class RequestTab extends Component {
     })
       .then(res => {
         res.data.map(req => {
-          requests.push(
+          return requests.push(
             <RequestCard
               key={req.requestId}
               request={req}

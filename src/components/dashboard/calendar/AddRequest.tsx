@@ -24,7 +24,7 @@ const AddRequest = (props: any) => {
     // Only have dates that are valid (ie. filter away ineligble days)
     useEffect(() => {
         setDates(validDatesInInterval(props.range, inelDays));
-    }, [props.range])
+    }, [props.range, inelDays])
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -35,7 +35,7 @@ const AddRequest = (props: any) => {
 
         // Format dates
         dates.map((date) => {
-            formatedDates = [...formatedDates, format(date, 'yyyy-MM-dd')];
+            return formatedDates = [...formatedDates, format(date, 'yyyy-MM-dd')];
         });
 
         if (formatedDates && formatedDates.length > 0) {
@@ -80,7 +80,7 @@ const AddRequest = (props: any) => {
     const createDays = () => {
         let arr: any = [];
         dates.map((date: any, index: number) => {
-            arr = [...arr, <div key={index} title={format(date, 'EEE do MMMM')}>{format(date, 'yyyy-MM-dd')}</div>]
+            return arr = [...arr, <div key={index} title={format(date, 'EEE do MMMM')}>{format(date, 'yyyy-MM-dd')}</div>]
         });
         return arr;
     }

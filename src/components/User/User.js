@@ -5,9 +5,6 @@ import UserCard from "../Users/UserCard";
 import Infobox from '../../components/common/infobox/Infobox';
 import bookingpicture from '../../pic/undraw_booking_33fn.svg';
 
-
-import { Link } from "react-router-dom";
-
 class User extends Component {
   constructor(props) {
     super(props);
@@ -54,7 +51,7 @@ class User extends Component {
                 res.data.map(user => {
                   if (user.userId !== userdata.data.userId) {
       
-                    axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+                    return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
                       method: "GET",
                       withCredentials: true
                     })
@@ -71,6 +68,8 @@ class User extends Component {
                         users: tempArr
                       });
                     })
+                  } else {
+                    return "wrong"
                   }
                 });
               })

@@ -105,8 +105,8 @@ const Calendar = (props: any) => {
             .then((res: any) => {
                 setInelDays(res.data);
             })
-            .catch((error: any) => {
-                console.log(error);
+            .catch(() => {
+                // do something
             })
     }, [updateIneligible]);
 

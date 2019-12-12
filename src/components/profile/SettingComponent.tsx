@@ -1,11 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../auth/AuthContext';
 import SettingsStyles from '../../css/profile/SettingComponent.module.css';
 import commonStyles from '../../css/Common.module.css';
 import API from '../../api/API';
 import Modal from '../common/modal/Modal';
-import authpicture from '../../pic/undraw_authentication_fsn5.svg';
-import removepicture from '../../pic/undraw_notify_88a4.svg';
 
 /* This file controlls three buttons in the profile page: 
         1. change password 
