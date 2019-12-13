@@ -7,7 +7,7 @@
   }  
 
   .content {
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 100%;
   }
 
   .commentsContainer {
@@ -149,7 +149,7 @@
 
 @media screen and (min-width: 800px) {
     .content {
-        grid-template-columns: 35% 65%;
+        grid-template-columns: 100%;
     }
 }
 

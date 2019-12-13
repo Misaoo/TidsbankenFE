@@ -68,13 +68,10 @@
 }
 
 .header {
-    position: absolute;
     background: #3A84B5;
     height: 50px;
-    top: 0;
-    left: 0;
-    right: 0;
     color: white;
+    margin: -20px -20px 0 -20px;
 }
 
 .header h2 {
