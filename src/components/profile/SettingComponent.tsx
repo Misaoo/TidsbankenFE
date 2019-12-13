@@ -23,11 +23,20 @@ const SettingComponent = (props: any) => {
     let [isRequested, setIsRequested] = useState(false); // bool that determains which buttons to show in the request remove account modal ()
     let [passwdStatus, setPasswdStatus] = useState(false); // bool that determains which buttons to show in the update password modal
     let [passwdMsg, setPasswdMsg] = useState(); // displays error and success messages to the user
-
     /*******************************/
     /* AUTHENTICATION */
     /*******************************/
+    const loggedInAdmin =
+    user &&
+    user.hasOwnProperty("name") &&
+    user.hasOwnProperty("isAdmin") &&
+    user.isAdmin == 1 ;
 
+    const loggedIn =
+    user &&
+    user.hasOwnProperty("name") &&
+    user.hasOwnProperty("isAdmin") &&
+    user.isAdmin == 0 ;
     function removeAccountModal() { setshowModal2(true); }
     // checks if user have two factor authentication and sets and send the infomration to NewAuth that sets it in a useState. 
 
@@ -124,8 +133,7 @@ const SettingComponent = (props: any) => {
     return (
         <div className={SettingsStyles.wrapper}>
             <button className={[commonStyles.button, SettingsStyles.button].join(" ")} value="changePassword" onClick={UpdatePasswordModal}>Change Password</button>
-            <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={removeAccountModal}>Remove account</button>
-
+            {loggedIn  && <button className={[commonStyles.button, SettingsStyles.button].join(" ")} onClick={removeAccountModal}>Remove account</button>}
             <Modal display={showModal} setDisplay={setshowModal} title="New password">
                 <div className={commonStyles.buttonplacement}>{ passwdMsg }<br /></div>
                 {(() => {
