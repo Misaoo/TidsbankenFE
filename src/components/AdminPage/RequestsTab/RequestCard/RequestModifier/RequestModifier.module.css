@@ -1,4 +1,11 @@
 @media screen and (min-width: 600px) {
+  .comments {
+    overflow-y: auto;
+    min-height: 10vh;
+    border-style: solid;
+    padding: 5px;
+  }  
+
   .content {
     grid-template-columns: 35% 65%;
   }
@@ -24,6 +31,7 @@
     flex-direction: column;
     width: 50%;
     margin-bottom: 5%;
+    justify-content: left;
   }
 
   .deleteForm {
@@ -34,6 +42,7 @@
   .requestDeleteButton {
     width: 50%;
     align-self: flex-end;
+    margin: 5px;
   }
 
   .commentButton {
@@ -45,9 +54,26 @@
     max-width: 72%;
   }
   
+  .radios {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .cmdBtns {
+    display: flex;
+    flex-direction: row;
+    padding-top: 2%;
+  }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 599px) {
+  .comments {
+    overflow-y: auto;
+    min-height: 25vh;
+    border-style: solid;
+    padding: 5px;
+  }  
+
   .verdictForms {
     display: flex;
     flex-direction: row;
@@ -62,6 +88,7 @@
 
   .deleteForm {
     display: flex;
+    flex-direction: column;
   }
 
   .requestDeleteButton {
@@ -70,6 +97,17 @@
 
   .commentSubmit {
     margin-top: 2%;
+  }
+
+  .radios {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .cmdBtns {
+    display: flex;
+    flex-direction: row;
+    padding-top: 2%;
   }
 }
 
@@ -117,13 +155,6 @@
 
 .content p {
   margin: 0;
-}
-
-.comments {
-  overflow-y: auto;
-  min-height: 25vh;
-  border-style: solid;
-  padding: 5px;
 }
 
 .commentButton {

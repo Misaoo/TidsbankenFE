@@ -118,32 +118,35 @@ class RequestModifier extends Component {
             {this.state.pending && !this.state.myRequest && (
               <div className={styles.verdictForms}>
                 <form onSubmit={this.handleSubmitVerdict} className={styles.verdictForm}>
-                  <input
-                    type="radio"
-                    name="verdict"
-                    value="2"
-                    onChange={this.handleChangeVerdict}
-                    placeholder="Approve"
-                  ></input>
-                  <label>Approve</label>
+                  <div className={styles.radios}>
+                    <input
+                      type="radio"
+                      name="verdict"
+                      value="2"
+                      onChange={this.handleChangeVerdict}
+                      placeholder="Approve"
+                    ></input>
+                    <label>Approve</label>
+                    <br></br>
+                    <input
+                      type="radio"
+                      name="verdict"
+                      value="1"
+                      onChange={this.handleChangeVerdict}
+                      placeholder="Deny"
+                    ></input>
+                    <label>Deny</label>
+                    <br></br>
+                  </div>
                   <br></br>
-                  <input
-                    type="radio"
-                    name="verdict"
-                    value="1"
-                    onChange={this.handleChangeVerdict}
-                    placeholder="Deny"
-                  ></input>
-                  <label>Deny</label>
-                  <br></br>
-                  <Button variant="contained" type="submit" color="primary">
-                    Submit
-                  </Button>
-                </form>
-                <form onSubmit={this.handleSubmitDelete} className={styles.deleteForm}>
-                  <Button variant="contained" type="submit" color="secondary" className={styles.requestDeleteButton}>
-                    Delete
-                  </Button>
+                  <div className={styles.cmdBtns}>
+                    <Button variant="contained" type="submit" color="primary">
+                      Submit
+                    </Button>
+                    <Button variant="contained" type="submit" color="secondary" className={styles.requestDeleteButton} onClick={this.handleSubmitDelete}>
+                      Delete
+                    </Button>
+                  </div>
                 </form>
               </div>
             )}
