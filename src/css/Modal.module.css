@@ -70,8 +70,8 @@
 .header {
     background: #3A84B5;
     height: 50px;
-    margin: -20px -20px 20px -20px;
     color: white;
+    margin: -20px -20px 0 -20px;
 }
 
 .header h2 {
