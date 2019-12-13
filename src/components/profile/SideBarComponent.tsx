@@ -212,7 +212,7 @@ const SideBarComponent = (props: any) => {
             <p>Webcam picture</p>
           </div>
         </div>
-        <img src={img} alt="profilepicture" />
+        <img src={img} height="200" width="240" alt="profilepicture" />
       </div>
 
       <h1>
