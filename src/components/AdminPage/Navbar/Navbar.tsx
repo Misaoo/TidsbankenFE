@@ -13,7 +13,13 @@ const Navbar = (props: any) => {
   return (
     <div className="navBarOuter">
       <div className="navbar">
-     
+      <Link
+          className="navbarButton"
+          style={props.style.users}
+          to={{ pathname: "/admin/users" }}
+        >
+          Users
+        </Link>
         {( loggedInAdmin) && (
           <>
             <Link
@@ -32,13 +38,7 @@ const Navbar = (props: any) => {
         </Link>
           </>
         )}
-        <Link
-          className="navbarButton"
-          style={props.style.users}
-          to={{ pathname: "/admin/users" }}
-        >
-          Users
-        </Link>
+      
       </div>
     </div>
   )
