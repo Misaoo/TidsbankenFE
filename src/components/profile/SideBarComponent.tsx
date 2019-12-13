@@ -34,6 +34,7 @@ const SideBarComponent = (props: any) => {
   /* GENERAL */
   /**********************/
   useEffect(() => {
+    setBrowsePic(null)
     if (user && user.userId) {
       getFromServer(user.userId); // Get image from server
     }
@@ -137,6 +138,7 @@ const SideBarComponent = (props: any) => {
         if (res.status === 200) {
           setImgUploadMsg('Image uploaded.')
           setImg(base64data);
+          setshowModalPicture(false)
         }
       })
         .catch((error) => {
@@ -254,8 +256,9 @@ const SideBarComponent = (props: any) => {
             {imgUploadMsg}
             <br />
             <button
-              type="submit"
               className={commonStyles.buttonpa}
+              disabled={(browsePic === null)}
+              type="submit"
             >
               Save
             </button>
