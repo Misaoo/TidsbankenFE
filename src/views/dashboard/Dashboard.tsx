@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AuthContext from "../../components/auth/AuthContext";
 import Calendar from '../../components/dashboard/calendar/Calendar';
-
+import Users from '../../components/Users/Users'
 const Dashboard = (props:any) => {
     const { user } = useContext(AuthContext);
     const loggedIn =
@@ -23,7 +23,7 @@ const Dashboard = (props:any) => {
         )}
 
         {loggedInSuperUser && (
-            <h1>SUPERUSER</h1>
+            <Users/>
         )}
       </>
     )

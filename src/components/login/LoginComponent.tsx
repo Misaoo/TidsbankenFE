@@ -14,7 +14,6 @@ const LoginComponent = (props: any) => {
     const [success, setSuccess] = useState(false);          // handles if the user has a successfull login
     const [error, setError] = useState(false);              // handles error
     const [loggedIn, setLoggedIn] = useState(false);        // handles if the user has a successfull login
-    const [loggedIn2fa, setLoggedIn2fa] = useState(false);  // handles if the user has a successfull login and have 2fa
     const [message, setMessage] = useState("");             // What message to show user if he/she get unsuccesfull login
     const [btnDisabled, setBtnDisabled] = useState(false);  // disables the button when user have an unsuccesful login
     const [input, setInput] = useState({                    // Input for email and password
@@ -145,7 +144,6 @@ const LoginComponent = (props: any) => {
   return (
     <>
       {success && loggedIn ? <Redirect to="/dashboard" /> : ""}
-      {success && loggedIn2fa ? <Redirect to="/2fa" /> : ""}
       <div id={styles.login_wrapper}>
         <h1>LOGIN</h1>
         <form onSubmit={handleSubmit}>

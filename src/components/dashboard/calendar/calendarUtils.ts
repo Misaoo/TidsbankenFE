@@ -14,8 +14,10 @@ export const isIneligible = (date: Date, ineligibleDates: []): boolean => {
     let output = false;
     ineligibleDates.map((inelDate: any) => {
         if (isSameDay(date, new Date(inelDate.date))) {
-            output = true;
-        };
+            return output = true;
+        } else {
+            return output
+        }
     });
     return output;
 }
@@ -51,7 +53,9 @@ export const validDatesInInterval = (interval: Interval, dates: []): Date[] => {
 
     eachDay.map((date: Date) => {
         if (!isIneligible(date, dates)) {
-            validDates.push(date);
+            return validDates.push(date);
+        } else {
+            return validDates
         }
     })
     return validDates;
@@ -75,7 +79,9 @@ export const datesInInterval = (interval: Interval, dates: []): boolean => {
 
     dates.map((date: any) => {
         if (isWithinInterval(new Date(date.date), interval)) {
-            output = true;
+            return output = true;
+        } else {
+            return output
         }
     });
 

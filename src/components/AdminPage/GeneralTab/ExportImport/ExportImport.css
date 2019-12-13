@@ -1,15 +1,15 @@
 .exportParent {
-  display: grid;
-  grid-template-areas:
-    ". downloadButton"
-    "exportarea exportarea";
-  grid-template-columns: 60% 40%;
-}
-
-.downloadButton {
-  grid-area: downloadButton;
-}
-
-.exportarea {
-  grid-area: exportarea;
-}
+    display: grid;
+    grid-template-areas:
+      ". downloadButton"
+      "exportarea exportarea";
+    grid-template-columns: 60% 40%;
+  }
+  
+  .downloadButton {
+    grid-area: downloadButton;
+  }
+  
+  .exportarea {
+    grid-area: exportarea;
+  }

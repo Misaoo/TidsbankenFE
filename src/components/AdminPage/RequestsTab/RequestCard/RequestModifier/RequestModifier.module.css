@@ -109,6 +109,12 @@
   overflow-y: auto;
 }
 
+@media screen and (min-width: 800px) {
+    .content {
+        grid-template-columns: 35% 65%;
+    }
+}
+
 .content p {
   margin: 0;
 }

@@ -68,8 +68,12 @@
 }
 
 .header {
+<<<<<<< HEAD
     position: absolute;
     background: linear-gradient(151deg, rgb(41, 130, 123) 0%, rgb(66, 140, 202) 100%);
+=======
+    background: #3A84B5;
+>>>>>>> 2ccc58c246965f5bacbe5822141b0deab3a4953c
     height: 50px;
     top: 0;
     left: 0;

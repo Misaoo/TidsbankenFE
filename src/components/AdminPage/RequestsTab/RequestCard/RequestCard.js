@@ -8,19 +8,21 @@ class RequestCard extends Component {
     super(props);
     this.state = {
       showPopup: false,
-      name: this.props.request.userId,
+      name: '',
       lastName: "",
       statusText: "",
-      dates: []
+      dates: [],
+      loading : false,
     };
     let keyVal = 0;
     this.props.request.dates.map(date => {
-      this.state.dates.push(
+      return this.state.dates.push(
         <li key={keyVal++}>{new Date(date).toLocaleDateString("se")}</li>
       );
     });
   }
   componentDidMount() {
+    this.state.loading = true
     axios(
       process.env.REACT_APP_API_URL + "/user/" + this.props.request.userId,
       {
@@ -33,6 +35,8 @@ class RequestCard extends Component {
           name: res.data.name,
           lastName: res.data.lastName
         });
+        this.state.loading= false
+
       })
       .catch(error => {
         if (error.status === 401 || error.status === 403) {
@@ -49,7 +53,8 @@ class RequestCard extends Component {
   render() {
     return (
       <div className="cardBody">
-        {this.state.showPopup && (
+        {/* { && <p>loading</p>} */}
+        {this.state.showPopup && this.state.loading == false && (
           <RequestModifier
             requesterName={this.state.name}
             requesterLastName={this.state.lastName}
@@ -64,11 +69,11 @@ class RequestCard extends Component {
             this.setPopup();
           }}
         >
-          <b>Request ID:</b> {this.props.request.requestId}
           <br />
-          <b>Dates:</b> <ul>{this.state.dates}</ul>
+          <b>Start date:</b> <ul>{this.state.dates[0]}</ul>
+          <b>End date:</b> <ul>{this.state.dates[this.state.dates.length - 1]}</ul>
           <br />
-          <b>Requester:</b> {this.state.name} {this.state.lastName}
+          <b>Employee:</b> {this.state.name} {this.state.lastName}
         </div>
       </div>
     );

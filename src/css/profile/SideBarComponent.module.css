@@ -1,32 +1,23 @@
-@value global: "../global.css";
-@value grey-text-color from global;
+
 
 /*******************/
-/***** OVERALL *****/
+/***** Sidebar *****/
 /*******************/
 .SideBarWrapper{
-    margin:15px;
-    position: relative;
+    height: 100vh;
+    padding: 5%;
+    background-color: #fff;
+    box-shadow: 1px 1px 5px -3px #000;
 }
 
-.SideBarWrapper h1, .SideBarWrapper h3{
+.SideBarWrapper h1 {
     text-align:center;
 }
-
-.text > p {
-    display: inline;
-    position: absolute;
-    right:15px;
-    bottom:22px;
-    font-style: italic;
-    color: third-text-color;
+.SideBarWrapper h3 {
+    text-align:center;
+    font-weight: lighter;
 }
 
-.SideBarWrapper > form > h3{
-    color: grey-text-color;
-    margin-top:-10px;
-    font-weight: normal;
-}
 
 /*******************/
 /***** IMAGE *****/
@@ -38,10 +29,10 @@
     height: 22vw;
     width: 22vw;
 
-    max-width: 325px;
-    max-height: 325px;
-    min-width: 175px;
-    min-height: 175px;
+    max-width: 200px;
+    max-height: 200px;
+    min-width: 180px;
+    min-height: 180px;
     
     margin-left: 25px;
     margin-right: 25px;
@@ -49,13 +40,6 @@
     border-radius: 50%;
     text-align: center;
     overflow: hidden;
-    margin:auto;
-}
-
-.SideBarWrapper img{
-    display: block;
-    width: auto;
-    height: 100%;
     margin:auto;
 }
 
@@ -96,20 +80,14 @@
     background-color:rgba(0,0,0,0.5);
 }
 
-/*******************/
-/***** INPUT *****/
-/*******************/
-.SideBarWrapper input{
-    display: block;
-    width:100%;
-}
+
 
 /*****************/
 /***** VIDEO *****/
 /*****************/
 video{
     height: 100%;
-    width:100%;
+    width:auto !important;
 }
 
 .screenshotButton{
@@ -117,22 +95,104 @@ video{
     position: relative;
 }
 
-/******************/
-/***** BUTTON *****/
-/******************/
-.buttonTweaks{
-    position: absolute;
-    width: calc(100% - 45px);
-    bottom: 0;
+
+/*************************/
+/***** Modal Buttons *****/
+/*************************/
+.modalBtnContainer {
+    margin-top: 20%;
 }
 
-.buttonTweaks_webcam{
-    position: absolute;
-    width: calc(100% - 75px);
-    bottom: 35px;
-    margin: auto;
-    left: 0;
-    right: 0;
+.modalButtons {
+    background-color: #3A84B5;
+    border: 0px;
+    border-radius: 30px;
+    height: 40px;
+    width: 100%;
+    color: #fff;
 }
 
 
+
+
+/********************/
+/***** Mobile ******/
+/********************/
+@media (min-width: 360px) and (max-width: 600px) {
+
+    .SideBarWrapper{
+        height: auto;
+        width: auto;
+        padding: 5%;
+        background-color: #fff;
+        box-shadow: 1px 1px 5px -3px #000;
+    }
+
+    .modalBtnContainer {
+        margin-top: 30%;
+    }
+    
+    .modalButtons {
+        background-color: #3A84B5;
+        border: 0px;
+        border-radius: 30px;
+        height: 40px;
+        width: 100%;
+        color: #fff;
+    }
+    
+}
+
+/********************/
+/***** Tablet ******/
+/********************/
+@media (min-width: 768px) and (max-width: 1024px) {
+    
+    .SideBarWrapper{
+        height: 100vh;
+        width: auto;
+        padding: 5%;
+        background-color: red;
+        box-shadow: 1px 1px 10px -3px;
+    }
+
+    .modalBtnContainer {
+        margin-top: 30%;
+    }
+    
+    .modalButtons {
+        background-color: #3A84B5;
+        border: 0px;
+        border-radius: 30px;
+        height: 40px;
+        width: 100%;
+        color: #fff;
+    }
+}
+
+/********************/
+/***** Tablet ******/
+/********************/
+@media (min-width: 1024px) and (max-width: 1424px) {
+    
+    .SideBarWrapper{
+        height: 100vh;
+        width: max-content;
+        padding: 5%;
+        background-color: #fff;
+        box-shadow: 1px 1px 10px -3px;
+    }
+
+    .modalBtnContainer {
+        margin-top: 30%;
+    }
+    
+    .modalButtons {
+        background-color: #3A84B5;
+        border: 0px;
+        border-radius: 30px;
+        height: 40px;
+        width: 100%;
+        color: #fff;
+    }
+}

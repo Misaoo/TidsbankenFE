@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
-import GeneralTab from "./GeneralTab/GeneralTab";
+import Navbar from "./Navbar/Navbar.tsx";
 import RequestTab from "./RequestsTab/RequestTab";
-import UsersTab from "./UsersTab/UsersTab";
+import GeneralTab from "./GeneralTab/GeneralTab"; 
+import UsersTab from "./UsersTab/UsersTab.tsx";
 import "./general.css";
 
 class AdminPage extends Component {
@@ -34,17 +34,6 @@ class AdminPage extends Component {
           <Navbar style={this.state.style} />
           <Switch>
             <Route
-              path="/admin/general"
-              render={props => {
-                return (
-                  <GeneralTab
-                    {...props}
-                    updateStyling={this.updateStyling.bind(this)}
-                  />
-                );
-              }}
-            ></Route>
-            <Route
               path="/admin/requests"
               render={props => {
                 return (
@@ -66,7 +55,18 @@ class AdminPage extends Component {
                 );
               }}
             ></Route>
-            <Redirect exact from="/admin" to="/admin/general" />
+              <Route
+              path="/admin/general"
+              render={props => {
+                return (
+                  <GeneralTab
+                    {...props}
+                    updateStyling={this.updateStyling.bind(this)}
+                  />
+                );
+              }}
+            ></Route>
+            <Redirect exact from="/admin" to="/admin/users" />
           </Switch>
         </Router>
       </div>
