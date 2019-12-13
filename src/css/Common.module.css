@@ -95,6 +95,14 @@
   color: lightgrey;
   cursor: default;
 }
+
+.button:disabled,
+.buttonpa[disabled]{
+  border: 1px solid #999999;
+  background: disabled-btn-bg-color;
+  color: lightgrey;
+  cursor: default;
+}
 .buttonplacement {
     text-align: center;
 }
