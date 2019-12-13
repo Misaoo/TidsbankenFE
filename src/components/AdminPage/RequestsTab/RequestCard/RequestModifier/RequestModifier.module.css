@@ -69,7 +69,7 @@
 @media screen and (max-width: 599px) {
   .comments {
     overflow-y: auto;
-    min-height: 25vh;
+    min-height: 15vh;
     border-style: solid;
     padding: 5px;
   }  
@@ -177,5 +177,5 @@ textarea {
 }
 
 .datesOverview {
-  margin-top: 50px;
+  
 }

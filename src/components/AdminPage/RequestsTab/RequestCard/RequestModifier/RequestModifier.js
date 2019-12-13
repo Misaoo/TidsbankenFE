@@ -150,8 +150,6 @@ class RequestModifier extends Component {
                 </form>
               </div>
             )}
-          </div>
-          <div>
             <CommentSection requestId={this.props.requestData.requestId} />
           </div>
         </div>
