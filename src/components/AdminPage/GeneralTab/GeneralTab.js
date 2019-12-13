@@ -85,7 +85,7 @@ const GeneralTab = props => {
                 label="New max vacation days"
                 onChange={handleChange}
               />
-              <Button className="buttonSize" variant="contained" type="submit">
+              <Button className="buttonSize" variant="contained" type="submit" color="primar">
                 Set
               </Button>
             </form>

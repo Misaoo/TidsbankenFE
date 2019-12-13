@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserCard from "./UserCard";
+import Infobox from '../../components/common/infobox/Infobox';
+import bookingpicture from '../../pic/undraw_booking_33fn.svg';
 
 class Users extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class Users extends Component {
           res.data.map(user => {
             if (user.userId !== userdata.data.userId) {
 
-              axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+              return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
                 method: "GET",
                 withCredentials: true
               })
@@ -43,6 +45,8 @@ class Users extends Component {
                   users: tempArr
                 });
               })
+            } else {
+              return "wrong"
             }
           });
         })
@@ -62,6 +66,12 @@ class Users extends Component {
   render() {
     return (
       <React.Fragment>
+         <Infobox className="infoBox" infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking" height="100px"/>}>
+            <h2>Employees page</h2>
+            <p>Here you can see your all managers in your region</p>
+            <h3>Employees status</h3>
+            <p>The ones that are in red are in vacation and not available at the moment</p>
+          </Infobox>
         <h1 className="userPageH1">Group Managers</h1>
         <div className="userPage">{this.state.users}</div>
       </React.Fragment>

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./User.css";
 import UserCard from "../Users/UserCard";
-
-import { Link } from "react-router-dom";
+import Infobox from '../../components/common/infobox/Infobox';
+import bookingpicture from '../../pic/undraw_booking_33fn.svg';
 
 class User extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class User extends Component {
                 res.data.map(user => {
                   if (user.userId !== userdata.data.userId) {
       
-                    axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+                    return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
                       method: "GET",
                       withCredentials: true
                     })
@@ -68,6 +68,8 @@ class User extends Component {
                         users: tempArr
                       });
                     })
+                  } else {
+                    return "wrong"
                   }
                 });
               })
@@ -98,6 +100,12 @@ class User extends Component {
   render() {
     return (
       <React.Fragment>
+            <Infobox className="infoBox" infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking" height="100px"/>}>
+            <h2>Employees page</h2>
+            <p>Here you can see your all employees in one group</p>
+            <h3>Employees status</h3>
+            <p>The ones that are in red are in vacation and not available at the moment</p>
+          </Infobox>
       <h1 className="userPageH1">Group Employees</h1>
       <p className="userPageH1">   Group Manager  : {this.state.name} {this.state.lastName}</p>
       <div className="userPage">{this.state.users}</div>

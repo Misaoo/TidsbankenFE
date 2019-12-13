@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../auth/AuthContext";
 import styles from "../../../css/Header.module.css";
-import commonStyles from "../../../css/Common.module.css";
-import Dropdown from "../dropdown/Dropdown";
-import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 /* Material Ui */
 import AppBar from "@material-ui/core/AppBar";
@@ -15,7 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Collapse from '@material-ui/core/Collapse';
-import Menu from '@material-ui/core/Menu';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -29,8 +24,6 @@ const Header = (props: any) => {
 
   const { user } = useContext(AuthContext);
 
-  const [liArray, setLiArray] = useState<any[]>([]); // Used for li html elements
-  const [update, setUpdate] = useState<any>([]); // Used for li html elements
   const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
@@ -46,14 +39,8 @@ const Header = (props: any) => {
 
 
   /* Material ui varibles */
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [open, setOpen] = React.useState(false);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const [open, setOpen] = useState(false);
+
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
   };
@@ -94,13 +81,13 @@ const Header = (props: any) => {
                 {loggedIn && (
                   <div>
                     <MenuItem>
-                      <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={handleClose}> Dashboard </NavLink>
+                      <NavLink activeClassName={styles.activeLinks} to="/dashboard" onClick={handleToggle}> Dashboard </NavLink>
                     </MenuItem>
                     <MenuItem>
-                      <NavLink activeClassName={styles.activeLinks} to="/profile" onClick={handleClose}> {(user && user.name)} </NavLink>
+                      <NavLink activeClassName={styles.activeLinks} to="/profile" onClick={handleToggle}> {(user && user.name)} </NavLink>
                     </MenuItem>
                     <MenuItem>
-                      <NavLink activeClassName={styles.activeLinks} to="/logout" onClick={handleClose}> Logout </NavLink>
+                      <NavLink activeClassName={styles.activeLinks} to="/logout" onClick={handleToggle}> Logout </NavLink>
                     </MenuItem>
                   </div>
                 )}
@@ -202,5 +189,3 @@ const Header = (props: any) => {
   );
 };
 export default Header;
-
-{/* <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography> */ }

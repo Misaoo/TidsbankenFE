@@ -18,7 +18,8 @@ const AddUser = (props:any) => {
   function handleChangePasswordBottom(event: any) {setPasswordBottom(event.target.value)}
 
   useEffect(() => {
-    props.updateStyling(props.styling);
+    props.updateStyling(props.styling)
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, [])
 
   function handleSubmit(event: any) {

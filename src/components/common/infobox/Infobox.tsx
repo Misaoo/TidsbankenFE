@@ -27,7 +27,7 @@ const Infobox = (props: any) => {
         } else {
             setHide(false);
         }
-    }, []);
+    }, [props.infoboxId]);
 
     const handleClick = (event: any) => {
         setHide(r => !r);
