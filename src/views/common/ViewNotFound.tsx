@@ -1,6 +1,10 @@
+//Library imports
 import React from 'react';
+
+//Style imports
 import commonStyles from '../../css/Common.module.css';
 
+//ViewNotFound-hook
 const ViewNotFound: React.FC<{location: any, match: any}> = (props) => (
     <>
         <div className={commonStyles.buttonplacement}>
@@ -10,4 +14,5 @@ const ViewNotFound: React.FC<{location: any, match: any}> = (props) => (
     </>
 )
 
+//Component export
 export default ViewNotFound;
