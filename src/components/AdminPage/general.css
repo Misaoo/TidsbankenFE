@@ -1,29 +1,95 @@
 @value global: "./global.css";
 @value btn-color from global;
 
-.padding {
-  padding: 0 20px;
+
+@media (min-width: 200px) and (max-width: 460px) {
+  .userCardDescription {
+    margin-left: 10%;
+  }
+
+  .requestContent {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    padding: 20px;
+    gap: 20px;
+    grid-auto-rows: max-content;
+
+  }
+  
+  .userContent {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 460px) and (max-width: 768px) {
+  .userContent {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .userCardDescription {
+    margin-left: 5%;
+  }
+
+  .requestContent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px;
+    gap: 20px;
+    grid-auto-rows: max-content;
+
+  }
+}
+
+/*******************/
+/***** Tablet *****/
+/*******************/
+@media (min-width: 768px) and (max-width: 1024px) {
+  .userContent {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .userCardDescription {
+    margin-left: 5%;
+  }
+
+  .requestContent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+    gap: 20px;
+    grid-auto-rows: max-content;
+
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .userContent {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .userCardDescription {
+    margin-left: 2.5%;
+  }
+
+  .requestContent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px;
+    gap: 20px;
+    grid-auto-rows: max-content;
+    /* grid-column-gap: 2%; */
+    /* column-gap: 2%; */
+    /* grid-row-gap: 4%; */
+    /* row-gap: 1%; */
+  }
 }
 
 .indent {
   padding-left: 20px;
 }
 
-.requestContent {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 20px;
-  gap: 20px;
-  grid-auto-rows: max-content;
-  /* grid-column-gap: 2%; */
-  /* column-gap: 2%; */
-  /* grid-row-gap: 4%; */
-  /* row-gap: 1%; */
-}
-
 .userContent {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   padding: 20px;
   column-gap: 2%;
   row-gap: 4%;
@@ -117,27 +183,18 @@
   border-bottom-right-radius: 5px;
 }
 
-.buttonSize{
-  padding: 15px 14px !important;
-}
-
 .button{
   margin-right:15px !important;
   background: btn-color;
 }
-
 .generalTab {
-  display: grid;
-  grid-template-areas:
-  "title title"
-  "info info"
-  "max export";
   column-gap: 20px;
+  padding: 10px;
 }
 
 .generalTab > h1 {
   grid-area: title;
-  margin-bottom: 0;
+  margin-bottom: 5%;
 }
 
 .generalTab > p {
@@ -150,12 +207,6 @@
 .generalTab > div:first-of-type, .generalTab > div:last-of-type {
   box-shadow: 0 0 20px -12px #408bc4;
   padding: 20px;
+  margin-bottom: 5%;
 }
 
-.generalTab > div:first-of-type {
-  grid-area: max;
-}
-
-.generalTab > div:last-of-type {
-  grid-area: export;
-}

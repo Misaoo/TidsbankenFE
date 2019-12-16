@@ -56,7 +56,7 @@ class CommentSection extends Component {
       .then(res => {
         res.data.reverse();
         res.data.map(comment => {
-          tempComments.push(
+          return tempComments.push(
             <Comment
               key={comment.commentId}
               comment={comment}
@@ -77,27 +77,27 @@ class CommentSection extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className={styles.commentsContainer}>
         <h3>Comments</h3>
         <div className={styles.comments}>{this.state.comments}</div>
         <form className={styles.commentSubmit} onSubmit={this.handleSubmit}>
-          <div>
+          <div className={styles.commentTextfield}>
             <TextField
               name="text"
-              rows="3"
-              cols="40"
+              rows="1"
+              fullWidth={true}
               variant="outlined"
               label="Comment here..."
               onChange={this.handleChange}
             ></TextField>
           </div>
-          <div>
-            <Button variant="contained" type="submit">
+          <div className={styles.commentButton}>
+            <Button variant="contained" type="submit" color="primary">
               Comment
             </Button>
           </div>
         </form>
-      </React.Fragment>
+      </div>
     );
   }
 }

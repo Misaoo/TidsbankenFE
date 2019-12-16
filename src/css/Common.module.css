@@ -81,7 +81,7 @@
 }
 .button:hover {
     cursor: pointer;
-    background: linear-gradient(151deg, rgb(39, 112, 106) 0%, rgb(65, 126, 177) 100%);
+    /*background: linear-gradient(151deg, rgb(39, 112, 106) 0%, rgb(65, 126, 177) 100%);*/
 }
 
 .button:focus {
@@ -90,6 +90,14 @@
 
 .button:disabled,
 .button[disabled]{
+  border: 1px solid #999999;
+  background: disabled-btn-bg-color;
+  color: lightgrey;
+  cursor: default;
+}
+
+.button:disabled,
+.buttonpa[disabled]{
   border: 1px solid #999999;
   background: disabled-btn-bg-color;
   color: lightgrey;

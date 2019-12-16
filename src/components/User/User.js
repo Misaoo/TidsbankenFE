@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./User.css";
-import { Link } from "react-router-dom";
+import UserCard from "../Users/UserCard";
+import Infobox from '../../components/common/infobox/Infobox';
+import bookingpicture from '../../pic/undraw_booking_33fn.svg';
 
 class User extends Component {
   constructor(props) {
@@ -11,7 +13,9 @@ class User extends Component {
       name: "",
       lastName: "",
       profilePic: "",
-      requests: []
+      groupId : '',
+      vacation: '',
+      users: []
     };
   }
   componentDidMount() {
@@ -27,68 +31,85 @@ class User extends Component {
       .then(res => {
         this.setState({
           name: res.data.name,
+          groupId : res.data.groupId,
           lastName: res.data.lastName,
           profilePic: res.data.profilePic
         });
+      })
+      .then(() => {
+        let tempArr = [];
+        axios(process.env.REACT_APP_API_URL + "/authorize", {
+          method: "POST",
+          withCredentials: true
+        })
+          .then(userdata => {
+            axios(process.env.REACT_APP_API_URL + "/user/group/" + this.state.groupId, {
+              method: "GET",
+              withCredentials: true
+            })
+              .then(res => {
+                res.data.map(user => {
+                  if (user.userId !== userdata.data.userId) {
+      
+                    return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
+                      method: "GET",
+                      withCredentials: true
+                    })
+                    .then(vacRes => {
+                      tempArr.push(
+                        <UserCard
+                          key={user.userId}
+                          user={user}
+                          vacation={vacRes.data.vacation}
+                          updateUsers={this.getUsers.bind(this)}
+                        />
+                      );
+                      this.setState({
+                        users: tempArr
+                      });
+                    })
+                  } else {
+                    return "wrong"
+                  }
+                });
+              })
+              .catch(error => {
+                if (error.status === 401 || error.status === 403) {
+                  window.location.href = "/logout";
+                }
+              });
+          })
+          .catch(error => {
+            if (error.status === 401 || error.status === 403) {
+              window.location.href = "/logout";
+            }
+          });
       })
       .catch(error => {
         if (error.status === 401 || error.status === 403) {
           window.location.href = "/logout";
         }
       });
-    let tempRequests = [];
-    axios(
-      process.env.REACT_APP_API_URL +
-        "/request/approved/" +
-        this.props.computedMatch.params.user_id,
-      {
-        method: "GET",
-        withCredentials: true
-      }
-    ).then(res => {
-      res.data.map(request => {
-        let tempDates = [];
-        var dateIndex = 0;
-        request.dates.map(date => {
-          tempDates.push(
-            <li key={dateIndex++}>{new Date(date).toLocaleDateString("se")}</li>
-          );
-        });
-        tempRequests.push(
-          <li className="requestCardUser" key={request.requestId}>
-            <Link to={`/requests/${request.requestId}`}>
-              <ul>{tempDates}</ul>
-            </Link>
-          </li>
-        );
-      });
-      if (tempRequests.length === 0) {
-        tempRequests = "This user does not have any approved vacations";
-      }
-      this.setState({
-        requests: tempRequests
-      });
-    });
+    this.getUsers()
+  }
+
+  getUsers() {
+   
   }
 
   render() {
     return (
-      <div>
-        <div className="userPageContainer">
-          <div className="userWrapper">
-            <div className="userPictureContainer">
-              <img className="userPicture" src={this.state.profilePic} alt="" />
-            </div>
-            <h1>
-              {this.state.name} {this.state.lastName}
-            </h1>
-          </div>
-          <div className="vacationWrapper">
-            <h2>Vacations</h2>
-            <ul>{this.state.requests}</ul>
-          </div>
-        </div>
-      </div>
+      <React.Fragment>
+            <Infobox className="infoBox" infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking" height="100px"/>}>
+            <h2>Employees page</h2>
+            <p>Here you can see your all employees in one group</p>
+            <h3>Employees status</h3>
+            <p>The ones that are in red are in vacation and not available at the moment</p>
+          </Infobox>
+      <h1 className="userPageH1">Group Employees</h1>
+      <p className="userPageH1">   Group Manager  : {this.state.name} {this.state.lastName}</p>
+      <div className="userPage">{this.state.users}</div>
+    </React.Fragment>
     );
   }
 }

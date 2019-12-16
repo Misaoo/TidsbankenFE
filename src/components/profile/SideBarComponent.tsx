@@ -6,19 +6,24 @@ import commonStyles from "../../css/Common.module.css";
 import Modal from "../common/modal/Modal";
 import Webcam from "react-webcam";
 import axios from "axios";
+import SettingComponent from "../../components/profile/SettingComponent";
 
-  /**********************/
-  // This file handles the:
-  //    1. picture functionality, 
-  //    2. name of user, 
-  /**********************/
+
+/**********************/
+// This file handles the:
+//    1. picture functionality, 
+//    2. name of user, 
+/**********************/
 
 const SideBarComponent = (props: any) => {
-  const { user } = useContext(AuthContext);   
+  const { user } = useContext(AuthContext);
   const [img, setImg] = useState();                           // handles image for user 
   const [name, setName] = useState();                         // first name for user
   const [lastName, setLastName] = useState();                 // Lastname
   const [admin, setAdmin] = useState();                       // If user is admin or not
+  const [usremail, setEmail] = useState();
+  const [webcamMsg, setWebcamMsg] = useState();
+  const [imgUploadMsg, setImgUploadMsg] = useState();
 
   let [showModalPicture, setshowModalPicture] = useState(false);      // Show and set picture 
   let [showModalWebcam, setshowModalWebcam] = useState(false);        // Show and set webcam  
@@ -29,9 +34,11 @@ const SideBarComponent = (props: any) => {
   /* GENERAL */
   /**********************/
   useEffect(() => {
+    setBrowsePic(null)
     if (user && user.userId) {
       getFromServer(user.userId); // Get image from server
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps,
   }, [user]);
 
   // Gets all information from user on server and displays it. Example, image - name - email etc. 
@@ -43,6 +50,7 @@ const SideBarComponent = (props: any) => {
         setName(response.data.name);
         setLastName(response.data.lastName);
         setAdmin(response.data.isAdmin);
+        setEmail(response.data.email);
         props.setEmail(response.data.email);
       }
     } catch (error) { }
@@ -60,30 +68,42 @@ const SideBarComponent = (props: any) => {
   const WebcamCapture = () => {
     const webcamRef = React.useRef(null);
     const capture = React.useCallback(() => {
-     
+
       const imageSrc = (webcamRef as any).current.getScreenshot();
 
       updateUserImage(imageSrc);
       setImg(imageSrc);
-    }, [webcamRef, user]);
+    }, [webcamRef]);
 
     return (
       <>
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          videoConstraints={videoConstraints}
-          mirrored={false}
-        />
-        <button
-          className={
-            commonStyles.button + " " + sidebarStyles.buttonTweaks_webcam
-          }
-          onClick={capture}
-        >
-          Capture photo
+        <div className={commonStyles.buttonplacement}>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+            mirrored={false}
+          />
+        </div>
+
+        <div className={commonStyles.buttonplacement}>
+          <br />
+          {webcamMsg}
+          <br />
+          <button
+            className={commonStyles.buttonpa}
+            onClick={capture}
+          >
+            Capture photo
         </button>
+          <button
+            className={commonStyles.buttonpa}
+            onClick={event => setshowModalWebcam(false)}
+          >
+            Close
+        </button>
+        </div>
       </>
     );
   };
@@ -107,11 +127,26 @@ const SideBarComponent = (props: any) => {
         method: "PATCH",
         withCredentials: true,
         data: {
+          userId: userId,
+          email: usremail,
+          name: name,
+          lastName: lastName,
+          isAdmin: admin,
           profilePic: base64data
         }
-      }).then(() => {
-        setImg(base64data);
-      });
+      }).then(res => {
+        if (res.status === 200) {
+          setImgUploadMsg('Image uploaded.')
+          setImg(base64data);
+          setshowModalPicture(false)
+        }
+      })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            //console.log(error);
+            setImgUploadMsg('Failed to upload image.')
+          }
+        })
     };
   }
 
@@ -120,11 +155,31 @@ const SideBarComponent = (props: any) => {
   /**********************/
 
   async function updateUserImage(img: string) {
-    if(user && user.name) {
-      try {
-        let response = await API.updateUserImage(user.userId, img);
-        if (response.status === 200) { }
-      } catch (error) { }
+    if (user && user.name) {
+      axios(process.env.REACT_APP_API_URL + "/user/" + user.userId, {
+        method: "PATCH",
+        withCredentials: true,
+        data: {
+          userId: user.userId,
+          email: user.email,
+          name: user.name,
+          lastName: user.lastName,
+          isAdmin: user.isAdmin,
+          profilePic: img
+        }
+      })
+        .then(res => {
+          if (res.status === 200) {
+            //console.log('ok picture stored')
+            setWebcamMsg('Image saved')
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            //console.log(error);
+            setWebcamMsg('Failed to save image from webcam')
+          }
+        });
     }
   }
 
@@ -140,13 +195,14 @@ const SideBarComponent = (props: any) => {
     }
   }
 
-  
+
   /**********************/
   /* HTML */
   /**********************/
 
   return (
     <div className={sidebarStyles.SideBarWrapper}>
+
       <div className={sidebarStyles.imageWrapper}>
         <div className={sidebarStyles.selectNewImage}>
           <div onClick={evt => changeImage("browse", evt)}>
@@ -156,13 +212,13 @@ const SideBarComponent = (props: any) => {
             <p>Webcam picture</p>
           </div>
         </div>
-        <img src={img} alt="profilepicture" />
+        <img src={img} height="200" width="240" alt="profilepicture" />
       </div>
 
       <h1>
         {name} {lastName}
       </h1>
-      <h3>{admin == "1" ? "Admin" : "Employee"}</h3>
+      <h3>{admin === "1" ? "Admin" : "Employee"}</h3>
 
       <div className={sidebarStyles.text}>
         <label className={commonStyles.label} htmlFor="email">
@@ -173,10 +229,17 @@ const SideBarComponent = (props: any) => {
           disabled
           name="email"
           type="email"
-          value={props.email} 
+          value={props.email}
         />
       </div>
-      
+
+      <div>
+        <SettingComponent></SettingComponent>
+      </div>
+
+
+
+
       <Modal display={showModalPicture} setDisplay={setshowModalPicture} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
           <label className={commonStyles.label} htmlFor="savePic">
@@ -188,12 +251,24 @@ const SideBarComponent = (props: any) => {
             onChange={handleChangePicture}
             className={commonStyles.input}
           />
-          <button
-            type="submit"
-            className={commonStyles.button + " " + sidebarStyles.buttonTweaks}
-          >
-            Save
-          </button>
+          <div className={commonStyles.buttonplacement}>
+            <br />
+            {imgUploadMsg}
+            <br />
+            <button
+              className={commonStyles.buttonpa}
+              disabled={(browsePic === null)}
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              className={commonStyles.buttonpa}
+              onClick={event => setshowModalPicture(false)}
+            >
+              close
+            </button>
+          </div>
         </form>
       </Modal>
 

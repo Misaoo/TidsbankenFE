@@ -48,25 +48,31 @@ const CalendarDisplay = (props: any) => {
 
             // Move these out of the loop if possible.
             allApprovedReqs && allApprovedReqs.map((req: any) => {
-                req.dates.map((date: any) => {
+                return req.dates.map((date: any) => {
                     if (isSameDay(new Date(date), day)) {
-                        marks = [...marks, <Mark key={req.requestId} type="approved" vacReq={req} />];
+                        return marks = [...marks, <Mark key={req.requestId} type="approved" vacReq={req} />];
+                    } else {
+                        return marks
                     }
                 });
             });
 
             pendingReqs && pendingReqs.map((req: any) => {
-                req.dates.map((date: any) => {
+                return req.dates.map((date: any) => {
                     if (isSameDay(new Date(date), day)) {
-                        marks = [...marks, <Mark  key={req.requestId} type="pending" vacReq={req} />];
+                        return marks = [...marks, <Mark  key={req.requestId} type="pending" vacReq={req} />];
+                    } else {
+                        return marks
                     }
                 })
             })
 
             deniedReqs && deniedReqs.map((req: any) => {
-                req.dates.map((date: any) => {
+                return req.dates.map((date: any) => {
                     if (isSameDay(new Date(date), day)) {
-                        marks = [...marks, <Mark  key={req.requestId} type="denied" vacReq={req} />];
+                        return marks = [...marks, <Mark  key={req.requestId} type="denied" vacReq={req} />];
+                    } else {
+                        return marks
                     }
                 })
             })

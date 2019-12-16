@@ -32,7 +32,7 @@ const RequestsComponent = (props: any) => {
         let commenters: Set<number> = new Set();
 
         reversedComments.map((comment: any) => {
-            commenters.add(comment.userId);
+            return commenters.add(comment.userId);
         })
 
         const fetches = Array.from(commenters).map(async (userId: number) => {
@@ -43,7 +43,7 @@ const RequestsComponent = (props: any) => {
             .then((res: any) => {
                 reversedComments.map((comment: any) => {
                     let user = res.filter((user: any) => user.userId === comment.userId)[0];
-                    list = [...list, <div key={comment.commentId} className={styles.comment}><div className={styles.message}>{comment.comment}</div><span className={styles.messageOwner}>{user.name + " " + user.lastName + ":"}</span></div>];
+                    return list = [...list, <div key={comment.commentId} className={styles.comment}><div className={styles.message}>{comment.comment}</div><span className={styles.messageOwner}>{user.name + " " + user.lastName + ":"}</span></div>];
                 });
                 setCommentsList(list);
             })
@@ -77,8 +77,7 @@ const RequestsComponent = (props: any) => {
                     });
             })
             .catch((error: any) => {
-                console.log(error);
-                // setError(true);
+                setError(true);
             })
 
     }, [props.id, success]);
@@ -93,7 +92,7 @@ const RequestsComponent = (props: any) => {
     const createDays = () => {
         let arr: any = [];
         req.dates.map((date: any, index: number) => {
-            arr = [...arr, <div key={index} title={format(new Date(date), 'EEE do MMMM')}>{format(new Date(date), 'yyyy-MM-dd')}</div>]
+            return arr = [...arr, <div key={index} title={format(new Date(date), 'EEE do MMMM')}>{format(new Date(date), 'yyyy-MM-dd')}</div>]
         });
         return arr;
     }
