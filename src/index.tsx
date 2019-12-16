@@ -1,6 +1,11 @@
+//Library imports
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+//Style imports
 import './index.css';
+
+//App-hook
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
