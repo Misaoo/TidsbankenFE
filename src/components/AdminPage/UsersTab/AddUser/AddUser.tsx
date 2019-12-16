@@ -10,6 +10,8 @@ const AddUser = (props:any) => {
   let [email, setEmail] = useState("")
   let [passwordTop, setPasswordTop] = useState("")
   let [passwordBottom, setPasswordBottom] = useState("")
+  let [successMessage, setSuccessMessage] = useState("")
+  let [errorMessage, setErrorMessage] =useState("")
 
   function handleChangeName(event: any) { setName(event.target.value)}
   function handleChangeLastName(event: any) {setLastName(event.target.value)}
@@ -23,6 +25,7 @@ const AddUser = (props:any) => {
   }, [])
 
   function handleSubmit(event: any) {
+    event.preventDefault();
     axios(process.env.REACT_APP_API_URL + "/user", {
       method: "POST",
       withCredentials: true,
@@ -33,7 +36,10 @@ const AddUser = (props:any) => {
         password: passwordBottom,
       }
     })
-      .then(() => {
+      .then((response) => {
+          setSuccessMessage("User has been successfully created")
+          setTimeout(() => setSuccessMessage(""), 3000)     
+
           setName("")
           setLastName("")
           setEmail("")
@@ -41,11 +47,14 @@ const AddUser = (props:any) => {
           setPasswordBottom("")
       })
       .catch(error => {
-        if (error.status === 401 || error.status === 403) {
-          window.location.href = "/logout";
+        if(error.response.status === 400) {
+          setErrorMessage("User already exist")   
+          setTimeout(() => setErrorMessage(""), 3000)     
+        } else {
+          setErrorMessage("Something went wrong, try again")
+          setTimeout(() => setErrorMessage(""), 3000)
         }
       });
-    event.preventDefault();
   }
 
 return (
@@ -123,10 +132,23 @@ return (
               <div>
                 <br></br>
                 <b>
-                  <label>Password fields does not match</label>
+                  <label>Password fields do not match</label>
                 </b>
               </div>
             )}
+
+            {successMessage !== "" && (
+              <>
+                <br></br>
+                <b><label className={commonStyles.successLabel}>{successMessage}</label></b>
+              </>
+              )}
+            {errorMessage !== "" && (
+              <>
+                <br></br>
+                <b><label className={commonStyles.badLabel}>{errorMessage}</label></b>
+              </>
+              )}
           <button
           className={commonStyles.button}
           disabled={

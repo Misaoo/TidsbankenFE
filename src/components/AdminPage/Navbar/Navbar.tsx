@@ -5,10 +5,7 @@ import "../general.css";
 
 const Navbar = (props: any) => {
   const { user } = useContext(AuthContext);
-  const loggedIn =
-    user &&
-    user.hasOwnProperty("name") &&
-    user.hasOwnProperty("isAdmin") 
+
   const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
   return (
     <div className="navBarOuter">
@@ -29,13 +26,7 @@ const Navbar = (props: any) => {
             >
               Requests
             </Link>
-            <Link
-          className="navbarButton"
-          style={props.style.general}
-          to={{ pathname: "/admin/general" }}
-        >
-          General
-        </Link>
+
           </>
         )}
       

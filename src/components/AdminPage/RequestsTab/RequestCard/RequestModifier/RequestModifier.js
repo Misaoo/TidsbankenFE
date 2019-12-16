@@ -6,6 +6,7 @@ import CommentSection from "./CommentSection/CommentSection";
 import styles2 from '../../../../../css/Modal.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+
 class RequestModifier extends Component {
   constructor(props) {
     super(props);
@@ -104,53 +105,57 @@ class RequestModifier extends Component {
           className={styles.content}
           onClick={event => event.stopPropagation()}
         >
-          <div>
-            <div className={styles2.header}>
-              <h2>Request {this.props.requestData.requestId}</h2>
-              <span className={styles2.closeButton} onClick={event => this.props.setDisplay()}><FontAwesomeIcon icon="times" /></span>
-            </div>
-            <div className={styles.datesOverview}>
-              <h2>
-                {this.props.requesterName} {this.props.requesterLastName}
-              </h2>
-              <ul>{this.state.dates}</ul>
-            </div>
-            {this.state.pending && !this.state.myRequest && (
-              <div className={styles.verdictForms}>
-                <form onSubmit={this.handleSubmitVerdict} className={styles.verdictForm}>
-                  <div className={styles.radios}>
-                    <input
-                      type="radio"
-                      name="verdict"
-                      value="2"
-                      onChange={this.handleChangeVerdict}
-                      placeholder="Approve"
-                    ></input>
-                    <label>Approve</label>
-                    <br></br>
-                    <input
-                      type="radio"
-                      name="verdict"
-                      value="1"
-                      onChange={this.handleChangeVerdict}
-                      placeholder="Deny"
-                    ></input>
-                    <label>Deny</label>
-                    <br></br>
-                  </div>
-                  <br></br>
-                  <div className={styles.cmdBtns}>
-                    <Button variant="contained" type="submit" color="primary">
-                      Submit
-                    </Button>
-                    <Button variant="contained" type="submit" color="secondary" className={styles.requestDeleteButton} onClick={this.handleSubmitDelete}>
-                      Delete
-                    </Button>
-                  </div>
-                </form>
+          <div className={styles2.header}>
+            <h2>Request {this.props.requestData.requestId}</h2>
+            <span className={styles2.closeButton} onClick={event => this.props.setDisplay()}><FontAwesomeIcon icon="times" /></span>
+          </div>
+          <div className={styles.twoColumns}>
+            <div>
+              <div className={styles.datesOverview}>
+                <h2>
+                  {this.props.requesterName} {this.props.requesterLastName}
+                </h2>
+                <ul>{this.state.dates}</ul>
               </div>
-            )}
-            <CommentSection requestId={this.props.requestData.requestId} />
+
+              {this.state.pending && !this.state.myRequest && (
+                <div className={styles.verdictForms}>
+                  <form onSubmit={this.handleSubmitVerdict} className={styles.verdictForm}>
+                    <div className={styles.radios}>
+                      <input
+                        type="radio"
+                        name="verdict"
+                        value="2"
+                        onChange={this.handleChangeVerdict}
+                        placeholder="Approve"
+                      ></input>
+                      <label className={styles.paddingRight}>Approve</label>
+                      <input
+                        type="radio"
+                        name="verdict"
+                        value="1"
+                        onChange={this.handleChangeVerdict}
+                        placeholder="Deny"
+                      ></input>
+                      <label>Deny</label>
+                    </div>
+                    <br></br>
+                    <div className={styles.twoColumnsButton}>
+                      <Button variant="contained" type="submit" color="primary">
+                        Submit
+                      </Button>
+                      <div></div>
+                      <Button variant="contained" type="submit" color="secondary" onClick={this.handleSubmitDelete}>
+                        Delete
+                      </Button>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </div>
+            <div>
+              <CommentSection requestId={this.props.requestData.requestId} />
+            </div>
           </div>
         </div>
       </div>

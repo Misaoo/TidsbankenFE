@@ -5,7 +5,7 @@ import styles from '../../css/Request.module.css';
 const Requests = (props: any) => {
     return(
         <div className={styles.view}>
-            <RequestsComponent id={props.computedMatch.params.id} />
+            <RequestsComponent id={props.computedMatch.params.id} isCalendar={false}/>
         </div>
     )
 }
