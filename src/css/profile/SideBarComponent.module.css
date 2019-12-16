@@ -1,10 +1,8 @@
-
-
 /*******************/
 /***** Sidebar *****/
 /*******************/
 .SideBarWrapper{
-    height: 100vh;
+    height: 100%;
     padding: 5%;
     background-color: #fff;
     box-shadow: 1px 1px 5px -3px #000;
@@ -26,14 +24,7 @@
     display: flex;
     justify-content: center;
     position: relative;
-    height: 22vw;
-    width: 22vw;
 
-    max-width: 200px;
-    max-height: 200px;
-    min-width: 180px;
-    min-height: 180px;
-    
     margin-left: 25px;
     margin-right: 25px;
     margin-top:25px;
@@ -81,7 +72,6 @@
 }
 
 
-
 /*****************/
 /***** VIDEO *****/
 /*****************/
@@ -112,87 +102,11 @@ video{
     color: #fff;
 }
 
-
-
-
 /********************/
 /***** Mobile ******/
 /********************/
 @media (min-width: 360px) and (max-width: 600px) {
-
     .SideBarWrapper{
         height: auto;
-        width: auto;
-        padding: 5%;
-        background-color: #fff;
-        box-shadow: 1px 1px 5px -3px #000;
-    }
-
-    .modalBtnContainer {
-        margin-top: 30%;
-    }
-    
-    .modalButtons {
-        background-color: #3A84B5;
-        border: 0px;
-        border-radius: 30px;
-        height: 40px;
-        width: 100%;
-        color: #fff;
-    }
-    
-}
-
-/********************/
-/***** Tablet ******/
-/********************/
-@media (min-width: 768px) and (max-width: 1024px) {
-    
-    .SideBarWrapper{
-        height: 100vh;
-        width: auto;
-        padding: 5%;
-        background-color: red;
-        box-shadow: 1px 1px 10px -3px;
-    }
-
-    .modalBtnContainer {
-        margin-top: 30%;
-    }
-    
-    .modalButtons {
-        background-color: #3A84B5;
-        border: 0px;
-        border-radius: 30px;
-        height: 40px;
-        width: 100%;
-        color: #fff;
-    }
-}
-
-/********************/
-/***** Tablet ******/
-/********************/
-@media (min-width: 1024px) and (max-width: 1424px) {
-    
-    .SideBarWrapper{
-        height: 100vh;
-        width: max-content;
-        padding: 5%;
-        background-color: #fff;
-        box-shadow: 1px 1px 10px -3px;
-    }
-
-    .modalBtnContainer {
-        margin-top: 30%;
-    }
-    
-    .modalButtons {
-        background-color: #3A84B5;
-        border: 0px;
-        border-radius: 30px;
-        height: 40px;
-        width: 100%;
-        color: #fff;
-    }
+    }  
 }

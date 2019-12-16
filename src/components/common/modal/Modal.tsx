@@ -38,11 +38,11 @@ const Modal = (props: any) => {
     if (props.display) {
         return (
             <div className={styles.module} onClick={event => props.setDisplay(false)}>
+                <div className={styles.header}>
+                    {props.title && <h2>{props.title}</h2>}
+                    <span className={styles.closeButton} onClick={event => props.setDisplay(false)}><FontAwesomeIcon icon="times" /></span>
+                </div>
                 <div className={styles.content} onClick={event => event.stopPropagation()}>
-                    <div className={styles.header}>
-                        {props.title && <h2>{props.title}</h2>}
-                        <span className={styles.closeButton} onClick={event => props.setDisplay(false)}><FontAwesomeIcon icon="times" /></span>
-                    </div>
                     {props.children}
                 </div>
             </div>

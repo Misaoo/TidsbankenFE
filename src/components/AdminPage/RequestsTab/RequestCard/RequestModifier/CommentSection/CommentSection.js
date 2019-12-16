@@ -84,7 +84,7 @@ class CommentSection extends Component {
           <div className={styles.commentTextfield}>
             <TextField
               name="text"
-              rows="3"
+              rows="1"
               fullWidth={true}
               variant="outlined"
               label="Comment here..."
