@@ -1,11 +1,12 @@
+//Library imports
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+
+//Hook imports
 import AuthRoute from "./components/auth/AuthRoute";
 import AuthRouteAdmin from "./components/auth/AuthRouteAdmin";
 import Auth from "./components/auth/Auth";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import "./App.css";
 import Header from "./components/common/header/Header";
 import ViewNotFound from "./views/common/ViewNotFound";
 import Unauthorized from "./views/common/Unauthorized"
@@ -19,6 +20,11 @@ import Users from "./components/Users/Users";
 import Requests from "./views/requests/Requests";
 import User from "./components/User/User";
 
+//Style imports
+import "./App.css";
+
+//Icon imports
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faAngleDown,
   faAngleDoubleDown,
@@ -36,6 +42,7 @@ import {
 
 library.add(faAngleDown, faAngleDoubleDown, faAngleUp, faCaretLeft, faCaretRight, faCalendarPlus, faTimes, faQuestionCircle, faExclamationCircle, faCheckCircle, faClock, faBars);
 
+//App-hook
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -62,4 +69,5 @@ const App: React.FC = () => {
   );
 };
 
+//Hook export
 export default App;

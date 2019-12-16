@@ -1,4 +1,7 @@
+//Library imports
 import React, { useState } from 'react';
+
+//Style imports
 import profileStyle from '../../css/profile/ProfileView.module.css';
 
 /* Material ui */
@@ -12,6 +15,7 @@ import SideBarComponent from '../../components/profile/SideBarComponent';
 type MyProps = { }
 type MyState = { }
 
+//ProfileView-hook
 const ProfileView = (props:any) => {
     const [ email, setEmail ] = useState('');
 
@@ -30,6 +34,7 @@ const ProfileView = (props:any) => {
     )
 }
 
+//ProfileView-hook export
 export default ProfileView;
 
 
