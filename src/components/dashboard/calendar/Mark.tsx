@@ -13,7 +13,7 @@ const Mark = (props: any) => {
 
     const handleClick = (event: any) => {
         event.stopPropagation();
-        setModalContent(<RequestComponent id={props.vacReq.requestId} />)
+        setModalContent(<RequestComponent id={props.vacReq.requestId} setDisplay={(e: any) => setModal((b: any) => !b)} isCalendar={true} />)
         setModalTitle("Request Details");
         setModal((b: any) => !b);
     }

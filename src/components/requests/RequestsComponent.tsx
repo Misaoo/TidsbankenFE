@@ -3,6 +3,8 @@ import API from '../../api/API';
 import styles from '../../css/VacReq.module.css';
 import reqStyles from '../../css/Request.module.css';
 import commonStyles from '../../css/Common.module.css';
+import styles2 from '../../css/Modal.module.css';
+
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from 'date-fns';
@@ -118,32 +120,33 @@ const RequestsComponent = (props: any) => {
     }
 
     return (
-        <div className={styles.module}>
-            {req && owner && <div className={styles.request}>
-                <h2>Vacation request</h2>
-                <p>Request ID:  <Link to={"/requests/" + req.requestId}>{req.requestId}</Link></p>
-                <p>Owner: <Link to={"/user/" + req.userId}>{owner.name + " " + owner.lastName}</Link></p>
-                <p>Request status: <span className={styles[getStatus(req.status).toLowerCase()] + " " + styles.status}>{getStatus(req.status)}</span></p>
-                <p>Vacation days:</p><div className={styles.dates}> {createDays()}</div>
-            </div>}
-            {req && owner && comments && showComments && <>
-                <div className={styles.comments}>
-                    <h2>Comment history</h2>
-                    {commentsList}
-                    <form onSubmit={handleSubmit}>
-                        <textarea 
-                            onFocus={handleFocus} 
-                            className={commonStyles.textarea} 
-                            placeholder="Comment" 
-                            onChange={handleChange} 
-                            value={commentText}
-                        ></textarea>
-                        {success && <p className={reqStyles.success}>
-                            <FontAwesomeIcon icon="check-circle" />Comment posted</p>}
-                        <button type="submit" className={commonStyles.button}>Comment</button>
-                    </form>
-                </div>
-            </>}
+        <div>
+            <div className={styles.module}>
+                {req && owner && <div className={styles.request}>
+                    <p>Request ID:  <Link to={"/requests/" + req.requestId}>{req.requestId}</Link></p>
+                    <p>Owner: {owner.name + " " + owner.lastName}</p>
+                    <p>Request status: <span className={styles[getStatus(req.status).toLowerCase()] + " " + styles.status}>{getStatus(req.status)}</span></p>
+                    <p>Vacation days:</p><div className={styles.dates}> {createDays()}</div>
+                </div>}
+                {req && owner && comments && showComments && <>
+                    <div className={styles.comments}>
+                        <h2>Comment history</h2>
+                        {commentsList}
+                        <form onSubmit={handleSubmit}>
+                            <textarea 
+                                onFocus={handleFocus} 
+                                className={commonStyles.textarea} 
+                                placeholder="Comment" 
+                                onChange={handleChange} 
+                                value={commentText}
+                            ></textarea>
+                            {success && <p className={reqStyles.success}>
+                                <FontAwesomeIcon icon="check-circle" />Comment posted</p>}
+                            <button type="submit" className={commonStyles.button}>Comment</button>
+                        </form>
+                    </div>
+                </>}
+            </div>
         </div>
     )
 }

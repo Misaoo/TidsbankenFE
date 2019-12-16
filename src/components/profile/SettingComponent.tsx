@@ -26,17 +26,11 @@ const SettingComponent = (props: any) => {
     /*******************************/
     /* AUTHENTICATION */
     /*******************************/
-    const loggedInAdmin =
-    user &&
-    user.hasOwnProperty("name") &&
-    user.hasOwnProperty("isAdmin") &&
-    user.isAdmin == 1 ;
-
     const loggedIn =
     user &&
     user.hasOwnProperty("name") &&
     user.hasOwnProperty("isAdmin") &&
-    user.isAdmin == 0 ;
+    user.isAdmin === 0 ;
     function removeAccountModal() { setshowModal2(true); }
     // checks if user have two factor authentication and sets and send the infomration to NewAuth that sets it in a useState. 
 

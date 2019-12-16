@@ -1,114 +1,53 @@
-@media screen and (min-width: 600px) {
-  .comments {
-    overflow-y: auto;
-    min-height: 10vh;
-    border-style: solid;
-    padding: 5px;
-  }  
-
-  .content {
-    grid-template-columns: 100%;
-  }
-
-  .commentsContainer {
-    margin-top: 50px;
-  }
-
-  .commentSubmit {
-    display: flex;
-    flex-direction: column;
-    margin-top: 2%;
-  }
-
-  .verdictForms {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .verdictForm {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin-bottom: 5%;
-    justify-content: left;
-  }
-
-  .deleteForm {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .requestDeleteButton {
-    width: 50%;
-    align-self: flex-end;
-    margin: 5px;
-  }
-
-  .commentButton {
-    justify-self: flex-end;
-  }
-
-  .commentTextfield {
-    min-width: 72%;
-    max-width: 72%;
-  }
-  
-  .radios {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .cmdBtns {
-    display: flex;
-    flex-direction: row;
-    padding-top: 2%;
-  }
+.comments {
+  overflow-y: scroll;
+  min-height: 10vh;
+  max-height: 25vh;
+  border-style: solid;
+  padding: 5px;
+}  
+.commentButton {
+  margin: 2% 0 5% 0;
+}
+.commentSubmit {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+}
+.comment {
+  margin-bottom: 5px;
+  word-break: break-all;
+  font-size: 0.8em;
+}
+.comment:hover {
+  background-color: rgb(180, 180, 180);
+  cursor: pointer;
 }
 
-@media screen and (max-width: 599px) {
-  .comments {
-    overflow-y: auto;
-    min-height: 15vh;
-    border-style: solid;
-    padding: 5px;
-  }  
+.verdictForms {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
-  .verdictForms {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-  }
+.verdictForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 5%;
+  justify-content: left;
+}
 
-  .verdictForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+.deleteForm {
+  display: flex;
+  flex-direction: row;
+}
 
-  .deleteForm {
-    display: flex;
-    flex-direction: column;
-  }
+.commentButton {
+  justify-self: flex-end;
+}
 
-  .requestDeleteButton {
-    align-self: flex-end;
-  }
-
-  .commentSubmit {
-    margin-top: 2%;
-  }
-
-  .radios {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .cmdBtns {
-    display: flex;
-    flex-direction: row;
-    padding-top: 2%;
-  }
+.commentTextfield {
+  width: 100%;
 }
 
 .module {
@@ -132,9 +71,7 @@
 }
 
 .content {
-  display: grid;
   background-color: white;
-  height: 75%;
   max-height: calc(100% - 30px);
   width: 65%;
   position: relative;
@@ -147,35 +84,35 @@
   overflow-y: auto;
 }
 
-@media screen and (min-width: 800px) {
-    .content {
-        grid-template-columns: 100%;
-    }
+.radios {
+  display: flex;
+  flex-direction: row;
 }
 
-.content p {
-  margin: 0;
-}
-
-.commentButton {
-  margin: 2% 0 5% 0;
+.paddingRight {
+  margin-right: 10px;
 }
 
 textarea {
   resize: none;
 }
 
-.comment {
-  margin-bottom: 5px;
-  word-break: break-all;
-  font-size: 0.8em;
+.twoColumns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.comment:hover {
-  background-color: rgb(180, 180, 180);
-  cursor: pointer;
+.twoColumnsButton {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.datesOverview {
-  
+.buttonMargin {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .twoColumns {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
