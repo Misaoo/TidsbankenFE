@@ -14,15 +14,16 @@ class CommentSection extends Component {
       text: ""
     };
     this.getComments();
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ text: event.target.value });
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
     axios(
       process.env.REACT_APP_API_URL +
         "/request/" +
@@ -37,8 +38,10 @@ class CommentSection extends Component {
       }
     ).then(() => {
       this.getComments();
+      this.setState({
+        text: ""
+      })
     });
-    event.preventDefault();
   }
 
   getComments() {
@@ -88,7 +91,8 @@ class CommentSection extends Component {
               fullWidth={true}
               variant="outlined"
               label="Comment here..."
-              onChange={this.handleChange}
+              value={this.state.text}
+              onChange={this.handleChange.bind(this)}
             ></TextField>
           </div>
           <div className={styles.commentButton}>

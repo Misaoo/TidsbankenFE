@@ -22,7 +22,9 @@ class RequestCard extends Component {
     });
   }
   componentDidMount() {
-    this.state.loading = true
+    this.setState({
+      loading: true
+    })
     axios(
       process.env.REACT_APP_API_URL + "/user/" + this.props.request.userId,
       {
@@ -35,8 +37,9 @@ class RequestCard extends Component {
           name: res.data.name,
           lastName: res.data.lastName
         });
-        this.state.loading= false
-
+        this.setState({
+          loading: false
+        })
       })
       .catch(error => {
         if (error.status === 401 || error.status === 403) {

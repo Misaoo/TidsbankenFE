@@ -18,6 +18,7 @@
 }
 
 .calendarHeading {
+    border-radius: 5px;
     grid-area: calendarHeading;
     display: grid;
     grid-template-areas:

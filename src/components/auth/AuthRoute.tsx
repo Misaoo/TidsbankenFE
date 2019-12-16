@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import { Redirect } from 'react-router-dom';
-import AuthContext from "./AuthContext";
 
 /*
     AuthRoute is a Higher Order Component (HOC) that either returns a component or redirects to login depending if the user is authenticated or not.

@@ -183,7 +183,7 @@ const OverviewComponent = (props: any) => {
                 <Button className={vacationStyles.collapseButton}
                   onClick={handleToggle}
                 >
-                  <ul><b>Show previous vacation days</b></ul>
+                  <b>Show previous vacation days</b>
                   <FontAwesomeIcon pull="right" size="lg" icon="angle-double-down"/>
                 </Button>
                 <Collapse in={open} timeout="auto" unmountOnExit>
@@ -206,7 +206,6 @@ const OverviewComponent = (props: any) => {
       )}
       {loggedInSuperUser && (
           <>
-            <p>Make this part of the page awesome</p>
           </>
         )
       }
