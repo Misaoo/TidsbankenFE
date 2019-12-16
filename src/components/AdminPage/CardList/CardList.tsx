@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import "../general.css";
 
 //RequestCardList-hook
-const RequestCardList = (props) => {
+const RequestCardList = (props: any) => {
   useEffect(() => {
     props.updateStyling(props.styling);
   }, []);
