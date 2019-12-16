@@ -1,7 +1,14 @@
+//Library imports
 import React, { useContext } from 'react';
+
+//Context imports
 import AuthContext from "../../components/auth/AuthContext";
+
+//Hook imports
 import Calendar from '../../components/dashboard/calendar/Calendar';
-import Users from '../../components/Users/Users'
+import Users from '../../components/Users/Users';
+
+//Dashboard-hook
 const Dashboard = (props:any) => {
     const { user } = useContext(AuthContext);
     const loggedIn =
@@ -29,4 +36,5 @@ const Dashboard = (props:any) => {
     )
 }
 
+//Hook export
 export default Dashboard;
