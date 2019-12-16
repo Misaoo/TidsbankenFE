@@ -185,7 +185,7 @@ const LoginComponent = (props: any) => {
             triggerId={styles.forgot_password}
             id={styles.popOver}
           >
-            Please contact your administrator for a new password
+            Password reset is not yet implemented.
           </Popover>
         </form>
       </div>
