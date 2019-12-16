@@ -54,6 +54,14 @@
      margin-top:25px;
  }
 
+ .successLabel {
+    color: green;
+}
+
+.badLabel {
+    color: red;
+}
+
 /*-----------------------------
  * Buttons
  *-----------------------------*/

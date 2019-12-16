@@ -15,12 +15,12 @@ const AuthRouteAdmin = (props: any) => {
     user &&
     user.hasOwnProperty("name") &&
     user.hasOwnProperty("isAdmin") &&
-    user.isAdmin == 1 ;
+    user.isAdmin === 1 ;
     const loggedInSuperAdmin =
     user &&
     user.hasOwnProperty("name") &&
     user.hasOwnProperty("isAdmin") &&
-    user.isAdmin == 2 ;
+    user.isAdmin === 2 ;
     const { component: Component } = props;
     return <>{loggedInAdmin || loggedInSuperAdmin ? <Component {...props} /> : <Redirect to="/unauthorized" />}</>
 }

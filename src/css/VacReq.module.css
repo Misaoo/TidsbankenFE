@@ -9,7 +9,7 @@
     grid-area: request;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 70px 40px 40px 40px 40px auto;
+    grid-template-rows: 40px 40px 40px 40px auto;
 }
 
 .request h2, .comments h2 {
