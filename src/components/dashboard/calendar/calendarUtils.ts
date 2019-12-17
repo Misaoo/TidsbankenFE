@@ -43,7 +43,7 @@ export const daysBetween = (interval: Interval): number => {
 }
 
 /**
- * Filter out ineligible days from an interval.
+ * Filter out ineligible days and weekends from an interval.
  * @param interval: Interval
  * @param dates: Array
  */
@@ -52,7 +52,7 @@ export const validDatesInInterval = (interval: Interval, dates: []): Date[] => {
     let validDates:any = [];
 
     eachDay.map((date: Date) => {
-        if (!isIneligible(date, dates)) {
+        if (!isIneligible(date, dates) && (date.getDay() !== 6) && (date.getDay() !== 0)) {
             return validDates.push(date);
         } else {
             return validDates
