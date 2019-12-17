@@ -45,7 +45,10 @@
 
 .infoBox{
   margin-top: 1%;
-  
+}
+
+.gridThingy{
+  display: grid;
 }
 
 .userCard:hover {
