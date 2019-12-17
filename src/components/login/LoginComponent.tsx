@@ -38,6 +38,7 @@ const LoginComponent = (props: any) => {
             if (response.status === 200) {
                 setUser(response.data);
                 sessionStorage.setItem("auth", JSON.stringify(new Date()));
+                // use amplify to save for safari support??
                 setSuccess(true);
                 setLoggedIn(true);
             }
