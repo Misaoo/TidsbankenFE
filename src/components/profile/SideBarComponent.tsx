@@ -122,7 +122,7 @@ const SideBarComponent = (props: any) => {
     reader.readAsDataURL(browsePic);
     reader.onloadend = function () {
       base64data = reader.result;
-      axios(process.env.REACT_APP_API_URL + "/user/" + user.userId, {
+      axios(process.env.REACT_APP_API_URL + "/user/" + userId, {
         method: "PATCH",
         withCredentials: true,
         data: {
@@ -157,9 +157,9 @@ const SideBarComponent = (props: any) => {
   async function updateUserImage(img: string, e: any) {
     e.preventDefault();
     let userIdd = 0
-   // if (user && user.userId) {
+    if (user && user.userId) {
       userIdd = user.userId;
-   // }
+    }
     axios(process.env.REACT_APP_API_URL + "/user/" + userIdd, {
       method: "PATCH",
       withCredentials: true,
