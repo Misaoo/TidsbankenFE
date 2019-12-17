@@ -56,7 +56,6 @@ const SideBarComponent = (props: any) => {
     } catch (error) { }
   }
 
-
   /**********************/
   /* WEBCAM */
   /**********************/
@@ -67,43 +66,43 @@ const SideBarComponent = (props: any) => {
   // Handles the webcam
   const WebcamCapture = () => {
     const webcamRef = React.useRef(null);
-    const capture = React.useCallback(() => {
+    const capture = (e: any) => {
+    const imageSrc = (webcamRef as any).current.getScreenshot();
 
-      const imageSrc = (webcamRef as any).current.getScreenshot();
-
-      updateUserImage(imageSrc);
+    updateUserImage(imageSrc, e)
       setImg(imageSrc);
-    }, [webcamRef]);
-
+    }
     return (
-      <>
-        <div className={commonStyles.buttonplacement}>
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={videoConstraints}
-            mirrored={false}
-          />
-        </div>
+      <>        
+        <form onSubmit={capture}>
+          <div className={commonStyles.buttonplacement}>
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              videoConstraints={videoConstraints}
+              mirrored={false}
+            />
+          </div>
 
-        <div className={commonStyles.buttonplacement}>
-          <br />
-          {webcamMsg}
-          <br />
-          <button
-            className={commonStyles.buttonpa}
-            onClick={capture}
-          >
-            Capture photo
-        </button>
-          <button
-            className={commonStyles.buttonpa}
-            onClick={event => setshowModalWebcam(false)}
-          >
-            Close
-        </button>
-        </div>
+          <div className={commonStyles.buttonplacement}>
+            <br />
+            <label className={commonStyles.badLabel}>{webcamMsg}</label>
+            <br />
+            <button
+              className={commonStyles.buttonpa}
+              type="submit"
+            >
+              Capture photo
+          </button>
+            <button
+              className={commonStyles.buttonpa}
+              onClick={event => setshowModalWebcam(false)}
+            >
+              Close
+          </button>
+          </div>
+        </form>
       </>
     );
   };
@@ -123,7 +122,7 @@ const SideBarComponent = (props: any) => {
     reader.readAsDataURL(browsePic);
     reader.onloadend = function () {
       base64data = reader.result;
-      axios(process.env.REACT_APP_API_URL + "/user/" + userId, {
+      axios(process.env.REACT_APP_API_URL + "/user/" + user.userId, {
         method: "PATCH",
         withCredentials: true,
         data: {
@@ -137,14 +136,15 @@ const SideBarComponent = (props: any) => {
       }).then(res => {
         if (res.status === 200) {
           setImgUploadMsg('Image uploaded.')
+          setTimeout(() => setImgUploadMsg(""), 3000)
           setImg(base64data);
           setshowModalPicture(false)
         }
       })
         .catch((error) => {
           if (error.response.status === 400) {
-            //console.log(error);
             setImgUploadMsg('Failed to upload image.')
+            setTimeout(() => setImgUploadMsg(""), 3000)
           }
         })
     };
@@ -154,33 +154,35 @@ const SideBarComponent = (props: any) => {
   /* IMAGE */
   /**********************/
 
-  async function updateUserImage(img: string) {
-    if (user && user.name) {
-      axios(process.env.REACT_APP_API_URL + "/user/" + user.userId, {
-        method: "PATCH",
-        withCredentials: true,
-        data: {
-          userId: user.userId,
-          email: user.email,
-          name: user.name,
-          lastName: user.lastName,
-          isAdmin: user.isAdmin,
-          profilePic: img
+  async function updateUserImage(img: string, e: any) {
+    e.preventDefault();
+    let userIdd = 0
+   // if (user && user.userId) {
+      userIdd = user.userId;
+   // }
+    axios(process.env.REACT_APP_API_URL + "/user/" + userIdd, {
+      method: "PATCH",
+      withCredentials: true,
+      data: {
+        userId: userIdd,
+        email: usremail,
+        name: name,
+        lastName: lastName,
+        isAdmin: admin,
+        profilePic: img
+      }
+    })
+      .then(res => {
+        if (res.status === 200) {
+          setshowModalWebcam(false)
         }
       })
-        .then(res => {
-          if (res.status === 200) {
-            //console.log('ok picture stored')
-            setWebcamMsg('Image saved')
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 400) {
-            //console.log(error);
-            setWebcamMsg('Failed to save image from webcam')
-          }
-        });
-    }
+      .catch((error) => {
+        if (error.response.status === 400) {
+          setWebcamMsg('Failed to save image from webcam, try again')
+          setTimeout(() => setWebcamMsg(""), 3000)
+        }
+      }); 
   }
 
   function handleChangePicture(e: any) {
@@ -195,14 +197,12 @@ const SideBarComponent = (props: any) => {
     }
   }
 
-
   /**********************/
   /* HTML */
   /**********************/
 
   return (
     <div className={sidebarStyles.SideBarWrapper}>
-
       <div className={sidebarStyles.imageWrapper}>
         <div className={sidebarStyles.selectNewImage}>
           <div onClick={evt => changeImage("browse", evt)}>
@@ -245,9 +245,6 @@ const SideBarComponent = (props: any) => {
         <SettingComponent></SettingComponent>
       </div>
 
-
-
-
       <Modal display={showModalPicture} setDisplay={setshowModalPicture} title="Upload a picture">
         <form onSubmit={savePictureBrowse}>
           <label className={commonStyles.label} htmlFor="savePic">
@@ -261,7 +258,7 @@ const SideBarComponent = (props: any) => {
           />
           <div className={commonStyles.buttonplacement}>
             <br />
-            {imgUploadMsg}
+            <label className={commonStyles.successLabel}>{imgUploadMsg}</label>
             <br />
             <button
               className={commonStyles.buttonpa}
