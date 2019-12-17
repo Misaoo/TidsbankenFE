@@ -66,12 +66,14 @@ class Users extends Component {
   render() {
     return (
       <React.Fragment>
+        <div className="gridThingy">
          <Infobox className="infoBox" infoboxId="calendarHelpInfo" image={<img src={bookingpicture} alt="Booking" height="100px"/>}>
             <h2>Employees page</h2>
             <p>Here you can see your all managers in your region</p>
             <h3>Employees status</h3>
             <p>The ones that are in red are in vacation and not available at the moment</p>
           </Infobox>
+        </div>
         <h1 className="userPageH1">Group Managers</h1>
         <div className="userPage">{this.state.users}</div>
       </React.Fragment>
