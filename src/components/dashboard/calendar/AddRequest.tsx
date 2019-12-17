@@ -1,3 +1,4 @@
+
 import React, { useContext, useState, useEffect } from 'react';
 import API from '../../../api/API';
 import AuthContext from '../../auth/AuthContext';
@@ -18,8 +19,9 @@ const AddRequest = (props: any) => {
 
     const [type, setType] = useState("vacation");
     const [dates, setDates] = useState<Date[]>([]);
-    const [success, setSuccess] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
+
+    const [disable, setDisable] = useState(false)
 
     // Only have dates that are valid (ie. filter away ineligble days)
     useEffect(() => {
@@ -29,7 +31,6 @@ const AddRequest = (props: any) => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         setError(false);
-        setSuccess(false);
 
         let formatedDates: string[] = [];
 
@@ -39,13 +40,12 @@ const AddRequest = (props: any) => {
         });
 
         if (formatedDates && formatedDates.length > 0) {
-
             if (type === "vacation") {
                 // Send vacation request
                 API.submitVacationRequest(formatedDates)
                     .then((res: any) => {
-                        setSuccess(true);
                         setUpdateRequests((u: number) => u + 1);
+                        props.setDisplay(true)
                     })
                     .catch((error: any) => {
                         setError(true);
@@ -53,21 +53,17 @@ const AddRequest = (props: any) => {
             }
 
             if (type === "ineligible") {
-
                 // Send ineligible days
                 const fetches = formatedDates.map((date: string) => API.submitIneligibleDay(date));
 
                 // Submit the ineligible days one by one, since that is what the backend requires.
                 Promise.all(fetches)
                     .then((res: any) => {
-                        setSuccess(true);
                         setUpdateIneligible((u: number) => u + 1);
+                        props.setDisplay(true)
                     })
                     .catch((error: any) => {
                         setError(true);
-                    })
-                    .finally(() => {
-                        setUpdateIneligible((u: number) => u + 1);
                     })
             }
         }
@@ -105,7 +101,7 @@ const AddRequest = (props: any) => {
                 </div>
             </div>
         </div>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form className={styles.form}>
             {loggedInAdmin && <>
                 <label>
                     <input
@@ -129,11 +125,10 @@ const AddRequest = (props: any) => {
                 </label>
             </>}
             {error && <p className={styles.error}><FontAwesomeIcon icon="exclamation-circle" /> Something went wrong, please try again.</p>}
-            {success && <p className={styles.success}><FontAwesomeIcon icon="check-circle" />Your request was submitted</p>}
-            {loggedIn && <button className={commonStyles.button} type="submit" disabled={success}>Request</button>}
-            {loggedInAdmin && <button className={commonStyles.button} type="submit" disabled={success}>{type === "vacation" ? 'Request' : 'Set'}</button>}
+            {loggedIn && <button className={commonStyles.button} type="submit" onClick={(e) => {setDisable(true); handleSubmit(e)}} disabled={disable}>Request</button>}
+            {loggedInAdmin && <button className={commonStyles.button} type="submit" onClick={(e) => {setDisable(true); handleSubmit(e)}} disabled={disable}>{type === "vacation" ? 'Request' : 'Set'}</button>}
 
-        </form>
+        </form>  
 
     </div>;
 }

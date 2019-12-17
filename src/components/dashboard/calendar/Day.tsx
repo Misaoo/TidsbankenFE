@@ -43,7 +43,7 @@ const Day = (props: any) => {
             }
 
             // Set end date of range make sure to only be able to select as many (valid dates) that are set in the backend.
-            if (selectedRange.start) {
+            if (selectedRange.start && !selectedRange.end) {
                 let daysSelected: Date[] = validDatesInInterval(normalizeInterval({ start: selectedRange.start, end: props.date }), inelDays);
                 if (maxVacDays - daysSelected.length >= 0) {
                     setSelectedRange(normalizeInterval({ ...selectedRange, end: props.date }));
@@ -54,7 +54,6 @@ const Day = (props: any) => {
 
             // Clear both dates
             if (selectedRange.start && selectedRange.end) {
-                console.log("clear range");
                 setSelectedRange({});
                 setSelectionType("success");
             }
@@ -87,7 +86,7 @@ const Day = (props: any) => {
             {props.addButton && <Tooltip title="Request period" placement="top">
                 <span
                     onClick={() => {
-                        setModalContent(<AddRequest range={selectedRange} />);
+                        setModalContent(<AddRequest range={selectedRange} setDisplay={() => setModal((b: any) => !b)}/>);
                         setModalTitle("Create Request");
                         setModal((b: any) => !b);
                     }}

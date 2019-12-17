@@ -3,7 +3,6 @@ import API from '../../api/API';
 import styles from '../../css/VacReq.module.css';
 import reqStyles from '../../css/Request.module.css';
 import commonStyles from '../../css/Common.module.css';
-import styles2 from '../../css/Modal.module.css';
 
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +17,6 @@ const RequestsComponent = (props: any) => {
 
     const [req, setReq] = useState<any>();
     const [owner, setOwner] = useState<any>();
-    const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [comments, setComments] = useState<any>();
     const [commentsList, setCommentsList] = useState();
@@ -49,8 +47,8 @@ const RequestsComponent = (props: any) => {
                 });
                 setCommentsList(list);
             })
-            .catch((error: any) => {
-                setError(true);
+            .catch(() => {
+                //catch error
             });
     }
 
@@ -63,8 +61,8 @@ const RequestsComponent = (props: any) => {
                     .then((res: any) => {
                         setOwner(res.data);
                     })
-                    .catch((error: any) => {
-                        setError(true);
+                    .catch(() => {
+                        //catch error
                     })
                 API.getVacationRequestComments(res.data.requestId)
                     .then((res: any) => {
@@ -75,11 +73,10 @@ const RequestsComponent = (props: any) => {
                         if (error.response.status === 403) {
                             setShowComments(false);
                         }
-                        setError(true);
                     });
             })
-            .catch((error: any) => {
-                setError(true);
+            .catch(() => {
+                //catch error
             })
 
     }, [props.id, success]);
@@ -114,8 +111,8 @@ const RequestsComponent = (props: any) => {
                     setSuccess(true);
                     setCommentText("");
                 })
-                .catch((error: any) => {
-                    setError(true);
+                .catch(() => {
+                    // catch error
                 })
     }
 

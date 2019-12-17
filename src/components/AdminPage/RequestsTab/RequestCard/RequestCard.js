@@ -57,7 +57,7 @@ class RequestCard extends Component {
     return (
       <div className="cardBody">
         {/* { && <p>loading</p>} */}
-        {this.state.showPopup && this.state.loading == false && (
+        {this.state.showPopup && this.state.loading === false && (
           <RequestModifier
             requesterName={this.state.name}
             requesterLastName={this.state.lastName}

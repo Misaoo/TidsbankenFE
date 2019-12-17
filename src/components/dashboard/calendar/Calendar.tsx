@@ -32,7 +32,7 @@ const Calendar = (props: any) => {
     const [deniedReqs, setDeniedReqs] = useState<any>();
     const [pendingReqs, setPendingReqs] = useState<any>();
     const [userNames, setUserNames] = useState<any>({});
-    const [maxVacDays, setMaxVacDays] = useState<any>();
+    const [maxVacDays, setMaxVacDays] = useState(-1);
     const [inelDays, setInelDays] = useState<any>();
     const [error, setError] = useState<any>(false);
     const [updateRequests, setUpdateRequests] = useState<number>(0);
@@ -82,20 +82,20 @@ const Calendar = (props: any) => {
                 setError(true);
             })
 
-        API.getVacationDays()
-            .then((res: any) => {
-                setMaxVacDays(res.data.maximumVacationDays)
-            })
-            .catch((error: any) => {
-                if (error.response && (error.response.status === 401 ||error.response.status === 403)) {
-                    window.location.href = "/logout";
-                }
-                if (error.response && (error.response.status === 501)) {
-                    setMaxVacDays(-1);
-                    return;
-                }
-                setError(true);
-            })
+        // API.getVacationDays()
+        //     .then((res: any) => {
+        //         setMaxVacDays(res.data.maximumVacationDays)
+        //     })
+        //     .catch((error: any) => {
+        //         if (error.response && (error.response.status === 401 ||error.response.status === 403)) {
+        //             window.location.href = "/logout";
+        //         }
+        //         if (error.response && (error.response.status === 501)) {
+        //             setMaxVacDays(-1);
+        //             return;
+        //         }
+        //         setError(true);
+        //     })
     }, [updateRequests])
 
 
