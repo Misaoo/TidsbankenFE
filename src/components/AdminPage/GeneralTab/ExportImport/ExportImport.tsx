@@ -1,10 +1,16 @@
+//Library imports
 import React, { useState } from "react";
+
+//Third party imports
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+
+//Style imports
 import "./ExportImport.css";
 import "../../general.css";
 
+//ExportImport-hook
 const ExportImport = (props: any) => {
   const [dataState, setDataState] = useState({
     outputData: "",
