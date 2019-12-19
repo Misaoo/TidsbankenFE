@@ -1,9 +1,15 @@
+//Library imports
 import React, { useState, useEffect } from "react";
+
+//Third party imports
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+
+//Style imports
 import styles from "../../RequestModifier.module.css";
 
+//Comment-hook
 const Comment = (props: any) => {
   useEffect(() => {
     getName();
