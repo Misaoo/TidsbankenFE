@@ -14,12 +14,7 @@ const UserCard = (props: any) => {
           updateList={(e: any) => props.updateUsers(e)}
         />
       )}
-      <div
-        className="userCardContent"
-        onClick={() => {
-          setShowPopUp(true)
-        }}
-      >
+      <div className="userCardContent" onClick={() => { setShowPopUp(true) }}>
         <div className="userCardImage">
           <img src={props.user.profilePic} alt="" />
         </div>

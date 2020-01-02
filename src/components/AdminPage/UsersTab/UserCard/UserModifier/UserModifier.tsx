@@ -38,7 +38,7 @@ const UserModifier = (props: any) => {
         props.updateList(true);
       })
       .catch(error => {
-        if (error.status === 401 || error.status === 403) {
+        if (error.response.status === 401 || error.response.status === 403) {
           window.location.href = "/logout";
         }
       });
@@ -112,7 +112,7 @@ return (
                 ></TextField>
               </div>
                 <div className={styles.textField}>
-                  <Button className={styles.buttonSep} variant="contained" type="submit" color="secondary">
+                  <Button className={styles.buttonSep} variant="contained" type="submit" color="secondary" onClick={event => props.setDisplay()}>
                     Save
                   </Button>
                   {props.user.isAdmin === 0 && (
