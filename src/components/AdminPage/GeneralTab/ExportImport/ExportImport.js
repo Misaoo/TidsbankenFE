@@ -24,7 +24,10 @@ class ExportImport extends Component {
     if (!this.state.showData) {
       axios(process.env.REACT_APP_API_URL + "/allData", {
         method: "GET",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       })
         .then(res => {
           this.setState({
@@ -82,7 +85,10 @@ class ExportImport extends Component {
       axios(process.env.REACT_APP_API_URL + "/allData", {
         method: "POST",
         withCredentials: true,
-        data: JSON.parse(reader.result)
+        data: JSON.parse(reader.result),
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }).then(() => {
         alert("Database reloaded successfully");
       });

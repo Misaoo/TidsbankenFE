@@ -6,7 +6,6 @@ import CommentSection from "./CommentSection/CommentSection";
 import styles2 from '../../../../../css/Modal.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
 class RequestModifier extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,10 @@ class RequestModifier extends Component {
     this.handleSubmitDelete = this.handleSubmitDelete.bind(this);
     axios(process.env.REACT_APP_API_URL + "/authorize", {
       method: "POST",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     }).then(res => {
       this.setState({
         myRequest: this.props.requestData.userId === res.data.userId
@@ -48,6 +50,9 @@ class RequestModifier extends Component {
         withCredentials: true,
         data: {
           status: this.state.verdict
+        },
+        headers: {
+          Authorization: localStorage.getItem('jwt')
         }
       }
     ).then(() => {
@@ -71,7 +76,10 @@ class RequestModifier extends Component {
         this.props.requestData.requestId,
       {
         method: "DELETE",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     )
       .then(() => {

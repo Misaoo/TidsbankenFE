@@ -5,11 +5,12 @@ import { Redirect } from 'react-router-dom';
 import Popover from '../common/popover/Popover';
 import AuthContext from '../auth/AuthContext';
 import API from '../../api/API';
+var jwtDecode = require('jwt-decode');
 
 /* Handling of login functionality */
 
 const LoginComponent = (props: any) => {
-    const {setUser} = useContext(AuthContext);
+    const {user, setUser} = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);          // handles the input
     const [success, setSuccess] = useState(false);          // handles if the user has a successfull login
     const [error, setError] = useState(false);              // handles error
@@ -35,10 +36,11 @@ const LoginComponent = (props: any) => {
         event.preventDefault();
         try {
             let response = await API.login(input.email, input.password);
-            if (response.status === 200) {
-                setUser(response.data);
+            if (response.status === 200) {  
+              let jwtDe = jwtDecode(response.data.jwt)
+                setUser(jwtDe)
                 sessionStorage.setItem("auth", JSON.stringify(new Date()));
-                // use amplify to save for safari support??
+                localStorage.setItem('jwt', response.data.jwt);
                 setSuccess(true);
                 setLoggedIn(true);
             }

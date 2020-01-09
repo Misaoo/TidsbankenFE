@@ -19,6 +19,7 @@ class RequestTab extends Component {
       }
     };
   }
+  
   componentDidMount() {
     this.props.updateStyling({
       general: {},
@@ -31,7 +32,10 @@ class RequestTab extends Component {
     let requests = [];
     axios(link, {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     })
       .then(res => {
         res.data.map(req => {

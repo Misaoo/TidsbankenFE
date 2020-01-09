@@ -5,7 +5,7 @@ import AuthContext from '../auth/AuthContext';
 
 const Logout = (props: any) => {
     const { setUser } = useContext(AuthContext);
-    const [success, setSuccess] = useState(false);
+    const [logOutSuccess, setLogOutSuccess] = useState(false);
     const [error, setError] = useState(false);
 
     // Logout in backend, then clear user in context, remove sessionStorage and redirect to login
@@ -16,7 +16,8 @@ const Logout = (props: any) => {
                 if (res.status === 200) {
                     setUser({});
                     sessionStorage.removeItem("auth");
-                    setSuccess(true);
+                    localStorage.removeItem('jwt')
+                    setLogOutSuccess(true);
                 } else {
                     setError(true);
                 }
@@ -25,7 +26,7 @@ const Logout = (props: any) => {
 
     return (
         <>
-            {success && <Redirect to="/login" />}
+            {logOutSuccess && <Redirect to="/login" />}
             {error && <p>Something went wrong with the logout, please try again</p>}
         </>
     )

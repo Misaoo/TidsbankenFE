@@ -34,6 +34,9 @@ class Comment extends Component {
           withCredentials: true,
           data: {
             comment: this.state.text
+          },
+          headers: {
+            Authorization: localStorage.getItem('jwt')
           }
         }
       )
@@ -52,7 +55,10 @@ class Comment extends Component {
   togglePopup() {
     axios(process.env.REACT_APP_API_URL + "/authorize", {
       method: "POST",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     })
       .then(res => {
         if (
@@ -80,7 +86,10 @@ class Comment extends Component {
         this.props.comment.commentId,
       {
         method: "DELETE",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     ).then(() => {
       this.props.updateComments();
@@ -91,7 +100,10 @@ class Comment extends Component {
       process.env.REACT_APP_API_URL + "/user/" + this.props.comment.userId,
       {
         method: "GET",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     ).then(res => {
       this.setState({

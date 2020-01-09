@@ -30,11 +30,12 @@ const Auth = (props: any) => {
                 .then((res: any) => {
                     if (res.status === 200) {
                         setUser(res.data as userType);
-                        sessionStorage.setItem("auth", JSON.stringify(new Date()));
+                        sessionStorage.setItem('auth', JSON.stringify(new Date()))
                     }
                 })
         } catch (error) {
             console.log(error);
+            localStorage.removeItem('jwt')
             sessionStorage.removeItem("auth");
         }
     }, []);
