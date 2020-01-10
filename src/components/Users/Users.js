@@ -17,12 +17,18 @@ class Users extends Component {
     let tempArr = [];
     axios(process.env.REACT_APP_API_URL + "/authorize", {
       method: "POST",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     })
       .then(userdata => {
         axios(process.env.REACT_APP_API_URL + "/user/all", {
           method: "GET",
-          withCredentials: true
+          withCredentials: true,
+          headers: {
+            Authorization: localStorage.getItem('jwt')
+          }
         })
         .then(res => {
           res.data.map(user => {
@@ -30,7 +36,10 @@ class Users extends Component {
 
               return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
                 method: "GET",
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                  Authorization: localStorage.getItem('jwt')
+                }
               })
               .then(vacRes => {
                 tempArr.push(

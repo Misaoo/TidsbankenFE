@@ -29,7 +29,10 @@ class RequestCard extends Component {
       process.env.REACT_APP_API_URL + "/user/" + this.props.request.userId,
       {
         method: "GET",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     )
       .then(res => {

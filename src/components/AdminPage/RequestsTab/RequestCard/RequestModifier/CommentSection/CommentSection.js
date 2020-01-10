@@ -34,6 +34,9 @@ class CommentSection extends Component {
         withCredentials: true,
         data: {
           comment: this.state.text
+        },
+        headers: {
+          Authorization: localStorage.getItem('jwt')
         }
       }
     ).then(() => {
@@ -53,7 +56,10 @@ class CommentSection extends Component {
         "/comment",
       {
         method: "GET",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     )
       .then(res => {

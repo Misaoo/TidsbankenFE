@@ -12,7 +12,7 @@ const AddUser = (props:any) => {
   let [passwordBottom, setPasswordBottom] = useState("")
   let [successMessage, setSuccessMessage] = useState("")
   let [errorMessage, setErrorMessage] =useState("")
-
+  
   function handleChangeName(event: any) { setName(event.target.value)}
   function handleChangeLastName(event: any) {setLastName(event.target.value)}
   function handleChangeEmail(event: any) {setEmail(event.target.value)}
@@ -29,6 +29,9 @@ const AddUser = (props:any) => {
     axios(process.env.REACT_APP_API_URL + "/user", {
       method: "POST",
       withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      },
       data: {
         name: name,
         lastName: lastName,

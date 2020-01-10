@@ -132,6 +132,9 @@ const SideBarComponent = (props: any) => {
           lastName: lastName,
           isAdmin: admin,
           profilePic: base64data
+        },
+        headers: {
+          Authorization: localStorage.getItem('jwt')
         }
       }).then(res => {
         if (res.status === 200) {
@@ -170,6 +173,9 @@ const SideBarComponent = (props: any) => {
         lastName: lastName,
         isAdmin: admin,
         profilePic: img
+      },
+      headers: {
+        Authorization: localStorage.getItem('jwt')
       }
     })
       .then(res => {
