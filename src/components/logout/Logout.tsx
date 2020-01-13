@@ -15,12 +15,15 @@ const Logout = (props: any) => {
             .then((res: any) => {
                 if (res.status === 200) {
                     setUser({});
-                    sessionStorage.removeItem("auth");
                     localStorage.removeItem('jwt')
                     setLogOutSuccess(true);
                 } else {
                     setError(true);
                 }
+            })
+            .catch((error: any) => {
+                // do something with error
+                // console.log(error)
             })
     }, [setUser]);
 
