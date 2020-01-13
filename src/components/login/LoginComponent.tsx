@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styles from '../../css/Login.module.css';
 import commonStyles from '../../css/Common.module.css';
 import { Redirect } from 'react-router-dom';
@@ -10,7 +10,7 @@ var jwtDecode = require('jwt-decode');
 /* Handling of login functionality */
 
 const LoginComponent = (props: any) => {
-    const {user, setUser} = useContext(AuthContext);
+    const {setUser} = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);          // handles the input
     const [success, setSuccess] = useState(false);          // handles if the user has a successfull login
     const [error, setError] = useState(false);              // handles error
@@ -21,10 +21,6 @@ const LoginComponent = (props: any) => {
         email: "",
         password: ""
     });
-    const [ls, setLs] = useState({                          // handles how many minuts and seconds it is left on the cooldown
-        minutesLeft: 0,
-        secondsLeft: 0,
-    });
 
     /**********************/
     /* SUBMIT */
@@ -34,41 +30,26 @@ const LoginComponent = (props: any) => {
     const handleSubmit = async (event: any) => {
         setMessage('')
         event.preventDefault();
+        setBtnDisabled(true)
         try {
             let response = await API.login(input.email, input.password);
             if (response.status === 200) {  
               let jwtDe = jwtDecode(response.data.jwt)
                 setUser(jwtDe)
-                sessionStorage.setItem("auth", JSON.stringify(new Date()));
                 localStorage.setItem('jwt', response.data.jwt);
                 setSuccess(true);
                 setLoggedIn(true);
+                setBtnDisabled(false)
             }
         } catch (error) {
+              setBtnDisabled(false)
               if(error.response.status === 401 ){
                 setError(true)
-                setMessage('User is not found')
+                setMessage('User was not found')
               } else if(error.response.status === 402 ){
                 setError(true)
-                setMessage('Invalid email or password')
+                setMessage('Invalid email and/or password')
               }
-            /*if (error.response.status === 401 || error.response.status === 504) {
-                setError(true);
-                let errorData = error.response.data;
-                if (errorData.hasOwnProperty("timeOut") || errorData['numOfAttemptedLogins'] === 5) {
-                    setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`)
-                    setCounterInLocalStorage();
-                    timer();
-                    setBtnDisabled(true);
-                } else {
-                    setMessage(`You have ${(5 - errorData['numOfAttemptedLogins'])} attempts left`);
-                }
-            }
-            // If TwoFactorAuthentication
-            if (error.response.status === 418) {
-                setSuccess(true);
-                setLoggedIn2fa(true);
-            }*/
         }
     }
 
@@ -80,65 +61,6 @@ const LoginComponent = (props: any) => {
     const handleChange = (event: any) => {
         setInput({ ...input, [event.target.name]: event.target.value });
     }
-
-    /**********************/
-    /* Localhost */
-    /**********************/
-    // When the user update the page while having a timeout becouse user entered wrong password before, he/she must see a the timer. We store the timer in localhost and on server and make sure its correct. 
-    
-    useEffect(() => {
-        setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
-    }, [ls])
-
-    const timeLeft = (): number => {
-        return Number(localStorage.getItem("timeTo")) - Date.now();
-    }
-
-    const setCounterInLocalStorage = () => {
-        const timeTo = new Date().getTime() + (5 * 60000);
-        localStorage.setItem("timeTo", timeTo.toString());
-    }
-
-    const timer = () => {
-        let timer: number = window.setInterval(() => {
-            let timeDelta: number = timeLeft();
-            if (timeDelta < 0) {
-                window.clearInterval(timer);
-                setError(false);
-                setMessage("");
-                localStorage.removeItem("timeTo");
-                setBtnDisabled(false);
-            } else {
-                let minutes = Math.floor((timeDelta % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((timeDelta % (1000 * 60)) / 1000);
-                setLs({
-                    ...ls,
-                    minutesLeft: minutes,
-                    secondsLeft: seconds,
-                });
-                setMessage(`5 attemts made please try again in ${ls.minutesLeft} min and ${ls.secondsLeft} sec`);
-            }
-        }, 1000);
-    }
-
-  useEffect(() => {
-    const getTimeLeft = () => {
-      if (localStorage.getItem("timeTo")) {
-        if (timeLeft() > 0) {
-          timer();
-          setBtnDisabled(true);
-          setError(true);
-        } else {
-          setBtnDisabled(false);
-          localStorage.removeItem("timeTo");
-        }
-      }
-    };
-    getTimeLeft();
-    (inputRef.current as any).focus();
-    // eslint-disable-next-line
-  }, []);
-
 
     /**********************/
     /* HTML */
@@ -154,6 +76,7 @@ const LoginComponent = (props: any) => {
             Email
           </label>
           <input
+            required
             name="email"
             className={commonStyles.input}
             type="email"
@@ -166,6 +89,7 @@ const LoginComponent = (props: any) => {
             Password
           </label>
           <input
+            required
             name="password"
             className={commonStyles.input}
             type="password"
@@ -173,7 +97,6 @@ const LoginComponent = (props: any) => {
             onChange={handleChange}
             value={input.password}
           />
-          <p id={styles.errorMessage}>{error && message}</p>
 
           <button
             className={commonStyles.button}
@@ -182,6 +105,8 @@ const LoginComponent = (props: any) => {
           >
             Login
           </button>
+          
+          {error && <p id={styles.errorMessage}>{message}</p>}
 
           <Popover
             trigger="Forgot password?"
