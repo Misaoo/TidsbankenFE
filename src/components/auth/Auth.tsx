@@ -25,19 +25,17 @@ const Auth = (props: any) => {
     }
 
     useEffect(() => {
-        try {
-            API.authorize()
-                .then((res: any) => {
-                    if (res.status === 200) {
-                        setUser(res.data as userType);
-                        sessionStorage.setItem("auth", JSON.stringify(new Date()));
-                    }
-                })
-        } catch (error) {
-            console.log(error);
-            sessionStorage.removeItem("auth");
-        }
-    }, []);
+        API.authorize()
+            .then((res: any) => {
+                if (res.status === 200) {
+                    setUser(res.data as userType);
+                }
+            })
+            .catch(() => {
+                // returns 401, unauthorized
+                localStorage.removeItem('jwt')
+            })
+    }, [])
 
     /*
         Here we add the user and a help function to add user to the context, to the context provider. meaning that any children of this component will have access to the user info

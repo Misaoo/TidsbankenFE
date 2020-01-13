@@ -24,7 +24,10 @@ const GeneralTab = props => {
       {
         method: "PATCH",
         withCredentials: true,
-        data: { maximumVacationDays }
+        data: { maximumVacationDays },
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     );
   };
@@ -55,7 +58,10 @@ const GeneralTab = props => {
     });
     axios(process.env.REACT_APP_API_URL + "/setting/maximumVacationDays", {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     })
       .then(response => {
         setData(response.data);

@@ -11,7 +11,6 @@ import ViewNotFound from "./views/common/ViewNotFound";
 import Unauthorized from "./views/common/Unauthorized"
 import ProfileView from "./views/profile/ProfileView";
 import Login from "./views/login/Login";
-import TwoFactorAuth from "./views/login/TwoFactorAuth";
 import Dashboard from "./views/dashboard/Dashboard";
 import Logout from "./components/logout/Logout";
 import AdminPage from "./components/AdminPage/AdminPage";
@@ -45,7 +44,6 @@ const App: React.FC = () => {
           <Switch>
             <Redirect exact from="/" to="/dashboard" />
             <Route path="/login" component={Login} />
-            <Route path="/2fa" component={TwoFactorAuth} />
             <Route path="/unauthorized" component={Unauthorized} />
             <AuthRoute path="/profile" component={ProfileView} />
             <AuthRoute path="/dashboard" component={Dashboard} />

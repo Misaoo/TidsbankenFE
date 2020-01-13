@@ -25,7 +25,10 @@ class User extends Component {
         this.props.computedMatch.params.user_id,
       {
         method: "GET",
-        withCredentials: true
+        withCredentials: true,
+        headers: {
+          Authorization: localStorage.getItem('jwt')
+        }
       }
     )
       .then(res => {
@@ -40,12 +43,18 @@ class User extends Component {
         let tempArr = [];
         axios(process.env.REACT_APP_API_URL + "/authorize", {
           method: "POST",
-          withCredentials: true
+          withCredentials: true,
+          headers: {
+            Authorization: localStorage.getItem('jwt')
+          }
         })
           .then(userdata => {
             axios(process.env.REACT_APP_API_URL + "/user/group/" + this.state.groupId, {
               method: "GET",
-              withCredentials: true
+              withCredentials: true,
+              headers: {
+                Authorization: localStorage.getItem('jwt')
+              }
             })
               .then(res => {
                 res.data.map(user => {
@@ -53,7 +62,10 @@ class User extends Component {
       
                     return axios(process.env.REACT_APP_API_URL + "/request/onvacation/" + user.userId, {
                       method: "GET",
-                      withCredentials: true
+                      withCredentials: true,
+                      headers: {
+                        Authorization: localStorage.getItem('jwt')
+                      }
                     })
                     .then(vacRes => {
                       tempArr.push(

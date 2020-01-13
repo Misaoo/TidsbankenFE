@@ -30,7 +30,7 @@ const Dashboard = (props:any) => {
         )}
 
         {loggedInSuperUser && (
-            <Users/>
+            <Users />
         )}
       </>
     )

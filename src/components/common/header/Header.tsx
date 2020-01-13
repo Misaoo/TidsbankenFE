@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /* Material Ui */
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Collapse from '@material-ui/core/Collapse';
@@ -171,8 +170,8 @@ const Header = (props: any) => {
               {/* Links showing after user logout */}
               {loggedOut && (
                 <>
-                  <Typography variant="h6"><FontAwesomeIcon icon="clock" /> Tidsbanken </Typography>
-                  {/* <NavLink className={commonStyles.backgroundColor} to="/login"> Login </NavLink> */}
+                  <NavLink to="/"> <FontAwesomeIcon icon="clock" /> Tidsbanken </NavLink>
+                  <NavLink to="/login"> Login </NavLink> 
                 </>
               )}
 

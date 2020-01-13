@@ -15,7 +15,7 @@ const UsersTab = (props: any) => {
         requests: {},
         users: {}
       })
-    
+      
   useEffect(() => {
     getUserData()
     props.updateStyling({
@@ -31,7 +31,10 @@ const UsersTab = (props: any) => {
 
     axios(process.env.REACT_APP_API_URL + "/user/all", {
       method: "GET",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     })
       .then((res: any) => {
         const userElement = res.data.map((user: any) => {

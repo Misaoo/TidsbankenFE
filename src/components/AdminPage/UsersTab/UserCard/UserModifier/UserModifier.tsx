@@ -27,6 +27,9 @@ const UserModifier = (props: any) => {
     axios(process.env.REACT_APP_API_URL + "/user/" + props.user.userId, {
       method: "PATCH",
       withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      },
       data: {
         name: name,
         lastName: lastName,
@@ -49,7 +52,10 @@ const UserModifier = (props: any) => {
   function handleSubmitDeleteUser(event: any) {
     axios(process.env.REACT_APP_API_URL + "/user/" + props.user.userId, {
       method: "DELETE",
-      withCredentials: true
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem('jwt')
+      }
     })
       .then(() => {
         props.updateList(true);
