@@ -23,7 +23,10 @@ const RequestModifier = (props: any) => {
 
         axios(process.env.REACT_APP_API_URL + "/authorize", {
             method: "POST",
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                Authorization: localStorage.getItem('jwt')
+            }
         })
         .then((res: any) => {
             setMyRequest(props.requestData.userId === res.data.userId)
@@ -39,6 +42,9 @@ const RequestModifier = (props: any) => {
                 withCredentials: true,
                 data: {
                     status: verdict
+                },
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
                 }
             }
         )
@@ -61,6 +67,9 @@ const RequestModifier = (props: any) => {
             {
                 method: "DELETE",
                 withCredentials: true
+            },
+            headers: {
+                Authorization: localStorage.getItem('jwt')
             }
         )
         .then(() => {

@@ -27,7 +27,10 @@ const Comment = (props: any) => {
                     withCredentials: true,
                     data: {
                       comment: commentText
-                   }
+                    },
+                    headers: {
+                        Authorization: localStorage.getItem('jwt')
+                    }
                 }
             )
             .then(() => {
@@ -44,7 +47,10 @@ const Comment = (props: any) => {
     function togglePopup() {
         axios(process.env.REACT_APP_API_URL + "/authorize", {
             method: "POST",
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                Authorization: localStorage.getItem('jwt')
+            }
         })
         .then((res: any) => {
             if (res.data.userId === props.comment.userId && new Date(props.comment.createdAt) > new Date(Date.now() - 60 * 60 * 24 * 1000)) {
@@ -64,6 +70,9 @@ const Comment = (props: any) => {
             {
                 method: "DELETE",
                 withCredentials: true
+            },
+            headers: {
+                Authorization: localStorage.getItem('jwt')
             }
         )
         .then(() => {
@@ -76,6 +85,9 @@ const Comment = (props: any) => {
             {
             method: "GET",
             withCredentials: true
+            },
+            headers: {
+                Authorization: localStorage.getItem('jwt')
             }
         )
         .then(res => {

@@ -18,6 +18,9 @@ const RequestCard = (props: any) => {
             {
                 method: "GET",
                 withCredentials: true
+            },
+            headers: {
+                Authorization: localStorage.getItem('jwt')
             }
         )
         .then((res: any) => {

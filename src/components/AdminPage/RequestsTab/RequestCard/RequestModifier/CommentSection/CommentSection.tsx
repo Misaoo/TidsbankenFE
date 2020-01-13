@@ -24,6 +24,9 @@ const CommentSection = (props: any) => {
                 withCredentials: true,
                 data: {
                     comment: commentText
+                },
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
                 }
             }
         )
@@ -39,6 +42,9 @@ const CommentSection = (props: any) => {
             {
                 method: "GET",
                 withCredentials: true
+            },
+            headers: {
+                Authorization: localStorage.getItem('jwt')
             }
         )
         .then((res: any) => {

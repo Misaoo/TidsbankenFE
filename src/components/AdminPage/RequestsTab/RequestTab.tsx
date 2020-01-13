@@ -31,7 +31,10 @@ const RequestTab = (props: any) => {
         let requests: any = []
         axios(link, {
             method: "GET",
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+                Authorization: localStorage.getItem('jwt')
+            }
             })
         .then((res: any) => {
             res.data.map((req: any) => {
