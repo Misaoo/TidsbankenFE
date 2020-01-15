@@ -20,7 +20,6 @@ import bookingpicture from '../../../pic/undraw_booking_33fn.svg';
         4. CalendarAdmin, which is the administration settings (removing ineligible days).
 */
 
-
 const Calendar = (props: any) => {
 
     const { user } = useContext(AuthContext);
@@ -44,6 +43,7 @@ const Calendar = (props: any) => {
     const [modalTitle, setModalTitle] = useState<any>();
 
     const [holidays, setHolidays] = useState([])
+    const [keepTrackOfRedDays, setKeepTrackOfRedDays] = useState(false)
 
     // These functions are used in the calendarHeading to navigate the months.
     // The modify the state of the currently selected date.
@@ -57,40 +57,21 @@ const Calendar = (props: any) => {
         setCurrentDate(new Date());
     }, [updateRequests, updateIneligible])
 
-
     // Calculate red days
     useEffect(() => {
-        // if you calculated for 2020 and you switch months (still the same year) do not recalculate the days
-        // recalculate only when a year switches
+        // minimize the calculations happening while browsing calendar < >
 
-        // New years 01-01
-        // Trettondedag jul 01-06
-
-        // Langfredagen friday before paskdagen
-        // Paskafton saturday before paskdagen
-        // Paskdagen first sunday after some sort eclipse moon  !!!! this is the day to which a lot is connected
-        // Annandag pask day after paskdagen (monday)
-
-        // Forsta maj -05-01
-
-        // Kristi himmelsfardsdag (39 days after easter) (6th thursday after easter day)
-
-        // Svergies nationaldag -06-06
-
-        // Julafton -12-24
-        // Juldagne -12-25
-        // Annandag jul -12-26
-        // Nyarsfton -12-31
-
-        let redDayCheck: any = true
-        if(selectedDate.getMonth() === 11 || selectedDate.getMonth() === 0) {
-            redDayCheck = false
-        } 
-
-        if(!redDayCheck) {
+        // initial load
+        if(!keepTrackOfRedDays) {
             setRedDays(selectedDate.getFullYear(), selectedDate.getMonth())
-            redDayCheck = true
+            setKeepTrackOfRedDays(true)
         }
+
+        // only recalculate red days during december or january (a close gap between different years)
+        if(selectedDate.getMonth() === 11 || selectedDate.getMonth() === 0 && keepTrackOfRedDays === true) {
+            setKeepTrackOfRedDays(false)
+            setRedDays(selectedDate.getFullYear(), selectedDate.getMonth())
+        } 
     }, [selectedDate])
 
     // calculate easter days
@@ -118,7 +99,7 @@ const Calendar = (props: any) => {
         }
     }
 
-    //
+    // set red day object
     const setRedDays = (currentYear: any, currentMonth: any) => {
         const newYears = new Date(currentYear, 0, 1)
         const epiphanyDay = new Date(currentYear, 0, 6)
@@ -139,7 +120,6 @@ const Calendar = (props: any) => {
         const newYearsEve = new Date(currentYear, 11, 31)
         switch(currentMonth) {
             case 11: {
-                console.log("eleven")
                 const nextNewYears = new Date(currentYear+1, 0, 1)
                 const nextEpiphanyDay = new Date(currentYear+1, 0, 6)
 
@@ -164,7 +144,6 @@ const Calendar = (props: any) => {
                 break
             }
             default: {
-                console.log("zero")
                 const redDayList: any = [
                     {date: newYears, name: "Nyårsdagen"},
                     {date: epiphanyDay, name: "Trettondag jul"},
@@ -184,7 +163,6 @@ const Calendar = (props: any) => {
                 break
             }
         }
-
     }
 
     // Fetch approved, pending and denied vacation requests, and the maximum vacation days, and use a counter state to force a refetch if needed.

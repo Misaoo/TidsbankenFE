@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from '../../../css/Calendar.module.css';
 import { format, isToday, isWeekend, subDays, isBefore, isSameDay } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,38 +30,12 @@ const Day = (props: any) => {
         holidays
     } = useContext(CalendarContext);
 
-    const calcHolidays = () => {
-        const currentYear = new Date().getFullYear()
-
-       // console.log(currentYear)
-
-        // New years 01-01
-        // Trettondedag jul 01-06
-
-        // Langfredagen friday before paskdagen
-        // Paskafton saturday before paskdagen
-        // Paskdagen first sunday after some sort eclipse moon  !!!! this is the day to which a lot is connected
-        // Annandag pask day after paskdagen (monday)
-
-        // Forsta maj -05-01
-
-        // Kristi himmelsfardsdag (39 days after easter) (6tf thursday after easter day)
-
-        // Svergies nationaldag -06-06
-
-        // Julafton -12-24
-        // Juldagne -12-25
-        // Annandag jul -12-26
-        // Nyarsfton -12-31
-
-    }
-
     /*
         The selection of a day is checked here.
     */
     const select = (event: any) => {
         // A days that is clicked can't be already selected, can't be 'empty' and can't be ineligible
-        if (!selected && !props.empty && !isIneligibleOrHoliday(props.date, inelDays) && !isBefore(props.date, subDays(currentDate, 1)) && !isIneligibleOrHoliday(props.date, holidays)) {
+        if (!selected && !props.empty && !isIneligibleOrHoliday(props.date, inelDays) && !isBefore(props.date, subDays(currentDate, 1)) && !isIneligibleOrHoliday(props.date, holidays) && !isWeekend(props.date)) {
 
             // Set first selected day as start.
             if (selectedRange.start === undefined || selectedRange.start === null) {
@@ -102,16 +76,18 @@ const Day = (props: any) => {
     const styleWeekend = isWeekend(props.date) ? styles.weekend : "";
     const stylePast = isBefore(props.date, subDays(currentDate, 1)) ? styles.past : "";
     const styleHoliday = holidays && isIneligibleOrHoliday(props.date, holidays) ? styles.holiday : ""
+    const styleDay = (holidays && isIneligibleOrHoliday(props.date, holidays) || inelDays && isIneligibleOrHoliday(props.date, inelDays)) ? styles.dayNoGrid : styles.day
 
     let classNames = [
-        styles.day,
+        styleDay,
         props.className,
         styleEmpty,
         styleSelect,
         styleToday,
         styleInelegible,
         stylePast,
-        styleHoliday
+        styleHoliday,
+        styleWeekend
     ].join(" ");
 
     return <div onClick={select}
@@ -137,9 +113,7 @@ const Day = (props: any) => {
             {isIneligibleOrHoliday(props.date, inelDays) && <div className={styles.ineligibleMessage}>Ej valbar</div>}
             {/* Add style to holiday days */}
             {isIneligibleOrHoliday(props.date, holidays) && <div className={styles.ineligibleMessage}>{getRedDayName()}</div>}
-
         </>}
-        {styleWeekend ? <span className={styleWeekend}></span> : null}
     </div>
 }
 

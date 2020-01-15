@@ -28,12 +28,6 @@ const CalendarHeading = (props: any) => {
             </button>
             <div className={styles.currentYearMonth}>
                 <h2>{format(props.selectedDate, 'MMMM')} - {format(addMonths(props.selectedDate, 1), 'MMMM yyyy')}</h2>
-                <span>
-                    {selectedRange.start && format(selectedRange.start, 'do MMM') + " - "}
-                    {selectedRange.end && format(selectedRange.end, 'do MMM')}
-                    {daysSelected && ` (${daysSelected}/${(maxVacDays === -1 ? '∞' : maxVacDays)} ${"day" + (daysSelected > 1 ? 's' : '')} selected)`}
-                </span>
-
             </div>
 
             <button className={styles.todayBtn} onClick={() => props.onToday()} title="Go to the current month">Today</button>
