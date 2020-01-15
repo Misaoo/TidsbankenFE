@@ -41,10 +41,10 @@ const CommentSection = (props: any) => {
         axios(process.env.REACT_APP_API_URL + "/request/" + props.requestId + "/comment",
             {
                 method: "GET",
-                withCredentials: true
-            },
-            headers: {
-                Authorization: localStorage.getItem('jwt')
+                withCredentials: true,
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
             }
         )
         .then((res: any) => {

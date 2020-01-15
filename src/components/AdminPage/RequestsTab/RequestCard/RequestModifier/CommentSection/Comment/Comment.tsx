@@ -69,10 +69,10 @@ const Comment = (props: any) => {
         axios(process.env.REACT_APP_API_URL + "/request/" + props.comment.requestId + "/comment/" + props.comment.commentId,
             {
                 method: "DELETE",
-                withCredentials: true
-            },
-            headers: {
-                Authorization: localStorage.getItem('jwt')
+                withCredentials: true,
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
             }
         )
         .then(() => {
@@ -83,11 +83,11 @@ const Comment = (props: any) => {
     function getName() {
         axios(process.env.REACT_APP_API_URL + "/user/" + props.comment.userId,
             {
-            method: "GET",
-            withCredentials: true
-            },
-            headers: {
-                Authorization: localStorage.getItem('jwt')
+                method: "GET",
+                withCredentials: true,
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
             }
         )
         .then(res => {

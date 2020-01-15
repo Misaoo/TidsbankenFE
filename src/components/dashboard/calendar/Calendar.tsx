@@ -43,6 +43,8 @@ const Calendar = (props: any) => {
     const [modalContent, setModalContent] = useState<any>();
     const [modalTitle, setModalTitle] = useState<any>();
 
+    const [holidays, setHolidays] = useState([])
+
     // These functions are used in the calendarHeading to navigate the months.
     // The modify the state of the currently selected date.
     const increaseMonth = () => setSelectedDate(addMonths(selectedDate, 1));
@@ -55,6 +57,135 @@ const Calendar = (props: any) => {
         setCurrentDate(new Date());
     }, [updateRequests, updateIneligible])
 
+
+    // Calculate red days
+    useEffect(() => {
+        // if you calculated for 2020 and you switch months (still the same year) do not recalculate the days
+        // recalculate only when a year switches
+
+        // New years 01-01
+        // Trettondedag jul 01-06
+
+        // Langfredagen friday before paskdagen
+        // Paskafton saturday before paskdagen
+        // Paskdagen first sunday after some sort eclipse moon  !!!! this is the day to which a lot is connected
+        // Annandag pask day after paskdagen (monday)
+
+        // Forsta maj -05-01
+
+        // Kristi himmelsfardsdag (39 days after easter) (6th thursday after easter day)
+
+        // Svergies nationaldag -06-06
+
+        // Julafton -12-24
+        // Juldagne -12-25
+        // Annandag jul -12-26
+        // Nyarsfton -12-31
+
+        let redDayCheck: any = true
+        if(selectedDate.getMonth() === 11 || selectedDate.getMonth() === 0) {
+            redDayCheck = false
+        } 
+
+        if(!redDayCheck) {
+            setRedDays(selectedDate.getFullYear(), selectedDate.getMonth())
+            redDayCheck = true
+        }
+    }, [selectedDate])
+
+    // calculate easter days
+    const calcEaster = (currentYear: any) => {
+        const a = currentYear % 19
+        const b = currentYear % 4
+        const c = currentYear % 7
+        // 24 changes depending on year. 24 will be valid for the next 100 years or so
+        const d = Math.round((19 * a + 24) % 30)
+        // 5 changes depending on year. 5 will be valid for the next 100 years or so
+        const e = Math.round((2 * b + 4 * c + 6 * d + 5) % 7)
+        const f = Math.round(22 + d + e) 
+
+        if(f <= 31) {
+            // the date in the March 
+            // 2nd month (in this format) (march)
+            return {month: 2, day: f}
+        } else {
+            // 3rd month in this format (april)
+            if( (f - 31) === 26 || ( (f - 31) === 25 && d === 28 && e === 6 && a > 10) ) {
+                return {month: 3, day: 19}
+            } else {
+                return {month: 3, day: (f - 31)}
+            }
+        }
+    }
+
+    //
+    const setRedDays = (currentYear: any, currentMonth: any) => {
+        const newYears = new Date(currentYear, 0, 1)
+        const epiphanyDay = new Date(currentYear, 0, 6)
+        // easter
+        const easterObj = calcEaster(currentYear)
+
+        const easterFriday = new Date(currentYear, easterObj.month, easterObj.day - 2)
+        const easterSaturday = new Date(currentYear, easterObj.month, easterObj.day - 1)
+        const easter = new Date(currentYear, easterObj.month, easterObj.day)
+        const easterMonday = new Date(currentYear, easterObj.month, easterObj.day + 1)
+
+        const laborDay = new Date(currentYear, 4, 1)
+        const ascenionDay = new Date(easter.getTime() + (39 * 24 * 60 * 60 *1000))
+        const nationalDay = new Date(currentYear, 5, 6)
+        const christmasEve = new Date(currentYear, 11, 24)
+        const christmasDay = new Date(currentYear, 11, 25)
+        const boxingDay = new Date(currentYear, 11, 26)
+        const newYearsEve = new Date(currentYear, 11, 31)
+        switch(currentMonth) {
+            case 11: {
+                console.log("eleven")
+                const nextNewYears = new Date(currentYear+1, 0, 1)
+                const nextEpiphanyDay = new Date(currentYear+1, 0, 6)
+
+                const redDayList: any = [
+                    {date: newYears, name: "Nyårsdagen"},
+                    {date: epiphanyDay, name: "Trettondag jul"},
+                    {date: easterFriday, name: "Långfredag"},
+                    {date: easterSaturday, name: "Påskafton"},
+                    {date: easter, name: "Påskdagen"},
+                    {date: easterMonday, name: "Annandag påsk"},
+                    {date: laborDay, name: "Första maj"},
+                    {date: ascenionDay, name: "Kristi himmelsfärdsdag"},
+                    {date: nationalDay, name: "Nationaldagen"},
+                    {date: christmasEve, name: "Julafton"},
+                    {date: christmasDay, name: "Juldagen"},
+                    {date: boxingDay, name: "Annandag jul"},
+                    {date: newYearsEve, name: "Nyårsaften"},
+                    {date: nextNewYears, name: "Nyårsdagen"},
+                    {date: nextEpiphanyDay, name: "Trettondag jul"}
+                ]
+                setHolidays(redDayList)
+                break
+            }
+            default: {
+                console.log("zero")
+                const redDayList: any = [
+                    {date: newYears, name: "Nyårsdagen"},
+                    {date: epiphanyDay, name: "Trettondag jul"},
+                    {date: easterFriday, name: "Långfredag"},
+                    {date: easterSaturday, name: "Påskafton"},
+                    {date: easter, name: "Påskdagen"},
+                    {date: easterMonday, name: "Annandag påsk"},
+                    {date: laborDay, name: "Första maj"},
+                    {date: ascenionDay, name: "Kristi himmelsfärdsdag"},
+                    {date: nationalDay, name: "Nationaldagen"},
+                    {date: christmasEve, name: "Julafton"},
+                    {date: christmasDay, name: "Juldagen"},
+                    {date: boxingDay, name: "Annandag jul"},
+                    {date: newYearsEve, name: "Nyårsaften"}
+                ]
+                setHolidays(redDayList)
+                break
+            }
+        }
+
+    }
 
     // Fetch approved, pending and denied vacation requests, and the maximum vacation days, and use a counter state to force a refetch if needed.
     useEffect(() => {
@@ -197,7 +328,8 @@ const Calendar = (props: any) => {
             setUpdateRequests,
             setUpdateIneligible,
             currentDate,
-            userNames
+            userNames,
+            holidays
         }}>
 
 

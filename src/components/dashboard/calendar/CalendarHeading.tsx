@@ -12,10 +12,10 @@ import { normalizeInterval, validDatesInInterval } from './calendarUtils';
 
 const CalendarHeading = (props: any) => {
 
-    let { selectedRange, maxVacDays, inelDays } = useContext(CalendarContext);
+    let { selectedRange, maxVacDays, inelDays, holidays } = useContext(CalendarContext);
     
     // Gets the number of days selected
-    let daysSelected: number = selectedRange.start && selectedRange.end && validDatesInInterval(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }), inelDays).length;
+    let daysSelected: number = selectedRange.start && selectedRange.end && validDatesInInterval(normalizeInterval({ start: selectedRange.start, end: selectedRange.end }), inelDays, holidays).length;
 
     return (
         <div className={styles.calendarHeading}>

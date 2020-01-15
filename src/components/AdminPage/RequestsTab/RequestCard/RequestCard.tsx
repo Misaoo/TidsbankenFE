@@ -17,10 +17,10 @@ const RequestCard = (props: any) => {
         axios(process.env.REACT_APP_API_URL + "/user/" + props.request.userId,
             {
                 method: "GET",
-                withCredentials: true
-            },
-            headers: {
-                Authorization: localStorage.getItem('jwt')
+                withCredentials: true,
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
             }
         )
         .then((res: any) => {

@@ -66,10 +66,10 @@ const RequestModifier = (props: any) => {
         axios(process.env.REACT_APP_API_URL + "/request/" + props.requestData.requestId,
             {
                 method: "DELETE",
-                withCredentials: true
-            },
-            headers: {
-                Authorization: localStorage.getItem('jwt')
+                withCredentials: true,
+                headers: {
+                    Authorization: localStorage.getItem('jwt')
+                }
             }
         )
         .then(() => {

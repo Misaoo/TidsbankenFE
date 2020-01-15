@@ -10,7 +10,7 @@ interface Interval {
  * @param date: Date
  * @param ineligibleDates : []
  */
-export const isIneligible = (date: Date, ineligibleDates: []): boolean => {
+export const isIneligibleOrHoliday = (date: Date, ineligibleDates: []): boolean => {
     let output = false;
     ineligibleDates.map((inelDate: any) => {
         if (isSameDay(date, new Date(inelDate.date))) {
@@ -47,12 +47,12 @@ export const daysBetween = (interval: Interval): number => {
  * @param interval: Interval
  * @param dates: Array
  */
-export const validDatesInInterval = (interval: Interval, dates: []): Date[] => {
+export const validDatesInInterval = (interval: Interval, dates: [], holidays: []): Date[] => {
     let eachDay = eachDayOfInterval(interval);
     let validDates:any = [];
 
     eachDay.map((date: Date) => {
-        if (!isIneligible(date, dates) && (date.getDay() !== 6) && (date.getDay() !== 0)) {
+        if (!isIneligibleOrHoliday(date, dates) && (date.getDay() !== 6) && (date.getDay() !== 0) && !isIneligibleOrHoliday(date, holidays)) {
             return validDates.push(date);
         } else {
             return validDates
@@ -114,7 +114,7 @@ export const normalizeInterval = (interval: Interval): Interval => {
 }
 
 export default {
-    isIneligible,
+    isIneligibleOrHoliday,
     isDateBetween,
     daysBetween,
     datesInInterval
