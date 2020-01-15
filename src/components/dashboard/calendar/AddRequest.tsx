@@ -15,7 +15,7 @@ import { validDatesInInterval } from './calendarUtils';
 
 const AddRequest = (props: any) => {
     const { user } = useContext(AuthContext);
-    const { setUpdateRequests, setUpdateIneligible, inelDays } = useContext(CalendarContext);
+    const { setUpdateRequests, setUpdateIneligible, inelDays, holidays } = useContext(CalendarContext);
 
     const [type, setType] = useState("vacation");
     const [dates, setDates] = useState<Date[]>([]);
@@ -25,7 +25,7 @@ const AddRequest = (props: any) => {
 
     // Only have dates that are valid (ie. filter away ineligble days)
     useEffect(() => {
-        setDates(validDatesInInterval(props.range, inelDays));
+        setDates(validDatesInInterval(props.range, inelDays, holidays));
     }, [props.range, inelDays])
 
     const handleSubmit = (event: any) => {
