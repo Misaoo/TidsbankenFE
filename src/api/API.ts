@@ -109,13 +109,13 @@ const getVacationDays = (): any => axios(process.env.REACT_APP_API_URL + "/setti
     }
 });
 
-const submitVacationRequest = (dates: string[]): any => axiosWrapper(process.env.REACT_APP_API_URL + "/request", {
+const submitVacationRequest = (dates: string[], type: any): any => axiosWrapper(process.env.REACT_APP_API_URL + "/request", {
     method: "POST",
     withCredentials: true,
     headers: {
         Authorization: localStorage.getItem('jwt')
     },
-    data: { dates: dates }
+    data: { dates: dates, type: type }
 });
 
 const submitIneligibleDay = (date: string): any => axiosWrapper(process.env.REACT_APP_API_URL + "/ineligible", {

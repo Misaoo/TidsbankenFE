@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import styles from "../RequestModifier.module.css";
+import styles2 from "../RequestModifier.module.css";
 import axios from "axios";
 import Comment from "./Comment/Comment";
+import styles from '../../../../../../css/VacReq.module.css';
+import commonStyles from '../../../../../../css/Common.module.css';
+
 
 const CommentSection = (props: any) => {
     let [comments, setComments] = useState()
@@ -69,28 +70,21 @@ const CommentSection = (props: any) => {
     }
 
     return (
-        <div className={styles.commentsContainer}>
-            <h3>Comments</h3>
-            <div className={styles.comments}>{comments}</div>
-            <form className={styles.commentSubmit} onSubmit={(e: any) => handleSubmit(e)}>
-                <div className={styles.commentTextfield}>
-                    <TextField
-                        name="text"
-                        rows="1"
-                        fullWidth={true}
-                        variant="outlined"
-                        label="Comment here..."
-                        value={commentText}
-                        onChange={handleChange}
-                    ></TextField>
-                </div>
-                <div className={styles.commentButton}>
-                    <Button variant="contained" type="submit" color="primary">
-                        Comment
-                    </Button>
-                </div>
+        <div>
+            <h2>Comment history</h2>
+            <div className={styles2.comments}>
+                {comments}
+            </div>
+            <form onSubmit={e => handleSubmit(e)}>
+                <input 
+                    className={commonStyles.textarea} 
+                    placeholder="Comment" 
+                    onChange={handleChange} 
+                    value={commentText}
+                ></input>
+                <button type="submit" className={commonStyles.button}>Comment</button>
             </form>
-      </div>
+        </div>
     )
 }
 export default CommentSection;

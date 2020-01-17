@@ -26,7 +26,7 @@
 
 .content {
     background-color: white;
-    width: 38%;
+    width: 65%;
     position: relative;
     box-sizing: border-box;
     padding: 20px;
@@ -38,8 +38,6 @@
     animation-name: slideDown;
     animation-duration: .25s;
     animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    min-width: 350px;
-    min-height: 400px;
     max-height: 100vh;
     overflow:hidden;
     overflow-y: auto;
@@ -93,6 +91,7 @@
 
 @media (max-width: 1215px) {
     .content {
-        width: 48%;
+        width: 90%;
+        height: 90%;
     }
 }

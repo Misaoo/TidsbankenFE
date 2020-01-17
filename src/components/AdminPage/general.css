@@ -107,7 +107,13 @@
   box-sizing: border-box;
   transition: .1s all;
 }
+.normal {
+  background: rgba(29, 225, 225, 0.1)
+}
 
+.parental {
+  background: rgba(0, 151, 19, 0.1) 
+}
 .userCardContent {
   display: grid;
   grid-template-columns: 20% 80%;

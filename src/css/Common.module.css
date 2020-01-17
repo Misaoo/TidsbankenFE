@@ -69,7 +69,7 @@
 .button {
     height: 45px;
     border-radius: 25px;
-    margin: 20px 0;
+    margin: 20px 0 0;
     width: 100%;
     background: btn-color;
     color: third-text-color;

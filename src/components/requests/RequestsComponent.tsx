@@ -43,7 +43,7 @@ const RequestsComponent = (props: any) => {
             .then((res: any) => {
                 reversedComments.map((comment: any) => {
                     let user = res.filter((user: any) => user.userId === comment.userId)[0];
-                    return list = [...list, <div key={comment.commentId} className={styles.comment}><div className={styles.message}>{comment.comment}</div><span className={styles.messageOwner}>{user.name + " " + user.lastName + ":"}</span></div>];
+                    return list = [...list, <div className={styles.comment}><b>{user.name + " " + user.lastName + ": "}</b>{comment.comment}</div>];
                 });
                 setCommentsList(list);
             })
@@ -123,24 +123,33 @@ const RequestsComponent = (props: any) => {
                     <p>Request ID:  <Link to={"/requests/" + req.requestId}>{req.requestId}</Link></p>
                     <p>Owner: {owner.name + " " + owner.lastName}</p>
                     <p>Request status: <span className={styles[getStatus(req.status).toLowerCase()] + " " + styles.status}>{getStatus(req.status)}</span></p>
+                    <p>Request type: {req.type}</p>
                     <p>Vacation days:</p><div className={styles.dates}> {createDays()}</div>
                 </div>}
                 {req && owner && comments && showComments && <>
-                    <div className={styles.comments}>
+                    <div>
                         <h2>Comment history</h2>
-                        {commentsList}
+                        <div className={styles.comments}>
+                            {commentsList}
+                        </div>
                         <form onSubmit={handleSubmit}>
-                            <textarea 
+                            <input 
                                 onFocus={handleFocus} 
                                 className={commonStyles.textarea} 
                                 placeholder="Comment" 
                                 onChange={handleChange} 
                                 value={commentText}
-                            ></textarea>
-                            {success && <p className={reqStyles.success}>
-                                <FontAwesomeIcon icon="check-circle" />Comment posted</p>}
+                            ></input>
                             <button type="submit" className={commonStyles.button}>Comment</button>
                         </form>
+                        {success &&
+                            <>
+                                <br/>
+                                <p className={reqStyles.success}>
+                                    <FontAwesomeIcon icon="check-circle" />Comment posted
+                                </p>
+                            </>
+                        }
                     </div>
                 </>}
             </div>

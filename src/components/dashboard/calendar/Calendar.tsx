@@ -68,7 +68,7 @@ const Calendar = (props: any) => {
         }
 
         // only recalculate red days during december or january (a close gap between different years)
-        if(selectedDate.getMonth() === 11 || selectedDate.getMonth() === 0 && keepTrackOfRedDays === true) {
+        if((selectedDate.getMonth() === 11 || selectedDate.getMonth() === 0) && keepTrackOfRedDays === true) {
             setKeepTrackOfRedDays(false)
             setRedDays(selectedDate.getFullYear(), selectedDate.getMonth())
         } 
@@ -112,8 +112,12 @@ const Calendar = (props: any) => {
         const easterMonday = new Date(currentYear, easterObj.month, easterObj.day + 1)
 
         const laborDay = new Date(currentYear, 4, 1)
-        const ascenionDay = new Date(easter.getTime() + (39 * 24 * 60 * 60 *1000))
+        const ascenionDay = new Date(easter.getTime() + (39 * 24 * 60 * 60 * 1000))
         const nationalDay = new Date(currentYear, 5, 6)
+
+        let middsummer: any = new Date(currentYear, 5, 19)
+        middsummer = (middsummer.getDay() <= 5) ? new Date(currentYear, 5, 19 + 5 - middsummer.getDay()) : new Date(currentYear, 5, 25)
+
         const christmasEve = new Date(currentYear, 11, 24)
         const christmasDay = new Date(currentYear, 11, 25)
         const boxingDay = new Date(currentYear, 11, 26)
@@ -122,7 +126,6 @@ const Calendar = (props: any) => {
             case 11: {
                 const nextNewYears = new Date(currentYear+1, 0, 1)
                 const nextEpiphanyDay = new Date(currentYear+1, 0, 6)
-
                 const redDayList: any = [
                     {date: newYears, name: "Nyårsdagen"},
                     {date: epiphanyDay, name: "Trettondag jul"},
@@ -133,10 +136,12 @@ const Calendar = (props: any) => {
                     {date: laborDay, name: "Första maj"},
                     {date: ascenionDay, name: "Kristi himmelsfärdsdag"},
                     {date: nationalDay, name: "Nationaldagen"},
+                    {date: middsummer, name: "Midsommar"},
                     {date: christmasEve, name: "Julafton"},
                     {date: christmasDay, name: "Juldagen"},
                     {date: boxingDay, name: "Annandag jul"},
-                    {date: newYearsEve, name: "Nyårsaften"},
+                    {date: newYearsEve, name: "Nyårsafton"},
+
                     {date: nextNewYears, name: "Nyårsdagen"},
                     {date: nextEpiphanyDay, name: "Trettondag jul"}
                 ]
@@ -154,10 +159,11 @@ const Calendar = (props: any) => {
                     {date: laborDay, name: "Första maj"},
                     {date: ascenionDay, name: "Kristi himmelsfärdsdag"},
                     {date: nationalDay, name: "Nationaldagen"},
+                    {date: middsummer, name: "Midsommar"},
                     {date: christmasEve, name: "Julafton"},
                     {date: christmasDay, name: "Juldagen"},
                     {date: boxingDay, name: "Annandag jul"},
-                    {date: newYearsEve, name: "Nyårsaften"}
+                    {date: newYearsEve, name: "Nyårsafton"}
                 ]
                 setHolidays(redDayList)
                 break

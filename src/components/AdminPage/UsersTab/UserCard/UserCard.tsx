@@ -4,7 +4,6 @@ import "../../general.css";
 
 const UserCard = (props: any) => {
   let [showPopup, setShowPopUp] = useState(false)
-
   return (
     <div className="cardBody">
       {showPopup && (

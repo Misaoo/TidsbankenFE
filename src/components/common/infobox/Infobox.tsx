@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../../../css/Infobox.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -19,37 +19,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Infobox = (props: any) => {
 
-    const [hide, setHide] = useState(false);
-
-    useEffect(() => {
-        if (localStorage.getItem(props.infoboxId)) {
-            setHide(true);
-        } else {
-            setHide(false);
-        }
-    }, [props.infoboxId]);
+    const [hide, setHide] = useState(localStorage.getItem(props.infoBoxId) ? false : true);
 
     const handleClick = (event: any) => {
-        setHide(r => !r);
-        localStorage.setItem(props.infoboxId, "true");
+        setHide(hide => !hide)
+        localStorage.getItem(props.infoBoxId) ? localStorage.removeItem(props.infoBoxId) : localStorage.setItem(props.infoBoxId, "asd")
     }
 
-    return <>
-
-        <div className={styles.module + " " + props.className + " " + (hide ? styles.collapseHelp : '')}>
-            <div className={styles.closeButton} onClick={handleClick}>
-                <FontAwesomeIcon icon="question-circle" />
+    return (
+        <>
+            <div className={styles.module + " " + props.className + " " + (hide ? styles.collapseHelp : "")}>
+                <div className={hide ? styles.closeButton : styles.closeButton2} onClick={handleClick}>
+                    <FontAwesomeIcon icon="question-circle" />
+                </div>
+                {localStorage.getItem(props.infoBoxId) && <div className={styles.contentContainer}>
+                    <div className={styles.boxIcon}>
+                        {props.image}
+                    </div>
+                    <div className={styles.content}>
+                        {props.children}
+                    </div>
+                </div>}
             </div>
-            {!hide && <div className={styles.contentContainer}>
-                <div className={styles.boxIcon}>
-                    {props.image}
-                </div>
-                <div className={styles.content}>
-                    {props.children}
-                </div>
-            </div>}
-        </div>
-    </>
+        </>
+    )
 }
 
 export default Infobox;

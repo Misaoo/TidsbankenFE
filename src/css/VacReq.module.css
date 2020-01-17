@@ -9,7 +9,7 @@
     grid-area: request;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 40px 40px 40px 40px auto;
+    grid-template-rows: 40px 40px 40px 40px 40px 40px;
 }
 
 .request h2, .comments h2 {
@@ -22,29 +22,17 @@
 }
 
 .comments {
-    /* background-color: green; */
-    grid-area: comments;
-    width: 100%;
-}
+  overflow-y: scroll;
+  min-height: 10vh;
+  max-height: 25vh;
+  border-style: solid;
+  padding: 5px;
+}  
 
 .comment {
-    /* background-color: red; */
-    display: grid;
-    grid-template-areas: "owner message";
-    grid-template-columns: max-content 1fr;
-}
-
-.message {
-    grid-area: message;
-    /* background-color: purple; */
-}
-
-.messageOwner {
-    grid-area: owner;
-    text-align: right;
-    font-weight: bold;
-    margin-right: 10px;
-    /* background-color: aliceblue; */
+  margin-bottom: 5px;
+  word-break: break-all;
+  font-size: 0.8em;
 }
 
 .status {

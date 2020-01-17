@@ -12,7 +12,8 @@ export type userType = {
     isAdmin: number,
     twoFacAut: number,
     userId: number,
-    region : String,
+    type: string,
+    region : string,
     profilePic: string
 }
 

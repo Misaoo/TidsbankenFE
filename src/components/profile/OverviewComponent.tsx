@@ -143,6 +143,7 @@ const OverviewComponent = (props: any) => {
     var arr = []; // Is used for temporary storing for setting state after loop is done
     let i = 0; // Unique key for html elements
     for (let obj of response) {
+      arr.push(<em><b>{obj.type}</b></em>)
       for (let date of obj.dates) {
         i++;
         let dateOnly = date.substring(0, date.indexOf("T"));
@@ -198,7 +199,7 @@ const OverviewComponent = (props: any) => {
             {totalDeniedVacationRequests > 0 && (
               <>
                 <h2>Total denied vacation requests: {totalDeniedVacationRequests}</h2>
-                <ul><b>Latest denied request:</b> {deniedVacationdays}</ul>
+                <ul><h3><b>Latest denied request:</b></h3> {deniedVacationdays}</ul>
               </>
             )}
           </div>

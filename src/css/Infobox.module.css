@@ -11,6 +11,18 @@
     background-color: #ffffff;
 }
 
+.closeButton2 {
+    box-shadow: box-shadow;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
 .closeButton {
     width: 30px;
     height: 30px;
@@ -22,7 +34,7 @@
     justify-items: center;
 }
 
-.closeButton:hover {
+.closeButton:hover, .closeButton2:hover {
     cursor: pointer;
 }
 

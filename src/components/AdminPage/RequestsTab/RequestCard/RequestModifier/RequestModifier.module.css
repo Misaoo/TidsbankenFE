@@ -69,7 +69,13 @@
 .content:hover {
   cursor: default;
 }
+.normal {
+  background: rgba(29, 225, 225, 0.1)
+}
 
+.parental {
+  background: rgba(0, 151, 19, 0.1) 
+}
 .content {
   background-color: white;
   max-height: calc(100% - 30px);
@@ -115,4 +121,10 @@ textarea {
   .twoColumns {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+@media (max-width: 1215px) {
+    .content {
+        width: 90%;
+        height: 90%;
+    }
 }

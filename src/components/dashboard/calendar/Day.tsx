@@ -76,7 +76,7 @@ const Day = (props: any) => {
     const styleWeekend = isWeekend(props.date) ? styles.weekend : "";
     const stylePast = isBefore(props.date, subDays(currentDate, 1)) ? styles.past : "";
     const styleHoliday = holidays && isIneligibleOrHoliday(props.date, holidays) ? styles.holiday : ""
-    const styleDay = (holidays && isIneligibleOrHoliday(props.date, holidays) || inelDays && isIneligibleOrHoliday(props.date, inelDays)) ? styles.dayNoGrid : styles.day
+    const styleDay = (holidays && isIneligibleOrHoliday(props.date, holidays)) || (inelDays && isIneligibleOrHoliday(props.date, inelDays)) ? styles.dayNoGrid : styles.day
 
     let classNames = [
         styleDay,

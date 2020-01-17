@@ -4,13 +4,11 @@ import RequestModifier from "./RequestModifier/RequestModifier";
 import "../../general.css";
 
 const RequestCard = (props: any) => {
-    let keyVal = 0
-
     let [showPopup, setShowPopup] = useState(false)
     let [firstame, setFirstame] = useState("")
     let [lastname, setLastname] = useState("")
-    let [dates, setDates] = useState(props.request.dates.map((date: any) => {
-            return ( <li key={keyVal++}>{new Date(date).toLocaleDateString("se")}</li> )
+    let [dates] = useState(props.request.dates.map((date: any) => {
+            return ( new Date(date).toLocaleDateString("se") )
         }))
 
     useEffect(() => {
@@ -46,11 +44,13 @@ const RequestCard = (props: any) => {
                     updateList={(e: any) => {props.updateData(e)}}
                 />
             )}
-            <div className="cardContent" onClick={() => {setShowPopup(!showPopup)}}>
-                <br/>
-                <b>Start date:</b> <ul>{dates[0]}</ul>
-                <b>End date:</b> <ul>{dates[dates.length - 1]}</ul>
-                <br/>
+            <div className={["cardContent", props.request.type === "vacation" ? "normal" : "parental"].join(" ")} onClick={() => {setShowPopup(!showPopup)}}>
+                <b>Start date:</b> {dates[0]}
+                <br/><br/>
+                <b>End date:</b> {dates[dates.length - 1]}
+                <br/><br/>
+                <b>Request type:</b> {props.request.type}
+                <br/><br/>
                 <b>Employee:</b> {firstame} {lastname}
             </div>
         </div>

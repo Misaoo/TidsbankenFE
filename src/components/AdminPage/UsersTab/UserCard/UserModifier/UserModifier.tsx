@@ -24,6 +24,9 @@ const UserModifier = (props: any) => {
   function handleChangeEmail(event: any) {setEmail(event.target.value)}
 
   function handleSubmit(event: any) {
+    event.preventDefault();
+    props.setDisplay()
+    
     axios(process.env.REACT_APP_API_URL + "/user/" + props.user.userId, {
       method: "PATCH",
       withCredentials: true,
@@ -65,7 +68,6 @@ const UserModifier = (props: any) => {
           window.location.href = "/logout";
         }
       });
-    event.preventDefault();
   }
 
 return (
@@ -119,7 +121,7 @@ return (
                 ></TextField>
               </div>
                 <div className={styles.textField}>
-                  <Button className={styles.buttonSep} variant="contained" type="submit" color="secondary" onClick={event => props.setDisplay()}>
+                  <Button className={styles.buttonSep} variant="contained" type="submit" color="secondary">
                     Save
                   </Button>
                   {props.user.isAdmin === 0 && (

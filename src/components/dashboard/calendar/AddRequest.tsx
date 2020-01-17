@@ -17,7 +17,10 @@ const AddRequest = (props: any) => {
     const { user } = useContext(AuthContext);
     const { setUpdateRequests, setUpdateIneligible, inelDays, holidays } = useContext(CalendarContext);
 
-    const [type, setType] = useState("vacation");
+    const loggedIn = user && user.hasOwnProperty("name") && user.hasOwnProperty("isAdmin") && user.isAdmin === 0;
+    const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
+
+    const [type, setType] = useState(loggedIn ? "vacation" : "ineligible");
     const [dates, setDates] = useState<Date[]>([]);
     const [error, setError] = useState<boolean>(false);
 
@@ -26,7 +29,7 @@ const AddRequest = (props: any) => {
     // Only have dates that are valid (ie. filter away ineligble days)
     useEffect(() => {
         setDates(validDatesInInterval(props.range, inelDays, holidays));
-    }, [props.range, inelDays])
+    }, [props.range, inelDays, holidays])
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -40,9 +43,9 @@ const AddRequest = (props: any) => {
         });
 
         if (formatedDates && formatedDates.length > 0) {
-            if (type === "vacation") {
+            if (type === "vacation" || type === "parental") {
                 // Send vacation request
-                API.submitVacationRequest(formatedDates)
+                API.submitVacationRequest(formatedDates, type)
                     .then((res: any) => {
                         setUpdateRequests((u: number) => u + 1);
                         props.setDisplay(true)
@@ -81,18 +84,9 @@ const AddRequest = (props: any) => {
         return arr;
     }
 
-    const loggedIn =
-        user &&
-        user.hasOwnProperty("name") &&
-        user.hasOwnProperty("isAdmin") &&
-        user.isAdmin === 0;
-
-    const loggedInAdmin =
-        user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
-
     return <div className={styles.module}>
-        {loggedIn && <h2>Request vacation</h2>}
-        {loggedInAdmin && <h2>Request vacation / Set ineligible days</h2>}
+        {loggedIn && <h2>Request Vacation / Parental Leave</h2>}
+        {loggedInAdmin && <h2>Set Ineligible Days</h2>}
         <div className={styles.selectedDays}>
             <h3>Selected days:</h3>
             <div>
@@ -102,17 +96,7 @@ const AddRequest = (props: any) => {
             </div>
         </div>
         <form className={styles.form}>
-            {loggedInAdmin && <>
-                <label>
-                    <input
-                        type="radio"
-                        name="vacation"
-                        value="vacation"
-                        onChange={handleChange}
-                        checked={(type === "vacation")}
-                    />
-                    Request vacation
-                </label>
+            {loggedInAdmin && 
                 <label>
                     <input
                         type="radio"
@@ -121,13 +105,35 @@ const AddRequest = (props: any) => {
                         onChange={handleChange}
                         checked={(type === "ineligible")}
                     />
-                    Set ineligible period
+                    Set Ineligible Period
                 </label>
-            </>}
+            }
+            {loggedIn &&
+                <>
+                    <label>
+                        <input
+                            type="radio"
+                            name="vacation"
+                            value="vacation"
+                            onChange={handleChange}
+                            checked={(type === "vacation")}
+                        />
+                        Request Vacation
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="parental"
+                            value="parental"
+                            onChange={handleChange}
+                            checked={(type === "parental")}
+                        />
+                        Request Parental Leave
+                    </label>
+                </>
+            }
+            <button className={commonStyles.button} type="submit" onClick={(e) => {setDisable(true); handleSubmit(e)}} disabled={disable}>Submit</button>
             {error && <p className={styles.error}><FontAwesomeIcon icon="exclamation-circle" /> Something went wrong, please try again.</p>}
-            {loggedIn && <button className={commonStyles.button} type="submit" onClick={(e) => {setDisable(true); handleSubmit(e)}} disabled={disable}>Request</button>}
-            {loggedInAdmin && <button className={commonStyles.button} type="submit" onClick={(e) => {setDisable(true); handleSubmit(e)}} disabled={disable}>{type === "vacation" ? 'Request' : 'Set'}</button>}
-
         </form>  
 
     </div>;

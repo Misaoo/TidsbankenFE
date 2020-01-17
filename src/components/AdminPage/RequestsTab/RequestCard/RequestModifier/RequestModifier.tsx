@@ -105,6 +105,7 @@ const RequestModifier = (props: any) => {
                             <h2>
                                 {props.requesterName} {props.requesterLastName}
                             </h2>
+                            <div><b className={props.requestData.type === "vacation" ? styles.normal : styles.parental}>Request type: {props.requestData.type} </b></div>
                             <ul>{dates}</ul>
                         </div>
 
